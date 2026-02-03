@@ -61,8 +61,8 @@ This is the primary demonstration that showcases all agentic coding concepts wor
 - Use Write-Error for non-terminating, throw for terminating
 
 ## Project Structure
-- Public functions in src/Public/
-- Private helpers in src/Private/
+- Public functions in source/Public/
+- Private helpers in source/Private/
 - Tests in tests/
 ```
 
@@ -177,7 +177,7 @@ Add a function to validate YAML configuration files. Follow the same patterns as
 
 2. **Git Diff** (for a specific file):
    ```powershell
-   git diff --no-index /dev/null src/Public/Test-JsonConfig.ps1 | head -50
+   git diff --no-index /dev/null source/Public/Test-JsonConfig.ps1 | head -50
    ```
    > "I can see exactly what was created. Full accountability."
 

@@ -225,10 +225,10 @@ This is **critical** for trust:
 # See What Changed
 
 ```diff
-diff --git a/src/Public/Test-ConfigFile.ps1 b/src/Public/Test-ConfigFile.ps1
+diff --git a/source/Public/Test-ConfigFile.ps1 b/source/Public/Test-ConfigFile.ps1
 new file mode 100644
 --- /dev/null
-+++ b/src/Public/Test-ConfigFile.ps1
++++ b/source/Public/Test-ConfigFile.ps1
 @@ -0,0 +1,45 @@
 +function Test-ConfigFile {
 +    [CmdletBinding()]

@@ -218,7 +218,7 @@ Given: "Add a function to validate configuration files"
 2. Determine where new function should go
 3. Identify what test patterns are used
 4. Plan:
-   a. Create function in src/Public/
+   a. Create function in source/Public/
    b. Create tests in tests/
    c. Follow existing naming convention
    d. Match existing error handling style
@@ -244,7 +244,7 @@ The agent doesn't just suggest—it **does**:
 
 ### Real example:
 Agent might create:
-- `src/Public/Test-ConfigFile.ps1`
+- `source/Public/Test-ConfigFile.ps1`
 - `tests/Test-ConfigFile.Tests.ps1`
 - Update module manifest
 
