@@ -16,8 +16,8 @@
 - Follow PSScriptAnalyzer rules
 
 ### Module Structure
-- Place public (exported) functions in `src/Public/`
-- Place private (internal) functions in `src/Private/`
+- Place public (exported) functions in `source/Public/`
+- Place private (internal) functions in `source/Private/`
 - One function per file, file name matches function name
 - Root module (.psm1) should dot-source all function files
 
@@ -49,10 +49,52 @@
 - Include at least one `.EXAMPLE` with realistic usage
 - Add `.OUTPUTS` and `.NOTES` where helpful
 
-### README
+### README Files
+- **Root README.md**: Project overview, installation, quick start, license
+- **Folder READMEs**: Each major folder should have a README explaining its purpose
 - Update README.md when adding new features
 - Include installation and usage instructions
 - Document prerequisites and dependencies
+- Keep examples up-to-date and tested
+
+### Changelog (CHANGELOG.md)
+- Follow [Keep a Changelog](https://keepachangelog.com/) format
+- Maintain an `[Unreleased]` section for ongoing work
+- Use categories: Added, Changed, Deprecated, Removed, Fixed, Security
+- Update changelog with every user-facing change
+- Include issue/PR references when applicable
+- Date entries use ISO 8601 format (YYYY-MM-DD)
+
+### Project Documentation Structure
+```
+docs/
+├── README.md           # Documentation index
+├── getting-started.md  # Installation and first steps
+├── usage-guide.md      # Detailed usage instructions
+├── api-reference.md    # Function/cmdlet reference
+├── contributing.md     # How to contribute
+├── architecture.md     # Design decisions and structure
+└── troubleshooting.md  # Common issues and solutions
+```
+
+### Architecture Documentation
+- Document high-level design decisions
+- Explain module structure and component relationships
+- Include diagrams where helpful (Mermaid format preferred)
+- Keep architecture docs updated when structure changes
+
+### API/Function Reference
+- Auto-generate from comment-based help when possible
+- Include all public functions with full parameter details
+- Provide code examples for common use cases
+- Document return types and expected outputs
+
+### Contributing Guidelines (CONTRIBUTING.md)
+- Include development environment setup
+- Document coding standards and style requirements
+- Explain the PR/review process
+- List testing requirements before submitting changes
+- Reference the project's code of conduct if applicable
 
 ## Error Handling
 
