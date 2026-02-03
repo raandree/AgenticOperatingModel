@@ -13,13 +13,6 @@ The project contains slides, demos, and supporting materials - NOT a PowerShell 
 - Explain technical concepts without oversimplification
 - Use practical examples relevant to PowerShell/DevOps work
 
-### Markdown Formatting
-- Use ATX-style headings (`#`, `##`, `###`)
-- Use fenced code blocks with language identifiers
-- Use tables for comparisons and structured data
-- Include Mermaid diagrams for workflows and architecture
-- Keep lines under 100 characters when possible
-
 ### Slide Content (content/slides/)
 - Each module file covers one major topic
 - Include speaker notes and timing estimates
