@@ -2,47 +2,74 @@
 
 ## Project Overview
 
-**Title**: Mastering Agentic Coding for PowerShell Developers & DevOps Engineers
+**Title**: Agentic Coding: The Future of AI-Assisted Development
 **Duration**: 2-4 hours (workshop/presentation format)
-**Target Audience**: PowerShell Developers, DevOps Engineers with strong PowerShell background
+**Target Audience**: PowerShell Developers, DevOps Engineers (as demo context)
 **Primary Tool**: Cline (VS Code Extension)
+
+## Core Focus
+
+> **This is a presentation about AGENTIC CODING as a paradigm, NOT about PowerShell development.**
+
+PowerShell is used for demonstrations because the audience is familiar with it. The concepts taught apply to any programming language.
 
 ## Core Objectives
 
-1. **Demystify Agentic Coding**: Explain what AI coding agents are and how they differ from simple code completion
-2. **Emphasize Git Integration**: Demonstrate how Git provides context and traceability for AI agents
-3. **Master Agent Configuration**: Deep dive into agent definitions, instruction files, and customization
-4. **Automated Testing Integration**: Show how AI agents can verify their own work through testing
-5. **PowerShell-Specific Patterns**: Apply agentic coding concepts to PowerShell development workflows
+1. **Define Agentic Coding**: Explain what makes AI coding "agentic" vs traditional assistance
+2. **Establish Context Importance**: Show how Git repository provides AI with understanding
+3. **Demonstrate Autonomous Execution**: AI that plans, acts, and verifies independently
+4. **Teach Self-Verification**: How automated testing enables AI to validate its own work
+5. **Enable Configuration**: How instruction files control AI behavior
+6. **Maintain Traceability**: Using Git to track what AI changed
 
-## Key Topics (User-Specified)
+## Key Concepts to Convey
 
-- [ ] Git as context provider for AI agents
-- [ ] Git for traceability of AI-generated changes
-- [ ] Agent definitions and configuration
-- [ ] Instruction files (.clinerules, system prompts)
-- [ ] Automated testing for AI self-verification
-- [ ] PowerShell/DevOps-specific applications
+### The Paradigm Shift
+| Traditional AI | Agentic AI |
+|----------------|------------|
+| Suggests code | Executes tasks |
+| Single-file focus | Repository-wide context |
+| Human implements | AI implements, human reviews |
+| Human runs tests | AI runs tests and iterates |
+
+### Core Principles
+1. **Context is Everything** - Git structure gives AI understanding
+2. **Autonomous Execution** - AI acts, not just advises
+3. **Self-Verification** - AI tests its own work
+4. **Instruction-Driven** - Configuration files control behavior
+5. **Human Oversight** - Review, approve, rollback
+6. **Traceability** - Track all AI changes via Git
+
+## What This Presentation is NOT
+
+- ❌ PowerShell training
+- ❌ Pester tutorial  
+- ❌ Module development course
+- ❌ DevOps pipeline workshop
+- ❌ Cline feature deep-dive
+
+## What This Presentation IS
+
+- ✅ Paradigm education (agentic vs traditional)
+- ✅ Conceptual foundation (context, verification, traceability)
+- ✅ Practical demonstration of agentic workflows
+- ✅ Best practices for working with AI agents
+- ✅ Judgment development (when to use, when not to)
 
 ## Success Criteria
 
-- Attendees understand the agentic coding paradigm
-- Attendees can configure Cline for their projects
-- Attendees know how to leverage Git effectively with AI agents
-- Attendees can implement automated testing workflows
-- Attendees leave with practical skills applicable immediately
-
-## Constraints
-
-- Must be practical with live demonstrations
-- Must be relevant to PowerShell/DevOps workflows
-- Should include hands-on exercises where possible
-- Total duration: 2-4 hours (flexible)
+After this session, attendees can:
+- Explain what "agentic coding" means
+- Describe why Git context matters for AI
+- Configure an AI agent with instruction files
+- Understand the self-verification loop
+- Make informed decisions about when to use agentic AI
+- Start using agentic workflows immediately
 
 ## Deliverables
 
-1. Complete presentation agenda with timing
-2. Slide deck or presentation materials
-3. Demo project(s) for live coding
-4. Handouts/reference materials for attendees
-5. Exercise files for hands-on portions
+1. Presentation agenda with detailed timing
+2. Demo scripts (not PowerShell tutorials)
+3. Sample .clinerules files
+4. Key takeaways reference card
+5. Resource links for further learning

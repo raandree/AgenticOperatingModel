@@ -1,0 +1,222 @@
+# Agentic Coding Quick Reference
+
+## The Agentic Loop
+
+```
+OBSERVE → PLAN → ACT → VERIFY → ITERATE
+   │        │       │       │        │
+   │        │       │       │        └─ Fix issues, repeat
+   │        │       │       └─ Run tests, check results
+   │        │       └─ Write code, create files
+   │        └─ Decide what to create/modify
+   └─ Read repo structure, analyze patterns
+```
+
+---
+
+## Key Concepts
+
+| Concept | Definition |
+|---------|------------|
+| **Agentic Coding** | AI that autonomously executes multi-step tasks |
+| **Context** | Repository structure, existing code, patterns |
+| **Self-Verification** | AI runs tests to prove its own work |
+| **Instruction Files** | .clinerules that define your standards |
+| **Traceability** | Git tracks all AI changes |
+
+---
+
+## Essential .clinerules Template
+
+```markdown
+# Project Rules
+
+## Testing
+- Create Pester tests for new functions
+- Run Invoke-Pester before completion
+- Do not finish until all tests pass
+
+## Code Style
+- Use [CmdletBinding()] on all functions
+- Include parameter validation
+- Follow existing patterns in codebase
+
+## Error Handling
+- Use try/catch for risky operations
+- Provide meaningful error messages
+```
+
+---
+
+## Effective Prompts
+
+### Good Prompts ✅
+```
+"Add a function to validate JSON config files. 
+Include comprehensive tests and error handling."
+```
+
+```
+"Generate Pester tests for Get-UserData covering:
+valid input, invalid input, null, empty string"
+```
+
+```
+"Refactor Initialize-Database to add retry logic
+with exponential backoff. Keep existing tests passing."
+```
+
+### Avoid ❌
+```
+"Fix the code"                    (Too vague)
+"Make it better"                  (Unmeasurable)
+"Write something like that thing" (No context)
+```
+
+---
+
+## When to Use Agentic Coding
+
+### Great For ✅
+- Boilerplate & scaffolding
+- Test generation
+- Documentation
+- Refactoring
+- CRUD operations
+- Config files
+
+### Be Careful ⚠️
+- Complex business logic
+- Security-sensitive code
+- Performance-critical paths
+- Integration code
+
+### Avoid ❌
+- Code you can't review
+- No way to verify results
+- High-stakes without testing
+
+---
+
+## Decision Framework
+
+```
+1. Can I verify the result?
+   NO → Don't use AI
+   YES → Continue
+
+2. Do I understand the domain?
+   NO → Learn first
+   YES → Continue
+
+3. Is it security-critical?
+   YES → Extra review
+   NO → Continue
+
+4. Can I break into testable pieces?
+   NO → Rethink approach
+   YES → Proceed
+```
+
+---
+
+## Git Workflow with AI
+
+```bash
+# Before AI work
+git status              # Clean working directory
+git checkout -b ai/feature-name
+
+# After AI work
+git diff                # Review ALL changes
+git add -p              # Add selectively
+git commit -m "feat: description
+
+🤖 Generated with Cline assistance"
+```
+
+---
+
+## Cline Quick Reference
+
+| Action | How |
+|--------|-----|
+| Open Cline | `Cmd/Ctrl+Shift+P` → "Cline" |
+| New Task | Click + in Cline panel |
+| Plan Mode | Toggle in Cline settings |
+| Checkpoint | Automatic, or via command |
+| Rollback | Click checkpoint in history |
+| Approve Action | Click ✓ or enable auto-approve |
+
+---
+
+## Test-First Pattern
+
+```
+1. "Write Pester tests for [function] covering:
+    - Valid input
+    - Invalid input
+    - Edge cases
+    - Error handling"
+
+2. "Now implement [function] to pass those tests"
+
+3. Agent runs tests and iterates until green
+```
+
+---
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| Inconsistent output | Add .clinerules with specific rules |
+| Tests not running | Add test execution rule to .clinerules |
+| Wrong patterns | Show existing code as example |
+| Too verbose | Request "minimal" or "concise" |
+| Wrong language | Specify PowerShell explicitly |
+
+---
+
+## Resources
+
+- **Cline Docs**: https://docs.cline.bot
+- **Cline GitHub**: https://github.com/cline/cline
+- **Pester Docs**: https://pester.dev
+- **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
+
+---
+
+## The Five Questions
+
+1. **What is agentic coding?**
+   > AI that autonomously plans, executes, and verifies
+
+2. **Why does Git matter?**
+   > Context + Traceability
+
+3. **How to control AI?**
+   > .clinerules instruction files
+
+4. **How to trust AI code?**
+   > Automated testing + human review
+
+5. **When to use it?**
+   > Verifiable tasks with clear patterns
+
+---
+
+## Remember
+
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│   YOU = Architect + Reviewer + Judge    │
+│   AI = Implementer + Tester + Iterator  │
+│                                         │
+│   You + AI > You Alone                  │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+**Start small. Build confidence. Transform your workflow.**
