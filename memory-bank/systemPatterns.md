@@ -127,13 +127,47 @@ User Request → Agent Analysis → Plan Creation → Execution → Verification
 ├── instructions/
 │   ├── powershell.instructions.md  # PowerShell-specific rules
 │   └── testing.instructions.md     # Testing standards
-└── agents/
-    ├── refactor.agent.md           # Refactoring agent
-    ├── debug.agent.md              # Debugging agent
-    └── document.agent.md           # Documentation agent
+├── agents/
+│   ├── software-engineer.agent.md  # Dev agent with handoffs
+│   ├── security-reviewer.agent.md  # QA agent
+│   └── document.agent.md           # Documentation agent
+├── skills/
+│   └── sampler-build-debug/
+│       └── SKILL.md                # Domain knowledge, auto-loaded
+└── prompts/
+    └── CodeReview.prompt.md        # Reusable /slash command
 ```
 
 **Effect**: Same prompts yield consistent results across team members
+
+### Pattern 4a: Multi-Agent Handoff Pipeline
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│              MULTI-AGENT HANDOFF PIPELINE              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  software-engineer.agent.md                                 │
+│  ───────────────────────────                                 │
+│  agents: ['security-reviewer']                               │
+│  handoffs:                                                   │
+│    - label: Run Security Review                              │
+│      agent: security-reviewer                                │
+│                    │                                          │
+│                    ▼                                          │
+│  security-reviewer.agent.md                                  │
+│  ───────────────────────────                                 │
+│  handoffs:                                                   │
+│    - label: Fix Issues Found                                 │
+│      agent: software-engineer     ← back to dev              │
+│                    │                                          │
+│              PASS? ▼                                          │
+│            Deploy to production                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Effect**: Agents chain together for Dev → QA → Production workflows
 
 ### Pattern 5: Self-Verification Loop
 

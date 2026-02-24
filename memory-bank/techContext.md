@@ -251,9 +251,36 @@ DemoModule/
 |------|-------|---------|
 | `.github/copilot-instructions.md` | All chat requests | Always-on project rules |
 | `.github/instructions/*.instructions.md` | Pattern-matched files | File-type specific rules |
-| `.github/agents/*.agent.md` | Per-agent persona | Custom agents with tools |
+| `.github/agents/*.agent.md` | Per-agent persona | Custom agents with tools, handoffs, model preferences |
+| `.github/skills/*/SKILL.md` | Auto-detected | Domain knowledge loaded when relevant (USE FOR/DO NOT USE FOR triggers) |
+| `.github/prompts/*.prompt.md` | On-demand `/slash` commands | Reusable task templates |
 | `AGENTS.md` | Cross-tool | Works with Copilot + Claude Code |
 | `CLAUDE.md` | Cross-tool | Claude Code compatible |
+
+#### Cross-Machine Sync Settings
+| Setting | Purpose |
+|---------|----------|
+| `chat.agentFilesLocations` | Additional agent file directories (e.g., OneDrive) |
+| `chat.instructionsFilesLocations` | Additional instruction file directories |
+| `chat.agentSkillsLocations` | Additional skill directories |
+| `chat.promptFilesLocations` | Additional prompt file directories |
+
+#### Recommended Feature Flags
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `chat.includeApplyingInstructions` | `true` | Auto-apply .instructions.md when applyTo glob matches |
+| `chat.includeReferencedInstructions` | `true` | Follow Markdown links in instruction files |
+| `github.copilot.chat.agent.thinkingTool` | `true` | Enable reasoning tool for complex problems |
+| `github.copilot.chat.search.semanticTextResults` | `true` | Improve search with semantic matching |
+
+#### Chat Shortcuts
+| Command | Action |
+|---------|--------|
+| `/init` | Generate workspace instructions from codebase |
+| `/agents` | Configure Custom Agents menu |
+| `/instructions` | Configure Instructions and Rules menu |
+| `/skills` | Configure Skills menu |
+| `/prompts` | Configure Prompt Files menu |
 
 #### Other Tools
 | Tool | Instruction File | Scope |

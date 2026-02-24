@@ -20,14 +20,14 @@
 ### Agenda ✅
 - [x] `agenda/presentation-agenda.md` - Comprehensive 2-4 hour agenda
 
-### Slide Content ✅ (Updated 2026-02-24)
+### Slide Content ✅ (Updated 2026-02-25)
 - [x] Module 1: The AI Coding Revolution (10 min) - **Updated with current landscape**
 - [x] Module 2: What Makes Coding Agentic (25-30 min) - **Refocused to Copilot**
 - [x] Module 3: The Power of Context (20-25 min) - **Refocused to Copilot**
-- [x] Module 4: Controlling AI Behavior (20-25 min) - **Major refactor for Copilot instruction ecosystem**
+- [x] Module 4: Controlling AI Behavior (30-35 min) - **Expanded: Skills, Prompts, Handoffs, richer agents**
 - [x] Module 5: Self-Verification (20-25 min) - **Refocused to Copilot**
 - [x] Module 9: When to Use (15-20 min) - **Refocused to Copilot**
-- [x] Module 10: Your Agentic Future (10-15 min) - **Major refactor for Copilot resources & agents**
+- [x] Module 10: Your Agentic Future (10-15 min) - **Added OneDrive sync, feature flags, updated takeaways**
 
 ### Demo Materials ✅ (Updated 2026-02-25)
 - [x] Main demo script with talking points - **Added bonus Skills/Prompts/Sync demo section**
