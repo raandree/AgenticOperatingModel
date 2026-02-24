@@ -5,7 +5,7 @@
 **Title**: Agentic Coding: The Future of AI-Assisted Development
 **Duration**: 2-4 hours (workshop/presentation format)
 **Target Audience**: PowerShell Developers, DevOps Engineers (as demo context)
-**Primary Tool**: Cline (VS Code Extension)
+**Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 
 ## Core Focus
 
@@ -36,7 +36,7 @@ PowerShell is used for demonstrations because the audience is familiar with it. 
 1. **Context is Everything** - Git structure gives AI understanding
 2. **Autonomous Execution** - AI acts, not just advises
 3. **Self-Verification** - AI tests its own work
-4. **Instruction-Driven** - Configuration files control behavior
+4. **Instruction-Driven** - Instruction files and custom agents control behavior
 5. **Human Oversight** - Review, approve, rollback
 6. **Traceability** - Track all AI changes via Git
 
@@ -46,7 +46,7 @@ PowerShell is used for demonstrations because the audience is familiar with it. 
 - ❌ Pester tutorial  
 - ❌ Module development course
 - ❌ DevOps pipeline workshop
-- ❌ Cline feature deep-dive
+- ❌ Copilot feature deep-dive
 
 ## What This Presentation IS
 
@@ -70,6 +70,6 @@ After this session, attendees can:
 
 1. Presentation agenda with detailed timing
 2. Demo scripts (not PowerShell tutorials)
-3. Sample .clinerules files
+3. Sample copilot-instructions.md and .agent.md files
 4. Key takeaways reference card
 5. Resource links for further learning

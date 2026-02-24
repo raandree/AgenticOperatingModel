@@ -6,17 +6,54 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Pivoted primary demo tool from Cline to GitHub Copilot Agent Mode**
+  - All 7 slide modules refocused for Copilot as primary tool
+  - Module 4 (Controlling AI Behavior) major refactor: 5 instruction file types, custom agents, org policies
+  - Module 10 (Your Agentic Future) major refactor: Copilot resources, getting started guide, agent templates
+  - Demo script updated for Copilot Agent Mode workflow (setup, file names, narration, troubleshooting)
+  - Cheat sheet refocused: Copilot Agent Mode Quick Reference, instruction file ecosystem, resources
+  - All `.clinerules` references updated to `copilot-instructions.md` across all files
+  - All "Cline" demo references updated to "Copilot Agent Mode"
+- Updated Module 1 slides with current agentic coding landscape (Feb 2026)
+  - Added Windsurf, Claude Code to tool mentions
+  - Updated timeline to reflect Wave 3 starting 2025
+  - Updated technology advances (1M+ token context, MCP as standard, cloud agents)
+  - Added enterprise adoption data (NVIDIA, Salesforce, Fortune 500)
+- Updated Module 10 slides with current resources and future outlook
+  - Added comprehensive resource links for all major agentic tools
+  - Updated future outlook to reflect features already shipped (cloud agents, subagents, agentic CI/CD)
+- Updated cheat sheet with current tool ecosystem and instruction file comparison
+- Updated techContext.md with current AI models, competitor tools, Copilot instruction hierarchy
+- Updated all memory bank files to reflect Copilot as primary tool
+
 ### Added
+
+- Sample `copilot-instructions.md` file for PowerShell module projects
+- Sample `powershell.instructions.md` file with pattern-matched `applyTo` frontmatter
+- Sample `pester-test-writer.agent.md` custom agent file with YAML tools configuration
+- New `content/materials/sample-copilot-instructions/` directory with 3 sample files
+- Copilot instruction file ecosystem table (5 file types: copilot-instructions.md, .instructions.md, .agent.md, AGENTS.md, CLAUDE.md)
+- Custom agent examples with YAML frontmatter (name, description, tools, handoffs)
+- Organization-level instruction sharing documentation
+- `/init` command reference for auto-generating instructions
+- Agentic coding landscape research findings (Feb 24, 2026)
+- Current AI model reference (Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro)
 - Initial presentation structure and content
 - Module slides 1-5, 9-10 covering core agentic coding concepts
 - Main demo script with troubleshooting guide
 - MARP slide deck for PowerPoint conversion
 - Quick reference cheat sheet for attendees
-- Sample .clinerules template for PowerShell modules
-- Project-specific instruction file (.clinerules/instructions/project.instructions.md)
+- Project-specific instruction files
 - Comprehensive documentation in memory-bank/
 
+### Deprecated
+
+- `content/materials/sample-clinerules/` directory kept for cross-tool reference but no longer primary
+
 ### Documentation
+
 - Root README.md with project overview
 - Folder README files explaining directory purposes
 - Presentation agenda with timing estimates

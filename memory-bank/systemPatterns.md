@@ -106,9 +106,9 @@ User Request → Agent Analysis → Plan Creation → Execution → Verification
 │                                                             │
 │  DURING CHANGES                                             │
 │  ──────────────                                             │
-│  • Cline creates checkpoints (auto-stash)                  │
+│  • Copilot Agent Mode creates undo history               │
 │  • Each logical unit = potential commit                     │
-│  • Agent can rollback if tests fail                        │
+│  • Agent can undo changes if tests fail                    │
 │                                                             │
 │  AFTER CHANGES                                              │
 │  ─────────────                                              │
@@ -121,15 +121,16 @@ User Request → Agent Analysis → Plan Creation → Execution → Verification
 
 ### Pattern 4: Instruction-Driven Consistency
 
-```
-.clinerules/
-├── code-standards.md      # How to write code
-├── testing-rules.md       # Testing requirements  
-├── git-conventions.md     # Commit message format
-└── chatmodes/
-    ├── refactor.chatmode.md    # Refactoring agent
-    ├── debug.chatmode.md       # Debugging agent
-    └── document.chatmode.md    # Documentation agent
+```text
+.github/
+├── copilot-instructions.md    # Always-on project rules
+├── instructions/
+│   ├── powershell.instructions.md  # PowerShell-specific rules
+│   └── testing.instructions.md     # Testing standards
+└── agents/
+    ├── refactor.agent.md           # Refactoring agent
+    ├── debug.agent.md              # Debugging agent
+    └── document.agent.md           # Documentation agent
 ```
 
 **Effect**: Same prompts yield consistent results across team members
@@ -242,8 +243,8 @@ Dev A: "Write code in my style"
 Dev B: "Write code in my style"
 Result: Inconsistent codebase
 
-# Good: Shared .clinerules
-.clinerules/team-standards.md → Consistent output
+# Good: Shared copilot-instructions.md
+.github/copilot-instructions.md → Consistent output
 ```
 
 ### ❌ Anti-Pattern 4: No Traceability
@@ -289,20 +290,20 @@ Every change committed → diff shows exactly what AI did
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│              CLINE CHECKPOINT SYSTEM                         │
+│           COPILOT AGENT MODE UNDO SYSTEM                     │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  Timeline:                                                  │
 │                                                             │
 │  ──●────────●────────●────────●────────●──▶ Current        │
 │    │        │        │        │        │                    │
-│    CP1      CP2      CP3      CP4      CP5                 │
+│    V1       V2       V3       V4       V5                   │
 │    │        │        │        │        │                    │
 │    ▼        ▼        ▼        ▼        ▼                    │
 │  Start   Feature  Tests    Broken!  Fixed                  │
 │          added    added    (oops)                          │
 │                                                             │
-│  User can: "Roll back to CP3"                              │
+│  User can: Click "Undo" to revert last change              │
 │  Agent: Restores state before breakage                     │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
@@ -321,7 +322,7 @@ Every change committed → diff shows exactly what AI did
 │                     │                      │
 │  • Terminal         │  • Bullet summary    │
 │  • Editor           │  • Diagram           │
-│  • Cline panel      │  • Tips              │
+│  • Copilot chat     │  • Tips              │
 │                     │                      │
 └────────────────────────────────────────────┘
 ```

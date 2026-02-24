@@ -24,7 +24,8 @@ Live demonstration scripts and instructions.
 ### materials/
 Handouts and reference materials for attendees.
 - Quick reference cheat sheet
-- Sample .clinerules templates
+- Sample copilot instruction file templates
+- Sample custom agent files
 - Take-home resources
 
 ## Content Status
@@ -36,7 +37,7 @@ Handouts and reference materials for attendees.
 | 03 | Power of Context | ✅ Complete |
 | 04 | Controlling AI Behavior | ✅ Complete |
 | 05 | Self-Verification | ✅ Complete |
-| 06 | Cline Overview | ⏳ Optional |
+| 06 | Copilot Agent Mode Overview | ⏳ Optional |
 | 07 | Live Demo | ✅ Demo script ready |
 | 08 | Advanced Capabilities | ⏳ Optional |
 | 09 | When to Use | ✅ Complete |

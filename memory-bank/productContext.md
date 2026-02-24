@@ -19,7 +19,19 @@ Agentic coding represents a paradigm shift from "AI assists human" to "AI collab
 - Proper configuration dramatically improves AI output quality
 - Git integration provides both context and audit trail
 - Automated testing enables AI self-verification
+### The Competitive Landscape (Feb 2026)
 
+The agentic coding space has exploded with options:
+- **GitHub Copilot Agent Mode** (primary demo tool): Built into VS Code, Local/Background/Cloud/Third-party agents
+- **Custom Instruction Files**: copilot-instructions.md, .instructions.md, .agent.md, AGENTS.md
+- **GitHub Copilot Coding Agent**: Autonomous cloud agent creating PRs via GitHub Actions
+- **Cursor**: Standalone IDE, v2.5, Cloud Agents, used by Fortune 500 (NVIDIA, Salesforce)
+- **Windsurf** (by Cognition): Cascade agent, 1M+ users, JetBrains support
+- **Claude Code** (Anthropic): Terminal, VS Code, Desktop, Web, JetBrains - multi-surface agentic tool
+- **GitHub Agentic Workflows**: Markdown-based CI/CD automation (technical preview)
+- **MCP** (Model Context Protocol): Universal standard under Linux Foundation connecting all tools
+
+The presentation uses GitHub Copilot Agent Mode as the primary demo tool because it's built into VS Code, universally available, and provides the richest instruction file ecosystem. However, the audience should understand that these concepts apply across all agentic tools.
 ## Target Audience Profile
 
 ### Primary: PowerShell Developers
@@ -34,6 +46,11 @@ Agentic coding represents a paradigm shift from "AI assists human" to "AI collab
   - Faster script development
   - Better code quality
   - Reduced repetitive work
+- **Likely AI Experience (Feb 2026)**:
+  - Most will have used GitHub Copilot autocomplete
+  - Some may have tried Copilot Chat or Agent Mode
+  - Few will have used dedicated agentic tools like Cline or Cursor
+  - Almost none will have configured instruction files
 
 ### Secondary: DevOps Engineers
 - **Background**: Infrastructure as Code, CI/CD pipelines
@@ -58,9 +75,9 @@ Agentic coding represents a paradigm shift from "AI assists human" to "AI collab
    - Why Git is fundamental to AI context
 
 2. **Hands-On Configuration** (45 min)
-   - Setting up Cline for PowerShell projects
-   - Creating effective instruction files
-   - Configuring agent behaviors
+   - Setting up Copilot Agent Mode for PowerShell projects
+   - Creating effective instruction files (copilot-instructions.md, .instructions.md)
+   - Building custom agents (.agent.md)
 
 3. **Git-Centric Workflows** (30 min)
    - How agents read repository context
@@ -73,7 +90,7 @@ Agentic coding represents a paradigm shift from "AI assists human" to "AI collab
    - Self-verification patterns
 
 5. **Advanced Patterns** (30 min)
-   - Custom agent modes
+   - Custom agents and agent handoffs
    - MCP servers and tool extensions
    - DevOps pipeline integration
 
@@ -86,7 +103,7 @@ Agentic coding represents a paradigm shift from "AI assists human" to "AI collab
 
 ### Attendees Should Leave With:
 
-1. **Immediate Applicability**: Can configure Cline and start using it effectively that same day
+1. **Immediate Applicability**: Can configure Copilot Agent Mode and start using it effectively that same day
 2. **Conceptual Clarity**: Understand *why* certain practices matter, not just *how*
 3. **Reference Materials**: Cheat sheets, templates, and examples to use later
 4. **Confidence**: Feel comfortable experimenting with agentic workflows

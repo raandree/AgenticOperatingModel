@@ -18,7 +18,7 @@
 
 - **A)** Code autocomplete (Copilot, Tabnine)
 - **B)** Chat assistants (ChatGPT, Claude)
-- **C)** AI agents (Cline, Cursor, Aider)
+- **C)** AI agents (Copilot Agent Mode, Cursor, Cline, Claude Code)
 - **D)** Not yet using AI for coding
 
 ---
@@ -31,7 +31,7 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │                                                                 │
 │  WAVE 1              WAVE 2              WAVE 3                │
-│  2021-2022           2023-2024           2024-NOW              │
+│  2021-2022           2023-2024           2025-NOW              │
 │                                                                 │
 │  ┌─────────┐        ┌─────────┐        ┌─────────┐            │
 │  │ AUTO-   │        │  CHAT   │        │ AGENTIC │            │
@@ -54,16 +54,19 @@
 # Why Agentic Coding is Possible NOW
 
 ### Technology Advances
-- **Larger context windows** (100K+ tokens)
-- **Better reasoning** capabilities
-- **Tool use** abilities in LLMs
-- **Cheaper API costs** for iteration
+- **Massive context windows** (1M+ tokens with Claude Opus 4.6)
+- **Advanced reasoning** (Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro)
+- **Native tool use** abilities in LLMs
+- **Cheaper API costs** for longer iteration loops
+- **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
 ### Tooling Advances
-- AI agents with **file system access**
-- **Terminal command** execution
-- **Checkpoint/rollback** systems
-- **Multi-file context** understanding
+- AI agents with **file system access** and **browser automation**
+- **Terminal command** execution with exit code awareness
+- **Checkpoint/rollback** systems built into editors
+- **Multi-file context** understanding with AST analysis
+- **Cloud agents** running autonomously (Copilot Coding Agent, Cursor Cloud Agents)
+- **Agentic Workflows** in CI/CD (GitHub Agentic Workflows, Feb 2026)
 
 ---
 
@@ -74,16 +77,18 @@
 > "I'm shipping features in hours that used to take days."
 > — Common developer feedback on agentic tools
 
-### What the research shows:
+### What the data shows (Feb 2026):
 - **55% faster** task completion (GitHub study)
 - **40% less time** debugging (Microsoft study)
 - **Boilerplate generation**: Minutes instead of hours
 - **Test generation**: Comprehensive coverage faster
+- **Enterprise adoption**: NVIDIA (40K engineers), Salesforce (20K developers), Fortune 500+
+- **Windsurf claims**: 94% of code written by AI in their workflows
 
 ### But also:
-- Requires **new skills** (prompting, verification)
+- Requires **new skills** (prompting, verification, review)
 - Works best for **certain task types**
-- Still needs **human oversight**
+- Still needs **human oversight** and architectural judgment
 
 ---
 
@@ -112,7 +117,7 @@ These practices make agentic coding **even more effective** for you.
    - Why Git is foundational to AI understanding
 
 3. **Controlling AI Behavior**
-   - Instruction files and configuration
+   - Instruction files and custom agents
 
 4. **Self-Verification**
    - How AI validates its own work

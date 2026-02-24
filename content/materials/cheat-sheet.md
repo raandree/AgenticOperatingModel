@@ -21,12 +21,13 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 | **Agentic Coding** | AI that autonomously executes multi-step tasks |
 | **Context** | Repository structure, existing code, patterns |
 | **Self-Verification** | AI runs tests to prove its own work |
-| **Instruction Files** | .clinerules that define your standards |
+| **Instruction Files** | copilot-instructions.md defines your standards |
+| **Custom Agents** | .agent.md files for specialized AI behaviors |
 | **Traceability** | Git tracks all AI changes |
 
 ---
 
-## Essential .clinerules Template
+## Essential copilot-instructions.md Template
 
 ```markdown
 # Project Rules
@@ -132,21 +133,25 @@ git diff                # Review ALL changes
 git add -p              # Add selectively
 git commit -m "feat: description
 
-🤖 Generated with Cline assistance"
+🤖 Generated with Copilot Agent Mode assistance"
 ```
 
 ---
 
-## Cline Quick Reference
+## Copilot Agent Mode Quick Reference
 
 | Action | How |
 |--------|-----|
-| Open Cline | `Cmd/Ctrl+Shift+P` → "Cline" |
-| New Task | Click + in Cline panel |
-| Plan Mode | Toggle in Cline settings |
-| Checkpoint | Automatic, or via command |
-| Rollback | Click checkpoint in history |
-| Approve Action | Click ✓ or enable auto-approve |
+| Open Agent Mode | Select "Agent" from chat agent picker |
+| New Session | Click + in Chat view |
+| Plan Mode | Select "Plan" from agent picker |
+| Ask Mode | Select "Ask" from agent picker |
+| Custom Agent | Select from agent dropdown |
+| Hand Off | Switch agent type from dropdown |
+| Background Agent | Select "Background" to run in worktree |
+| Cloud Agent | Select "Cloud" for PR-based workflow |
+| Enable Tools | Click Configure Tools in chat input |
+| Auto-generate Instructions | Type `/init` in chat |
 
 ---
 
@@ -170,8 +175,8 @@ git commit -m "feat: description
 
 | Problem | Solution |
 |---------|----------|
-| Inconsistent output | Add .clinerules with specific rules |
-| Tests not running | Add test execution rule to .clinerules |
+| Inconsistent output | Add copilot-instructions.md with specific rules |
+| Tests not running | Add test execution rule to copilot-instructions.md |
 | Wrong patterns | Show existing code as example |
 | Too verbose | Request "minimal" or "concise" |
 | Wrong language | Specify PowerShell explicitly |
@@ -180,10 +185,37 @@ git commit -m "feat: description
 
 ## Resources
 
-- **Cline Docs**: https://docs.cline.bot
-- **Cline GitHub**: https://github.com/cline/cline
+- **Copilot Agent Mode**: https://code.visualstudio.com/docs/copilot/agents/overview
+- **Custom Instructions**: https://code.visualstudio.com/docs/copilot/customization/custom-instructions
+- **Custom Agents**: https://code.visualstudio.com/docs/copilot/customization/custom-agents
+- **Agent Tools & MCP**: https://code.visualstudio.com/docs/copilot/agents/agent-tools
+- **Copilot Coding Agent**: https://docs.github.com/copilot/using-github-copilot/using-copilot-coding-agent
+- **Agentic Workflows**: https://github.github.com/gh-aw/
+- **Alternative Tools**: Cline (github.com/cline/cline), Cursor (cursor.com), Claude Code (code.claude.com)
+- **MCP Standard**: https://modelcontextprotocol.io
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
+
+---
+
+## Instruction File Ecosystem
+
+| Type | File | Scope |
+|------|------|-------|
+| **Always-on** | `.github/copilot-instructions.md` | All chat requests |
+| **Always-on** | `AGENTS.md` | Cross-tool compatible |
+| **Pattern-matched** | `.github/instructions/*.instructions.md` | Specific file types |
+| **Custom Agent** | `.github/agents/*.agent.md` | Per-agent persona |
+| **Cross-tool** | `CLAUDE.md` | Claude Code compatible |
+
+### Other Tools' Instruction Files
+
+| Tool | File | Purpose |
+|------|------|---------|
+| **Cline** | `.clinerules/*.md` | Project-specific rules |
+| **Claude Code** | `CLAUDE.md` | Project instructions |
+| **Cursor** | `.cursor/rules/*.md` | Project rules |
+| **Windsurf** | Memories + Rules | Project context |
 
 ---
 
@@ -196,7 +228,7 @@ git commit -m "feat: description
    > Context + Traceability
 
 3. **How to control AI?**
-   > .clinerules instruction files
+   > copilot-instructions.md + custom agents
 
 4. **How to trust AI code?**
    > Automated testing + human review

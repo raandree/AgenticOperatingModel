@@ -18,14 +18,15 @@ This is the primary demonstration that showcases all agentic coding concepts wor
    ```
 
 2. **Have VS Code ready** with:
-   - Cline extension installed and configured
-   - Clean Cline chat history
+   - GitHub Copilot extension installed and signed in
+   - Agent Mode enabled (`chat.agent.enabled`)
+   - Clean Chat history
    - Terminal visible
    - Explorer visible
 
-3. **Pre-create .clinerules** (or create live for effect):
+3. **Pre-create copilot-instructions.md** (or create live for effect):
    ```
-   Create file: .clinerules
+   Create file: .github/copilot-instructions.md
    Content: See below
    ```
 
@@ -33,7 +34,7 @@ This is the primary demonstration that showcases all agentic coding concepts wor
 
 ---
 
-## Demo .clinerules File
+## Demo copilot-instructions.md File
 
 ```markdown
 # AgenticDemo Project Rules
@@ -81,14 +82,16 @@ This is the primary demonstration that showcases all agentic coding concepts wor
    dir    # Shows nothing
    ```
 
-2. **Create .clinerules** (if doing live):
-   > "First, let me add my instruction file. This teaches the AI my standards."
+2. **Create copilot-instructions.md** (if doing live):
+   > "First, let me add my instruction file. This teaches Copilot my standards."
    
-   - Create the file with content above
+   - Create `.github/copilot-instructions.md` with content above
    - Briefly highlight key rules (don't read everything)
 
 3. **Point out key rules**:
    > "Notice I'm telling it: always create tests, always run them, don't finish until they pass. This is how we get self-verification."
+   >
+   > "I could also use `/init` to auto-generate this from my codebase."
 
 ---
 
@@ -106,7 +109,7 @@ Create a PowerShell module called ConfigValidator for validating JSON and YAML c
 ### What to Highlight While Agent Works:
 
 1. **OBSERVE Phase**:
-   > "Watch - it's reading the .clinerules first. It's learning my standards before writing anything."
+   > "Watch - it's reading the copilot-instructions.md first. It's learning my standards before writing anything."
    
    > "It's also checking the directory structure. Right now it sees almost nothing, so it knows to create everything from scratch."
 
@@ -126,7 +129,7 @@ Create a PowerShell module called ConfigValidator for validating JSON and YAML c
 4. **VERIFY Phase**:
    > "Here's the key moment - it's running the tests automatically."
    
-   > "This is self-verification. I didn't ask it to run tests - my .clinerules said to always run them."
+   > "This is self-verification. I didn't ask it to run tests - my copilot-instructions.md said to always run them."
 
 ### If Tests Pass First Try:
 > "All tests passed. The agent is giving me working code, not just 'maybe' code."
@@ -203,7 +206,7 @@ git commit -m "feat: add ConfigValidator module with JSON and YAML validation
 - Added Test-YamlConfig function with schema validation  
 - Comprehensive Pester tests for both functions
 
-🤖 Generated with Cline assistance"
+🤖 Generated with Copilot Agent Mode assistance"
 ```
 
 ### Talking Point:
@@ -219,7 +222,7 @@ Throughout the demo, return to these points:
 > "I described what I wanted. The AI handled the how."
 
 ### 2. Context Awareness  
-> "It learned my patterns from the .clinerules and existing code."
+> "It learned my patterns from the copilot-instructions.md and existing code."
 
 ### 3. Self-Verification
 > "It tested its own work and fixed issues before I even saw them."
@@ -245,7 +248,7 @@ Throughout the demo, return to these points:
 - "Let me give it a hint..." and add clarification
 
 ### If Agent Goes Wrong Direction:
-- Use Cline's checkpoint/rollback
+- Use Copilot's undo/restore or Git to rollback
 - "Watch me roll this back and try a different approach"
 - This demonstrates the safety of the system
 
@@ -279,7 +282,7 @@ After the demo, show this summary:
 │                                                                 │
 │   Starting Point:                                               │
 │   • Empty Git repository                                       │
-│   • One instruction file (.clinerules)                         │
+│   • One instruction file (copilot-instructions.md)              │
 │                                                                 │
 │   Ending Point:                                                 │
 │   • Complete module structure                                  │

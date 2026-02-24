@@ -159,12 +159,10 @@ Result: 5 passed, 0 failed ✅
 
 ## Slide 5.6: Enabling Self-Verification
 
-# In Your .clinerules
+# In Your copilot-instructions.md
 
 ```markdown
 ## Testing Requirements
-
-### Mandatory Testing
 - Create Pester tests for every new function
 - Tests must be in corresponding tests/ directory
 - Test file naming: [FunctionName].Tests.ps1
@@ -259,7 +257,7 @@ Describe 'Test-AzureResourceId' {
 Invoke-ScriptAnalyzer -Path ./src -Recurse
 ```
 
-### In .clinerules:
+### In copilot-instructions.md:
 ```markdown
 ## Code Quality Verification
 - Run PSScriptAnalyzer after writing code
@@ -422,5 +420,5 @@ Agent: Running PSScriptAnalyzer... No issues found ✅
 - "Does it always pass?" → No, but you see exactly what failed
 
 ### Transition to Module 6 (Extended) or Summary:
-- Extended: "Now let's see all of this in action with Cline..."
+- Extended: "Now let's see all of this in action with Copilot Agent Mode..."
 - 2-Hour: "Let's see all these concepts come together in a live demo..."

@@ -83,8 +83,8 @@ The MARP file contains **22 slides**:
 | 9 | Your role changes |
 | 10 | Why Git matters |
 | 11 | Git provides context + traceability |
-| 12 | Instruction files (.clinerules) |
-| 13 | Before/after .clinerules |
+| 12 | Instruction files (copilot-instructions.md) |
+| 13 | Before/after copilot-instructions.md |
 | 14 | Self-verification |
 | 15 | When to use agentic coding |
 | 16 | Decision framework |

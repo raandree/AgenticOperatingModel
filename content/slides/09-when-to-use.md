@@ -179,7 +179,7 @@ Your domain knowledge          AI's understanding
 
 ### Guidance:
 ```markdown
-## In Your .clinerules
+## In Your copilot-instructions.md
 
 ## Security Rules
 - Never hardcode credentials or secrets

@@ -16,7 +16,7 @@
 │     Git gives AI understanding and you traceability            │
 │                                                                 │
 │  3. INSTRUCTION FILES                                          │
-│     .clinerules teaches AI your rules and standards            │
+│     copilot-instructions.md teaches AI your rules & standards  │
 │                                                                 │
 │  4. SELF-VERIFICATION                                          │
 │     Automated testing lets AI prove its work                   │
@@ -40,7 +40,7 @@
 > Git provides context (structure, patterns) and traceability (what changed).
 
 ### 3. How do I control AI behavior?
-> Instruction files (.clinerules) define standards and expectations.
+> Instruction files (copilot-instructions.md, .instructions.md) define standards. Custom agents (.agent.md) define specialized roles.
 
 ### 4. How can I trust AI-generated code?
 > Automated testing lets AI verify its own work, plus human review.
@@ -56,24 +56,26 @@
 
 ### Week 1: Setup
 ```
-□ Install Cline extension in VS Code
-□ Configure API provider
-□ Create your first .clinerules file
-□ Try one simple task
+□ Enable Copilot Agent Mode in VS Code (chat.agent.enabled)
+□ Create your first .github/copilot-instructions.md
+□ Try the /init command to auto-generate instructions
+□ Try one simple task in Agent mode
 ```
 
 ### Week 2: Practice
 ```
 □ Use agentic workflow on a real (low-risk) task
-□ Experiment with instruction file rules
+□ Create a .instructions.md file for your language
+□ Create a custom agent (.agent.md) for a common workflow
 □ Watch the self-verification loop in action
 □ Review diffs carefully
 ```
 
 ### Week 3: Integrate
 ```
-□ Add .clinerules to a team project
-□ Share your configuration with colleagues
+□ Add copilot-instructions.md to a team project
+□ Share custom agents with colleagues via .github/agents/
+□ Try background or cloud agent for a well-defined task
 □ Establish team conventions for AI use
 □ Build your prompt patterns library
 ```
@@ -105,7 +107,7 @@ Working tests in minutes, verified by the agent.
 
 ---
 
-## Slide 10.5: Building Your .clinerules
+## Slide 10.5: Building Your copilot-instructions.md
 
 # Start Simple, Iterate
 
@@ -144,19 +146,31 @@ Working tests in minutes, verified by the agent.
 - Use Write-Error for non-terminating errors
 ```
 
+> **Tip**: Use `/init` in chat to auto-generate a starting point!
+
 ---
 
 ## Slide 10.6: Resources
 
 # Where to Learn More
 
-### Cline Documentation
-- **Official Docs**: https://docs.cline.bot
-- Features, configuration, best practices
+### GitHub Copilot (Primary Focus)
+- **Agent Mode Docs**: https://code.visualstudio.com/docs/copilot/agents/overview
+- **Custom Instructions**: https://code.visualstudio.com/docs/copilot/customization/custom-instructions
+- **Custom Agents**: https://code.visualstudio.com/docs/copilot/customization/custom-agents
+- **Tools & MCP**: https://code.visualstudio.com/docs/copilot/agents/agent-tools
+- **Coding Agent (Cloud)**: https://docs.github.com/copilot/using-github-copilot/using-copilot-coding-agent
+- **Agentic Workflows**: https://github.github.com/gh-aw/
 
-### Community
-- **GitHub**: https://github.com/cline/cline
-- Issues, discussions, feature requests
+### Alternative Agentic Tools
+- **Cline**: https://github.com/cline/cline (Open-source, 58K+ stars)
+- **Cursor**: https://cursor.com (Dedicated AI editor, v2.5+)
+- **Windsurf**: https://windsurf.com (Cascade agent)
+- **Claude Code**: https://code.claude.com (Terminal + IDE)
+
+### Model Context Protocol (MCP)
+- **Specification**: https://modelcontextprotocol.io
+- **Servers**: https://github.com/modelcontextprotocol/servers
 
 ### PowerShell + AI
 - PowerShell Community Discord
@@ -165,29 +179,29 @@ Working tests in minutes, verified by the agent.
 
 ### This Presentation
 - Slides and materials: [Your URL]
-- Sample .clinerules: [Your URL]
+- Sample instruction files: [Your URL]
 - Demo projects: [Your URL]
 
 ---
 
-## Slide 10.7: Sample .clinerules Library
+## Slide 10.7: Sample Instruction File Library
 
 # Templates for Common Scenarios
 
 ### Available Templates:
 
-| Template | Purpose |
-|----------|---------|
-| `powershell-module.md` | PowerShell module development |
-| `pester-testing.md` | Test-focused rules |
-| `documentation.md` | Documentation generation |
-| `refactoring.md` | Safe refactoring practices |
-| `devops-pipeline.md` | CI/CD and pipeline code |
+| Template | File | Purpose |
+|----------|------|--------|
+| PowerShell Module | `copilot-instructions.md` | Module development standards |
+| Pester Testing | `testing.instructions.md` | Test-focused rules |
+| Documentation | `documenter.agent.md` | Documentation agent |
+| Refactoring | `refactor.agent.md` | Safe refactoring agent |
+| DevOps Pipeline | `devops.instructions.md` | CI/CD and pipeline code |
 
 ### Where to Get Them:
 - Included in presentation materials
-- Adapt for your specific needs
-- Share improvements with team
+- Use `/init` to auto-generate from your codebase
+- Share improvements via Git
 
 ---
 
@@ -195,24 +209,28 @@ Working tests in minutes, verified by the agent.
 
 # Where Agentic Coding Is Going
 
-### Near-Term (Now - 6 months):
-- Better context understanding
-- Improved self-correction
-- More tools and integrations
-- Lower costs
+### Already Here (Feb 2026):
+- **Cloud agents** creating PRs autonomously (Copilot Coding Agent, Cursor Cloud Agents)
+- **Multi-agent systems** with subagents and skills (Cline v3.58+, Cursor 2.5)
+- **Agentic CI/CD workflows** in Markdown (GitHub Agentic Workflows)
+- **Universal tool protocol** via MCP (Linux Foundation standard)
+- **Cross-IDE support** (VS Code, JetBrains, Visual Studio, Xcode, Eclipse, Zed)
+- **1M+ token context windows** (Claude Opus 4.6 on Vertex)
+
+### Near-Term (Next 6 months):
+- Better multi-agent collaboration and orchestration
+- Agent-to-agent delegation across tools
+- Deeper CI/CD and DevOps integration
+- Domain-specific agent configurations
+- Improved self-correction with verification loops
 
 ### Medium-Term (6-18 months):
-- Multi-agent collaboration
-- Longer autonomous sessions
-- CI/CD integration
-- Domain-specific agents
-
-### Long-Term:
+- Self-driving codebases (Cursor research direction)
 - AI-native development environments
-- Continuous AI-assisted improvement
-- New development paradigms
+- Agents managing entire project lifecycles
+- Cross-repository understanding and refactoring
 
-> **The tools will improve. Your judgment stays essential.**
+> **The tools are evolving fast. Your judgment stays essential.**
 
 ---
 
@@ -221,18 +239,18 @@ Working tests in minutes, verified by the agent.
 # What to Do This Week
 
 ### Immediate (Today/Tomorrow):
-1. ✅ Install Cline if you haven't
-2. ✅ Create a basic .clinerules
-3. ✅ Try one simple task with agentic workflow
+1. ✅ Enable Copilot Agent Mode in VS Code
+2. ✅ Create a basic copilot-instructions.md (or use `/init`)
+3. ✅ Try one simple task with Agent mode
 
 ### This Week:
 4. 📝 Apply to a real (low-risk) work task
-5. 📝 Review and refine your .clinerules
-6. 📝 Share experience with a colleague
+5. 📝 Create a custom agent for a frequent workflow
+6. 📝 Share your instruction files with a colleague
 
 ### Ongoing:
 7. 🔄 Build your prompt patterns
-8. 🔄 Iterate on your instruction files
+8. 🔄 Iterate on your instruction files and custom agents
 9. 🔄 Expand to more complex tasks
 
 ---
@@ -308,8 +326,9 @@ Working tests in minutes, verified by the agent.
 1. **Agentic coding** = AI that acts, not just suggests
 2. **Git** = Context + Traceability
 3. **Instruction files** = Consistent, quality output
-4. **Automated testing** = AI proves its work
-5. **Your judgment** = Still essential
+4. **Custom agents** = Specialized AI behaviors
+5. **Automated testing** = AI proves its work
+6. **Your judgment** = Still essential
 
 > **Start small. Build confidence. Transform your workflow.**
 

@@ -10,9 +10,9 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 
 1. **What Makes Coding Agentic** - Understanding the agentic loop
 2. **The Power of Context** - Why Git matters for AI
-3. **Controlling AI Behavior** - Instruction files (.clinerules)
+3. **Controlling AI Behavior** - Instruction files (copilot-instructions.md)
 4. **Self-Verification** - AI that tests its own code
-5. **Practical Application** - Live demos with Cline
+5. **Practical Application** - Live demos with Copilot Agent Mode
 
 ## Target Audience
 
@@ -37,7 +37,7 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 │   ├── materials/       # Handouts, cheat sheets, samples
 │   └── pptx/            # MARP slides for PowerPoint conversion
 ├── memory-bank/         # Project context files
-└── .clinerules/         # AI instruction files
+└── .github/             # Copilot instruction files
 ```
 
 ## Converting to PowerPoint

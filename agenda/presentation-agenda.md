@@ -6,7 +6,7 @@
 **Duration**: 2-4 hours (flexible format)
 **Primary Focus**: Agentic Coding Concepts & Practices
 **Demo Context**: PowerShell (familiar to audience)
-**Tool**: Cline (VS Code Extension)
+**Tool**: GitHub Copilot Agent Mode (VS Code)
 
 ---
 
@@ -97,7 +97,7 @@ After 2 hours, attendees will understand:
 
 | Time | Duration | Module | Focus |
 |------|----------|--------|-------|
-| 2:00 | 15 min | **Cline: Your AI Agent** | Tool orientation |
+| 2:00 | 15 min | **Copilot Agent Mode: Your AI Agent** | Tool orientation |
 | 2:15 | 35 min | **Live Session: Agentic Workflow in Action** | Full demonstration |
 | 2:50 | 10 min | ☕ **Break** | - |
 | 3:00 | 25 min | **Advanced Agent Capabilities** | MCP, modes, checkpoints |
@@ -131,7 +131,7 @@ After 2 hours, attendees will understand:
 
 1. **Defining "Agent"** (10 min)
    - An agent has: goals, context, tools, autonomy
-   - Compare: Copilot autocomplete vs. Cline agent
+   - Compare: Copilot autocomplete vs. Copilot Agent Mode
    - The agent loop: Observe → Plan → Act → Verify → Iterate
 
 2. **The Agent Execution Model** (10 min)
@@ -208,7 +208,7 @@ After 2 hours, attendees will understand:
    │                                                │
    │  📋 Configuration Files                        │
    │  ├── README.md → Project purpose              │
-   │  ├── .clinerules → AI instructions            │
+   │  ├── .github/copilot-instructions.md → AI rules │
    │  └── Manifests → Dependencies                 │
    │                                                │
    │  📝 Git History (Implicit)                     │
@@ -248,7 +248,7 @@ After 2 hours, attendees will understand:
    - **Demo**: Same prompt, different (bad) results without config
 
 2. **Instruction Files: Teaching AI Your Rules** (10 min)
-   - What is `.clinerules`?
+   - What is `copilot-instructions.md`?
    - Hierarchy: Project rules override global
    - What to include:
      - Code standards
@@ -283,8 +283,8 @@ After 2 hours, attendees will understand:
    - **Demo**: Switch modes, show behavior difference
 
 4. **Demo: Before/After Configuration** (5 min)
-   - Same request without .clinerules
-   - Same request WITH .clinerules
+   - Same request without copilot-instructions.md
+   - Same request WITH copilot-instructions.md
    - Dramatic difference in quality
 
 **Key Message**: "Instruction files are how you train your AI to work YOUR way."
@@ -353,27 +353,27 @@ After 2 hours, attendees will understand:
 
 ---
 
-### Module 6: Cline - Your AI Agent (15 min) *[Extended only]*
+### Module 6: Copilot Agent Mode - Your AI Agent (15 min) *[Extended only]*
 
 **Purpose**: Orient attendees to the specific tool
 
 **Content**:
 
-1. **Why Cline?** (5 min)
-   - Open source, actively developed
+1. **Why Copilot Agent Mode?** (5 min)
+   - Built into VS Code, no extra extension
    - True agentic capabilities (not just chat)
    - File system access, terminal execution
-   - Checkpoint/rollback support
-   - Multiple LLM provider support
+   - Multiple agent types (Agent, Plan, Ask)
+   - Custom agents and instruction files
 
 2. **Key Features Tour** (10 min)
-   - Plan Mode vs Act Mode
-   - Approval settings (auto vs manual)
-   - Checkpoint system
+   - Agent Mode vs Plan Mode vs Ask Mode
+   - Tool approval settings
+   - Undo/redo system
    - MCP server integration
-   - Cost tracking
+   - Custom agents (.agent.md)
 
-**Note**: This is not a comprehensive Cline tutorial—just enough to understand the demos.
+**Note**: This is not a comprehensive Copilot tutorial—just enough to understand the demos.
 
 ---
 
@@ -387,7 +387,7 @@ After 2 hours, attendees will understand:
 
 1. **Setup** (5 min)
    - Empty Git repository
-   - Add .clinerules with project standards
+   - Add copilot-instructions.md with project standards
    - Explain what we're building
 
 2. **Initial Generation** (10 min)
@@ -500,12 +500,12 @@ After 2 hours, attendees will understand:
 
 1. **Start Small** (5 min)
    - Pick a low-risk task
-   - Set up .clinerules
+   - Set up copilot-instructions.md
    - Try one agentic workflow
    - Build from there
 
 2. **Resources** (5 min)
-   - Cline documentation
+   - Copilot Agent Mode documentation
    - Community resources
    - Sample configurations
    - Further learning
@@ -551,7 +551,7 @@ By the end of this session, every attendee should be able to answer:
    > Git provides the context (structure, patterns, history) that enables intelligent AI behavior, plus traceability of what AI changed.
 
 3. **How do I control AI behavior?**
-   > Through instruction files (.clinerules) that define standards, requirements, and expectations.
+   > Through instruction files (copilot-instructions.md) that define standards, requirements, and expectations.
 
 4. **How can I trust AI-generated code?**
    > Through automated testing that lets AI verify its own work, plus human review of diffs.

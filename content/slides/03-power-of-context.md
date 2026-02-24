@@ -75,10 +75,13 @@
 │   ├── Get-Something.Tests.ps1
 │   └── Set-Something.Tests.ps1
 │
+├── � .github/
+│   ├── 📄 copilot-instructions.md  ──▶ "AI rules"
+│   └── 📁 instructions/
+│       └── 📄 powershell.instructions.md
 ├── 📄 YourModule.psd1             ──▶ "Module metadata"
 ├── 📄 YourModule.psm1             ──▶ "Root module"
 ├── 📄 README.md                   ──▶ "Project purpose"
-├── 📄 .clinerules                 ──▶ "AI instructions"
 └── 📄 .gitignore                  ──▶ "What to ignore"
 ```
 
@@ -298,7 +301,7 @@ feat(validation): add config file validation function
 - Added comprehensive Pester tests
 - Integrated with existing schema validation
 
-🤖 Generated with Cline assistance
+🤖 Generated with Copilot Agent Mode assistance
 ```
 
 ### Option 2: Branch Strategy
@@ -406,4 +409,4 @@ The agent produces code that **fits** because it **learned** from your repositor
 - "Private/sensitive files?" → Can use .gitignore patterns
 
 ### Transition to Module 4:
-"Context helps AI understand your project. But how do you teach it your specific rules? That's what instruction files are for..."
+"Context helps AI understand your project. But how do you teach it your specific rules? That's what custom instructions and instruction files are for..."

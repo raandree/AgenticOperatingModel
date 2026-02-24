@@ -188,8 +188,11 @@ Before writing a single line of code, an agentic AI:
 │   ├── 📄 MainModule.psm1
 │   └── 📁 Private/
 ├── 📁 tests/
-├── 📄 .clinerules          ← "My instructions"
-├── 📄 README.md            ← "Project purpose"
+├── � .github/
+│   ├── 📄 copilot-instructions.md   ← "My rules"
+│   └── 📁 instructions/
+│       └── 📄 powershell.instructions.md
+├── 📄 README.md                     ← "Project purpose"
 └── 📄 .gitignore
 ```
 
@@ -317,7 +320,7 @@ The agent doesn't give up on first failure:
 
 ## Demo: Traditional vs Agentic
 
-### Traditional (Copilot-style):
+### Traditional (Autocomplete/Chat):
 1. Type function name
 2. Accept autocomplete
 3. Copy test from chat
@@ -325,7 +328,7 @@ The agent doesn't give up on first failure:
 5. Run tests manually
 6. Fix failures manually
 
-### Agentic (Cline):
+### Agentic (Copilot Agent Mode):
 1. Describe what you want
 2. Watch agent work
 3. Review the result

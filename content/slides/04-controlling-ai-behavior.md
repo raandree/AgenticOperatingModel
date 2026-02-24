@@ -48,7 +48,7 @@ Function Validate-Input {
 │                           │                                     │
 │                           ▼                                     │
 │   ┌─────────────────────────────────────────┐                  │
-│   │           .clinerules                    │                  │
+│   │       copilot-instructions.md            │                  │
 │   │   ─────────────────────────────────     │                  │
 │   │   • Always create tests                  │                  │
 │   │   • Use try/catch for error handling    │                  │
@@ -65,32 +65,39 @@ Function Validate-Input {
 
 ---
 
-## Slide 4.3: What is .clinerules?
+## Slide 4.3: Copilot Instruction Files
 
-# Your AI Configuration File
+# Your AI Configuration Files
 
-`.clinerules` is a file in your project root that tells Cline:
-- How to write code
-- What to always include
-- What to never do
-- How to verify work
+GitHub Copilot supports **five types** of instruction files:
+
+| File | Scope | Purpose |
+|------|-------|--------|
+| `.github/copilot-instructions.md` | Always-on | Project-wide coding standards |
+| `.instructions.md` files | File-pattern | Language/framework-specific rules |
+| `AGENTS.md` | Always-on | Cross-tool compatible instructions |
+| `.agent.md` files | Per-agent | Custom agent personas & tools |
+| `CLAUDE.md` | Always-on | Claude Code compatibility |
 
 ### Location:
 ```
 📁 YourProject/
-├── .clinerules          ← Project-specific rules
-├── .clinerules/         ← Or a directory with multiple files
-│   ├── code-style.md
-│   ├── testing.md
-│   └── chatmodes/
-│       └── refactor.chatmode.md
+├── .github/
+│   ├── copilot-instructions.md  ← Always-on project rules
+│   ├── instructions/
+│   │   ├── powershell.instructions.md  ← applyTo: **/*.ps1
+│   │   └── testing.instructions.md    ← applyTo: **/*.Tests.ps1
+│   └── agents/
+│       ├── refactor.agent.md      ← Custom agent
+│       └── documenter.agent.md    ← Custom agent
+├── AGENTS.md                    ← Cross-tool instructions
 ├── src/
 └── tests/
 ```
 
 ---
 
-## Slide 4.4: Anatomy of .clinerules
+## Slide 4.4: Anatomy of copilot-instructions.md
 
 # What Goes Inside
 
@@ -140,6 +147,7 @@ Function Validate-Input {
 | **Security** | Secrets, credentials, safe practices |
 | **Git** | Commit messages, branch conventions |
 | **Workflow** | When to ask, when to proceed |
+| **Agent Scope** | Which tools agents can use |
 
 ### Key insight:
 > Write rules for the things you find yourself **repeating** to AI.
@@ -150,7 +158,7 @@ Function Validate-Input {
 
 # The Impact of Instruction Files
 
-### WITHOUT .clinerules:
+### WITHOUT copilot-instructions.md:
 ```powershell
 # AI output - minimal, no tests, no help
 function Test-Config {
@@ -161,7 +169,7 @@ function Test-Config {
 }
 ```
 
-### WITH .clinerules:
+### WITH copilot-instructions.md:
 ```powershell
 <#
 .SYNOPSIS
@@ -212,17 +220,19 @@ function Test-Config {
 │   HIGHEST PRIORITY                                             │
 │   ═══════════════                                              │
 │                                                                 │
-│   1. 📁 .clinerules/ (in project)                              │
-│      └── Project-specific rules                                │
-│          These override everything for this project            │
-│                                                                 │
-│   2. ⚙️  Cline Global Settings                                  │
+│   1. � Personal instructions (user-level settings)              │
 │      └── Your personal preferences                             │
-│          Apply to all projects                                 │
+│          Apply across all workspaces                           │
 │                                                                 │
-│   3. 🤖 System Prompt (Built-in)                                │
-│      └── Base agent capabilities                               │
-│          Foundation behavior                                   │
+│   2. 📁 Repository instructions                                │
+│      ├── .github/copilot-instructions.md                       │
+│      ├── AGENTS.md                                             │
+│      └── .instructions.md files (pattern-matched)              │
+│          Project-specific rules, shared via Git                │
+│                                                                 │
+│   3. 🏢 Organization instructions                               │
+│      └── Defined at GitHub org level                           │
+│          Company-wide standards                                │
 │                                                                 │
 │   LOWEST PRIORITY                                              │
 │                                                                 │
@@ -230,29 +240,34 @@ function Test-Config {
 ```
 
 ### Why this matters:
-- Team can share project rules via `.clinerules` in Git
-- You keep personal preferences in global settings
-- Consistent output across team members
+- Team shares project rules via `.github/copilot-instructions.md` in Git
+- You keep personal preferences in user-level settings
+- Organizations enforce company-wide policies
+- Pattern-matched files apply only to relevant code
 
 ---
 
-## Slide 4.8: Custom Chat Modes
+## Slide 4.8: Custom Agents
 
 # Specialized Agent Behaviors
 
 Different tasks need different behaviors:
 
 ```
-📁 .clinerules/
-└── 📁 chatmodes/
-    ├── 📄 refactor.chatmode.md
-    ├── 📄 document.chatmode.md
-    ├── 📄 debug.chatmode.md
-    └── 📄 test-first.chatmode.md
+📁 .github/agents/
+├── 📄 refactor.agent.md
+├── 📄 documenter.agent.md
+├── 📄 debugger.agent.md
+└── 📄 test-first.agent.md
 ```
 
-### Example: Documentation Mode
+### Example: Documentation Agent
 ```markdown
+---
+name: Documenter
+description: Generate comprehensive documentation
+tools: ['codebase', 'search', 'problems']
+---
 # Documentation Agent
 
 You are a documentation specialist.
@@ -272,12 +287,17 @@ You are a documentation specialist.
 
 ---
 
-## Slide 4.9: Chat Mode Examples
+## Slide 4.9: Custom Agent Examples
 
 # Specialized Agents
 
-### Refactor Mode
+### Refactor Agent
 ```markdown
+---
+name: Refactorer
+description: Improve code quality without changing functionality
+tools: ['editFiles', 'codebase', 'terminalCommand', 'problems']
+---
 # Refactoring Agent
 
 ## Behavior
@@ -292,8 +312,13 @@ You are a documentation specialist.
 - Explain each refactoring decision
 ```
 
-### Debug Mode
+### Debug Agent
 ```markdown
+---
+name: Debugger
+description: Focus on identifying and fixing bugs
+tools: ['codebase', 'problems', 'terminalCommand', 'search']
+---
 # Debug Agent
 
 ## Behavior
@@ -316,11 +341,11 @@ You are a documentation specialist.
 
 ### Demo: Instruction File Impact
 
-**Part 1: Without .clinerules**
+**Part 1: Without copilot-instructions.md**
 1. Request: "Add a function to parse JSON config"
 2. Observe: Minimal output, no tests, basic code
 
-**Part 2: With .clinerules**
+**Part 2: With copilot-instructions.md**
 1. Add instruction file with standards
 2. Same request: "Add a function to parse JSON config"
 3. Observe: Full output with tests, help, error handling
@@ -391,6 +416,8 @@ You are a documentation specialist.
 - [When to suggest commits]
 ```
 
+> Use `/init` in Copilot Chat to auto-generate instructions from your codebase!
+
 ---
 
 ## Slide 4.13: Team Consistency
@@ -407,8 +434,10 @@ You are a documentation specialist.
 │        ▼                              ▼                         │
 │   ┌──────────┐                 ┌──────────┐                    │
 │   │ Reads    │                 │ Reads    │                    │
-│   │.clinerules│◄───────────────│.clinerules│                   │
-│   └──────────┘    Same file!   └──────────┘                    │
+│   │copilot-  │◄───────────────│copilot-  │                    │
+│   │instruc-  │    Same file!   │instruc-  │                    │
+│   │tions.md  │                 │tions.md  │                    │
+│   └──────────┘                 └──────────┘                    │
 │        │                              │                         │
 │        ▼                              ▼                         │
 │   ┌──────────┐                 ┌──────────┐                    │
@@ -421,7 +450,8 @@ You are a documentation specialist.
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-> Commit `.clinerules` to Git. Everyone gets the same AI behavior.
+> Commit `.github/copilot-instructions.md` to Git. Everyone gets the same AI behavior.
+> Organizations can also enforce company-wide policies.
 
 ---
 
@@ -439,6 +469,7 @@ You are a documentation specialist.
 │   • Generic code                • Project-tailored code        │
 │   • Missing tests               • Tests included               │
 │   • Each team member different  • Team-wide consistency        │
+│   • No org-level control        • Organization policies        │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -455,20 +486,22 @@ You are a documentation specialist.
 ### Key Points to Emphasize:
 1. Instruction files solve the **consistency problem**
 2. Write rules for things you find yourself **repeating**
-3. Commit `.clinerules` to Git for **team consistency**
-4. Custom modes allow **specialized behaviors**
+3. Commit `.github/copilot-instructions.md` to Git for **team consistency**
+4. Custom agents allow **specialized behaviors**
+5. Use `/init` to auto-generate instructions from your codebase
 
 ### Demo Tips:
 - Show clear before/after comparison
 - Use same request both times for dramatic effect
-- Don't spend time on the .clinerules syntax — show the result
+- Don't spend time on the file syntax — show the result
 - Highlight how tests appear automatically with rules
 
 ### Common Questions:
-- "Where do I put it?" → Project root, or .clinerules/ directory
+- "Where do I put it?" → `.github/copilot-instructions.md` for project-wide, `.github/instructions/` for pattern-matched
 - "How specific should rules be?" → Specific enough to be actionable
-- "Can I have multiple files?" → Yes, use .clinerules/ directory
+- "Can I have multiple files?" → Yes, use `.instructions.md` files with `applyTo` patterns
 - "Do rules slow down AI?" → No, they improve quality
+- "Does this work with other tools?" → Use `AGENTS.md` for cross-tool compatibility
 
 ### Transition to Module 5:
-"Now you can control what AI produces. But how do you know it actually works? That's where automated testing comes in..."
+"Now you can control what AI produces. But how do you know it actually works? That's where automated testing and self-verification come in..."

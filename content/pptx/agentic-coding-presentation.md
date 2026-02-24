@@ -36,7 +36,7 @@ style: |
 
 - **A)** Code autocomplete (Copilot, Tabnine)
 - **B)** Chat assistants (ChatGPT, Claude)  
-- **C)** AI agents (Cline, Cursor, Aider)
+- **C)** AI agents (Copilot Agent Mode, Cursor, Claude Code)
 - **D)** Not yet using AI for coding
 
 ---
@@ -164,7 +164,7 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 
 ---
 
-# Instruction Files (.clinerules)
+# Instruction Files (copilot-instructions.md)
 
 ```markdown
 # Project Rules
@@ -183,9 +183,9 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 
 ---
 
-# Before and After .clinerules
+# Before and After copilot-instructions.md
 
-### WITHOUT .clinerules
+### WITHOUT copilot-instructions.md
 ```powershell
 function Test-Config {
     param($Path)
@@ -194,7 +194,7 @@ function Test-Config {
 ```
 *Minimal, no tests, no help*
 
-### WITH .clinerules
+### WITH copilot-instructions.md
 *Full implementation with CmdletBinding, help, error handling, AND tests*
 
 ---
@@ -278,8 +278,8 @@ Agent fixes code → Run tests again
 # Getting Started
 
 ### This Week:
-1. ✅ Install Cline in VS Code
-2. ✅ Create a basic .clinerules
+1. ✅ Enable Copilot Agent Mode in VS Code
+2. ✅ Create a basic copilot-instructions.md
 3. ✅ Try one simple task
 4. 📝 Apply to a real (low-risk) task
 5. 📝 Review and refine

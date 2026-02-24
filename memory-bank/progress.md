@@ -2,40 +2,58 @@
 
 ## Current Status
 
-**Phase**: Content Creation Complete
+**Phase**: Content Refocused to GitHub Copilot Agent Mode
 **Started**: 2026-02-02
-**Status**: Ready for review and customization
+**Last Updated**: 2026-02-24
+**Status**: Updated and ready for review
 
 ## Completed
 
 ### Memory Bank ✅
 - [x] `projectbrief.md` - Core focus on agentic coding paradigm
 - [x] `productContext.md` - Audience analysis and learning journey
-- [x] `techContext.md` - Technology stack and concepts
+- [x] `techContext.md` - Technology stack and concepts (updated 2026-02-24)
 - [x] `systemPatterns.md` - Presentation and demo patterns
-- [x] `progress.md` - Status tracking
-- [x] `activeContext.md` - Working context
+- [x] `progress.md` - Status tracking (this file, updated 2026-02-24)
+- [x] `activeContext.md` - Working context (updated 2026-02-24)
 
 ### Agenda ✅
 - [x] `agenda/presentation-agenda.md` - Comprehensive 2-4 hour agenda
 
-### Slide Content ✅
-- [x] Module 1: The AI Coding Revolution (10 min)
-- [x] Module 2: What Makes Coding Agentic (25-30 min)
-- [x] Module 3: The Power of Context (20-25 min)
-- [x] Module 4: Controlling AI Behavior (20-25 min)
-- [x] Module 5: Self-Verification (20-25 min)
-- [x] Module 9: When to Use (15-20 min)
-- [x] Module 10: Your Agentic Future (10-15 min)
+### Slide Content ✅ (Updated 2026-02-24)
+- [x] Module 1: The AI Coding Revolution (10 min) - **Updated with current landscape**
+- [x] Module 2: What Makes Coding Agentic (25-30 min) - **Refocused to Copilot**
+- [x] Module 3: The Power of Context (20-25 min) - **Refocused to Copilot**
+- [x] Module 4: Controlling AI Behavior (20-25 min) - **Major refactor for Copilot instruction ecosystem**
+- [x] Module 5: Self-Verification (20-25 min) - **Refocused to Copilot**
+- [x] Module 9: When to Use (15-20 min) - **Refocused to Copilot**
+- [x] Module 10: Your Agentic Future (10-15 min) - **Major refactor for Copilot resources & agents**
 
-### Demo Materials ✅
-- [x] Main demo script with talking points
-- [x] Demo .clinerules file
+### Demo Materials ✅ (Updated 2026-02-24)
+- [x] Main demo script with talking points - **Refocused to Copilot Agent Mode**
+- [x] Sample copilot-instructions.md file
+- [x] Sample .instructions.md file (pattern-matched)
+- [x] Sample .agent.md file (custom agent)
 - [x] Troubleshooting guide
 
-### Supporting Materials ✅
-- [x] Sample .clinerules for PowerShell module development
-- [x] Quick reference cheat sheet
+### Supporting Materials ✅ (Updated 2026-02-24)
+- [x] Sample copilot-instructions.md for PowerShell module development
+- [x] Sample .instructions.md for PowerShell files
+- [x] Sample .agent.md for Pester test writer
+- [x] Quick reference cheat sheet - **Refocused to Copilot**
+
+### Research ✅ (Completed 2026-02-24)
+- [x] GitHub Copilot Agent Mode (Local/Background/Cloud/Third-party)
+- [x] GitHub Copilot Coding Agent (autonomous PR creation, Windows support)
+- [x] Copilot instruction file ecosystem (5 file types)
+- [x] Custom agents (.agent.md) with tools and handoffs
+- [x] Cline v3.67.0 features (alternative tool reference)
+- [x] Cursor v2.5 (alternative tool reference)
+- [x] Windsurf/Cascade (alternative tool reference)
+- [x] Claude Code (alternative tool reference)
+- [x] GitHub Agentic Workflows (Markdown-based CI/CD, technical preview)
+- [x] MCP under Linux Foundation, universal standard
+- [x] Current AI models: Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro
 
 ## Content Structure
 
@@ -63,8 +81,12 @@ d:\Git\x\
     │   └── demo-script-main.md
     └── materials/
         ├── cheat-sheet.md
-        └── sample-clinerules/
-            └── powershell-module.clinerules.md
+        ├── sample-clinerules/           # Legacy - kept for reference
+        │   └── powershell-module.clinerules.md
+        └── sample-copilot-instructions/  # Primary samples
+            ├── copilot-instructions.md
+            ├── powershell.instructions.md
+            └── pester-test-writer.agent.md
 ```
 
 ## What's Ready
@@ -73,10 +95,12 @@ d:\Git\x\
 |------|--------|-------|
 | 2-Hour Agenda | ✅ Ready | Core concepts covered |
 | 4-Hour Agenda | ✅ Ready | Extended with demos |
-| All Core Slides | ✅ Ready | Modules 1-5, 9-10 |
-| Main Demo Script | ✅ Ready | With talking points |
-| Sample .clinerules | ✅ Ready | PowerShell module template |
-| Cheat Sheet | ✅ Ready | Quick reference handout |
+| All Core Slides | ✅ Updated | Modules 1-5, 9-10 (Copilot-focused) |
+| Main Demo Script | ✅ Updated | Copilot Agent Mode workflow |
+| Sample Copilot Instructions | ✅ Ready | 3 sample files (instructions, pattern, agent) |
+| Sample .clinerules | ✅ Legacy | Kept for cross-tool reference |
+| Cheat Sheet | ✅ Updated | Refocused on Copilot |
+| Landscape Research | ✅ Complete | Copilot primary, alternatives referenced |
 
 ## Optional: Still Could Create
 
@@ -84,7 +108,8 @@ These are optional additions if time permits:
 
 - [ ] Module 6 slides: Cline Overview (for 4-hour version)
 - [ ] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
-- [ ] Additional .clinerules templates (testing, documentation, refactoring)
+- [ ] Additional .instructions.md templates (testing, documentation, refactoring)
+- [ ] Additional .agent.md templates (code review, IaC, security)
 - [ ] Slide deck conversion to PowerPoint/Google Slides
 - [ ] Pre-recorded backup demo video
 - [ ] Setup checklist for attendees
@@ -94,7 +119,8 @@ These are optional additions if time permits:
 1. **Focus**: Agentic coding paradigm, NOT PowerShell training
 2. **Structure**: Concept → Demo → Practice pattern
 3. **Core Message**: "AI that acts, not just suggests"
-4. **Emphasis Areas**:
+4. **Primary Tool**: GitHub Copilot Agent Mode (built into VS Code)
+5. **Emphasis Areas**:
    - Git for context and traceability
    - Instruction files for consistency
    - Automated testing for self-verification
@@ -105,8 +131,8 @@ These are optional additions if time permits:
 1. **Review all content** for accuracy and tone
 2. **Customize** speaker notes and contact info
 3. **Prepare demo environment** per demo script
-4. **Practice** timing with actual Cline usage
-5. **Test** API connectivity before session
+4. **Practice** timing with actual Copilot Agent Mode usage
+5. **Test** Copilot connectivity before session
 6. **Create** backup recordings if desired
 
 ## File Summary

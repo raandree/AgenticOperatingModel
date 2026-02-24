@@ -4,17 +4,22 @@
 
 ### Primary Tools
 
-#### Cline (VS Code Extension)
-- **Purpose**: AI coding agent for VS Code
+#### GitHub Copilot Agent Mode (Built into VS Code)
+- **Purpose**: AI coding agent built into VS Code
 - **Key Features**:
-  - Autonomous task execution
-  - File system access (read/write/create)
-  - Terminal command execution
-  - Multi-file context understanding
-  - Custom instruction files (.clinerules)
-  - Plan/Act modes for controlled workflows
+  - **Local Agents**: Agent (autonomous), Plan (planning), Ask (read-only)
+  - **Background Agents**: Run in separate worktree via Copilot CLI
+  - **Cloud Agents**: Copilot Coding Agent creates PRs via GitHub Actions
+  - **Third-party Agents**: Extensions providing custom agentic capabilities
+  - Agent handoffs and subagents
+  - Custom agents via `.agent.md` files with YAML frontmatter
+  - Instruction files: `copilot-instructions.md`, `.instructions.md`, `AGENTS.md`
   - MCP (Model Context Protocol) server support
-  - Checkpoint/rollback capabilities
+  - Tool sets for workflow-specific tool grouping
+  - Terminal sandboxing (file system + network access controls)
+  - Organization-level instruction sharing
+  - `/init` command for auto-generating instructions from codebase
+  - Cross-tool compatibility with `AGENTS.md` and `CLAUDE.md`
 
 #### Git
 - **Purpose**: Version control and AI context provider
@@ -53,7 +58,7 @@
 #### VS Code
 - **Purpose**: Development environment
 - **Key Extensions**:
-  - Cline
+  - GitHub Copilot (built-in agent mode)
   - PowerShell Extension
   - GitLens (optional)
   - Pester Test Explorer (optional)
@@ -101,7 +106,9 @@
 │  │   └── 📁 Private/           │  "Internal functions"      │
 │  ├── 📁 tests/                 │  "Pester tests"            │
 │  ├── 📁 docs/                  │  "Documentation"           │
-│  ├── 📄 .clinerules            │  "My instructions"         │
+│  ├── 📄 .github/             │  "My instructions"        │
+│  │   └── copilot-              │                            │
+│  │       instructions.md       │                            │
 │  ├── 📄 .gitignore             │  "What to exclude"         │
 │  └── 📄 README.md              │  "Project overview"        │
 │                                                             │
@@ -118,20 +125,21 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│              CLINE INSTRUCTION FILE HIERARCHY               │
+│           COPILOT INSTRUCTION FILE HIERARCHY                │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  Priority   │  Location              │  Purpose             │
-│  ─────────  │  ────────────────────  │  ────────────────    │
-│  1 (High)   │  .clinerules/          │  Project-specific    │
-│             │  ├── *.md              │  rules & patterns    │
-│             │  └── chatmodes/*.md    │  Custom agent modes  │
+│  Priority   │  Location                    │  Purpose       │
+│  ─────────  │  ────────────────────         │  ──────────    │
+│  1 (High)   │  Personal settings           │  User prefs    │
+│             │  (VS Code settings)           │  & defaults    │
 │                                                             │
-│  2 (Medium) │  Global settings       │  User preferences    │
-│             │  (Cline extension)     │  & defaults          │
+│  2 (Medium) │  .github/                     │  Project-      │
+│             │  ├── copilot-instructions.md  │  specific      │
+│             │  ├── instructions/*.md        │  rules &       │
+│             │  └── agents/*.agent.md        │  personas      │
 │                                                             │
-│  3 (Low)    │  System prompt         │  Base agent          │
-│             │  (Built-in)            │  capabilities        │
+│  3 (Low)    │  Organization policies        │  Org-wide      │
+│             │  (GitHub org settings)        │  standards     │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -139,18 +147,24 @@
 ## Demo Environment Requirements
 
 ### Minimum Setup
-- VS Code (latest)
-- Cline extension (latest)
+- VS Code (latest, 1.109+)
+- GitHub Copilot extension (with active subscription)
 - PowerShell 7.x
 - Git
 - Pester 5.x
-- API key for LLM provider (OpenAI, Anthropic, etc.)
 
 ### Recommended Additional Tools
 - Windows Terminal
 - PSScriptAnalyzer
 - GitLens extension
 - Oh-My-Posh (for terminal aesthetics)
+
+### Alternative/Complementary Agentic Tools (Feb 2026)
+- **Cline** (v3.67+, 58K+ stars): Open-source VS Code extension, Enterprise edition, Skills & Subagents
+- **Cursor** (v2.5) - Standalone IDE with Cloud Agents, Plugins, Async Subagents
+- **Windsurf** (by Cognition) - Cascade agent, 1M+ users, JetBrains plugin
+- **Claude Code** (Anthropic) - Terminal CLI, VS Code, Desktop app, Web, JetBrains
+- **GitHub Agentic Workflows** - Markdown-based CI/CD automation (technical preview)
 
 ## Code Examples Reference
 
@@ -167,12 +181,13 @@ DemoModule/
 ├── Tests/
 │   ├── Get-DemoData.Tests.ps1
 │   └── Set-DemoConfig.Tests.ps1
-├── .clinerules              # Cline instructions
+├── .github/
+│   └── copilot-instructions.md  # Copilot instructions
 ├── .gitignore
 └── README.md
 ```
 
-### Sample .clinerules Content
+### Sample copilot-instructions.md Content
 ```markdown
 # DemoModule Development Rules
 
@@ -202,19 +217,48 @@ DemoModule/
 | Pester | 5.5+ | Testing framework |
 | PSScriptAnalyzer | 1.21+ | Linting |
 | Git | 2.40+ | Version control |
-| VS Code | 1.85+ | IDE |
-| Cline | Latest | AI agent |
+| VS Code | 1.109+ | IDE |
+| GitHub Copilot | Active subscription | AI agent (primary demo tool) |
 
 ## API/LLM Considerations
 
-### Supported Providers (for Cline)
-- Anthropic Claude (Recommended for coding)
-- OpenAI GPT-4
-- Azure OpenAI
-- Google Gemini
-- Local models via Ollama/LM Studio
+### Supported Providers (for Copilot)
+- GitHub Copilot uses GitHub-hosted models
+- Model selection available for Business/Enterprise plans
+- Available models include Claude, GPT, Gemini families
+- No separate API key required - uses GitHub authentication
+
+### Key Models (Feb 2026)
+| Model | Provider | Strengths |
+|-------|----------|----------|
+| Claude Opus 4.6 | Anthropic | Best reasoning, 1M context on Vertex |
+| Claude Sonnet 4.6 | Anthropic | Fast coding, good balance |
+| GPT-5.3-Codex | OpenAI | Strong code generation |
+| Gemini 3.1 Pro | Google | Large context, competitive |
+| Grok Code | xAI | Available in Cursor |
+| Composer 1.5 | Cursor | Cursor-exclusive model |
 
 ### Cost Considerations for Presentation
-- Estimate token usage for demos
-- Have backup API keys
-- Consider rate limits during live coding
+- GitHub Copilot subscription required (Individual, Business, or Enterprise)
+- Business/Enterprise plans offer model selection and org-level policies
+- No per-token billing - included in subscription
+- Enterprise plan adds audit logs, IP indemnity, org instructions
+
+### Instruction File Ecosystem (Feb 2026)
+
+#### GitHub Copilot (Primary - Richest Ecosystem)
+| File | Scope | Purpose |
+|------|-------|---------|
+| `.github/copilot-instructions.md` | All chat requests | Always-on project rules |
+| `.github/instructions/*.instructions.md` | Pattern-matched files | File-type specific rules |
+| `.github/agents/*.agent.md` | Per-agent persona | Custom agents with tools |
+| `AGENTS.md` | Cross-tool | Works with Copilot + Claude Code |
+| `CLAUDE.md` | Cross-tool | Claude Code compatible |
+
+#### Other Tools
+| Tool | Instruction File | Scope |
+|------|-------------------|-------|
+| Cline | `.clinerules/` directory with `*.md` files | Project-level rules |
+| Claude Code | `CLAUDE.md` | Project-level instructions |
+| Cursor | `.cursor/rules/` directory | Project-level rules |
+| Windsurf | Memories + Rules system | Project-level context |
