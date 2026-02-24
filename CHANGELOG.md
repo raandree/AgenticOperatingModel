@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **Integrated MyCopilot project patterns into presentation content**
+  - Module 4: Added 4 new slides (Skills, Prompts, Agent Handoffs, Complete Customization Ecosystem)
+  - Module 4: Enhanced custom agent examples with production-grade patterns (model, handoffs, subagents, zero-confirmation)
+  - Module 4: Renumbered slides 4.10–4.18 to accommodate new content, updated timing to 30–35 min
+  - Module 10: Added cross-machine sync slide with OneDrive pattern and setup script
+  - Module 10: Updated getting started checklist with VS Code feature flags
+  - Module 10: Updated key takeaways to include skills, prompts, and handoffs
+  - Module 10: Updated sample template library with prompt and skill examples
+  - Demo script: Added "Demo Part 6 (Bonus)" covering skills, prompts, and cross-machine sync
+  - Demo script: Added recommended VS Code settings to setup checklist
+  - Demo script: Updated timing table for 4-hour version (35–42 min)
+  - Cheat sheet: Added Chat Shortcuts table (`/agents`, `/instructions`, `/skills`, `/prompts`)
+  - Cheat sheet: Added Recommended VS Code Settings table (4 feature flags)
+  - Cheat sheet: Expanded Key Concepts with Skills, Prompt Files, Agent Handoffs
+  - Cheat sheet: Expanded Customization Ecosystem to 6-type table with cross-machine sync example
+  - `.github/chatmodes/README.md`: Added migration notice and `.agent.md` format guide
 - **Pivoted primary demo tool from Cline to GitHub Copilot Agent Mode**
   - All 7 slide modules refocused for Copilot as primary tool
   - Module 4 (Controlling AI Behavior) major refactor: 5 instruction file types, custom agents, org policies

@@ -261,81 +261,267 @@ Different tasks need different behaviors:
 └── 📄 test-first.agent.md
 ```
 
-### Example: Documentation Agent
+### Example: Software Engineer Agent (Production-Grade)
 ```markdown
 ---
-name: Documenter
-description: Generate comprehensive documentation
-tools: ['codebase', 'search', 'problems']
+name: software-engineer
+description: Expert-level agent for production-ready code
+model: 'Claude Opus 4.6 (copilot)'
+argument-hint: 'Describe the feature, bug fix, or refactoring task'
+tools: ['editFiles', 'codebase', 'runTests', 'runCommands',
+        'search', 'problems', 'githubRepo', 'fetch']
+agents: ['security-reviewer']
+handoffs:
+  - label: Run Security Review
+    agent: security-reviewer
+    prompt: Review the code changes above for vulnerabilities.
+    send: false
 ---
-# Documentation Agent
+# Software Engineer Agent
 
-You are a documentation specialist.
+## Execution Style
+- ZERO-CONFIRMATION: Act, don't ask. State what you ARE doing.
+- Complete all phases: Analyze → Implement → Test → Verify
+- Never return control until the task is 100% complete
 
-## Behavior
-- Focus ONLY on documentation
-- Do not modify functional code
-- Generate comprehensive help text
-- Update README files
-- Create usage examples
-
-## Output Style
-- Clear, concise language
-- Include examples for every function
-- Follow Microsoft documentation patterns
+## Workflow
+1. Read the codebase to understand patterns
+2. Plan the implementation
+3. Write code following project standards
+4. Run all tests and fix failures
+5. Hand off to security-reviewer when ready
 ```
 
 ---
 
 ## Slide 4.9: Custom Agent Examples
 
-# Specialized Agents
+# Specialized Agents with Advanced Features
 
-### Refactor Agent
+### Security Reviewer Agent (with Handoff Back)
+```markdown
+---
+name: security-reviewer
+description: Validate code for security vulnerabilities and quality
+model: 'Claude Opus 4.6 (copilot)'
+argument-hint: 'Specify code, files, or scope to audit'
+tools: ['codebase', 'search', 'problems', 'runTests', 'fetch']
+agents: []
+handoffs:
+  - label: Fix Issues Found
+    agent: software-engineer
+    prompt: Fix the security issues identified in the review above.
+    send: false
+---
+# Security Reviewer Agent
+
+## Approach
+- ZERO-TRUST: Assume nothing is secure until proven
+- Run SAST, dependency audit, secrets scan
+- Classify findings by CVSS severity (0.0-10.0)
+- Decision: PASS / FAIL / CONDITIONAL
+- Hand off to software-engineer for remediation
+```
+
+### Refactor Agent (Constrained Scope)
 ```markdown
 ---
 name: Refactorer
 description: Improve code quality without changing functionality
-tools: ['editFiles', 'codebase', 'terminalCommand', 'problems']
+tools: ['editFiles', 'codebase', 'runTests', 'problems']
 ---
 # Refactoring Agent
 
-## Behavior
-- Improve code quality without changing functionality
-- Preserve all existing tests
-- Run tests after every change
-- Make minimal, focused changes
-
 ## Rules
-- Never add new features
-- Never remove functionality
+- Never add new features or remove functionality
+- Run tests after every change—all must pass
 - Explain each refactoring decision
+- Make minimal, focused changes
 ```
 
-### Debug Agent
+### Key Pattern: Agent Handoff Chains
+```
+Software Engineer ──▶ Security Reviewer ──▶ Production
+       ◀────── Fix Issues ──────┘
+```
+> Agents can reference each other and create **automated review pipelines**.
+
+---
+
+## Slide 4.10: Skills — Domain Knowledge on Demand
+
+# Teach AI When to Use What
+
+Skills are folders containing a `SKILL.md` file with specialized domain knowledge. Copilot **auto-activates** them based on your task.
+
+### Location:
+```
+📁 .github/skills/
+└── 📁 sampler-build-debug/
+    └── 📄 SKILL.md
+```
+
+### Example: Build Debug Skill
 ```markdown
 ---
-name: Debugger
-description: Focus on identifying and fixing bugs
-tools: ['codebase', 'problems', 'terminalCommand', 'search']
+name: sampler-build-debug
+description: >-
+  Debug Sampler module builds, Pester test failures, and
+  VS Code freezing issues. USE FOR: build errors, Pester
+  failures, ModuleBuilder issues. DO NOT USE FOR: new
+  features, refactoring, or general PowerShell questions.
 ---
-# Debug Agent
+# Sampler Build Debug Skill
 
-## Behavior
-- Focus on identifying root causes
-- Analyze error messages carefully
-- Suggest minimal fixes
-- Verify fix resolves the issue
+## Common Build Errors
+- ModuleBuilder fails when function files have syntax errors
+- Pester mock scope issues with InModuleScope
+- VS Code freezes during long-running builds: use terminal instead
 
-## Approach
-- Ask clarifying questions about the error
-- Check related code for context
-- Test the fix thoroughly
+## Diagnostic Steps
+1. Run `build.ps1 -ResolveDependency -Tasks build`
+2. Check `output/` directory for compiled module
+3. Run `Invoke-Pester -Path tests/ -Output Detailed`
+```
+
+### Key difference from Instructions:
+> **Instructions** = rules applied to every request  
+> **Skills** = knowledge loaded **only when relevant** (triggered by description keywords)
+
+---
+
+## Slide 4.11: Prompt Files — Reusable Templates
+
+# Create Slash Commands for Repeated Tasks
+
+Prompt files (`.prompt.md`) become `/slash` commands in Copilot Chat. Perfect for tasks you run repeatedly.
+
+### Location:
+```
+📁 .github/prompts/
+└── 📄 CodeReview.prompt.md
+```
+
+### Example: Code Review Prompt
+```markdown
+---
+name: CodeReview
+description: Multi-phase security-focused code review
+mode: ask
+tools: ['codebase', 'problems', 'search']
+---
+# Security Code Review
+
+Perform a 3-phase review of the specified code:
+
+## Phase 1: Static Analysis
+- Check for injection vulnerabilities
+- Scan for hardcoded secrets
+- Validate input sanitization
+
+## Phase 2: Logic Review
+- Verify error handling completeness
+- Check for race conditions
+- Validate boundary conditions
+
+## Phase 3: Report
+- Classify findings by CVSS severity
+- Provide specific remediation steps
+- Generate summary table
+```
+
+### Usage:
+Type `/CodeReview` in Copilot Chat → the template runs with your context.
+
+### Key difference from Agents:
+> **Agents** = persistent personas with tools and behaviors  
+> **Prompts** = single-use task templates invoked on demand
+
+---
+
+## Slide 4.12: Agent Handoffs & Multi-Agent Pipelines
+
+# Agents That Work Together
+
+Copilot agents can **hand off** to other agents, creating automated workflows:
+
+```yaml
+# In software-engineer.agent.md
+---
+name: software-engineer
+tools: ['editFiles', 'runTests', 'codebase']
+agents: ['security-reviewer', 'technical-writer']
+handoffs:
+  - label: Run Security Review
+    agent: security-reviewer
+    prompt: Review the code changes for vulnerabilities.
+  - label: Write Documentation
+    agent: technical-writer
+    prompt: Document the implementation above.
+---
+```
+
+### Release Pipeline Pattern:
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MULTI-AGENT PIPELINE                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌──────────────┐      ┌──────────────┐      ┌────────────┐  │
+│   │  Software     │      │  Security    │      │ Production │  │
+│   │  Engineer     │─────▶│  Reviewer    │─────▶│ Deployment │  │
+│   │  Agent        │      │  Agent       │      │            │  │
+│   └──────────────┘      └──────┬───────┘      └────────────┘  │
+│                                 │                               │
+│                          FAIL?  │                               │
+│                                 ▼                               │
+│                          ┌──────────────┐                      │
+│                          │ Back to Dev  │                      │
+│                          │ "Fix Issues" │                      │
+│                          └──────────────┘                      │
+│                                                                 │
+│   Dev writes code → QA reviews → PASS/FAIL/CONDITIONAL        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+> **Handoffs** let you build a full software release pipeline with AI agents.
+
+---
+
+## Slide 4.13: The Complete Customization Ecosystem
+
+# Six Types of Copilot Customization
+
+| # | Type | File | When It Activates |
+|---|------|------|--------------------|
+| 1 | **Project Instructions** | `copilot-instructions.md` | Every chat request |
+| 2 | **Pattern-Matched Instructions** | `.instructions.md` | When `applyTo` glob matches |
+| 3 | **Custom Agents** | `.agent.md` | When agent is selected |
+| 4 | **Skills** | `SKILL.md` (in folders) | Auto-detected by description |
+| 5 | **Prompt Files** | `.prompt.md` | When `/command` is typed |
+| 6 | **Cross-Tool Instructions** | `AGENTS.md` / `CLAUDE.md` | Always-on |
+
+### Directory Layout:
+```
+📁 .github/
+├── 📄 copilot-instructions.md  ← Always-on rules
+├── 📁 instructions/            ← Pattern-matched
+│   ├── 📄 powershell.instructions.md
+│   └── 📄 testing.instructions.md
+├── 📁 agents/                  ← Custom agents
+│   ├── 📄 software-engineer.agent.md
+│   └── 📄 security-reviewer.agent.md
+├── 📁 skills/                  ← Domain knowledge
+│   └── 📁 sampler-build-debug/
+│       └── 📄 SKILL.md
+└── 📁 prompts/                 ← Slash commands
+    └── 📄 CodeReview.prompt.md
 ```
 
 ---
 
-## Slide 4.10: Demo - Before/After
+## Slide 4.14: Demo - Before/After
 
 # See the Difference
 
@@ -355,7 +541,7 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 
 ---
 
-## Slide 4.11: Writing Effective Rules
+## Slide 4.15: Writing Effective Rules
 
 # Best Practices
 
@@ -378,7 +564,7 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 
 ---
 
-## Slide 4.12: Common Rule Patterns
+## Slide 4.16: Common Rule Patterns
 
 # Starter Template
 
@@ -420,7 +606,7 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 
 ---
 
-## Slide 4.13: Team Consistency
+## Slide 4.17: Team Consistency
 
 # Shared Rules = Shared Standards
 
@@ -455,14 +641,14 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 
 ---
 
-## Slide 4.14: Key Takeaway
+## Slide 4.18: Key Takeaway
 
-# Instruction Files = AI Training
+# Customization = AI Training
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                                                                 │
-│   WITHOUT INSTRUCTION FILES      WITH INSTRUCTION FILES        │
+│   WITHOUT CUSTOMIZATION          WITH CUSTOMIZATION             │
 │                                                                 │
 │   • Repeat yourself             • Define once, apply always    │
 │   • Inconsistent results        • Consistent quality           │
@@ -470,31 +656,37 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 │   • Missing tests               • Tests included               │
 │   • Each team member different  • Team-wide consistency        │
 │   • No org-level control        • Organization policies        │
+│   • No reusable workflows       • Slash commands & handoffs    │
+│   • One-size-fits-all           • Specialized agents & skills  │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-> **Instruction files are how you train AI to work YOUR way.**
+> **Instruction files, agents, skills, and prompts are how you train AI to work YOUR way.**
 > Write your rules once. Get consistent results forever.
 
 ---
 
 ## Speaker Notes - Module 4
 
-### Timing: 20-25 minutes
+### Timing: 30-35 minutes
 
 ### Key Points to Emphasize:
 1. Instruction files solve the **consistency problem**
 2. Write rules for things you find yourself **repeating**
 3. Commit `.github/copilot-instructions.md` to Git for **team consistency**
 4. Custom agents allow **specialized behaviors**
-5. Use `/init` to auto-generate instructions from your codebase
+5. **Skills** give agents domain knowledge, loaded on demand
+6. **Prompt files** create reusable `/slash` commands for common tasks
+7. **Agent handoffs** enable multi-agent pipelines (Dev → QA → Prod)
+8. Use `/init` to auto-generate instructions from your codebase
 
 ### Demo Tips:
 - Show clear before/after comparison
 - Use same request both times for dramatic effect
 - Don't spend time on the file syntax — show the result
 - Highlight how tests appear automatically with rules
+- If time permits, show a `/CodeReview` prompt invocation
 
 ### Common Questions:
 - "Where do I put it?" → `.github/copilot-instructions.md` for project-wide, `.github/instructions/` for pattern-matched
@@ -502,6 +694,9 @@ tools: ['codebase', 'problems', 'terminalCommand', 'search']
 - "Can I have multiple files?" → Yes, use `.instructions.md` files with `applyTo` patterns
 - "Do rules slow down AI?" → No, they improve quality
 - "Does this work with other tools?" → Use `AGENTS.md` for cross-tool compatibility
+- "What's the difference between skills and instructions?" → Instructions are rules always applied; skills are domain knowledge loaded only when relevant
+- "What's the difference between agents and prompts?" → Agents are persistent personas; prompts are single-use task templates
+- "Can agents call other agents?" → Yes, via handoffs in YAML frontmatter — great for release pipelines
 
 ### Transition to Module 5:
 "Now you can control what AI produces. But how do you know it actually works? That's where automated testing and self-verification come in..."

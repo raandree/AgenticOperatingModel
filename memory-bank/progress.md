@@ -2,9 +2,9 @@
 
 ## Current Status
 
-**Phase**: Content Refocused to GitHub Copilot Agent Mode
+**Phase**: Content Enriched with MyCopilot Patterns
 **Started**: 2026-02-02
-**Last Updated**: 2026-02-24
+**Last Updated**: 2026-02-25
 **Status**: Updated and ready for review
 
 ## Completed
@@ -29,18 +29,18 @@
 - [x] Module 9: When to Use (15-20 min) - **Refocused to Copilot**
 - [x] Module 10: Your Agentic Future (10-15 min) - **Major refactor for Copilot resources & agents**
 
-### Demo Materials ✅ (Updated 2026-02-24)
-- [x] Main demo script with talking points - **Refocused to Copilot Agent Mode**
+### Demo Materials ✅ (Updated 2026-02-25)
+- [x] Main demo script with talking points - **Added bonus Skills/Prompts/Sync demo section**
 - [x] Sample copilot-instructions.md file
 - [x] Sample .instructions.md file (pattern-matched)
 - [x] Sample .agent.md file (custom agent)
 - [x] Troubleshooting guide
 
-### Supporting Materials ✅ (Updated 2026-02-24)
+### Supporting Materials ✅ (Updated 2026-02-25)
 - [x] Sample copilot-instructions.md for PowerShell module development
 - [x] Sample .instructions.md for PowerShell files
 - [x] Sample .agent.md for Pester test writer
-- [x] Quick reference cheat sheet - **Refocused to Copilot**
+- [x] Quick reference cheat sheet - **Added chat shortcuts, feature flags, expanded ecosystem**
 
 ### Research ✅ (Completed 2026-02-24)
 - [x] GitHub Copilot Agent Mode (Local/Background/Cloud/Third-party)
@@ -108,6 +108,9 @@ These are optional additions if time permits:
 
 - [ ] Module 6 slides: Cline Overview (for 4-hour version)
 - [ ] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
+- [ ] Migrate `.github/chatmodes/*.chatmode.md` to `.github/agents/*.agent.md` (documented, needs terminal)
+- [ ] Sample `SKILL.md` file for presentation materials
+- [ ] Sample `CodeReview.prompt.md` for presentation materials
 - [ ] Additional .instructions.md templates (testing, documentation, refactoring)
 - [ ] Additional .agent.md templates (code review, IaC, security)
 - [ ] Slide deck conversion to PowerPoint/Google Slides

@@ -40,7 +40,7 @@
 > Git provides context (structure, patterns) and traceability (what changed).
 
 ### 3. How do I control AI behavior?
-> Instruction files (copilot-instructions.md, .instructions.md) define standards. Custom agents (.agent.md) define specialized roles.
+> Instruction files (copilot-instructions.md, .instructions.md) define standards. Custom agents (.agent.md) define specialized roles. Skills add domain knowledge. Prompts create reusable commands. Handoffs chain agents together.
 
 ### 4. How can I trust AI-generated code?
 > Automated testing lets AI verify its own work, plus human review.
@@ -57,6 +57,11 @@
 ### Week 1: Setup
 ```
 □ Enable Copilot Agent Mode in VS Code (chat.agent.enabled)
+□ Enable recommended settings:
+  - chat.includeApplyingInstructions: true
+  - chat.includeReferencedInstructions: true
+  - github.copilot.chat.agent.thinkingTool: true
+  - github.copilot.chat.search.semanticTextResults: true
 □ Create your first .github/copilot-instructions.md
 □ Try the /init command to auto-generate instructions
 □ Try one simple task in Agent mode
@@ -67,6 +72,7 @@
 □ Use agentic workflow on a real (low-risk) task
 □ Create a .instructions.md file for your language
 □ Create a custom agent (.agent.md) for a common workflow
+□ Create a prompt file (.prompt.md) for a repeated task
 □ Watch the self-verification loop in action
 □ Review diffs carefully
 ```
@@ -75,6 +81,7 @@
 ```
 □ Add copilot-instructions.md to a team project
 □ Share custom agents with colleagues via .github/agents/
+□ Try agent handoffs (Dev → Security Review)
 □ Try background or cloud agent for a well-defined task
 □ Establish team conventions for AI use
 □ Build your prompt patterns library
@@ -150,6 +157,48 @@ Working tests in minutes, verified by the agent.
 
 ---
 
+## Slide 10.5a: Cross-Machine Customization Sync
+
+# Share Your Setup Across Machines
+
+VS Code lets you redirect all four customization locations to a synced folder (e.g., OneDrive):
+
+```powershell
+# Setup-CopilotSettings.ps1 — run once per machine
+$settingsPath = "$env:APPDATA\Code\User\settings.json"
+
+# Back up existing settings
+Copy-Item $settingsPath "$settingsPath.$(Get-Date -Format 'yyyyMMdd-HHmmss').bak"
+
+$settings = Get-Content $settingsPath -Raw | ConvertFrom-Json
+
+# Point all 4 customization types to OneDrive
+$settings | Add-Member -NotePropertyName 'chat.agentFilesLocations' `
+    -NotePropertyValue @{ '~/OneDrive/MyCopilot/Agents' = $true } -Force
+$settings | Add-Member -NotePropertyName 'chat.instructionsFilesLocations' `
+    -NotePropertyValue @{ '~/OneDrive/MyCopilot/Instructions' = $true } -Force
+$settings | Add-Member -NotePropertyName 'chat.agentSkillsLocations' `
+    -NotePropertyValue @{ '~/OneDrive/MyCopilot/Skills' = $true } -Force
+$settings | Add-Member -NotePropertyName 'chat.promptFilesLocations' `
+    -NotePropertyValue @{ '~/OneDrive/MyCopilot/Prompts' = $true } -Force
+
+# Enable recommended feature flags
+$settings | Add-Member -NotePropertyName 'chat.includeApplyingInstructions' `
+    -NotePropertyValue $true -Force
+$settings | Add-Member -NotePropertyName 'github.copilot.chat.agent.thinkingTool' `
+    -NotePropertyValue $true -Force
+
+$settings | ConvertTo-Json -Depth 10 | Set-Content $settingsPath -Encoding UTF8
+Write-Host "Restart VS Code to apply changes."
+```
+
+### What You Get:
+- Write an agent once, use it on every machine
+- OneDrive syncs your Instructions, Agents, Skills, and Prompts automatically
+- Works alongside per-project `.github/` customizations
+
+---
+
 ## Slide 10.6: Resources
 
 # Where to Learn More
@@ -197,6 +246,8 @@ Working tests in minutes, verified by the agent.
 | Documentation | `documenter.agent.md` | Documentation agent |
 | Refactoring | `refactor.agent.md` | Safe refactoring agent |
 | DevOps Pipeline | `devops.instructions.md` | CI/CD and pipeline code |
+| Code Review | `CodeReview.prompt.md` | Security review slash command |
+| Build Debug | `sampler-build-debug/SKILL.md` | Build troubleshooting skill |
 
 ### Where to Get Them:
 - Included in presentation materials
@@ -327,8 +378,10 @@ Working tests in minutes, verified by the agent.
 2. **Git** = Context + Traceability
 3. **Instruction files** = Consistent, quality output
 4. **Custom agents** = Specialized AI behaviors
-5. **Automated testing** = AI proves its work
-6. **Your judgment** = Still essential
+5. **Skills & prompts** = Domain knowledge + reusable commands
+6. **Agent handoffs** = Multi-agent pipelines
+7. **Automated testing** = AI proves its work
+8. **Your judgment** = Still essential
 
 > **Start small. Build confidence. Transform your workflow.**
 
@@ -343,10 +396,11 @@ Working tests in minutes, verified by the agent.
 ### Timing: 10-15 minutes (including Q&A)
 
 ### Key Points:
-1. Recap the five core concepts
-2. Give actionable next steps
-3. Provide resources
-4. Inspire action, not intimidation
+1. Recap the core concepts (now including skills, prompts, handoffs)
+2. Give actionable next steps (including VS Code settings)
+3. Show cross-machine sync as an advanced pattern
+4. Provide resources
+5. Inspire action, not intimidation
 
 ### Q&A Tips:
 - Common questions and answers prepared

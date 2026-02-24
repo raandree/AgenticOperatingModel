@@ -20,6 +20,11 @@ This is the primary demonstration that showcases all agentic coding concepts wor
 2. **Have VS Code ready** with:
    - GitHub Copilot extension installed and signed in
    - Agent Mode enabled (`chat.agent.enabled`)
+   - Recommended settings enabled:
+     - `chat.includeApplyingInstructions`: true
+     - `chat.includeReferencedInstructions`: true
+     - `github.copilot.chat.agent.thinkingTool`: true
+     - `github.copilot.chat.search.semanticTextResults`: true
    - Clean Chat history
    - Terminal visible
    - Explorer visible
@@ -214,6 +219,55 @@ git commit -m "feat: add ConfigValidator module with JSON and YAML validation
 
 ---
 
+## Demo Part 6 (Bonus): Skills, Prompts & Cross-Machine Sync (5-7 minutes)
+
+> Only include this section in the 4-hour version or if time permits.
+
+### 6A: Show a Prompt File
+
+1. **Show pre-created prompt file**:
+   ```
+   .github/prompts/CodeReview.prompt.md
+   ```
+
+2. **Explain the structure**:
+   > "This is a prompt file. See the YAML frontmatter? It declares which tools to use and what mode. The body is a reusable template."
+
+3. **Invoke it**:
+   > "Watch — I type `/CodeReview` in chat, and the entire multi-phase security review runs automatically."
+
+### 6B: Show a Skill File
+
+1. **Show pre-created skill**:
+   ```
+   .github/skills/sampler-build-debug/SKILL.md
+   ```
+
+2. **Explain the trigger mechanism**:
+   > "See the description? `USE FOR: build errors, Pester failures`. Copilot reads this and automatically loads the skill when you ask about build problems. You don't invoke it — it activates itself."
+
+3. **Key difference**:
+   > "Instructions are rules that always apply. Skills are knowledge that loads only when relevant."
+
+### 6C: Show Cross-Machine Sync (If Time)
+
+1. **Show the VS Code settings**:
+   > "Here's an advanced pattern. You can redirect all four customization paths to OneDrive. Write an agent once, use it on every machine."
+
+   ```jsonc
+   "chat.agentFilesLocations": { "~/OneDrive/MyCopilot/Agents": true }
+   "chat.instructionsFilesLocations": { "~/OneDrive/MyCopilot/Instructions": true }
+   "chat.agentSkillsLocations": { "~/OneDrive/MyCopilot/Skills": true }
+   "chat.promptFilesLocations": { "~/OneDrive/MyCopilot/Prompts": true }
+   ```
+
+2. **Show the setup script**:
+   > "I have a PowerShell script that configures this — it merges settings, creates backups, and sets up all the feature flags. Run it once per machine, restart VS Code, done."
+
+> **Key Message**: "Your Copilot customization doesn't have to be per-project. You can carry your best agents, instructions, skills, and prompts everywhere."
+
+---
+
 ## Key Messages to Reinforce
 
 Throughout the demo, return to these points:
@@ -267,7 +321,8 @@ Throughout the demo, return to these points:
 | Add Feature | 3 min | 7-10 min |
 | Traceability | 3 min | 5 min |
 | Commit | 2 min | 2 min |
-| **Total** | **15 min** | **30-35 min** |
+| Bonus: Skills/Prompts/Sync | - | 5-7 min |
+| **Total** | **15 min** | **35-42 min** |
 
 ---
 
@@ -290,6 +345,7 @@ After the demo, show this summary:
 │   • Comprehensive test suite                                   │
 │   • All tests passing                                          │
 │   • Full Git history                                           │
+│   • (Bonus) Prompt files, skills, and cross-machine sync       │
 │                                                                 │
 │   What I Did:                                                  │
 │   • Described requirements in natural language                 │

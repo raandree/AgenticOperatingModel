@@ -1,18 +1,47 @@
-# Software Release Pipeline Chat Modes
+# Software Release Pipeline Agents
 
-This directory contains AI agent chat modes that represent different roles in a structured software development lifecycle (SDLC) and release pipeline.
+> **Migration Notice**: The `.chatmode.md` format in this directory is **deprecated**.
+> VS Code now uses `.agent.md` files in `.github/agents/` with enhanced YAML frontmatter
+> (name, model, argument-hint, agents, handoffs). Migrate these files to `.github/agents/`
+> using the new format shown below.
 
-## Purpose
+This directory contains AI agent definitions that represent different roles in a structured software development lifecycle (SDLC) and release pipeline.
 
-Each chat mode is designed to handle a specific phase of the software development and release process, ensuring comprehensive coverage from initial development through production deployment. These modes work together to maintain high code quality, security standards, and production readiness.
+## New `.agent.md` Format (Recommended)
 
-## Available Chat Modes
+The current format adds these YAML frontmatter fields over the old `.chatmode.md`:
+
+```yaml
+---
+description: 'Agent description'
+name: software-engineer           # NEW: agent identifier
+model: 'Claude Opus 4.6 (copilot)' # NEW: preferred model
+argument-hint: 'Describe the task' # NEW: placeholder text
+tools: ['editFiles', 'codebase', 'runTests']
+agents: ['security-reviewer']     # NEW: subagent references
+handoffs:                         # NEW: handoff definitions
+  - label: Run Security Review
+    agent: security-reviewer
+    prompt: Review the code changes for vulnerabilities.
+    send: false
+---
+```
+
+## Migration Steps
+
+1. Create `.github/agents/` directory
+2. Copy each `.chatmode.md` file to `.github/agents/` as `.agent.md`
+3. Add `name`, `model`, `argument-hint`, `agents`, and `handoffs` to YAML frontmatter
+4. Remove the old `.chatmode.md` files (or keep for reference)
+
+## Available Agents
 
 ### 1. Software Engineer Agent v1
 
 **Role**: Development and Implementation  
 **Phase**: Code Development  
-**File**: `Software Engineer Agent v1.chatmode.md`
+**Current File**: `Software Engineer Agent v1.chatmode.md` (deprecated)  
+**Migrate To**: `.github/agents/software-engineer.agent.md`
 
 **Responsibilities**:
 
@@ -46,7 +75,8 @@ Each chat mode is designed to handle a specific phase of the software developmen
 
 **Role**: Security Validation and Production Readiness  
 **Phase**: Pre-Production Validation  
-**File**: `Security & Quality Assurance Agent v1.chatmode.md`
+**Current File**: `Security & Quality Assurance Agent v1.chatmode.md` (deprecated)  
+**Migrate To**: `.github/agents/security-reviewer.agent.md`
 
 **Responsibilities**:
 
@@ -172,15 +202,17 @@ Both chat modes integrate with the Memory Bank for context awareness:
 
 ## Usage Instructions
 
-### Activating a Chat Mode
+### Activating an Agent
 
 In VS Code with GitHub Copilot:
 
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-2. Select "GitHub Copilot: Select Chat Mode"
-3. Choose the appropriate mode for your current phase:
-   - **Development**: "Software Engineer Agent v1"
-   - **Security/QA**: "Security & Quality Assurance Agent v1"
+1. Open the Chat view
+2. Click the agent dropdown at the top of the chat input
+3. Select the appropriate agent for your current phase:
+   - **Development**: "software-engineer"
+   - **Security/QA**: "security-reviewer"
+   - **Documentation**: "technical-writer"
+4. Use handoff buttons to transition between agents (e.g., "Run Security Review")
 
 ### Example Workflows
 
@@ -239,7 +271,8 @@ In VS Code with GitHub Copilot:
 
 **Role**: Content Creation and Documentation  
 **Phase**: Documentation and Knowledge Transfer  
-**File**: `Technical Writer & Documentation Agent v1.chatmode.md`
+**Current File**: `Technical Writer & Documentation Agent v1.chatmode.md` (deprecated)  
+**Migrate To**: `.github/agents/technical-writer.agent.md`
 
 **Responsibilities**:
 
@@ -300,6 +333,7 @@ When creating new chat modes:
 
 ## Version History
 
+- **v2.0.0** (2026-02-25): Migration to `.agent.md` format with handoffs, model preferences, and subagent references
 - **v1.2.0** (2025-11-28): Added Security & Quality Assurance Agent v1
 - **v1.1.0** (2025-11-25): Enhanced with 2025 threat intelligence
 - **v1.0.0** (Initial): Software Engineer Agent v1

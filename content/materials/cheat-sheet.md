@@ -23,6 +23,9 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 | **Self-Verification** | AI runs tests to prove its own work |
 | **Instruction Files** | copilot-instructions.md defines your standards |
 | **Custom Agents** | .agent.md files for specialized AI behaviors |
+| **Skills** | SKILL.md files with domain knowledge loaded on demand |
+| **Prompt Files** | .prompt.md files for reusable /slash commands |
+| **Agent Handoffs** | Agents delegating to other agents (Dev → QA → Prod) |
 | **Traceability** | Git tracks all AI changes |
 
 ---
@@ -153,6 +156,26 @@ git commit -m "feat: description
 | Enable Tools | Click Configure Tools in chat input |
 | Auto-generate Instructions | Type `/init` in chat |
 
+## Chat Shortcuts
+
+| Command | Action |
+|---------|--------|
+| `/init` | Generate workspace instructions from your codebase |
+| `/agents` | Configure Custom Agents menu |
+| `/instructions` | Configure Instructions and Rules menu |
+| `/skills` | Configure Skills menu |
+| `/prompts` | Configure Prompt Files menu |
+| `/YourPromptName` | Run a prompt file as a slash command |
+
+## Recommended VS Code Settings
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `chat.includeApplyingInstructions` | `true` | Auto-apply `.instructions.md` files when `applyTo` glob matches |
+| `chat.includeReferencedInstructions` | `true` | Follow Markdown links in instruction files |
+| `github.copilot.chat.agent.thinkingTool` | `true` | Enable reasoning tool for complex problems |
+| `github.copilot.chat.search.semanticTextResults` | `true` | Improve search results with semantic matching |
+
 ---
 
 ## Test-First Pattern
@@ -198,24 +221,37 @@ git commit -m "feat: description
 
 ---
 
-## Instruction File Ecosystem
+## Copilot Customization Ecosystem
 
-| Type | File | Scope |
-|------|------|-------|
-| **Always-on** | `.github/copilot-instructions.md` | All chat requests |
-| **Always-on** | `AGENTS.md` | Cross-tool compatible |
-| **Pattern-matched** | `.github/instructions/*.instructions.md` | Specific file types |
-| **Custom Agent** | `.github/agents/*.agent.md` | Per-agent persona |
-| **Cross-tool** | `CLAUDE.md` | Claude Code compatible |
+| # | Type | File | When It Activates |
+|---|------|------|--------------------|
+| 1 | **Project Instructions** | `.github/copilot-instructions.md` | Every chat request |
+| 2 | **Pattern-Matched** | `.github/instructions/*.instructions.md` | When `applyTo` glob matches |
+| 3 | **Custom Agents** | `.github/agents/*.agent.md` | When agent is selected |
+| 4 | **Skills** | `.github/skills/*/SKILL.md` | Auto-detected by description keywords |
+| 5 | **Prompt Files** | `.github/prompts/*.prompt.md` | When `/command` is typed |
+| 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on |
 
 ### Other Tools' Instruction Files
 
 | Tool | File | Purpose |
-|------|------|---------|
+|------|------|---------||
 | **Cline** | `.clinerules/*.md` | Project-specific rules |
 | **Claude Code** | `CLAUDE.md` | Project instructions |
 | **Cursor** | `.cursor/rules/*.md` | Project rules |
 | **Windsurf** | Memories + Rules | Project context |
+
+### Cross-Machine Sync (Advanced)
+
+Share your customizations across machines via OneDrive:
+
+```jsonc
+// VS Code settings.json
+"chat.agentFilesLocations":        { "~/OneDrive/MyCopilot/Agents": true }
+"chat.instructionsFilesLocations": { "~/OneDrive/MyCopilot/Instructions": true }
+"chat.agentSkillsLocations":       { "~/OneDrive/MyCopilot/Skills": true }
+"chat.promptFilesLocations":       { "~/OneDrive/MyCopilot/Prompts": true }
+```
 
 ---
 
@@ -228,7 +264,7 @@ git commit -m "feat: description
    > Context + Traceability
 
 3. **How to control AI?**
-   > copilot-instructions.md + custom agents
+   > Instructions, agents, skills, prompts, and handoffs
 
 4. **How to trust AI code?**
    > Automated testing + human review
