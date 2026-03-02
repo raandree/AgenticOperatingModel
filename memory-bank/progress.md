@@ -104,9 +104,7 @@ d:\Git\x\
 These are optional additions if time permits:
 
 - [ ] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
-- [ ] Migrate `.github/chatmodes/*.chatmode.md` to `.github/agents/*.agent.md` (documented, needs terminal)
 - [ ] Sample `SKILL.md` file for presentation materials
-- [ ] Sample `CodeReview.prompt.md` for presentation materials
 - [ ] Additional .instructions.md templates (testing, documentation, refactoring)
 - [ ] Additional .agent.md templates (code review, IaC, security)
 - [ ] Slide deck conversion to PowerPoint/Google Slides

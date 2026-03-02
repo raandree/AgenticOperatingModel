@@ -14,8 +14,7 @@ Analyzed the user's personal MyCopilot project (`~/OneDrive/MyCopilot/`) and int
 1. **Skills & Prompts slides** — Added slides 4.10-4.11 covering two previously missing Copilot customization types
 2. **Chat shortcuts** — Added `/agents`, `/instructions`, `/skills`, `/prompts`, `/init` table to cheat sheet
 3. **Feature flags** — Added `thinkingTool`, `semanticTextResults`, `includeApplyingInstructions`, `includeReferencedInstructions` to cheat sheet and demo setup
-4. **Chatmode → Agent migration** — Documented migration path from deprecated `.chatmode.md` to `.agent.md` format in `.github/chatmodes/README.md`
-5. **Agent Handoffs & Release Pipeline** — Added slide 4.12 showing multi-agent Dev→QA→Prod pipeline with handoffs
+4. **Agent Handoffs & Release Pipeline** — Added slide 4.12 showing multi-agent Dev→QA→Prod pipeline with handoffs
 6. **OneDrive sync pattern** — Added Module 10 slide showing cross-machine customization sync with PowerShell setup script
 7. **Richer agent examples** — Enhanced slides 4.8-4.9 with production-grade patterns (model preferences, zero-confirmation, subagents, handoffs, CVSS scoring)
 

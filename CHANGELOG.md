@@ -23,6 +23,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Cheat sheet: Added Recommended VS Code Settings table (4 feature flags)
   - Cheat sheet: Expanded Key Concepts with Skills, Prompt Files, Agent Handoffs
   - Cheat sheet: Expanded Customization Ecosystem to 6-type table with cross-machine sync example
+
+### Removed
+
+- `.clinerules/` directory (Cline-specific configuration files)
+- `.github/chatmodes/` directory (deprecated chatmode format)
+- `.github/instructions/` directory (moved to personal MyCopilot sync)
+- `.github/prompts/` directory (moved to personal MyCopilot sync)
+- `content/materials/sample-clinerules/` directory
   - `.github/chatmodes/README.md`: Added migration notice and `.agent.md` format guide
 - **Pivoted primary demo tool from Cline to GitHub Copilot Agent Mode**
   - All 7 slide modules refocused for Copilot as primary tool
@@ -66,7 +74,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Deprecated
 
-- `content/materials/sample-clinerules/` directory kept for cross-tool reference but no longer primary
+- *(No current deprecations)*
 
 ### Documentation
 
