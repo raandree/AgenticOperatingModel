@@ -18,7 +18,7 @@
 
 - **A)** Code autocomplete (Copilot, Tabnine)
 - **B)** Chat assistants (ChatGPT, Claude)
-- **C)** AI agents (Copilot Agent Mode, Cursor, Cline, Claude Code)
+- **C)** AI agents (Copilot Agent Mode, Cursor, Claude Code)
 - **D)** Not yet using AI for coding
 
 ---

@@ -214,7 +214,7 @@ git commit -m "feat: description
 - **Agent Tools & MCP**: https://code.visualstudio.com/docs/copilot/agents/agent-tools
 - **Copilot Coding Agent**: https://docs.github.com/copilot/using-github-copilot/using-copilot-coding-agent
 - **Agentic Workflows**: https://github.github.com/gh-aw/
-- **Alternative Tools**: Cline (github.com/cline/cline), Cursor (cursor.com), Claude Code (code.claude.com)
+- **Alternative Tools**: Cursor (cursor.com), Claude Code (code.claude.com)
 - **MCP Standard**: https://modelcontextprotocol.io
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
@@ -236,7 +236,6 @@ git commit -m "feat: description
 
 | Tool | File | Purpose |
 |------|------|---------||
-| **Cline** | `.clinerules/*.md` | Project-specific rules |
 | **Claude Code** | `CLAUDE.md` | Project instructions |
 | **Cursor** | `.cursor/rules/*.md` | Project rules |
 | **Windsurf** | Memories + Rules | Project context |

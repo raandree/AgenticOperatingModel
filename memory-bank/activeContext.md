@@ -20,7 +20,7 @@ Analyzed the user's personal MyCopilot project (`~/OneDrive/MyCopilot/`) and int
 7. **Richer agent examples** — Enhanced slides 4.8-4.9 with production-grade patterns (model preferences, zero-confirmation, subagents, handoffs, CVSS scoring)
 
 ### Copilot Pivot (2026-02-24)
-Refocused entire presentation from Cline to GitHub Copilot Agent Mode as the primary demo tool. Copilot has feature parity with all competitors and the richest instruction file ecosystem (5 file types vs Cline's 1, plus org-level sharing).
+Refocused entire presentation to GitHub Copilot Agent Mode as the primary demo tool. Copilot has the richest instruction file ecosystem (5 file types, plus org-level sharing).
 
 ### Landscape Research Update (2026-02-24)
 Conducted comprehensive web research to update the project with the current state of the agentic coding landscape. Major findings and updates applied across slides, tech context, and materials.
@@ -41,7 +41,6 @@ Conducted comprehensive web research to update the project with the current stat
 - **Copilot Coding Agent**: Autonomous cloud agent that creates PRs via GitHub Actions
 
 #### Alternative Tools (Referenced, Not Primary)
-- **Cline** (v3.67+, 58K+ stars): Open-source VS Code extension with .clinerules
 - **Cursor** (v2.5): Standalone IDE with Cloud Agents, Plugins
 - **Windsurf**: Cascade agent, 1M+ users
 - **Claude Code**: Multi-surface agentic tool with CLAUDE.md
@@ -98,11 +97,11 @@ Created foundational Memory Bank with:
    - [x] Research Copilot Agent Mode documentation for latest features
    - [x] Identify additional relevant topics for audience
    - [x] Document best practices and patterns
-   - [x] Research competitor landscape (Cline, Cursor, Windsurf, Claude Code)
+   - [x] Research competitor landscape (Cursor, Windsurf, Claude Code)
    - [x] Research GitHub Copilot Agent Mode and Coding Agent
    - [x] Research MCP developments
    - [x] Update slides and materials with findings
-   - [x] Pivot all content from Cline to Copilot as primary tool
+   - [x] Pivot all content to Copilot as primary tool
 
 2. **Content Review** (Completed 2026-02-24)
    - [x] Review all content for accuracy with updated landscape
@@ -124,7 +123,7 @@ Created foundational Memory Bank with:
 - Supporting: Slides for concepts and diagrams
 - Interactive: Q&A encouraged throughout
 - Hands-on: At least one attendee exercise
-- Note: Attendees may ask about Cline/Cursor/Windsurf/Claude Code - be prepared to compare
+- Note: Attendees may ask about Cursor/Windsurf/Claude Code - be prepared to compare
 
 ### Audience Assumptions
 - Strong PowerShell scripting skills

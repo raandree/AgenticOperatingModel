@@ -160,7 +160,7 @@
 - Oh-My-Posh (for terminal aesthetics)
 
 ### Alternative/Complementary Agentic Tools (Feb 2026)
-- **Cline** (v3.67+, 58K+ stars): Open-source VS Code extension, Enterprise edition, Skills & Subagents
+- **Cline** (v3.67+, 58K+ stars) - Open-source VS Code extension, Enterprise edition, Skills & Subagents
 - **Cursor** (v2.5) - Standalone IDE with Cloud Agents, Plugins, Async Subagents
 - **Windsurf** (by Cognition) - Cascade agent, 1M+ users, JetBrains plugin
 - **Claude Code** (Anthropic) - Terminal CLI, VS Code, Desktop app, Web, JetBrains
@@ -285,7 +285,6 @@ DemoModule/
 #### Other Tools
 | Tool | Instruction File | Scope |
 |------|-------------------|-------|
-| Cline | `.clinerules/` directory with `*.md` files | Project-level rules |
 | Claude Code | `CLAUDE.md` | Project-level instructions |
 | Cursor | `.cursor/rules/` directory | Project-level rules |
 | Windsurf | Memories + Rules system | Project-level context |

@@ -49,7 +49,7 @@ The presentation uses GitHub Copilot Agent Mode as the primary demo tool because
 - **Likely AI Experience (Feb 2026)**:
   - Most will have used GitHub Copilot autocomplete
   - Some may have tried Copilot Chat or Agent Mode
-  - Few will have used dedicated agentic tools like Cline or Cursor
+  - Few will have used dedicated agentic tools like Cursor
   - Almost none will have configured instruction files
 
 ### Secondary: DevOps Engineers

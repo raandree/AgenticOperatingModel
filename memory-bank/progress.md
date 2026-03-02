@@ -47,7 +47,6 @@
 - [x] GitHub Copilot Coding Agent (autonomous PR creation, Windows support)
 - [x] Copilot instruction file ecosystem (5 file types)
 - [x] Custom agents (.agent.md) with tools and handoffs
-- [x] Cline v3.67.0 features (alternative tool reference)
 - [x] Cursor v2.5 (alternative tool reference)
 - [x] Windsurf/Cascade (alternative tool reference)
 - [x] Claude Code (alternative tool reference)
@@ -81,8 +80,6 @@ d:\Git\x\
     │   └── demo-script-main.md
     └── materials/
         ├── cheat-sheet.md
-        ├── sample-clinerules/           # Legacy - kept for reference
-        │   └── powershell-module.clinerules.md
         └── sample-copilot-instructions/  # Primary samples
             ├── copilot-instructions.md
             ├── powershell.instructions.md
@@ -98,7 +95,7 @@ d:\Git\x\
 | All Core Slides | ✅ Updated | Modules 1-5, 9-10 (Copilot-focused) |
 | Main Demo Script | ✅ Updated | Copilot Agent Mode workflow |
 | Sample Copilot Instructions | ✅ Ready | 3 sample files (instructions, pattern, agent) |
-| Sample .clinerules | ✅ Legacy | Kept for cross-tool reference |
+
 | Cheat Sheet | ✅ Updated | Refocused on Copilot |
 | Landscape Research | ✅ Complete | Copilot primary, alternatives referenced |
 
@@ -106,7 +103,6 @@ d:\Git\x\
 
 These are optional additions if time permits:
 
-- [ ] Module 6 slides: Cline Overview (for 4-hour version)
 - [ ] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
 - [ ] Migrate `.github/chatmodes/*.chatmode.md` to `.github/agents/*.agent.md` (documented, needs terminal)
 - [ ] Sample `SKILL.md` file for presentation materials

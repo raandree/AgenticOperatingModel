@@ -212,7 +212,6 @@ Write-Host "Restart VS Code to apply changes."
 - **Agentic Workflows**: https://github.github.com/gh-aw/
 
 ### Alternative Agentic Tools
-- **Cline**: https://github.com/cline/cline (Open-source, 58K+ stars)
 - **Cursor**: https://cursor.com (Dedicated AI editor, v2.5+)
 - **Windsurf**: https://windsurf.com (Cascade agent)
 - **Claude Code**: https://code.claude.com (Terminal + IDE)
@@ -262,7 +261,7 @@ Write-Host "Restart VS Code to apply changes."
 
 ### Already Here (Feb 2026):
 - **Cloud agents** creating PRs autonomously (Copilot Coding Agent, Cursor Cloud Agents)
-- **Multi-agent systems** with subagents and skills (Cline v3.58+, Cursor 2.5)
+- **Multi-agent systems** with subagents and skills (Copilot Agent Handoffs, Cursor 2.5)
 - **Agentic CI/CD workflows** in Markdown (GitHub Agentic Workflows)
 - **Universal tool protocol** via MCP (Linux Foundation standard)
 - **Cross-IDE support** (VS Code, JetBrains, Visual Studio, Xcode, Eclipse, Zed)
