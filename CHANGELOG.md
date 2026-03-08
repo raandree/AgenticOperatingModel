@@ -6,7 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Integrated brainstorming notes from PSConfEU 2026 session planning** (Thorsten & Raimund, 2026-03-07)
+  - Module 2: Added Slide 2.0 "Foundational Vocabulary" with 10 key terms (Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP)
+  - Module 1: Added Slide 1.4a "Tokens, Context Windows & Cost" covering token economics, context window sizes, and a hands-on lab idea
+  - Module 9: Added Slide 9.8a "Agent Security & Boundaries" covering agent capabilities, safeguards, and restriction mechanisms
+  - Module 9: Added Slide 9.8b "The Cardinal Rule" with guiding principle "Know what you are doing"
+  - Module 10: Added complementary tools (Warp, GitHub Copilot CLI, Zed) to resources slide
+  - Cheat sheet: Added Token Usage & Cost section, Agent Security & Boundaries section, Guiding Principle section
+  - Cheat sheet: Expanded Key Concepts table with 6 new terms (Model, Agent, Tools, Token, Context Window, Memory Bank, MCP)
+  - Cheat sheet: Added complementary tools to Resources section
+
 ### Changed
+
+- **Integrated brainstorming notes into agenda and speaker notes** (2026-03-07)
+  - Module 2 agenda: Added "Foundational Vocabulary" as first content item
+  - Module 9 agenda: Added "Agent Security & Boundaries" section, added guiding principle to Human Role section, rebalanced timing
+  - Module 1 speaker notes: Added token/cost emphasis and new Q&A item
+  - Module 9 speaker notes: Added security and guiding principle emphasis, two new Q&A items
+  - Memory bank: Updated activeContext.md and progress.md with integration record
 
 - **Integrated MyCopilot project patterns into presentation content**
   - Module 4: Added 4 new slides (Skills, Prompts, Agent Handoffs, Complete Customization Ecosystem)

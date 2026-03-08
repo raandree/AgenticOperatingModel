@@ -5,9 +5,20 @@
 **Task**: Maintain and update comprehensive 2-4 hour agentic coding presentation
 **Target Audience**: PowerShell Developers & DevOps Engineers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
-**Last Updated**: 2026-02-25
+**Last Updated**: 2026-03-07
 
 ## Recent Decisions
+
+### Brainstorming Notes Integration (2026-03-07)
+Incorporated brainstorming notes from Thorsten and Raimund (PSConfEU 2026 session "Reverse AI-ngineering") across the presentation:
+1. **Foundational Vocabulary slide** (Slide 2.0) — New glossary of 10 key terms (Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP) added to Module 2
+2. **Token Usage & Cost slide** (Slide 1.4a) — New slide covering token economics, context window sizes, cost awareness, and a hands-on lab idea
+3. **Agent Security & Boundaries slide** (Slide 9.8a) — New slide on agent capabilities, safeguards (tool approval, sandboxing, checkpoints), and restriction mechanisms
+4. **Guiding Principle slide** (Slide 9.8b) — "Know what you are doing" principle with understanding-vs-automation paradox
+5. **Complementary Tools** — Added Warp, GitHub Copilot CLI, and Zed to Module 10 resources and cheat sheet
+6. **Cheat sheet expanded** — Added Token/Cost section, Agent Security section, expanded Key Concepts table (6 new terms), Guiding Principle section, complementary tools
+7. **Agenda updated** — Module 2 now starts with vocabulary, Module 9 adds security/boundaries and guiding principle sections, timing rebalanced
+8. **Speaker notes enriched** — Module 1 and Module 9 speaker notes updated with new Q&A items
 
 ### MyCopilot Integration (2026-02-25)
 Analyzed the user's personal MyCopilot project (`~/OneDrive/MyCopilot/`) and integrated 7 content enrichments into the presentation:

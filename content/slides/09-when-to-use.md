@@ -198,6 +198,87 @@ Your domain knowledge          AI's understanding
 
 ---
 
+## Slide 9.8a: Agent Security & Boundaries
+
+# What Can the Agent Do?
+
+### Understanding agent capabilities:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   AGENT CAPABILITY BOUNDARIES                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ✅ WHAT AGENTS CAN DO                                        │
+│   ─────────────────────                                        │
+│   • Read and write files in the workspace                      │
+│   • Execute terminal commands                                  │
+│   • Search and analyze code                                    │
+│   • Install packages and dependencies                          │
+│   • Access MCP servers (databases, APIs, web)                  │
+│   • Create, modify, and delete files                           │
+│                                                                 │
+│   ⚠️ SAFEGUARDS THAT EXIST                                     │
+│   ─────────────────────────                                     │
+│   • Tool approval prompts (manual/auto modes)                  │
+│   • Terminal sandboxing (file system + network restrictions)    │
+│   • Checkpoint/rollback system for undo                        │
+│   • Commands require user confirmation (by default)            │
+│   • No access outside workspace (unless configured)            │
+│                                                                 │
+│   🔒 HOW TO RESTRICT                                           │
+│   ───────────────────                                           │
+│   • Set tool approval to "Ask always" for sensitive operations │
+│   • Limit terminal access in VS Code settings                  │
+│   • Use .gitignore to hide sensitive files from context        │
+│   • Define security rules in copilot-instructions.md           │
+│   • Restrict MCP server permissions                            │
+│   • Use organization policies for team-wide guardrails         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Key question to ask yourself:
+> "What is the worst thing the agent could do with the access I've given it?"
+
+---
+
+## Slide 9.8b: The Cardinal Rule
+
+# Know What You Are Doing
+
+> Even when it looks like programming is no longer required, understanding the underlying code and infrastructure remains **essential**.
+
+### Why understanding still matters:
+
+| Without Understanding | With Understanding |
+|----------------------|--------------------|
+| Can't review AI output | Catch errors and vulnerabilities |
+| Can't debug failures | Know where to look |
+| Can't make design decisions | Guide AI toward better solutions |
+| Blind trust in generated code | Informed trust based on review |
+| Helpless when AI is wrong | Can correct and improve |
+
+### The paradox:
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│   AI makes you FASTER                   │
+│   but NOT more knowledgeable.           │
+│                                         │
+│   You must invest in understanding      │
+│   BEFORE you automate.                  │
+│                                         │
+│   The better you understand the code,   │
+│   the better you can direct the agent.  │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+> **You are the pilot. AI is the autopilot. You still need to know how to fly.**
+
+---
+
 ## Slide 9.9: When to Avoid
 
 # Don't Use Agentic Coding Here ❌
@@ -390,12 +471,15 @@ Your domain knowledge          AI's understanding
 3. Be extra careful with security and complex logic
 4. **If you can't verify it, don't generate it**
 5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
 
 ### Common Questions:
 - "Will AI replace me?" → No, it changes your role, you're more valuable
 - "What about liability?" → You own what you commit
 - "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
 
 ### Tone:
 - Be honest about limitations

@@ -129,7 +129,11 @@ After 2 hours, attendees will understand:
 
 **Content**:
 
-1. **Defining "Agent"** (10 min)
+1. **Foundational Vocabulary** (5 min)
+   - Key terms: Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP
+   - Ensure all attendees speak the same language before hands-on work
+
+2. **Defining "Agent"** (10 min)
    - An agent has: goals, context, tools, autonomy
    - Compare: Copilot autocomplete vs. Copilot Agent Mode
    - The agent loop: Observe → Plan → Act → Verify → Iterate
@@ -474,15 +478,22 @@ After 2 hours, attendees will understand:
    - Repetitive modifications
    - Prototyping
 
-2. **Where to Be Careful** ⚠️ (7 min)
+2. **Agent Security & Boundaries** (5 min)
+   - What can the agent do? Where are the limits?
+   - How to restrict agent capabilities
+   - Safeguards: tool approval, sandboxing, checkpoints
+   - Organization policies for team-wide guardrails
+
+3. **Where to Be Careful** ⚠️ (5 min)
    - Security-sensitive code
    - Complex business logic
    - Performance-critical paths
    - Code you don't understand
    - When you can't verify the result
 
-3. **The Human Role** (6 min)
+3. **The Human Role** (3 min)
    - You're the architect, AI is the builder
+   - **Know what you are doing** — understanding the code remains essential
    - Review everything before committing
    - Tests are your safety net
    - Don't trust, verify

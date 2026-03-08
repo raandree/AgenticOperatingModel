@@ -216,6 +216,11 @@ Write-Host "Restart VS Code to apply changes."
 - **Windsurf**: https://windsurf.com (Cascade agent)
 - **Claude Code**: https://code.claude.com (Terminal + IDE)
 
+### Complementary Tools
+- **Warp**: https://warp.dev (AI-native terminal with smart completions)
+- **GitHub Copilot CLI**: https://docs.github.com/copilot/using-github-copilot/using-github-copilot-in-the-command-line (AI assistance on the command line)
+- **Zed**: https://zed.dev (Fast, collaborative code editor with built-in AI features)
+
 ### Model Context Protocol (MCP)
 - **Specification**: https://modelcontextprotocol.io
 - **Servers**: https://github.com/modelcontextprotocol/servers

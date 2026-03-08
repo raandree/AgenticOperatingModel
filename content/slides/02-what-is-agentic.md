@@ -1,5 +1,29 @@
 # Module 2: What Makes Coding "Agentic"?
 
+## Slide 2.0: Foundational Vocabulary
+
+# Speaking the Same Language
+
+Before diving into agentic coding, let's align on the key terms:
+
+| Term | Definition |
+|------|------------|
+| **Model** | The underlying large language model (LLM) that powers AI tools |
+| **Agent** | An autonomous AI entity that can plan and execute tasks |
+| **Tools** | Capabilities an agent can invoke (file I/O, terminal, search, etc.) |
+| **Skill** | On-demand domain expertise packaged as a reusable knowledge file (`SKILL.md`) |
+| **Instructions** | Rule sets (`.instructions.md`) that govern agent behavior |
+| **Prompt** | The input or directive given to the model |
+| **Memory Bank** | Persistent knowledge base maintained across sessions |
+| **Token** | The smallest unit of text the model processes (~4 characters in English) |
+| **Context Window** | The maximum amount of text (tokens) a model can consider at once |
+| **MCP** | Model Context Protocol — a standard for connecting agents to external tools and data sources |
+
+### Why this matters:
+> Every tool and article in this space uses these terms. Understanding them is the foundation for everything that follows.
+
+---
+
 ## Slide 2.1: Defining "Agent"
 
 # What IS an Agent?

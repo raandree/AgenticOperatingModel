@@ -18,7 +18,12 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 
 | Concept | Definition |
 |---------|------------|
+| **Model** | The underlying large language model (LLM) that powers AI tools |
+| **Agent** | An autonomous AI entity that plans and executes tasks |
+| **Tools** | Capabilities an agent can invoke (file I/O, terminal, search, etc.) |
 | **Agentic Coding** | AI that autonomously executes multi-step tasks |
+| **Token** | The smallest unit of text the model processes (~4 chars) |
+| **Context Window** | The maximum amount of text (tokens) a model can consider at once |
 | **Context** | Repository structure, existing code, patterns |
 | **Self-Verification** | AI runs tests to prove its own work |
 | **Instruction Files** | copilot-instructions.md defines your standards |
@@ -26,6 +31,8 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 | **Skills** | SKILL.md files with domain knowledge loaded on demand |
 | **Prompt Files** | .prompt.md files for reusable /slash commands |
 | **Agent Handoffs** | Agents delegating to other agents (Dev → QA → Prod) |
+| **Memory Bank** | Persistent knowledge base maintained across sessions |
+| **MCP** | Model Context Protocol — standard for connecting agents to external tools |
 | **Traceability** | Git tracks all AI changes |
 
 ---
@@ -99,6 +106,51 @@ with exponential backoff. Keep existing tests passing."
 - Code you can't review
 - No way to verify results
 - High-stakes without testing
+
+---
+
+## Guiding Principle
+
+> **Know what you are doing.** Even when it looks like programming is no longer required, understanding the underlying code and infrastructure remains essential.
+
+- AI makes you faster, but NOT more knowledgeable
+- Invest in understanding BEFORE you automate
+- You are the pilot; AI is the autopilot
+- The better you understand the code, the better you can direct the agent
+
+---
+
+## Token Usage & Cost Awareness
+
+| Model | Context Window |
+|-------|----------------|
+| Claude Opus 4.6 | Up to 1M tokens |
+| GPT-5.3-Codex | 256K tokens |
+| Gemini 3.1 Pro | 2M tokens |
+
+- ~4 characters = 1 token (~¾ of a word)
+- Agentic loops consume **more tokens** than single-shot requests (each iteration adds usage)
+- Monitor usage via GitHub Copilot dashboard or VS Code output panel
+- Cloud agents run autonomously — costs accumulate without per-step approval
+
+---
+
+## Agent Security & Boundaries
+
+| Safeguard | Description |
+|-----------|-------------|
+| Tool approval prompts | Manual or auto mode per tool |
+| Terminal sandboxing | File system + network restrictions |
+| Checkpoint/rollback | Undo agent actions |
+| Command confirmation | User must confirm (default) |
+| Workspace isolation | No access outside workspace unless configured |
+
+### How to restrict agent capabilities:
+- Set tool approval to "Ask always" for sensitive operations
+- Define security rules in `copilot-instructions.md`
+- Use `.gitignore` to hide sensitive files from context
+- Restrict MCP server permissions in config
+- Use organization policies for team-wide guardrails
 
 ---
 
@@ -215,6 +267,7 @@ git commit -m "feat: description
 - **Copilot Coding Agent**: https://docs.github.com/copilot/using-github-copilot/using-copilot-coding-agent
 - **Agentic Workflows**: https://github.github.com/gh-aw/
 - **Alternative Tools**: Cursor (cursor.com), Claude Code (code.claude.com)
+- **Complementary Tools**: Warp (warp.dev), GitHub Copilot CLI, Zed (zed.dev)
 - **MCP Standard**: https://modelcontextprotocol.io
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer

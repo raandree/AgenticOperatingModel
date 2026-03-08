@@ -70,6 +70,37 @@
 
 ---
 
+## Slide 1.4a: Tokens, Context Windows & Cost
+
+# Understanding the Economics
+
+### What are tokens?
+- A **token** is the smallest unit of text the model processes
+- ~4 characters or ~¾ of a word in English
+- Both your **input** (prompt + context) and the model's **output** consume tokens
+
+### Context window sizes (Feb 2026):
+| Model | Context Window |
+|-------|----------------|
+| Claude Opus 4.6 | Up to **1M tokens** (Vertex) |
+| GPT-5.3-Codex | **256K tokens** |
+| Gemini 3.1 Pro | **2M tokens** |
+
+### Why cost matters in agentic workflows:
+- Agentic loops consume **more tokens** than single-shot requests
+- Each iteration (observe → plan → act → verify) adds token usage
+- Larger context windows = more tokens per request = higher cost
+- **Cloud agents** (Copilot Coding Agent) run autonomously — costs accumulate
+
+### How to measure token usage:
+- GitHub Copilot: Check usage dashboard in GitHub settings
+- VS Code: Monitor in Copilot output panel
+- API-based tools: Token counts returned in API responses
+
+> **Hands-on idea**: Track how many tokens a real agentic task consumes from start to finish.
+
+---
+
 ## Slide 1.5: The Productivity Question
 
 # Real-World Impact
@@ -135,11 +166,13 @@ These practices make agentic coding **even more effective** for you.
 1. This is a **paradigm shift**, not incremental improvement
 2. The audience's existing skills (Git, testing) are **advantages**
 3. This applies to **any language**, we use PowerShell because they know it
+4. Tokens and cost are real considerations — agentic loops use more tokens than single-shot requests
 
 ### Common Questions:
 - "Will AI replace developers?" → No, it changes the role from typist to architect
 - "Is this just hype?" → Show productivity statistics
 - "What about code quality?" → Covered in verification module
+- "How much does it cost?" → Depends on model and usage; token slide covers the economics
 
 ### Transition to Module 2:
 "Now that we understand why this matters, let's define exactly what makes coding 'agentic'..."
