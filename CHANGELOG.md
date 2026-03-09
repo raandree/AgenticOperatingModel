@@ -8,6 +8,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Module 8: Advanced Capabilities slides** (2026-03-09)
+  - 13 slides + speaker notes covering MCP, checkpoints, multi-file operations, agent types
+  - Slide 8.1-8.6: MCP architecture, VS Code configuration, use cases, security model
+  - Slide 8.7-8.8: Checkpoint system and practical rollback workflows
+  - Slide 8.9: Multi-file coordinated rename operations
+  - Slide 8.10-8.11: Agent types (local, background, cloud, third-party) and cloud agent PR workflow
+  - Slide 8.12: Future trajectory from 2024 to autonomous workflows
+
+- **Additional sample template files** (2026-03-09)
+  - Sample `SKILL.md` for Sampler build debugging (auto-activated skill)
+  - `testing.instructions.md` template for Pester test files (`applyTo: **/*.Tests.ps1`)
+  - `documentation.instructions.md` template for Markdown files
+  - `refactoring.instructions.md` template for PowerShell files
+  - `code-reviewer.agent.md` template with multi-phase review and handoff
+  - `iac-engineer.agent.md` template for DSC, Bicep, Terraform, Ansible
+  - `security-reviewer.agent.md` template with OWASP Top 10 and CWE references
+
+- **MARP slide deck updated with Module 8 content** (2026-03-09)
+  - 3 new slides: MCP Universal Connector, Checkpoints & Rollback, Agent Types
+  - Slide count increased from 22 to 25
+
 - **Integrated brainstorming notes from PSConfEU 2026 session planning** (Thorsten & Raimund, 2026-03-07)
   - Module 2: Added Slide 2.0 "Foundational Vocabulary" with 10 key terms (Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP)
   - Module 1: Added Slide 1.4a "Tokens, Context Windows & Cost" covering token economics, context window sizes, and a hands-on lab idea
@@ -76,7 +97,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Sample `copilot-instructions.md` file for PowerShell module projects
 - Sample `powershell.instructions.md` file with pattern-matched `applyTo` frontmatter
 - Sample `pester-test-writer.agent.md` custom agent file with YAML tools configuration
-- New `content/materials/sample-copilot-instructions/` directory with 3 sample files
+- New `content/materials/sample-copilot-instructions/` directory with 10 sample files
 - Copilot instruction file ecosystem table (5 file types: copilot-instructions.md, .instructions.md, .agent.md, AGENTS.md, CLAUDE.md)
 - Custom agent examples with YAML frontmatter (name, description, tools, handoffs)
 - Organization-level instruction sharing documentation

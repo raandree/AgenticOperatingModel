@@ -10,9 +10,10 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 
 1. **What Makes Coding Agentic** - Understanding the agentic loop
 2. **The Power of Context** - Why Git matters for AI
-3. **Controlling AI Behavior** - Instruction files (copilot-instructions.md)
+3. **Controlling AI Behavior** - Instruction files, custom agents, skills
 4. **Self-Verification** - AI that tests its own code
-5. **Practical Application** - Live demos with Copilot Agent Mode
+5. **Advanced Capabilities** - MCP, checkpoints, agent types
+6. **Practical Application** - Live demos with Copilot Agent Mode
 
 ## Target Audience
 
@@ -32,12 +33,12 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 ```
 ├── agenda/              # Session agenda and timing
 ├── content/
-│   ├── slides/          # Detailed presenter content
+│   ├── slides/          # Detailed presenter content (Modules 1-5, 8-10)
 │   ├── demos/           # Demo scripts and instructions
-│   ├── materials/       # Handouts, cheat sheets, samples
+│   ├── materials/       # Handouts, cheat sheets, sample templates
 │   └── pptx/            # MARP slides for PowerPoint conversion
 ├── .memory-bank/        # Project context files
-└── .github/             # Copilot instruction files
+└── .vscode/             # Workspace settings
 ```
 
 ## Converting to PowerPoint

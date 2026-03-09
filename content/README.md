@@ -26,6 +26,7 @@ Handouts and reference materials for attendees.
 - Quick reference cheat sheet
 - Sample copilot instruction file templates
 - Sample custom agent files
+- Sample skill file
 - Take-home resources
 
 ## Content Status
@@ -39,6 +40,6 @@ Handouts and reference materials for attendees.
 | 05 | Self-Verification | ✅ Complete |
 | 06 | Copilot Agent Mode Overview | ⏳ Optional |
 | 07 | Live Demo | ✅ Demo script ready |
-| 08 | Advanced Capabilities | ⏳ Optional |
+| 08 | Advanced Capabilities | ✅ Complete |
 | 09 | When to Use | ✅ Complete |
 | 10 | Your Agentic Future | ✅ Complete |
