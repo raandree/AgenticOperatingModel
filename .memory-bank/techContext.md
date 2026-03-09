@@ -288,3 +288,79 @@ DemoModule/
 | Claude Code | `CLAUDE.md` | Project-level instructions |
 | Cursor | `.cursor/rules/` directory | Project-level rules |
 | Windsurf | Memories + Rules system | Project-level context |
+
+### MyCopilot Cross-Machine Instruction Infrastructure
+
+Project instruction files have been moved from `.github/` to a personal **MyCopilot** directory on OneDrive (`~/OneDrive/MyCopilot/`), enabling cross-machine sync. VS Code loads these via `chat.*FilesLocations` settings.
+
+#### Directory Structure
+```
+~/OneDrive/MyCopilot/
+├── Instructions/          # Pattern-matched .instructions.md files (11 files)
+│   ├── powershell.instructions.md    # *.ps1, *.psm1, *.psd1
+│   ├── pester.instructions.md        # *.Tests.ps1
+│   ├── yaml.instructions.md          # *.yml, *.yaml
+│   ├── json.instructions.md          # *.json, *.jsonc
+│   ├── markdown.instructions.md      # *.md
+│   ├── changelog.instructions.md     # CHANGELOG.md, HISTORY.md, etc.
+│   ├── git.instructions.md           # .gitconfig, .gitignore, .gitattributes
+│   ├── versioning.instructions.md    # GitVersion.yml, *.psd1, CHANGELOG.md
+│   ├── sampler.instructions.md       # build.yaml, build.ps1, RequiredModules.psd1
+│   ├── azurepipelines.instructions.md # azure-pipelines*.yml
+│   └── csharp.instructions.md        # *.cs, *.csx
+└── Skills/                # Domain knowledge skills (SKILL.md files)
+    ├── sampler-framework/
+    ├── sampler-migration/
+    ├── sampler-build-debug/
+    ├── pester-patterns/
+    ├── grammar-check/
+    ├── agent-customization/          # copilot-skill:// URI
+    ├── automatedlab-deployment/
+    ├── outlook-email-export/
+    └── send-outlook-email/
+```
+
+#### VS Code Settings for Cross-Machine Sync
+```jsonc
+{
+  "chat.instructionsFilesLocations": ["~/OneDrive/MyCopilot/Instructions"],
+  "chat.agentSkillsLocations": ["~/OneDrive/MyCopilot/Skills"],
+  "chat.agentFilesLocations": ["~/OneDrive/MyCopilot/Agents"],
+  "chat.promptFilesLocations": ["~/OneDrive/MyCopilot/Prompts"]
+}
+```
+
+### Azure Instruction (VS Code Extension)
+
+The `azure.instructions.md` file from the `ms-azuretools.vscode-azure-github-copilot` extension is conditionally loaded only when Azure is explicitly mentioned. It provides Azure code generation best practices, deployment guidance, and Azure Functions patterns. Not part of MyCopilot — injected automatically by the extension.
+
+### Agent Modes
+
+The project leverages VS Code agent modes for specialized workflows:
+
+| Mode | Purpose | Key Features |
+|------|---------|-------------|
+| **technical-writer** | Documentation & article creation | 7-phase workflow (Scope → Research → External Research → Outline → Content → Editing → Publication), citation requirements, quality gates, CRAAP source evaluation, subagent delegation, article templates (tech blog, API docs, newspaper) |
+| *(default)* | General development | Standard Copilot Agent Mode capabilities |
+
+### Memory Architecture
+
+The project uses two complementary memory systems:
+
+1. **Memory Bank** (`.memory-bank/`) — Git-tracked, shared project context. Serves as both working context for agents and a teaching artifact for the presentation. Core files: `projectbrief.md`, `productContext.md`, `activeContext.md`, `systemPatterns.md`, `techContext.md`, `progress.md`, `promptHistory.md`.
+
+2. **VS Code Built-in Memory** — Three scopes:
+   - `/memories/` — User memory, persistent across all workspaces (first 200 lines auto-loaded)
+   - `/memories/session/` — Session-scoped notes (current conversation only)
+   - `/memories/repo/` — Repository-scoped facts (local to workspace, not git-tracked)
+
+The Memory Bank is the shared, version-controlled knowledge base. VS Code memory is for personal learnings and session notes.
+
+### Key Deferred Tools
+
+| Tool | Purpose |
+|------|--------|
+| `fetch_webpage` | Web research for technical-writer mode |
+| `github_repo` | Repository metadata and diff calculation |
+| `get_changed_files` | Track changes vs default branch |
+| `mcp_azure_mcp_search` | Azure resource search (when Azure MCP configured) |

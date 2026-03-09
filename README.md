@@ -36,7 +36,7 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 │   ├── demos/           # Demo scripts and instructions
 │   ├── materials/       # Handouts, cheat sheets, samples
 │   └── pptx/            # MARP slides for PowerPoint conversion
-├── memory-bank/         # Project context files
+├── .memory-bank/        # Project context files
 └── .github/             # Copilot instruction files
 ```
 

@@ -5,217 +5,82 @@
 **Task**: Maintain and update comprehensive 2-4 hour agentic coding presentation
 **Target Audience**: PowerShell Developers & DevOps Engineers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
-**Last Updated**: 2026-03-07
+**GitHub Repository**: raandree/AgenticCoding (main branch)
+**Last Updated**: 2026-03-09
 
-## Recent Decisions
+## Agent & Instruction Configuration
 
-### Brainstorming Notes Integration (2026-03-07)
-Incorporated brainstorming notes from Thorsten and Raimund (PSConfEU 2026 session "Reverse AI-ngineering") across the presentation:
-1. **Foundational Vocabulary slide** (Slide 2.0) — New glossary of 10 key terms (Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP) added to Module 2
-2. **Token Usage & Cost slide** (Slide 1.4a) — New slide covering token economics, context window sizes, cost awareness, and a hands-on lab idea
-3. **Agent Security & Boundaries slide** (Slide 9.8a) — New slide on agent capabilities, safeguards (tool approval, sandboxing, checkpoints), and restriction mechanisms
-4. **Guiding Principle slide** (Slide 9.8b) — "Know what you are doing" principle with understanding-vs-automation paradox
-5. **Complementary Tools** — Added Warp, GitHub Copilot CLI, and Zed to Module 10 resources and cheat sheet
-6. **Cheat sheet expanded** — Added Token/Cost section, Agent Security section, expanded Key Concepts table (6 new terms), Guiding Principle section, complementary tools
-7. **Agenda updated** — Module 2 now starts with vocabulary, Module 9 adds security/boundaries and guiding principle sections, timing rebalanced
-8. **Speaker notes enriched** — Module 1 and Module 9 speaker notes updated with new Q&A items
+### Active Agent Modes
 
-### MyCopilot Integration (2026-02-25)
-Analyzed the user's personal MyCopilot project (`~/OneDrive/MyCopilot/`) and integrated 7 content enrichments into the presentation:
-1. **Skills & Prompts slides** — Added slides 4.10-4.11 covering two previously missing Copilot customization types
-2. **Chat shortcuts** — Added `/agents`, `/instructions`, `/skills`, `/prompts`, `/init` table to cheat sheet
-3. **Feature flags** — Added `thinkingTool`, `semanticTextResults`, `includeApplyingInstructions`, `includeReferencedInstructions` to cheat sheet and demo setup
-4. **Agent Handoffs & Release Pipeline** — Added slide 4.12 showing multi-agent Dev→QA→Prod pipeline with handoffs
-6. **OneDrive sync pattern** — Added Module 10 slide showing cross-machine customization sync with PowerShell setup script
-7. **Richer agent examples** — Enhanced slides 4.8-4.9 with production-grade patterns (model preferences, zero-confirmation, subagents, handoffs, CVSS scoring)
+| Mode | Purpose | Key Features |
+|------|---------|-------------|
+| **technical-writer** | Documentation & article creation | 7-phase workflow (Scope → Research → External Research → Outline → Content → Editing → Publication), citation requirements, quality gates, Memory Bank integration, subagent delegation, CRAAP source evaluation |
+| *(default)* | General development | Standard Copilot Agent Mode |
 
-### Copilot Pivot (2026-02-24)
-Refocused entire presentation to GitHub Copilot Agent Mode as the primary demo tool. Copilot has the richest instruction file ecosystem (5 file types, plus org-level sharing).
+### Instruction Files (12 total)
 
-### Landscape Research Update (2026-02-24)
-Conducted comprehensive web research to update the project with the current state of the agentic coding landscape. Major findings and updates applied across slides, tech context, and materials.
+**MyCopilot** (OneDrive cross-machine sync, 11 files):
+`powershell` · `pester` · `yaml` · `json` · `markdown` · `changelog` · `git` · `versioning` · `sampler` · `azurepipelines` · `csharp`
 
-### Key Landscape Changes Discovered (Feb 2026)
+**VS Code Extension** (1 file, conditionally loaded):
+- `azure.instructions.md` — loaded only for Azure-related requests (from `ms-azuretools.vscode-azure-github-copilot` extension)
 
-#### GitHub Copilot Agent Mode (Primary Demo Tool)
-- **Built into VS Code** - no separate extension needed
-- **4 Agent Types**: Local (Agent/Plan/Ask), Background (worktree), Cloud (Coding Agent), Third-party
-- **5 Instruction File Types**: copilot-instructions.md, .instructions.md (pattern-matched), .agent.md (custom agents), AGENTS.md (cross-tool), CLAUDE.md (compatible)
-- **Custom Agents**: `.agent.md` files with YAML frontmatter (name, description, tools, handoffs)
-- **Agent Handoffs**: Sequential workflows between agents with pre-filled prompts
-- **Tool Sets**: `.jsonc` files grouping tools for specific workflows
-- **Terminal Sandboxing**: File system + network access controls
-- **Organization Policies**: Org-level instruction sharing across repos
-- **`/init` Command**: Auto-generate instructions from codebase
-- **MCP Server Support**: Model Context Protocol for external tools
-- **Copilot Coding Agent**: Autonomous cloud agent that creates PRs via GitHub Actions
+### Available Skills (14 total)
 
-#### Alternative Tools (Referenced, Not Primary)
-- **Cursor** (v2.5): Standalone IDE with Cloud Agents, Plugins
-- **Windsurf**: Cascade agent, 1M+ users
-- **Claude Code**: Multi-surface agentic tool with CLAUDE.md
+**MyCopilot Skills** (10): `sampler-framework` · `sampler-migration` · `sampler-build-debug` · `pester-patterns` · `grammar-check` · `agent-customization` · `automatedlab-deployment` · `outlook-email-export` · `send-outlook-email` · `german-legal-research` · `german-employment-law`
 
-#### Model Context Protocol (MCP)
-- Now under **Linux Foundation** (LF Projects, LLC)
-- Universal standard - adopted by all major tools
-- GitHub MCP Server for Agentic Workflows
+**VS Code Extension Skills** (4): `summarize-github-issue-pr-notification` · `suggest-fix-issue` · `form-github-search-query` · `show-github-search-result`
 
-#### Key AI Models Available (Feb 2026)
-- Claude Opus 4.6 / Sonnet 4.6 (Anthropic) - up to 1M context on Vertex
-- GPT-5.3-Codex (OpenAI)
-- Gemini 3.1 Pro (Google)
-- GLM-5 (ZAI), MiniMax M2.5
-- Grok Code (xAI), Composer 1.5 (Cursor)
+### Memory Architecture
 
-### Memory Bank Structure (2026-02-02)
-Created foundational Memory Bank with:
-- `projectbrief.md` - Core requirements and objectives
-- `productContext.md` - Audience analysis and learning journey
-- `techContext.md` - Technology stack and dependencies
-- `systemPatterns.md` - Presentation and coding patterns
-- `progress.md` - Status tracking and resource inventory
-- `activeContext.md` - Working context (this file)
+| Scope | Location | Purpose | Persistence |
+|-------|----------|---------|-------------|
+| **Memory Bank** | `.memory-bank/` (git-tracked) | Shared project context, teaching artifact | Across sessions, machines, and collaborators |
+| **User memory** | `/memories/` | Personal learnings, terminal patterns | Across all workspaces (first 200 lines auto-loaded) |
+| **Session memory** | `/memories/session/` | Task-specific notes | Current conversation only |
+| **Repository memory** | `/memories/repo/` | Workspace-scoped facts | Local to workspace |
 
-### Key Topics Identified
-1. **User-Specified (Must Include)**:
-   - Git as context provider for AI
-   - Git for traceability of AI changes
-   - Agent definitions and configuration
-   - Instruction files (copilot-instructions.md, .instructions.md, .agent.md)
-   - Automated testing for self-verification
+### Key Deferred Tools
 
-2. **Additional Topics for PowerShell/DevOps Audience**:
-   - Pester integration patterns
-   - PSScriptAnalyzer with AI
-   - Module development workflows
-   - CI/CD pipeline compatibility
-   - Infrastructure as Code (Bicep/ARM)
-   - Secret management awareness
-   - Cross-platform PowerShell considerations
+`fetch_webpage` (web research for technical-writer mode) · `github_repo` · `get_changed_files` · `mcp_azure_mcp_search`
 
-3. **New Topics From Research (Feb 2026)**:
-   - Copilot custom agents (.agent.md) with tools and handoffs
-   - Organization-level instruction sharing
-   - Instruction file ecosystem comparison across tools
-   - MCP as universal standard under Linux Foundation
-   - Cloud agents vs local agents trade-offs
-   - Multi-agent and subagent patterns
+### Project Instruction Files
 
-## Immediate Next Steps
+Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and VS Code `chat.*FilesLocations` settings. Project-specific samples remain in `content/materials/sample-copilot-instructions/`.
 
-1. **Research Phase** (Completed 2026-02-24)
-   - [x] Research Copilot Agent Mode documentation for latest features
-   - [x] Identify additional relevant topics for audience
-   - [x] Document best practices and patterns
-   - [x] Research competitor landscape (Cursor, Windsurf, Claude Code)
-   - [x] Research GitHub Copilot Agent Mode and Coding Agent
-   - [x] Research MCP developments
-   - [x] Update slides and materials with findings
-   - [x] Pivot all content to Copilot as primary tool
+## Recent Changes
 
-2. **Content Review** (Completed 2026-02-24)
-   - [x] Review all content for accuracy with updated landscape
-   - [x] Update all slides for Copilot focus
-   - [x] Update demo script for Copilot workflow
-   - [x] Update cheat sheet with Copilot instructions
-   - [x] Create sample Copilot instruction files
+### 2026-03-09: Agent infrastructure documented
+- Technical-writer mode, MyCopilot instruction files, skills ecosystem, memory architecture documented in memory bank
 
-3. **Presenter Preparation** (Next)
-   - [ ] Customize speaker notes and contact info
-   - [ ] Prepare demo environment per demo script
-   - [ ] Practice timing with actual Copilot Agent Mode usage
-   - [ ] Test Copilot connectivity before session
+### 2026-03-07: Brainstorming notes integration
+- Foundational vocabulary (Slide 2.0), token usage & cost (Slide 1.4a), agent security (Slide 9.8a), guiding principle (Slide 9.8b) added
+- Cheat sheet expanded with Token/Cost, Security, Guiding Principle sections
+- Agenda rebalanced for Module 2 and Module 9
+
+### 2026-02-25: MyCopilot integration
+- Skills, Prompts, Agent Handoffs slides added (4.10-4.12)
+- Chat shortcuts, feature flags, OneDrive sync pattern added to cheat sheet and demos
+- Richer agent examples with production-grade patterns
+
+### 2026-02-24: Copilot pivot & landscape research
+- Refocused from Cline to GitHub Copilot Agent Mode as primary demo tool
+- Updated landscape: Cursor v2.5, Windsurf, Claude Code, MCP under Linux Foundation
+- All 7 slide modules, demo script, cheat sheet refocused for Copilot
+
+## Presenter Preparation (Next Steps)
+
+- [ ] Customize speaker notes and contact info
+- [ ] Prepare demo environment per demo script
+- [ ] Practice timing with actual Copilot Agent Mode usage
+- [ ] Test Copilot connectivity before session
 
 ## Working Assumptions
 
-### Presentation Format
-- Primary: Live demonstration with VS Code + Copilot Agent Mode
-- Supporting: Slides for concepts and diagrams
-- Interactive: Q&A encouraged throughout
-- Hands-on: At least one attendee exercise
-- Note: Attendees may ask about Cursor/Windsurf/Claude Code - be prepared to compare
-
-### Audience Assumptions
-- Strong PowerShell scripting skills
-- Familiar with Git basics (commit, push, pull, branch)
-- Some VS Code experience
-- Likely already using GitHub Copilot (autocomplete/chat)
-- May have heard of Cursor, Windsurf, Claude Code
-- DevOps/automation mindset
-- Windows-primary but cross-platform aware
-
-### Technical Assumptions
-- All demos on Windows 11
-- PowerShell 7.x for cross-platform compatibility
-- Pester 5.x for testing demonstrations
-- GitHub Copilot with active subscription
-- Stable internet for Copilot during demos
-
-## Research Completed
-
-### Copilot-Specific (Completed 2026-02-24)
-- [x] Local agents: Agent, Plan, Ask modes
-- [x] Background agents: Copilot CLI, worktree-based
-- [x] Cloud agents: Copilot Coding Agent for PR creation
-- [x] Instruction file ecosystem (5 file types)
-- [x] Custom agents (.agent.md) with tools and handoffs
-- [x] Organization-level instruction sharing
-- [x] MCP server support in VS Code
-- [x] `/init` command for auto-generating instructions
-
-### Competitor Landscape (Completed 2026-02-24)
-- [x] GitHub Copilot Agent Mode (Local/Background/Cloud/Third-party)
-- [x] GitHub Copilot Coding Agent (autonomous PR creation)
-- [x] GitHub Agentic Workflows (Markdown CI/CD)
-- [x] Cursor v2.5 (Cloud Agents, Plugins, Subagents)
-- [x] Windsurf/Cascade (1M+ users, Cognition)
-- [x] Claude Code (multi-surface agentic tool)
-
-### AI Models (Completed 2026-02-24)
-- [x] Claude Opus 4.6 / Sonnet 4.6
-- [x] GPT-5.3-Codex
-- [x] Gemini 3.1 Pro
-- [x] GLM-5, MiniMax M2.5, Grok Code
-
-## Potential Demo Scenarios
-
-### Demo 1: Module from Scratch (20-30 min)
-- Empty repo → Full module with tests
-- Shows: Context, generation, testing, iteration
-- Uses: Copilot Agent Mode to create all files
-
-### Demo 2: Add Feature to Existing Module (15-20 min)
-- Existing module → New function
-- Shows: Pattern recognition, consistency
-- Uses: Copilot reads existing patterns
-
-### Demo 3: Debug and Fix (10-15 min)
-- Failing tests → Working code
-- Shows: Analysis, problem solving
-- Uses: Ask mode for analysis, Agent mode for fixes
-
-### Demo 4: Documentation Generation (10-15 min)
-- Undocumented code → Full docs
-- Shows: Code understanding, help generation
-- Uses: Custom documentation agent (.agent.md)
-
-### Demo 5: IaC with Bicep (Optional, 15-20 min)
-- Request infrastructure → Bicep template
-- Shows: Cross-language, DevOps application
-
-## Risk Mitigation Notes
-
-### Live Demo Backup Plans
-- Pre-record key demos as fallback
-- Have completed code checkpoints ready
-- Test all demos morning-of session
-- Prepare offline-capable examples
-
-### Timing Flexibility
-- Mark optional sections clearly
-- Prepare natural stopping points
-- Have "if time permits" bonus content
-- Build in buffer for Q&A
+- Audience: Strong PowerShell, Git basics, some VS Code, likely used Copilot autocomplete
+- Platform: Windows 11, PowerShell 7.x, Pester 5.x, stable internet
+- Format: Live demo primary, slides for concepts, Q&A throughout
+- Attendees may ask about Cursor/Windsurf/Claude Code — be prepared to compare
 
 ### Attendee Environment Variance
 - Provide pre-session setup guide

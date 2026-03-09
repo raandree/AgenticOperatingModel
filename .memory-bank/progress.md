@@ -2,12 +2,21 @@
 
 ## Current Status
 
-**Phase**: Content Enriched with Brainstorming Notes
+**Phase**: Content Complete with Agent Infrastructure Configured
 **Started**: 2026-02-02
-**Last Updated**: 2026-03-07
+**Last Updated**: 2026-03-09
+**GitHub Repository**: raandree/AgenticCoding (main branch)
 **Status**: Updated and ready for review
 
 ## Completed
+
+### Agent Infrastructure ✅ (2026-03-09)
+- [x] Technical-writer agent mode configured (7-phase documentation workflow)
+- [x] MyCopilot instruction files (11 pattern-matched .instructions.md files on OneDrive)
+- [x] Skills ecosystem configured (sampler-framework, pester-patterns, grammar-check, agent-customization, etc.)
+- [x] Cross-machine sync via VS Code `chat.*FilesLocations` settings
+- [x] Project .github/ instruction files migrated to personal MyCopilot sync
+- [x] Memory bank updated with agent mode and instruction documentation
 
 ### Brainstorming Notes Integration ✅ (2026-03-07)
 - [x] Foundational vocabulary slide (Slide 2.0) added to Module 2
@@ -20,13 +29,15 @@
 - [x] Speaker notes enriched for Modules 1 and 9
 - [x] Memory bank updated (activeContext.md, progress.md)
 
-### Memory Bank ✅
+### Memory Bank ✅ (Updated 2026-03-09)
 - [x] `projectbrief.md` - Core focus on agentic coding paradigm
 - [x] `productContext.md` - Audience analysis and learning journey
-- [x] `techContext.md` - Technology stack and concepts (updated 2026-02-24)
-- [x] `systemPatterns.md` - Presentation and demo patterns
-- [x] `progress.md` - Status tracking (this file, updated 2026-02-24)
-- [x] `activeContext.md` - Working context (updated 2026-02-24)
+- [x] `techContext.md` - Technology stack, instruction files, agent modes, memory architecture
+- [x] `systemPatterns.md` - Presentation, demo, and workflow patterns (8 + 9 patterns)
+- [x] `progress.md` - Status tracking (this file)
+- [x] `activeContext.md` - Working context, agent configuration, condensed to < 200 lines
+- [x] `README.md` - Memory Bank documentation with VS Code memory relationship
+- [x] `promptHistory.md` - Append-only writing task log (trim > 90 days)
 
 ### Agenda ✅
 - [x] `agenda/presentation-agenda.md` - Comprehensive 2-4 hour agenda
@@ -68,14 +79,15 @@
 ## Content Structure
 
 ```
-d:\Git\x\
-├── memory-bank/
+c:\Git\AgenticCoding\
+├── .memory-bank/
 │   ├── projectbrief.md
 │   ├── productContext.md
 │   ├── techContext.md
 │   ├── systemPatterns.md
 │   ├── progress.md
-│   └── activeContext.md
+│   ├── activeContext.md
+│   └── promptHistory.md
 ├── agenda/
 │   └── presentation-agenda.md
 └── content/
@@ -89,9 +101,12 @@ d:\Git\x\
     │   └── 10-your-agentic-future.md
     ├── demos/
     │   └── demo-script-main.md
+    ├── pptx/
+    │   ├── agentic-coding-presentation.md
+    │   └── README-how-to-create-pptx.md
     └── materials/
         ├── cheat-sheet.md
-        └── sample-copilot-instructions/  # Primary samples
+        └── sample-copilot-instructions/
             ├── copilot-instructions.md
             ├── powershell.instructions.md
             └── pester-test-writer.agent.md
@@ -109,6 +124,7 @@ d:\Git\x\
 
 | Cheat Sheet | ✅ Updated | Refocused on Copilot |
 | Landscape Research | ✅ Complete | Copilot primary, alternatives referenced |
+| Agent Infrastructure | ✅ Configured | Technical-writer mode, MyCopilot instructions, skills |
 
 ## Optional: Still Could Create
 

@@ -89,7 +89,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - MARP slide deck for PowerPoint conversion
 - Quick reference cheat sheet for attendees
 - Project-specific instruction files
-- Comprehensive documentation in memory-bank/
+- Comprehensive documentation in .memory-bank/
 
 ### Deprecated
 

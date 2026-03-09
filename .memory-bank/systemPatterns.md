@@ -199,6 +199,63 @@ User Request → Agent Analysis → Plan Creation → Execution → Verification
 
 ## DevOps Integration Patterns
 
+### Pattern 8: Cross-Machine Instruction Sync (MyCopilot)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│           CROSS-MACHINE INSTRUCTION SYNC                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  OneDrive/MyCopilot/                                        │
+│  ├── Instructions/    ────┬─────  Synced via OneDrive         │
+│  ├── Skills/          ────┤                                  │
+│  ├── Agents/          ────┤                                  │
+│  └── Prompts/         ────┘                                  │
+│                             │                                  │
+│                             ▼                                  │
+│  VS Code Settings (chat.*FilesLocations)                     │
+│       │                                                      │
+│       ├──── Machine A: Same rules, skills, agents             │
+│       ├──── Machine B: Same rules, skills, agents             │
+│       └──── Machine C: Same rules, skills, agents             │
+│                                                             │
+│  Effect: Personal coding standards follow you everywhere    │
+│  Benefit: No per-project .github/ duplication               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Pattern 9: Agent Mode Workflow (Technical Writer)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│         TECHNICAL-WRITER AGENT MODE WORKFLOW             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Phase 0        Phase 1        Phase 2        Phase 3      │
+│  Scope &        Repo &         External       Outline &    │
+│  Planning  ──▶  Analysis  ──▶  Research  ──▶  Structure    │
+│       │              │              │              │           │
+│       ▼              ▼              ▼              ▼           │
+│  Phase 4        Phase 5        Phase 6                      │
+│  Content        Editing &      Publication &                │
+│  Creation  ──▶  QA        ──▶  Documentation                │
+│                                     │                        │
+│                                     ▼                        │
+│                              Update Memory Bank             │
+│                                                             │
+│  Key Features:                                              │
+│  • Zero-confirmation policy (autonomous execution)          │
+│  • Mandatory source citations for all factual claims        │
+│  • Pre-publication quality gates                            │
+│  • Subagent delegation for research (context management)    │
+│  • Article templates: tech blog, API docs, newspaper        │
+│  • CRAAP test for source evaluation                        │
+│  • Never pushes to remote without explicit authorization     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ### Pattern 6: Pipeline-Compatible Output
 
 ```yaml
