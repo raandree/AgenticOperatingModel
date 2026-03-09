@@ -4,6 +4,14 @@ Append-only log of significant writing and documentation tasks. Trim entries old
 
 ## 2026-03-09
 
+- **Task**: Create Module 8 slides — Advanced Capabilities (MCP, checkpoints)
+- **Mode**: devops-training-writer
+- **Outcome**: Created `08-advanced-capabilities.md` with 13 slides + speaker notes covering MCP architecture/configuration/security, checkpoints & rollback, multi-file operations, agent types (local/background/cloud/third-party), cloud agent workflow, future trajectory. Updated progress.md, activeContext.md.
+
+- **Task**: Create sample templates and update MARP presentation
+- **Mode**: devops-training-writer
+- **Outcome**: Created 7 sample template files (3 .instructions.md, 3 .agent.md, 1 SKILL.md). Updated MARP presentation with 3 new Module 8 slides (22 → 25 slides). Updated progress.md, activeContext.md.
+
 - **Task**: Update memory bank based on new agent definitions and instructions
 - **Mode**: technical-writer
 - **Outcome**: Restructured activeContext.md (260 → 84 lines), added agent modes, instruction files, skills, memory architecture documentation across all memory bank files. Moved memory-bank/ → .memory-bank/. Created promptHistory.md.

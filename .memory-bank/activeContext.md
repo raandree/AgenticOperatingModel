@@ -50,8 +50,19 @@ Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and V
 
 ## Recent Changes
 
-### 2026-03-09: Agent infrastructure documented
-- Technical-writer mode, MyCopilot instruction files, skills ecosystem, memory architecture documented in memory bank
+### 2026-03-09: Module 8 + sample templates + MARP update
+- Module 8: Advanced Capabilities slides created (13 slides + speaker notes)
+  - MCP architecture and configuration (slides 8.1-8.6)
+  - Checkpoints and rollback (slides 8.7-8.8)
+  - Multi-file operations (slide 8.9)
+  - Agent types: local, background, cloud, third-party (slides 8.10-8.11)
+  - Future trajectory (slide 8.12)
+- Sample templates added (7 files):
+  - 3x .instructions.md (testing, documentation, refactoring)
+  - 3x .agent.md (code-reviewer, iac-engineer, security-reviewer)
+  - 1x SKILL.md (sampler-build-debug)
+- MARP presentation updated with 3 new Module 8 slides (22 → 25 slides)
+- Technical-writer mode, MyCopilot instruction files, skills ecosystem documented
 
 ### 2026-03-07: Brainstorming notes integration
 - Foundational vocabulary (Slide 2.0), token usage & cost (Slide 1.4a), agent security (Slide 9.8a), guiding principle (Slide 9.8b) added

@@ -275,6 +275,69 @@ Agent fixes code → Run tests again
 
 ---
 
+# Advanced: MCP — Universal Connector
+
+**Model Context Protocol** gives agents access to external tools:
+
+| MCP Server | What It Provides |
+|------------|-----------------|
+| **GitHub** | Issues, PRs, repos |
+| **Azure** | Resource management |
+| **SQLite** | Database queries |
+| **Fetch** | Web content |
+
+```json
+{
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    }
+  }
+}
+```
+
+> **"USB for AI tools"** — one standard, works across Copilot, Claude Code, Cursor
+
+---
+
+# Advanced: Checkpoints & Rollback
+
+```
+──●────────●────────●────────●────────●──▶ time
+  │        │        │        │        │
+  ▼        ▼        ▼        ▼        ▼
+Start   Created  Modified  Added    Broke
+        file A   file B    tests    something
+
+🔙 Click "Undo" → restore to any checkpoint
+```
+
+### Why this matters:
+- Every agent action creates a restore point
+- Roll back to any previous state
+- Try different approaches without risk
+- **Confidence to let agents take bigger steps**
+
+---
+
+# Advanced: Agent Types
+
+| Type | Where It Runs | Best For |
+|------|--------------|----------|
+| **Agent Mode** | VS Code (local) | Interactive coding tasks |
+| **Plan Mode** | VS Code (local) | Planning before acting |
+| **Background** | Separate worktree | Long-running tasks |
+| **Cloud Agent** | GitHub infrastructure | Issues → PRs automatically |
+| **Third-party** | VS Code extensions | Specialized workflows |
+
+### Cloud Agent Workflow:
+```
+GitHub Issue → Copilot Agent → Code + Tests → PR → You Review
+```
+
+---
+
 # Getting Started
 
 ### This Week:

@@ -48,6 +48,7 @@
 - [x] Module 3: The Power of Context (20-25 min) - **Refocused to Copilot**
 - [x] Module 4: Controlling AI Behavior (30-35 min) - **Expanded: Skills, Prompts, Handoffs, richer agents**
 - [x] Module 5: Self-Verification (20-25 min) - **Refocused to Copilot**
+- [x] Module 8: Advanced Capabilities (25 min) - **NEW: MCP, checkpoints, agent types**
 - [x] Module 9: When to Use (15-20 min) - **Refocused to Copilot**
 - [x] Module 10: Your Agentic Future (10-15 min) - **Added OneDrive sync, feature flags, updated takeaways**
 
@@ -58,11 +59,19 @@
 - [x] Sample .agent.md file (custom agent)
 - [x] Troubleshooting guide
 
-### Supporting Materials ✅ (Updated 2026-02-25)
+### Supporting Materials ✅ (Updated 2026-03-09)
 - [x] Sample copilot-instructions.md for PowerShell module development
 - [x] Sample .instructions.md for PowerShell files
+- [x] Sample .instructions.md for testing (Pester test files)
+- [x] Sample .instructions.md for documentation (Markdown files)
+- [x] Sample .instructions.md for refactoring
 - [x] Sample .agent.md for Pester test writer
+- [x] Sample .agent.md for code reviewer (with handoff)
+- [x] Sample .agent.md for IaC engineer (DSC, Bicep, Terraform)
+- [x] Sample .agent.md for security reviewer (OWASP, CWE references)
+- [x] Sample SKILL.md for build debugging
 - [x] Quick reference cheat sheet - **Added chat shortcuts, feature flags, expanded ecosystem**
+- [x] MARP slide deck updated with Module 8 (MCP, checkpoints, agent types)
 
 ### Research ✅ (Completed 2026-02-24)
 - [x] GitHub Copilot Agent Mode (Local/Background/Cloud/Third-party)
@@ -97,6 +106,7 @@ c:\Git\AgenticCoding\
     │   ├── 03-power-of-context.md
     │   ├── 04-controlling-ai-behavior.md
     │   ├── 05-self-verification.md
+    │   ├── 08-advanced-capabilities.md
     │   ├── 09-when-to-use.md
     │   └── 10-your-agentic-future.md
     ├── demos/
@@ -109,7 +119,15 @@ c:\Git\AgenticCoding\
         └── sample-copilot-instructions/
             ├── copilot-instructions.md
             ├── powershell.instructions.md
-            └── pester-test-writer.agent.md
+            ├── testing.instructions.md
+            ├── documentation.instructions.md
+            ├── refactoring.instructions.md
+            ├── pester-test-writer.agent.md
+            ├── code-reviewer.agent.md
+            ├── iac-engineer.agent.md
+            ├── security-reviewer.agent.md
+            └── sample-skill/
+                └── SKILL.md
 ```
 
 ## What's Ready
@@ -118,9 +136,9 @@ c:\Git\AgenticCoding\
 |------|--------|-------|
 | 2-Hour Agenda | ✅ Ready | Core concepts covered |
 | 4-Hour Agenda | ✅ Ready | Extended with demos |
-| All Core Slides | ✅ Updated | Modules 1-5, 9-10 (Copilot-focused) |
+| All Core Slides | ✅ Updated | Modules 1-5, 8-10 (Copilot-focused) |
 | Main Demo Script | ✅ Updated | Copilot Agent Mode workflow |
-| Sample Copilot Instructions | ✅ Ready | 3 sample files (instructions, pattern, agent) |
+| Sample Copilot Instructions | ✅ Ready | 10 sample files (instructions, agents, skill) |
 
 | Cheat Sheet | ✅ Updated | Refocused on Copilot |
 | Landscape Research | ✅ Complete | Copilot primary, alternatives referenced |
@@ -130,11 +148,11 @@ c:\Git\AgenticCoding\
 
 These are optional additions if time permits:
 
-- [ ] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
-- [ ] Sample `SKILL.md` file for presentation materials
-- [ ] Additional .instructions.md templates (testing, documentation, refactoring)
-- [ ] Additional .agent.md templates (code review, IaC, security)
-- [ ] Slide deck conversion to PowerPoint/Google Slides
+- [x] Module 8 slides: Advanced Capabilities (MCP, checkpoints)
+- [x] Sample `SKILL.md` file for presentation materials
+- [x] Additional .instructions.md templates (testing, documentation, refactoring)
+- [x] Additional .agent.md templates (code review, IaC, security)
+- [x] Slide deck conversion to PowerPoint/Google Slides (MARP updated with Module 8)
 - [ ] Pre-recorded backup demo video
 - [ ] Setup checklist for attendees
 
@@ -165,7 +183,7 @@ These are optional additions if time permits:
 |----------|-------|------------------|
 | Memory Bank | 6 files | ~3,000 |
 | Agenda | 1 file | ~2,500 |
-| Slides | 7 modules | ~8,000 |
+| Slides | 8 modules | ~9,500 |
 | Demo Script | 1 file | ~1,500 |
-| Materials | 2 files | ~1,000 |
-| **Total** | **17 files** | **~16,000 words** |
+| Materials | 9 files | ~2,500 |
+| **Total** | **25 files** | **~19,000 words** |

@@ -68,7 +68,7 @@ pandoc agentic-coding-presentation.md -o agentic-coding.pptx
 
 ## Slide Structure
 
-The MARP file contains **22 slides**:
+The MARP file contains **25 slides**:
 
 | # | Topic |
 |---|-------|
@@ -90,10 +90,13 @@ The MARP file contains **22 slides**:
 | 16 | Decision framework |
 | 17 | Human role remains |
 | 18 | Key takeaways |
-| 19 | Getting started |
-| 20 | You + AI equation |
-| 21 | Thank you |
-| 22 | Questions |
+| 19 | MCP — Universal Connector |
+| 20 | Checkpoints & Rollback |
+| 21 | Agent Types |
+| 22 | Getting started |
+| 23 | You + AI equation |
+| 24 | Thank you |
+| 25 | Questions |
 
 ---
 
