@@ -50,13 +50,15 @@ Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and V
 
 ## Recent Changes
 
+### 2026-03-14: MARP slide deck — Git forensics + commit strategy slides
+- Added new slide "AI Does the Git Forensics for You" to Module 2 in `marp-presentation.md`
+  - Demo prompt, `git log` command, contributor frequency output, audit trail message
+- Added new slide "Commit Strategies — Explained" to Module 2 in `marp-presentation.md`
+  - Detailed breakdown: Conventional Commits (type/scope tagging), Branch Strategy (`ai/` prefix), Co-authored Commits (attribution in git log/blame)
+
 ### 2026-03-14: Prompt Evolution demo + slide + cross-references
 - Created `content/demos/demo-prompt-evolution.md` — 6-level prompt progression demo script
-  - Same task ("PowerShell function comparing file sizes") through six increasingly effective prompts
-  - Each level adds context, scope, and resource utilization (instructions, skills, agents, memory bank)
-  - Includes teaching points, presenter talking points, execution options, troubleshooting
 - Added Slide 4.19 (Prompt Evolution) to Module 4 with summary table + cross-reference
-- Updated Module 4 speaker notes with demo tip for extended sessions
 - Updated main demo script with cross-reference to prompt evolution demo
 - Updated content README with demo listing
 - Updated cheat sheet with Prompt Evolution Pattern quick-reference table

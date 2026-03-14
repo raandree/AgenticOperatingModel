@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **MARP slide deck: Git forensics and commit strategy slides** (2026-03-14)
+  - New slide "AI Does the Git Forensics for You" in Module 2 — demo prompt, `git log` command, contributor frequency output
+  - New slide "Commit Strategies — Explained" in Module 2 — detailed breakdown of Conventional Commits, Branch Strategy, and Co-authored Commits
+
 - **Module 8: Advanced Capabilities slides** (2026-03-09)
   - 13 slides + speaker notes covering MCP, checkpoints, multi-file operations, agent types
   - Slide 8.1-8.6: MCP architecture, VS Code configuration, use cases, security model

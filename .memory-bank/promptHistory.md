@@ -4,6 +4,11 @@ Append-only log of significant writing and documentation tasks. Trim entries old
 
 ## 2026-03-14
 
+- **Task**: Add Git forensics and commit strategy explanation slides to MARP deck
+- **Mode**: devops-training-writer
+- **Input**: User requested: (1) expand "You always know what AI changed" traceability slide with AI git forensics demo showing per-contributor file change frequency, (2) expand "Commit Strategies for AI Work" with explanations of each strategy.
+- **Outcome**: Added 2 new slides to Module 2 in `marp-presentation.md`. Updated CHANGELOG, activeContext, progress, promptHistory.
+
 - **Task**: Incorporate prompt evolution examples into the repository
 - **Mode**: devops-training-writer
 - **Input**: 6 prompts demonstrating progressive prompt quality (bare minimum → full resource utilization)

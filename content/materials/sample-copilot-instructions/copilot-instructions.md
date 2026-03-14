@@ -60,6 +60,28 @@
 - Include at least one `.EXAMPLE` with realistic usage
 - Add `.OUTPUTS` and `.NOTES` where helpful
 
+## Git & Commit Strategy
+
+### Conventional Commits
+
+- Use structured commit messages: `type(scope): description`
+- Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
+- Tag AI-generated commits with 🤖 emoji or `[AI]` suffix
+- Example: `feat(validation): add config file validation 🤖`
+
+### Branch Strategy
+
+- Create a dedicated branch for AI-driven work before making changes
+- Use `ai/` prefix for AI-generated branches: `ai/add-validation`
+- Never commit AI work directly to `main` or `develop`
+- AI branches are merged via pull request after human review
+
+### Attribution
+
+- Add `Co-authored-by: AI Assistant <ai@example.com>` trailer to AI-assisted commits
+- This surfaces in `git log`, `git blame`, and GitHub's contributor graph
+- Team members can immediately see which code had AI involvement
+
 ### README Files
 
 - **Root README.md**: Project overview, installation, quick start, license

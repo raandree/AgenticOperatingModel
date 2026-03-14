@@ -10,6 +10,11 @@
 
 ## Completed
 
+### MARP Slide Deck Updates ✅ (2026-03-14)
+- [x] New slide: "AI Does the Git Forensics for You" — contributor frequency analysis via `git log`
+- [x] New slide: "Commit Strategies — Explained" — Conventional Commits, Branch Strategy, Co-authored Commits
+- [x] Memory bank + CHANGELOG updated
+
 ### Prompt Evolution Demo ✅ (2026-03-14)
 - [x] `content/demos/demo-prompt-evolution.md` — Six-level prompt quality progression demo
 - [x] Slide 4.19 added to Module 4 (Prompt Evolution summary table)

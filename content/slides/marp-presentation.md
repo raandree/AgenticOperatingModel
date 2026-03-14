@@ -444,6 +444,34 @@ new file mode 100644
 
 ---
 
+# AI Does the Git Forensics for You
+
+### Ask the agent:
+> "Show me how often each contributor changed `Deploy-Application.ps1`"
+
+### Agent runs:
+```bash
+git log --follow --format='%aN' -- src/Public/Deploy-Application.ps1 \
+  | sort | uniq -c | sort -rn
+```
+
+### Result:
+```
+  47  Alice (Human)
+  31  Copilot (AI)
+  12  Bob (Human)
+   3  Carol (Human)
+```
+
+### What you learn:
+- **Who** changed what — human or AI
+- **How often** — contribution frequency
+- **Accountability** — every commit is attributed
+
+> AI + Git = **full audit trail** with zero manual effort.
+
+---
+
 # Checkpoint System — Rollback When Needed
 
 ```
@@ -469,6 +497,28 @@ You're **never stuck**. You can always go back.
 | **Conventional Commits** | `feat(validation): add config validation 🤖` |
 | **Branch Strategy** | `main → feature/add-validation → ai/config-validation` |
 | **Co-authored** | `Co-authored-by: AI Assistant <ai@example.com>` |
+
+---
+
+# Commit Strategies — Explained
+
+### Conventional Commits
+Structured commit messages: `type(scope): description`
+- Makes AI commits **searchable** and **filterable**
+- Add 🤖 emoji or `[AI]` tag to identify AI-generated commits
+- Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
+
+### Branch Strategy
+Isolate AI work on **dedicated branches** before merging:
+- `ai/` prefix signals "AI-generated, needs review"
+- Enables **PR-based review** before merging to feature branch
+- Keeps `main` clean — AI work is reviewed just like human work
+
+### Co-authored Commits
+Git's `Co-authored-by` trailer gives **explicit attribution**:
+- Shows up in GitHub's contributor graph
+- Clear signal in `git log` and `git blame`
+- Team knows which code had AI involvement
 
 ---
 
