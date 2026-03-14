@@ -4,7 +4,7 @@
 
 **Phase**: Content Complete with Agent Infrastructure Configured
 **Started**: 2026-02-02
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-14
 **GitHub Repository**: raandree/AgenticCoding (main branch)
 **Status**: Updated and ready for review
 
@@ -13,6 +13,9 @@
 ### MARP Slide Deck Updates ✅ (2026-03-14)
 - [x] New slide: "AI Does the Git Forensics for You" — contributor frequency analysis via `git log`
 - [x] New slide: "Commit Strategies — Explained" — Conventional Commits, Branch Strategy, Co-authored Commits
+- [x] 13 famous quotes added across all module dividers and key slides (Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle)
+- [x] AI commit strategy added to sample `copilot-instructions.md` (Git & Commit Strategy section)
+- [x] AI commit strategy added to MyCopilot `git.instructions.md` + Software Engineer Agent
 - [x] Memory bank + CHANGELOG updated
 
 ### Prompt Evolution Demo ✅ (2026-03-14)

@@ -104,6 +104,10 @@ style: |
 
 ## The Future of AI-Assisted Development
 
+> *"Die Geister, die ich rief, werd' ich nun nicht los."*
+> *"The spirits that I summoned, I now cannot rid myself of."*
+> — **Johann Wolfgang von Goethe**, *Der Zauberlehrling*
+
 *Your Name — Date*
 
 ---
@@ -213,6 +217,9 @@ These practices make agentic coding **even more effective** for you.
 # Module 1
 ## What Makes Coding "Agentic"?
 
+> *"All life is problem solving."*
+> — **Karl Popper**
+
 ---
 
 # Speaking the Same Language
@@ -277,6 +284,8 @@ You describe ──▶ Agent reads project ──▶ Agent creates files ──�
 
 > From **typist** to **architect and reviewer**
 
+> *"Sapere aude! — Have the courage to use your own understanding."* — **Immanuel Kant**
+
 ---
 
 # The Agentic Loop
@@ -310,6 +319,10 @@ You describe ──▶ Agent reads project ──▶ Agent creates files ──�
 
 # Module 2
 ## The Power of Context
+
+> *"Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt."*
+> *"The limits of my language mean the limits of my world."*
+> — **Ludwig Wittgenstein**
 
 ---
 
@@ -543,6 +556,9 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 
 # Module 3
 ## Controlling AI Behavior
+
+> *"Luck is what happens when preparation meets opportunity."*
+> — **Seneca**
 
 ---
 
@@ -852,6 +868,10 @@ Type `/CodeReview` in Copilot Chat → the template runs with your context.
 # Module 4
 ## Trust but Verify — Automated Testing
 
+> *"Trust, but verify."* — **Russian proverb** *(popularized by Ronald Reagan)*
+>
+> *"An experiment is a question which science poses to Nature, and a measurement is the recording of Nature's answer."* — **Max Planck**
+
 ---
 
 # Can You Trust AI-Generated Code?
@@ -921,6 +941,8 @@ Agent: "It works. Here's proof." ✅
 ```
 
 > Tests transform **"I think it works"** into **"I proved it works."**
+
+> *"Experiments are the only means of knowledge at our disposal. Everything else is poetry, imagination."* — **Max Planck**
 
 ---
 
@@ -1060,6 +1082,10 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 
 # Module 5
 ## Advanced Capabilities
+
+> *"Alles hängt mit allem zusammen."*
+> *"Everything is connected to everything else."*
+> — **Alexander von Humboldt**
 
 ---
 
@@ -1277,6 +1303,10 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 # Module 6
 ## When to Use (and Not Use) Agentic AI
 
+> *"Wissenschaft ist geordnetes Wissen. Weisheit ist geordnetes Leben."*
+> *"Science is organized knowledge. Wisdom is organized life."*
+> — **Immanuel Kant**
+
 ---
 
 # Where Agentic Coding Excels ✅
@@ -1371,6 +1401,9 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 > **You are the pilot. AI is the autopilot. You still need to know how to fly.**
 
+> *"He who learns but does not think, is lost. He who thinks but does not learn is in great danger."*
+> — **Confucius**
+
 ---
 
 # When to Avoid ❌
@@ -1421,12 +1454,18 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 > **"AI wrote it" is not an excuse.** You commit it, you own it.
 
+> *"L'homme n'est rien d'autre que ce qu'il se fait."*
+> *"Man is nothing else but what he makes of himself."*
+> — **Jean-Paul Sartre**
+
 ---
 
 <!-- _class: section-divider -->
 
 # Module 7
 ## Your Agentic Future
+
+> *"The journey of a thousand miles begins with a single step."* — **Lao Tzu**
 
 ---
 
@@ -1597,7 +1636,9 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 | Quality standards | Comprehensive testing |
 | Review capability | Tireless iteration |
 
-### = 10x Productivity
+> *"The whole is greater than the sum of its parts."* — **Aristotle**
+
+### = Amplified Productivity
 *Better code, faster delivery, less tedium*
 
 ---

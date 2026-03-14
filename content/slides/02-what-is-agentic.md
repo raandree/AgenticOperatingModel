@@ -1,5 +1,7 @@
 # Module 2: What Makes Coding "Agentic"?
 
+> *"All life is problem solving."* — **Karl Popper**
+
 ## Slide 2.0: Foundational Vocabulary
 
 # Speaking the Same Language
@@ -145,6 +147,8 @@ An **agent** is software that:
 
 ### The shift:
 > From **typist** to **architect and reviewer**
+
+> *"Sapere aude! — Have the courage to use your own understanding."* — **Immanuel Kant**
 
 ---
 

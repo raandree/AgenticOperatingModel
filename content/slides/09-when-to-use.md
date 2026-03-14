@@ -1,5 +1,9 @@
 # Module 9: When to Use (and Not Use) Agentic AI
 
+> *"Wissenschaft ist geordnetes Wissen. Weisheit ist geordnetes Leben."*
+> *"Science is organized knowledge. Wisdom is organized life."*
+> — **Immanuel Kant**
+
 ## Slide 9.1: The Judgment Question
 
 # When Is Agentic Coding Right?
@@ -277,6 +281,8 @@ Your domain knowledge          AI's understanding
 
 > **You are the pilot. AI is the autopilot. You still need to know how to fly.**
 
+> *"He who learns but does not think, is lost. He who thinks but does not learn is in great danger."* — **Confucius**
+
 ---
 
 ## Slide 9.9: When to Avoid
@@ -390,6 +396,10 @@ Your domain knowledge          AI's understanding
 ```
 
 > **You commit it, you own it.**
+
+> *"L'homme n'est rien d'autre que ce qu'il se fait."*
+> *"Man is nothing else but what he makes of himself."*
+> — **Jean-Paul Sartre**
 
 ---
 

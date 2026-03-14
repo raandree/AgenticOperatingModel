@@ -1,5 +1,9 @@
 # Module 5: Trust but Verify - Automated Testing
 
+> *"Trust, but verify."* — **Russian proverb** *(popularized by Ronald Reagan)*
+>
+> *"An experiment is a question which science poses to Nature, and a measurement is the recording of Nature's answer."* — **Max Planck**
+
 ## Slide 5.1: The Trust Problem
 
 # Can You Trust AI-Generated Code?
@@ -90,6 +94,8 @@ Agent: "It works. Here's proof." ✅
 ```
 
 > Tests transform "I think it works" into "I proved it works."
+
+> *"Experiments are the only means of knowledge at our disposal. Everything else is poetry, imagination."* — **Max Planck**
 
 ---
 

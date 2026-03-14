@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - New slide "AI Does the Git Forensics for You" in Module 2 — demo prompt, `git log` command, contributor frequency output
   - New slide "Commit Strategies — Explained" in Module 2 — detailed breakdown of Conventional Commits, Branch Strategy, and Co-authored Commits
 
+- **MARP slide deck: Famous quotes added across all modules** (2026-03-14)
+  - 13 curated quotes from European/German thinkers: Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle
+  - Bilingual format (German + English translation) where applicable
+  - Placed at section dividers and key message slides to reinforce themes
+
+- **AI commit strategy added to sample copilot-instructions.md** (2026-03-14)
+  - Git & Commit Strategy section: Conventional Commits with 🤖 tagging, `ai/` branch prefix, `Co-authored-by` attribution
+
 - **Module 8: Advanced Capabilities slides** (2026-03-09)
   - 13 slides + speaker notes covering MCP, checkpoints, multi-file operations, agent types
   - Slide 8.1-8.6: MCP architecture, VS Code configuration, use cases, security model

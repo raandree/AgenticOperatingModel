@@ -1,5 +1,7 @@
 # Module 10: Your Agentic Future
 
+> *"The journey of a thousand miles begins with a single step."* — **Lao Tzu**
+
 ## Slide 10.1: Recap
 
 # What We've Learned
@@ -339,11 +341,14 @@ Write-Host "Restart VS Code to apply changes."
 │   │                                                         │  │
 │   │              =                                          │  │
 │   │                                                         │  │
-│   │     10x PRODUCTIVITY                                    │  │
-│   │     ────────────────                                    │  │
+│   │     AMPLIFIED PRODUCTIVITY                               │  │
+│   │     ──────────────────────                               │  │
 │   │     Better code, faster delivery, less tedium           │  │
 │   │                                                         │  │
 │   └─────────────────────────────────────────────────────────┘  │
+│                                                                 │
+│   "The whole is greater than the sum of its parts."            │
+│                                          — Aristotle           │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```

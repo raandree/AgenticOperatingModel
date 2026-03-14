@@ -1,5 +1,7 @@
 # Module 4: Controlling AI Behavior
 
+> *"Luck is what happens when preparation meets opportunity."* — **Seneca**
+
 ## Slide 4.1: The Consistency Problem
 
 # Same Prompt, Different Results?

@@ -1,5 +1,9 @@
 # Module 8: Advanced Agent Capabilities
 
+> *"Alles hängt mit allem zusammen."*
+> *"Everything is connected to everything else."*
+> — **Alexander von Humboldt**
+
 ## Slide 8.1: Beyond the Basics
 
 # Extending What Your Agent Can Do

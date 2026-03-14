@@ -5,6 +5,10 @@
 # Agentic Coding
 ## The Future of AI-Assisted Development
 
+> *"Die Geister, die ich rief, werd' ich nun nicht los."*
+> *"The spirits that I summoned, I now cannot rid myself of."*
+> — **Johann Wolfgang von Goethe**, *Der Zauberlehrling*
+
 *[Your Name]*
 *[Date]*
 

@@ -1,5 +1,9 @@
 # Module 3: The Power of Context
 
+> *"Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt."*
+> *"The limits of my language mean the limits of my world."*
+> — **Ludwig Wittgenstein**
+
 ## Slide 3.1: The Context Problem
 
 # Why Context Changes Everything
@@ -255,6 +259,36 @@ new file mode 100644
 
 ---
 
+## Slide 3.8a: AI Does the Git Forensics for You
+
+# AI + Git = Full Audit Trail
+
+### Ask the agent:
+> "Show me how often each contributor changed `Deploy-Application.ps1`"
+
+### Agent runs:
+```bash
+git log --follow --format='%aN' -- src/Public/Deploy-Application.ps1 \
+  | sort | uniq -c | sort -rn
+```
+
+### Result:
+```
+  47  Alice (Human)
+  31  Copilot (AI)
+  12  Bob (Human)
+   3  Carol (Human)
+```
+
+### What you learn:
+- **Who** changed what — human or AI
+- **How often** — contribution frequency
+- **Accountability** — every commit is attributed
+
+> AI + Git = **full audit trail** with zero manual effort.
+
+---
+
 ## Slide 3.9: Checkpoint System
 
 # Rollback When Needed
@@ -317,6 +351,30 @@ feat: add validation function
 
 Co-authored-by: AI Assistant <ai@example.com>
 ```
+
+---
+
+## Slide 3.10a: Commit Strategies — Explained
+
+# Why Each Strategy Matters
+
+### Conventional Commits
+Structured commit messages: `type(scope): description`
+- Makes AI commits **searchable** and **filterable** via `git log --grep`
+- Add 🤖 emoji or `[AI]` tag to identify AI-generated commits
+- Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
+
+### Branch Strategy
+Isolate AI work on **dedicated branches** before merging:
+- `ai/` prefix signals "AI-generated, needs review"
+- Enables **PR-based review** before merging to feature branch
+- Keeps `main` clean — AI work is reviewed just like human work
+
+### Co-authored Commits
+Git's `Co-authored-by` trailer gives **explicit attribution**:
+- Shows up in GitHub's contributor graph
+- Clear signal in `git log` and `git blame`
+- Team knows which code had AI involvement
 
 ---
 

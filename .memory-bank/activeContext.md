@@ -6,7 +6,7 @@
 **Target Audience**: PowerShell Developers & DevOps Engineers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticCoding (main branch)
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-14
 
 ## Agent & Instruction Configuration
 
@@ -52,9 +52,16 @@ Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and V
 
 ### 2026-03-14: MARP slide deck — Git forensics + commit strategy slides
 - Added new slide "AI Does the Git Forensics for You" to Module 2 in `marp-presentation.md`
-  - Demo prompt, `git log` command, contributor frequency output, audit trail message
 - Added new slide "Commit Strategies — Explained" to Module 2 in `marp-presentation.md`
-  - Detailed breakdown: Conventional Commits (type/scope tagging), Branch Strategy (`ai/` prefix), Co-authored Commits (attribution in git log/blame)
+
+### 2026-03-14: Famous quotes added across all MARP modules
+- 13 curated quotes from European/German thinkers (Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle)
+- Bilingual format (German + English) where applicable
+
+### 2026-03-14: AI commit strategy added to sample + personal files
+- Added Git & Commit Strategy section to `content/materials/sample-copilot-instructions/copilot-instructions.md`
+- Added AI-Assisted Commit Strategy section to MyCopilot `git.instructions.md`
+- Added AI attribution rules to MyCopilot Software Engineer Agent
 
 ### 2026-03-14: Prompt Evolution demo + slide + cross-references
 - Created `content/demos/demo-prompt-evolution.md` — 6-level prompt progression demo script
