@@ -84,6 +84,21 @@ with exponential backoff. Keep existing tests passing."
 "Write something like that thing" (No context)
 ```
 
+### Prompt Evolution Pattern
+
+The same task improves dramatically with each added layer:
+
+| Level | What to Add | Effect |
+|-------|------------|--------|
+| 1 | Just the task | Bare minimum output |
+| 2 | "check instructions and skills" | Standards applied |
+| 3 | "add tests, be creative" | Full module + self-verification |
+| 4 | "use the build script" | Proper build pipeline |
+| 5 | "documentation, memory bank" | Full lifecycle artifacts |
+| 6 | "follow ALL instructions" | Maximum resource utilization |
+
+> See `content/demos/demo-prompt-evolution.md` for full examples.
+
 ---
 
 ## When to Use Agentic Coding

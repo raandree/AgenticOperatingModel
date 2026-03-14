@@ -50,6 +50,18 @@ Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and V
 
 ## Recent Changes
 
+### 2026-03-14: Prompt Evolution demo + slide + cross-references
+- Created `content/demos/demo-prompt-evolution.md` — 6-level prompt progression demo script
+  - Same task ("PowerShell function comparing file sizes") through six increasingly effective prompts
+  - Each level adds context, scope, and resource utilization (instructions, skills, agents, memory bank)
+  - Includes teaching points, presenter talking points, execution options, troubleshooting
+- Added Slide 4.19 (Prompt Evolution) to Module 4 with summary table + cross-reference
+- Updated Module 4 speaker notes with demo tip for extended sessions
+- Updated main demo script with cross-reference to prompt evolution demo
+- Updated content README with demo listing
+- Updated cheat sheet with Prompt Evolution Pattern quick-reference table
+- Updated agenda with optional Prompt Evolution demo in Module 4 extended version
+
 ### 2026-03-09: Module 8 + sample templates + MARP update
 - Module 8: Advanced Capabilities slides created (13 slides + speaker notes)
   - MCP architecture and configuration (slides 8.1-8.6)

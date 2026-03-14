@@ -291,6 +291,11 @@ After 2 hours, attendees will understand:
    - Same request WITH copilot-instructions.md
    - Dramatic difference in quality
 
+5. **Demo: Prompt Evolution** (10-15 min, extended version only)
+   - Same task, six levels of prompt quality
+   - Shows impact of referencing instructions, skills, and agents
+   - See [demo-prompt-evolution.md](../content/demos/demo-prompt-evolution.md)
+
 **Key Message**: "Instruction files are how you train your AI to work YOUR way."
 
 ---

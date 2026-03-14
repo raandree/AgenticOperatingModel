@@ -268,6 +268,12 @@ git commit -m "feat: add ConfigValidator module with JSON and YAML validation
 
 ---
 
+## Related Demo: Prompt Evolution
+
+> For an alternative or complementary demo focused on **prompt quality progression**, see [demo-prompt-evolution.md](demo-prompt-evolution.md). It shows the same task expressed through six increasingly effective prompts — from bare minimum to full resource utilization. Great for reinforcing Module 4 (Controlling AI Behavior) concepts.
+
+---
+
 ## Key Messages to Reinforce
 
 Throughout the demo, return to these points:

@@ -667,6 +667,35 @@ handoffs:
 
 ---
 
+## Slide 4.19: Prompt Evolution — Same Task, Six Levels
+
+# Your Prompt Quality Shapes the Output
+
+The same task — *"Write a PowerShell function that compares file sizes"* — produces radically different results depending on how you prompt:
+
+| Level | Prompt Addition | What the AI Produces |
+|-------|----------------|---------------------|
+| **1** | Just the task | A single function in a flat `.ps1` file |
+| **2** | + "check instructions and skills" | + Proper `[CmdletBinding()]`, validation, help |
+| **3** | + "tests, Sampler scaffolding, be creative" | + Full module, Pester tests, creative additions |
+| **4** | + "use the Sampler build script" | + Proper build pipeline (`build.ps1`, `build.yaml`) |
+| **5** | + "documentation, memory bank" | + README, comment-based help, `.memory-bank/` |
+| **6** | + "follow ALL instructions, use ALL skills" | + Maximum resource utilization |
+
+### The Pattern:
+```
+Prompt Quality ↑  →  Context Utilization ↑  →  Output Quality ↑
+```
+
+### Key Insight:
+> You don't need Level 6 if your instructions and skills are well-configured.
+> But **knowing how to write an effective prompt** is the difference between
+> getting a function and getting a production-ready module.
+
+> **Demo**: See the [Prompt Evolution demo script](../demos/demo-prompt-evolution.md) for a live walkthrough of all six levels.
+
+---
+
 ## Speaker Notes - Module 4
 
 ### Timing: 30-35 minutes
@@ -687,6 +716,7 @@ handoffs:
 - Don't spend time on the file syntax — show the result
 - Highlight how tests appear automatically with rules
 - If time permits, show a `/CodeReview` prompt invocation
+- **For extended sessions**: Use the [Prompt Evolution demo](../demos/demo-prompt-evolution.md) to show 6 levels of prompt quality
 
 ### Common Questions:
 - "Where do I put it?" → `.github/copilot-instructions.md` for project-wide, `.github/instructions/` for pattern-matched

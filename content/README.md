@@ -20,6 +20,8 @@ Live demonstration scripts and instructions.
 - Step-by-step demo guidance
 - Troubleshooting tips
 - Fallback options if demos fail
+- **demo-script-main.md** — Primary end-to-end agentic workflow demo
+- **demo-prompt-evolution.md** — Six-level prompt quality progression demo
 
 ### materials/
 Handouts and reference materials for attendees.
