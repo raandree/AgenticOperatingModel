@@ -1,6 +1,8 @@
 # Content
 
-This folder contains all presentation content, demos, and supporting materials.
+This folder is the **single source of truth** for all presentation content. It is shared across all three session formats (1h, 2h, 4h). Version-specific agendas in [`../versions/`](../versions/) reference these files — content is never duplicated.
+
+> **When you update a module in this folder, all three versions automatically get the update.** The version-specific agendas control which modules are included and how much time each gets.
 
 ## Subfolders
 

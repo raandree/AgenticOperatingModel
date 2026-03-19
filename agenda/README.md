@@ -1,19 +1,15 @@
 # Agenda
 
-This folder contains the presentation agenda and timing information.
+> **Note**: Version-specific agendas have moved to [`../versions/`](../versions/). This folder contains the original combined agenda as a reference.
 
-## Contents
+## Version-Specific Agendas
 
-- **presentation-agenda.md** - Complete session agenda with:
-  - Module breakdown with timing estimates
-  - 2-hour and 4-hour session options
-  - Break recommendations
-  - Learning objectives per module
-  - Speaker notes and transitions
+| Version | Agenda |
+|---------|--------|
+| **1-Hour** | [versions/1h/agenda.md](../versions/1h/agenda.md) |
+| **2-Hour** | [versions/2h/agenda.md](../versions/2h/agenda.md) |
+| **4-Hour** | [versions/4h/agenda.md](../versions/4h/agenda.md) |
 
-## Usage
+## Legacy Reference
 
-Review the agenda before presenting to:
-1. Choose between 2-hour or 4-hour format
-2. Adjust timing based on audience engagement
-3. Identify optional modules to skip if running short on time
+- **presentation-agenda.md** — Original combined 2-4 hour agenda with full module descriptions. Retained for reference. The version-specific agendas in `../versions/` supersede this file.

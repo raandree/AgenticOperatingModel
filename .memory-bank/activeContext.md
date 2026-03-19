@@ -2,11 +2,11 @@
 
 ## Current Focus
 
-**Task**: Maintain and update comprehensive 2-4 hour agentic coding presentation
+**Task**: Maintain and update comprehensive agentic coding presentation (1h, 2h, 4h versions)
 **Target Audience**: PowerShell Developers & DevOps Engineers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticCoding (main branch)
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-11
 
 ## Agent & Instruction Configuration
 
@@ -49,6 +49,18 @@
 Previously in `.github/` (removed). Now loaded via MyCopilot OneDrive sync and VS Code `chat.*FilesLocations` settings. Project-specific samples remain in `content/materials/sample-copilot-instructions/`.
 
 ## Recent Changes
+
+### 2026-03-11: Three-version architecture
+- Created `versions/` folder with 1h, 2h, 4h subfolders
+- Each version has its own `agenda.md` (with full presenter guide) and `README.md`
+- Content in `content/` is the single source of truth — never duplicated
+- Version agendas reference shared content via relative links
+- 1h version: 60 min, no break, 5-min demo, condensed modules 1-5 + 10
+- 2h version: 120 min, 1 break, 15-min synthesis demo, modules 1-5 + 9/10
+- 4h version: 240 min, 3 breaks, 35-min live build, all modules 1-10
+- Root README updated with version picker table
+- Old `agenda/` folder updated to redirect to `versions/`
+- `content/README.md` updated to note shared content architecture
 
 ### 2026-03-09: Module 8 + sample templates + MARP update
 - Module 8: Advanced Capabilities slides created (13 slides + speaker notes)

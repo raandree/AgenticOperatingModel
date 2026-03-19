@@ -2,13 +2,25 @@
 
 ## Current Status
 
-**Phase**: Content Complete with Agent Infrastructure Configured
+**Phase**: Content Complete — Three Version Architecture
 **Started**: 2026-02-02
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-11
 **GitHub Repository**: raandree/AgenticCoding (main branch)
-**Status**: Updated and ready for review
+**Status**: All three versions (1h, 2h, 4h) structured and ready for review
 
 ## Completed
+
+### Three-Version Architecture ✅ (2026-03-11)
+- [x] Created `versions/` folder with `1h/`, `2h/`, `4h/` subfolders
+- [x] 1-hour agenda with per-module presenter guide (versions/1h/agenda.md)
+- [x] 2-hour agenda with per-module presenter guide (versions/2h/agenda.md)
+- [x] 4-hour agenda with per-module presenter guide (versions/4h/agenda.md)
+- [x] README for each version explaining scope and module selection
+- [x] Versions overview README with module map and shared content architecture
+- [x] Root README updated with version picker, new project structure
+- [x] Old agenda/ folder updated to redirect to versions/
+- [x] content/README.md updated to document single-source-of-truth architecture
+- [x] Memory bank updated (activeContext.md, progress.md)
 
 ### Agent Infrastructure ✅ (2026-03-09)
 - [x] Technical-writer agent mode configured (7-phase documentation workflow)
@@ -88,18 +100,22 @@
 ## Content Structure
 
 ```
-c:\Git\AgenticCoding\
-├── .memory-bank/
-│   ├── projectbrief.md
-│   ├── productContext.md
-│   ├── techContext.md
-│   ├── systemPatterns.md
-│   ├── progress.md
-│   ├── activeContext.md
-│   └── promptHistory.md
-├── agenda/
+AgenticCoding/
+├── .memory-bank/               # Project context files
+├── versions/                   # Version-specific agendas & presenter guides
+│   ├── README.md               #   Overview & module map
+│   ├── 1h/                     #   1-hour "Paradigm Shift"
+│   │   ├── README.md
+│   │   └── agenda.md
+│   ├── 2h/                     #   2-hour "Core Concepts + Demo"
+│   │   ├── README.md
+│   │   └── agenda.md
+│   └── 4h/                     #   4-hour "Full Workshop"
+│       ├── README.md
+│       └── agenda.md
+├── agenda/                     # Legacy (redirects to versions/)
 │   └── presentation-agenda.md
-└── content/
+└── content/                    # Shared content (single source of truth)
     ├── slides/
     │   ├── 01-ai-coding-revolution.md
     │   ├── 02-what-is-agentic.md
@@ -134,15 +150,16 @@ c:\Git\AgenticCoding\
 
 | Item | Status | Notes |
 |------|--------|-------|
-| 2-Hour Agenda | ✅ Ready | Core concepts covered |
-| 4-Hour Agenda | ✅ Ready | Extended with demos |
+| 1-Hour Agenda | ✅ Ready | Condensed core concepts, no break |
+| 2-Hour Agenda | ✅ Ready | Core concepts + synthesis demo |
+| 4-Hour Agenda | ✅ Ready | Full workshop with all modules |
 | All Core Slides | ✅ Updated | Modules 1-5, 8-10 (Copilot-focused) |
 | Main Demo Script | ✅ Updated | Copilot Agent Mode workflow |
 | Sample Copilot Instructions | ✅ Ready | 10 sample files (instructions, agents, skill) |
-
 | Cheat Sheet | ✅ Updated | Refocused on Copilot |
 | Landscape Research | ✅ Complete | Copilot primary, alternatives referenced |
 | Agent Infrastructure | ✅ Configured | Technical-writer mode, MyCopilot instructions, skills |
+| Version Architecture | ✅ Complete | Shared content, version-specific agendas |
 
 ## Optional: Still Could Create
 

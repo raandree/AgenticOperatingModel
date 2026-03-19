@@ -2,6 +2,12 @@
 
 Append-only log of significant writing and documentation tasks. Trim entries older than 90 days.
 
+## 2026-03-11
+
+- **Task**: Create three-version architecture (1h, 2h, 4h) with shared content
+- **Mode**: devops-training-writer
+- **Outcome**: Created `versions/` folder with `1h/`, `2h/`, `4h/` subfolders. Each version has `README.md` and `agenda.md` with per-module presenter guides, timing checkpoints, slide skip/keep guidance. Content in `content/` remains the single source of truth — no duplication. 1-hour version is new (condensed core concepts, no break, 5-min demo). Updated root README, agenda/README, content/README, activeContext.md, progress.md.
+
 ## 2026-03-09
 
 - **Task**: Create Module 8 slides — Advanced Capabilities (MCP, checkpoints)
