@@ -1,0 +1,195 @@
+# Module 1: The AI Coding Revolution
+
+## Version Guide
+
+| Slide | Title | 1h | 2h | 4h |
+|-------|-------|:---:|:---:|:---:|
+| 1.1 | Title | ✅ | ✅ | ✅ |
+| 1.2 | The Question (Poll) | — | ✅ | ✅ |
+| 1.3 | The Evolution | ✅ | ✅ | ✅ |
+| 1.4 | What Changed? | — | ✅ | ✅ |
+| 1.4a | Tokens, Context & Cost | — | — | ✅ |
+| 1.5 | The Productivity Question | — | ✅ | ✅ |
+| 1.6 | Why This Matters to You | — | ✅ | ✅ |
+| 1.7 | Today's Journey | ✅ | ✅ | ✅ |
+
+---
+
+## Slide 1.1: Title
+
+# The Agentic Operating Model
+## Versioned, AI-Agent-Assisted Work for Code, Operations, Research & Correspondence
+
+> *"Die Geister, die ich rief, werd' ich nun nicht los."*
+> *"The spirits that I summoned, I now cannot rid myself of."*
+> — **Johann Wolfgang von Goethe**, *Der Zauberlehrling*
+
+---
+
+## Slide 1.2: The Question
+
+# How do YOU use AI for coding today?
+
+🤔 Quick Poll:
+
+- **A)** Code autocomplete (Copilot, Tabnine)
+- **B)** Chat assistants (ChatGPT, Claude)
+- **C)** AI agents (Copilot Agent Mode, Cursor, Claude Code)
+- **D)** Not yet using AI for coding
+
+---
+
+## Slide 1.3: The Evolution
+
+# AI Coding Has Evolved in Three Waves
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  WAVE 1              WAVE 2              WAVE 3                │
+│  2021-2022           2023-2024           2025-2026             │
+│                                                                 │
+│  ┌─────────┐        ┌─────────┐        ┌─────────┐            │
+│  │ AUTO-   │        │  CHAT   │        │ AGENTIC │            │
+│  │ COMPLETE│   ──▶  │ ASSIST  │   ──▶  │  CODING │            │
+│  └─────────┘        └─────────┘        └─────────┘            │
+│                                                                 │
+│  "Complete         "Answer my         "Do this                │
+│   this line"        question"          task for me"           │
+│                                                                 │
+│  Single line        Copy-paste         Autonomous              │
+│  suggestions        workflow           execution               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Slide 1.4: What Changed?
+
+# Why the Agentic Operating Model is Possible NOW
+
+### Technology Advances
+- **Massive context windows** (1M+ tokens with Claude Opus 4.7)
+- **Advanced reasoning** (Claude Opus 4.7, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro)
+- **Native tool use** abilities in LLMs
+- **Cheaper API costs** for longer iteration loops
+- **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
+
+### Tooling Advances
+- AI agents with **file system access** and **browser automation**
+- **Terminal command** execution with exit code awareness
+- **Checkpoint/rollback** systems built into editors
+- **Multi-file context** understanding with AST analysis
+- **Cloud agents** running autonomously (Copilot Coding Agent, Cursor Cloud Agents)
+- **Agentic Workflows** in CI/CD (GitHub Agentic Workflows, GA April 2026)
+
+---
+
+## Slide 1.4a: Tokens, Context Windows & Cost
+
+# Understanding the Economics
+
+### What are tokens?
+- A **token** is the smallest unit of text the model processes
+- ~4 characters or ~¾ of a word in English
+- Both your **input** (prompt + context) and the model's **output** consume tokens
+
+### Context window sizes (April 2026):
+| Model | Context Window |
+|-------|----------------|
+| Claude Opus 4.7 | Up to **1M tokens** |
+| GPT-5.4 / GPT-5.4-mini | **256K tokens** |
+| GPT-5.3-Codex | **256K tokens** (specialized coding variant) |
+| Gemini 3.1 Pro | **2M tokens** |
+
+### Why cost matters in agentic workflows:
+- Agentic loops consume **more tokens** than single-shot requests
+- Each iteration (observe → plan → act → verify) adds token usage
+- Larger context windows = more tokens per request = higher cost
+- **Cloud agents** (Copilot Coding Agent) run autonomously — costs accumulate
+
+### How to measure token usage:
+- GitHub Copilot: Check usage dashboard in GitHub settings
+- VS Code: Monitor in Copilot output panel
+- API-based tools: Token counts returned in API responses
+
+> **Hands-on idea**: Track how many tokens a real agentic task consumes from start to finish.
+
+---
+
+## Slide 1.5: The Productivity Question
+
+# Real-World Impact
+
+> "I'm shipping features in hours that used to take days."
+> — Common developer feedback on agentic tools
+
+### What the data shows (April 2026):
+- **55% faster** task completion (GitHub study)
+- **40% less time** debugging (Microsoft study)
+- **Boilerplate generation**: Minutes instead of hours
+- **Test generation**: Comprehensive coverage faster
+- **Enterprise adoption**: NVIDIA (40K engineers), Salesforce (20K developers), Fortune 500+
+- **Windsurf claims**: 94% of code written by AI in their workflows
+
+### But also:
+- Requires **new skills** (prompting, verification, review)
+- Works best for **certain task types**
+- Still needs **human oversight** and architectural judgment
+
+---
+
+## Slide 1.6: Why This Matters to You
+
+# As PowerShell Developers / DevOps Engineers
+
+You already:
+- ✅ Work with **structured repositories**
+- ✅ Use **version control** (Git)
+- ✅ Write **testable code** (Pester)
+- ✅ Follow **conventions** (Approved Verbs, etc.)
+
+These practices make agentic coding **even more effective** for you.
+
+---
+
+## Slide 1.7: Today's Journey
+
+# What We'll Cover
+
+1. **What Makes Coding "Agentic"**
+   - The paradigm shift from suggestions to execution
+
+2. **The Power of Context**
+   - Why Git is foundational to AI understanding
+
+3. **Controlling AI Behavior**
+   - Instruction files and custom agents
+
+4. **Self-Verification**
+   - How AI validates its own work
+
+5. **Practical Application**
+   - Live demonstration of the full workflow
+
+---
+
+## Speaker Notes - Module 1
+
+### Timing: 10 minutes
+
+### Key Points to Emphasize:
+1. This is a **paradigm shift**, not incremental improvement
+2. The audience's existing skills (Git, testing) are **advantages**
+3. This applies to **any language**, we use PowerShell because they know it
+4. Tokens and cost are real considerations — agentic loops use more tokens than single-shot requests
+
+### Common Questions:
+- "Will AI replace developers?" → No, it changes the role from typist to architect
+- "Is this just hype?" → Show productivity statistics
+- "What about code quality?" → Covered in verification module
+- "How much does it cost?" → Depends on model and usage; token slide covers the economics
+
+### Transition to Module 2:
+"Now that we understand why this matters, let's define exactly what makes coding 'agentic'..."

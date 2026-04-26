@@ -1,0 +1,202 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [1.0.0] - 2026-04-26
+
+Initial public release of **The Agentic Operating Model** — a presentation/workshop on versioned, AI-agent-assisted knowledge work for developers, DevOps engineers, system engineers, and research/analyst-style knowledge workers. Available in three versions (1-hour keynote, 2-hour standard, 4-hour workshop) sharing a single source of module content.
+
+### Added
+
+- **Early broadening for system engineers and knowledge workers** (2026-04-24)
+  - Opening poll slide reworded from "How Do YOU Use AI for Coding Today?" to "How Do YOU Use AI in Your Work Today?" with explicit "whatever you build" coda (all versions)
+  - "Three Waves" table gains a "Deliverable" row naming code, runbooks, documents, and decisions as Wave-3 outputs
+  - New **"Why This Matters to You — Whatever Your Role"** slide (all versions): four-audience table (Developer / DevOps / System engineer / Knowledge worker) mapped to their primary deliverable and their verification signals (Pester, `dcdiag`, citations)
+  - New **"Why Dev & DevOps Practices Are the Foundation"** slide (all versions): explicit bridge — Git, plain text / Markdown, small commits, automated checks, review mindset, reproducible environments are the engineering discipline that makes agentic AI trustworthy in *any* domain
+  - Existing "Why This Matters to You" (developers-only framing) kept and re-scoped to "If You Already Write Code" (2h, 4h) — positions developers as the blueprint non-dev colleagues adopt
+  - Module 1 retitled **"What Makes Work 'Agentic'?"** (from "What Makes Coding 'Agentic'?")
+  - "What IS an Agent?" closing line expanded to mention code, servers, email corpora, and legal case files
+  - "Traditional AI vs Agentic AI" diagram caption clarified: *verification* means Pester for code, `dcdiag` for a DC, "every citation resolves" for a legal draft
+  - "Your Role Changes" table generalised (you type code / commands / prose) with closing line naming code, configuration, and 40-page case file as equivalent deliverables
+  - "You Are the Conductor" analogy reworded from "Developer with AI Agents" to "You — with AI agents"; closing note covers code, data center, legal brief
+  - "Today's Journey" TOC adds "Beyond Code — Same loop, different artefact" as an explicit milestone
+
+- **CopilotAtelier deep integration — atelier pattern, skill authoring, skill portfolio** (2026-04-24)
+  - New Module 3 slide "Your Atelier — Customization as Code" introducing the four-surfaces (Agents · Instructions · Skills · Prompts) + environment + keybindings pattern, with the `~/OneDrive/CopilotAtelier/` layout and VS Code `chat.*FilesLocations` settings (2h, 4h)
+  - New Module 3 slide "Skill-Authoring Discipline" covering required YAML frontmatter, `USE FOR` / `DO NOT USE FOR` trigger phrases, common failure modes, and diagnostic tools (Chat Customizations editor, Show Agent Debug Logs) (4h only)
+  - New Module 8 slide "A Mature Personal Atelier" using CopilotAtelier's ~20-skill portfolio (infrastructure, DSC, testing, documents, communications, knowledge work) as concrete evidence that one agent shape serves many domains (4h only)
+  - Cheat sheet: New "Authoring Your Own Skills" section with required frontmatter template, 7-item checklist, and related feature-flag table (`chat.includeReferencedInstructions` for instruction composition, `thinkingTool`, semantic search)
+  - PPTX files regenerated as `agentic-operating-model-{1h,2h,4h}.pptx`
+
+- **2026 Q2 landscape refresh — new features, models, CopilotAtelier integration** (2026-04-23)
+  - New Module 8 slide 8.13 "What's New in 2026 Q2" covering Claude Opus 4.7 GA, GPT-5.4/5.4-mini (5.1 retired), Copilot SDK public preview, BYOK in VS Code 1.117+ and Copilot CLI, signed cloud-agent commits, Research/Plan/Code mode, 3-click merge-conflict resolution, org firewall/runner controls, remote control CLI sessions on web/mobile, org custom instructions GA, data residency (US/EU) + FedRAMP, VS Code Agents app (Insiders), incremental chat rendering, agent CLI terminal titles
+  - Existing Slide 8.13 "Key Takeaway" renumbered to 8.14; Version Guide updated to 8.1–8.14
+  - Module 10 "The Future" slide (10.8) rewritten with April 2026 "Already Here" items replacing Feb 2026 list
+  - Cheat sheet: model table updated (Claude Opus 4.7 GA, GPT-5.4/5.4-mini, note on GPT-5.1 retirement); added BYOK and Auto model selection notes
+  - Cheat sheet: Recommended VS Code Settings expanded with `chat.experimental.incrementalRendering.enabled` and `terminal.integrated.tabs.allowAgentCliTitle`
+  - Cheat sheet: New "Useful Keybindings" table (Ctrl+K X / N / K, Ctrl+Enter submit) from CopilotAtelier pattern
+  - Cheat sheet: Troubleshooting table extended with skill-loading, instructions-ignored, agent-not-listed, and Agent Debug Logs entries
+  - Cheat sheet: Resources list adds Copilot SDK and the [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repository
+  - Cheat sheet: Cross-Machine Sync example rewritten to point at `~/OneDrive/CopilotAtelier/` with a reference to the public setup script
+  - New sample `content/materials/sample-copilot-instructions/copilot-authoring.instructions.md` — meta-instructions for authoring `.instructions.md`, `.prompt.md`, `.agent.md`, and `SKILL.md` files (YAML frontmatter rules, description guidelines, `applyTo` globs, discovery/verification, anti-patterns)
+  - References: VS Code 1.117 release notes (2026-04-22), GitHub Copilot changelog (Apr 2026), CopilotAtelier repository
+
+- **Conductor/Orchestra metaphor integrated across presentation** (2026-03-26)
+  - New Slide 2.4a "The Conductor and the Orchestra" in Module 2 — maps conductor = developer, musicians = AI agents; includes German/English framing and parallel table
+  - Added to all three versions (1h, 2h, 4h) via Version Guide and MARP source
+  - Module 10 "Final Thought" slide updated: "YOUR EXPERTISE (The Conductor)" / "AI CAPABILITIES (The Musicians)" / "A SYMPHONY (The Result)"
+  - MARP slide updated from "You + AI > You Alone" to "You Are the Conductor — AI Is Your Orchestra"
+  - Cheat sheet: Updated Guiding Principle section with conductor/orchestra analogy
+  - README.md: Cleaned up raw brainstorming notes (now properly integrated into slides)
+  - References: Anthropic Auto Mode blog post, WELT article "Im Auto Mode wird die KI zur digitalen Arbeitskraft" (Benedikt Fuest, 2026-03-26)
+
+- **Three-version architecture (1h · 2h · 4h)** (2026-03-19)
+  - Restructured `agenda/presentation-agenda.md` with DRY single-source architecture
+  - Version Summary table, Module Inclusion Matrix, Slide Inclusion Guide
+  - Three version-specific agenda sections: 1-Hour Keynote, 2-Hour Standard, 4-Hour Workshop
+  - Each version has timing table, facilitator notes, and learning outcomes
+  - Version Guide tables added to all 8 slide files (01–05, 08–10)
+  - Module descriptions updated with per-version duration badges
+  - Updated all README files and demo script with three-version references
+  - Added `<!-- version: 1h 2h 4h -->` tags to all 81 MARP slides in source
+  - Created `Build-MarpVersions.ps1` to generate version-specific MARP decks
+  - Generated `marp-1h-keynote.md` (~25 slides), `marp-2h-standard.md` (~45 slides), `marp-4h-workshop.md` (all 81 slides)
+  - Updated `README-how-to-create-pptx.md` with build workflow
+
+- **MARP slide deck: Git forensics and commit strategy slides** (2026-03-14)
+  - New slide "AI Does the Git Forensics for You" in Module 2 — demo prompt, `git log` command, contributor frequency output
+  - New slide "Commit Strategies — Explained" in Module 2 — detailed breakdown of Conventional Commits, Branch Strategy, and Co-authored Commits
+
+- **MARP slide deck: Famous quotes added across all modules** (2026-03-14)
+  - 13 curated quotes from European/German thinkers: Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle
+  - Bilingual format (German + English translation) where applicable
+  - Placed at section dividers and key message slides to reinforce themes
+
+- **AI commit strategy added to sample copilot-instructions.md** (2026-03-14)
+  - Git & Commit Strategy section: Conventional Commits with 🤖 tagging, `ai/` branch prefix, `Co-authored-by` attribution
+
+- **Module 8: Advanced Capabilities slides** (2026-03-09)
+  - 13 slides + speaker notes covering MCP, checkpoints, multi-file operations, agent types
+  - Slide 8.1-8.6: MCP architecture, VS Code configuration, use cases, security model
+  - Slide 8.7-8.8: Checkpoint system and practical rollback workflows
+  - Slide 8.9: Multi-file coordinated rename operations
+  - Slide 8.10-8.11: Agent types (local, background, cloud, third-party) and cloud agent PR workflow
+  - Slide 8.12: Future trajectory from 2024 to autonomous workflows
+
+- **Additional sample template files** (2026-03-09)
+  - Sample `SKILL.md` for Sampler build debugging (auto-activated skill)
+  - `testing.instructions.md` template for Pester test files (`applyTo: **/*.Tests.ps1`)
+  - `documentation.instructions.md` template for Markdown files
+  - `refactoring.instructions.md` template for PowerShell files
+  - `code-reviewer.agent.md` template with multi-phase review and handoff
+  - `iac-engineer.agent.md` template for DSC, Bicep, Terraform, Ansible
+  - `security-reviewer.agent.md` template with OWASP Top 10 and CWE references
+
+- **MARP slide deck updated with Module 8 content** (2026-03-09)
+  - 3 new slides: MCP Universal Connector, Checkpoints & Rollback, Agent Types
+  - Slide count increased from 22 to 25
+
+- **Integrated brainstorming notes from PSConfEU 2026 session planning** (2026-03-07)
+  - Module 2: Added Slide 2.0 "Foundational Vocabulary" with 10 key terms (Model, Agent, Tools, Skill, Instructions, Prompt, Memory Bank, Token, Context Window, MCP)
+  - Module 1: Added Slide 1.4a "Tokens, Context Windows & Cost" covering token economics, context window sizes, and a hands-on lab idea
+  - Module 9: Added Slide 9.8a "Agent Security & Boundaries" covering agent capabilities, safeguards, and restriction mechanisms
+  - Module 9: Added Slide 9.8b "The Cardinal Rule" with guiding principle "Know what you are doing"
+  - Module 10: Added complementary tools (Warp, GitHub Copilot CLI, Zed) to resources slide
+  - Cheat sheet: Added Token Usage & Cost section, Agent Security & Boundaries section, Guiding Principle section
+  - Cheat sheet: Expanded Key Concepts table with 6 new terms (Model, Agent, Tools, Token, Context Window, Memory Bank, MCP)
+  - Cheat sheet: Added complementary tools to Resources section
+
+### Changed
+
+- **Integrated brainstorming notes into agenda and speaker notes** (2026-03-07)
+  - Module 2 agenda: Added "Foundational Vocabulary" as first content item
+  - Module 9 agenda: Added "Agent Security & Boundaries" section, added guiding principle to Human Role section, rebalanced timing
+  - Module 1 speaker notes: Added token/cost emphasis and new Q&A item
+  - Module 9 speaker notes: Added security and guiding principle emphasis, two new Q&A items
+  - Memory bank: Updated activeContext.md and progress.md with integration record
+
+- **Integrated CopilotAtelier project patterns into presentation content**
+  - Module 4: Added 4 new slides (Skills, Prompts, Agent Handoffs, Complete Customization Ecosystem)
+  - Module 4: Enhanced custom agent examples with production-grade patterns (model, handoffs, subagents, zero-confirmation)
+  - Module 4: Renumbered slides 4.10–4.18 to accommodate new content, updated timing to 30–35 min
+  - Module 10: Added cross-machine sync slide with OneDrive pattern and setup script
+  - Module 10: Updated getting started checklist with VS Code feature flags
+  - Module 10: Updated key takeaways to include skills, prompts, and handoffs
+  - Module 10: Updated sample template library with prompt and skill examples
+  - Demo script: Added "Demo Part 6 (Bonus)" covering skills, prompts, and cross-machine sync
+  - Demo script: Added recommended VS Code settings to setup checklist
+  - Demo script: Updated timing table for 4-hour version (35–42 min)
+  - Cheat sheet: Added Chat Shortcuts table (`/agents`, `/instructions`, `/skills`, `/prompts`)
+  - Cheat sheet: Added Recommended VS Code Settings table (4 feature flags)
+  - Cheat sheet: Expanded Key Concepts with Skills, Prompt Files, Agent Handoffs
+  - Cheat sheet: Expanded Customization Ecosystem to 6-type table with cross-machine sync example
+
+### Removed
+
+- `.clinerules/` directory (Cline-specific configuration files)
+- `.github/chatmodes/` directory (deprecated chatmode format)
+- `.github/instructions/` directory (moved to personal CopilotAtelier sync)
+- `.github/prompts/` directory (moved to personal CopilotAtelier sync)
+- `content/materials/sample-clinerules/` directory
+  - `.github/chatmodes/README.md`: Added migration notice and `.agent.md` format guide
+- **Pivoted primary demo tool from Cline to GitHub Copilot Agent Mode**
+  - All 7 slide modules refocused for Copilot as primary tool
+  - Module 4 (Controlling AI Behavior) major refactor: 5 instruction file types, custom agents, org policies
+  - Module 10 (Your Agentic Future) major refactor: Copilot resources, getting started guide, agent templates
+  - Demo script updated for Copilot Agent Mode workflow (setup, file names, narration, troubleshooting)
+  - Cheat sheet refocused: Copilot Agent Mode Quick Reference, instruction file ecosystem, resources
+  - All `.clinerules` references updated to `copilot-instructions.md` across all files
+  - All "Cline" demo references updated to "Copilot Agent Mode"
+- Updated Module 1 slides with current agentic coding landscape (Feb 2026)
+  - Added Windsurf, Claude Code to tool mentions
+  - Updated timeline to reflect Wave 3 starting 2025
+  - Updated technology advances (1M+ token context, MCP as standard, cloud agents)
+  - Added enterprise adoption data (NVIDIA, Salesforce, Fortune 500)
+- Updated Module 10 slides with current resources and future outlook
+  - Added comprehensive resource links for all major agentic tools
+  - Updated future outlook to reflect features already shipped (cloud agents, subagents, agentic CI/CD)
+- Updated cheat sheet with current tool ecosystem and instruction file comparison
+- Updated techContext.md with current AI models, competitor tools, Copilot instruction hierarchy
+- Updated all memory bank files to reflect Copilot as primary tool
+
+### Added
+
+- Sample `copilot-instructions.md` file for PowerShell module projects
+- Sample `powershell.instructions.md` file with pattern-matched `applyTo` frontmatter
+- Sample `pester-test-writer.agent.md` custom agent file with YAML tools configuration
+- New `content/materials/sample-copilot-instructions/` directory with 10 sample files
+- Copilot instruction file ecosystem table (5 file types: copilot-instructions.md, .instructions.md, .agent.md, AGENTS.md, CLAUDE.md)
+- Custom agent examples with YAML frontmatter (name, description, tools, handoffs)
+- Organization-level instruction sharing documentation
+- `/init` command reference for auto-generating instructions
+- Agentic coding landscape research findings (Feb 24, 2026)
+- Current AI model reference (Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro)
+- Initial presentation structure and content
+- Module slides 1-5, 9-10 covering core agentic coding concepts
+- Main demo script with troubleshooting guide
+- MARP slide deck for PowerPoint conversion
+- Quick reference cheat sheet for attendees
+- Project-specific instruction files
+- Comprehensive documentation in .memory-bank/
+
+### Deprecated
+
+- *(No current deprecations)*
+
+### Documentation
+
+- Root README.md with project overview
+- Folder README files explaining directory purposes
+- Presentation agenda with timing estimates
+
+## [0.1.0] - 2026-02-02
+
+### Added
+- Initial project creation
+- Memory bank structure
+- Basic agenda outline
+
+[1.0.0]: https://github.com/raandree/AgenticOperatingModel/releases/tag/v1.0.0
+[0.1.0]: https://github.com/raandree/AgenticOperatingModel/releases/tag/v0.1.0
