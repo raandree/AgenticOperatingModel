@@ -779,6 +779,12 @@ Each module file in `content/slides/` contains a **Version Guide** table at the 
    - Safeguards: tool approval, sandboxing, checkpoints
    - Organization policies for team-wide guardrails
 
+2a. **Destructive Operations & GitOps Guardrails** (5 min, 4h only) — *based on the PocketOS incident, late April 2026*
+   - Real incident: Cursor + Claude Opus 4.6 + Railway — production database and every backup wiped in 9 seconds via a single API call after the agent guessed the scope
+   - **Six-layer defence-in-depth**: agent policy · tool approval · credential scope · backup independence · rehearsed recovery · **architectural guardrails (GitOps + IaC)**
+   - Layer 6: agent commits to Git, gated pipeline reconciles state — agent's only verb is *propose a change*, never *apply a change*. Reference: [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop)
+   - Take-home: [`destructive-operations-guardrails.md`](../content/materials/destructive-operations-guardrails.md)
+
 3. **Where to Be Careful** ⚠️ (5 min)
    - Security-sensitive code
    - Complex business logic

@@ -33,7 +33,7 @@ Handouts and reference materials for attendees.
 - Sample custom agent files
 - Sample skill file
 - **agentic-knowledge-work-patterns.md** — ten patterns extracted from a real multi-year tax case, applicable to legal, tax, consulting, research, and ops work
-- **destructive-operations-guardrails.md** — take-home reference distilled from real 2026 incidents (PocketOS / Cursor / Claude / Railway, Replit) with a five-layer defence-in-depth model and a pre-flight checklist for any agent with destructive capabilities
+- **destructive-operations-guardrails.md** — take-home reference distilled from real 2026 incidents (PocketOS / Cursor / Claude / Railway, Replit) with a **six-layer defence-in-depth model** — layers 1–5 cover agent policy, tool approval, credential scope, backup independence, and rehearsed recovery; **Layer 6 covers architectural guardrails (GitOps + IaC)** with [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC) as the canonical reference and Argo CD / Flux / Atlantis / Terraform Cloud / Bicep deployment stacks as same-shape patterns. Includes a pre-flight checklist for any agent with destructive capabilities
 - Take-home resources
 
 ## Content Status
