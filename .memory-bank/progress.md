@@ -2,13 +2,25 @@
 
 ## Current Status
 
-**Phase**: 2026 Q2 Landscape Refresh Complete
+**Phase**: Failure-Mode Integration Complete (PocketOS incident + supervisory-work theme)
 **Started**: 2026-02-02
-**Last Updated**: 2026-04-23
+**Last Updated**: 2026-04-29
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape and CopilotAtelier integration
+**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, and 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved integration
 
 ## Completed
+
+### Failure-Mode Integration ✅ (2026-04-29)
+- [x] Researched PocketOS / Cursor + Claude Opus 4.6 / Railway incident via Disclose.tv and Tom's Hardware (incident date late April 2026; published 2026-04-27)
+- [x] Read full transcript of Axel Molist *"What 6 months of AI coding did to my dev team"* (2026-04-18); cross-referenced with project memory bank
+- [x] Module 5: new slide 5.11a "The Cheating-Agent Trap" with five mitigations + test-discipline `copilot-instructions.md` snippet
+- [x] Module 9: new slides 9.8c (Real Incident), 9.8d (Guardrails for Destructive Operations), 9.10a (The Bottleneck Has Moved); Version Guide table updated
+- [x] MARP master `content/slides/marp-presentation.md`: condensed versions of all four new slides inserted with `<!-- version: 4h -->` tags
+- [x] New material `content/materials/destructive-operations-guardrails.md` — case studies, defence-in-depth model, copy-paste snippets, pre-flight checklist, trip-wire patterns, OWASP/CWE mapping (incl. LLM06 Excessive Agency)
+- [x] Cheat sheet expanded with three sections: Guardrails for Destructive Operations, Cheating-Agent Trap, Bottleneck Has Moved
+- [x] `content/README.md` materials section updated
+- [x] CHANGELOG.md `[Unreleased]` entry added
+- [x] Memory bank updated (activeContext.md, progress.md)
 
 ### 2026 Q2 Landscape Refresh ✅ (2026-04-23)
 - [x] Researched VS Code 1.117 (2026-04-22) + GitHub Copilot changelog (April 2026)

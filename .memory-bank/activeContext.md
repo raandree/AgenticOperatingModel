@@ -6,9 +6,33 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-04-25
+**Last Updated**: 2026-04-29
 
 ## Recent Changes
+
+### 2026-04-29: Layer 6 — GitOps / IaC as the architectural antidote (DscWorkshop)
+- Promoted the destructive-operations defence-in-depth model from **five layers** to **six**, adding **Layer 6: Architectural guardrails (GitOps + IaC)** — the *capability-based* answer to the PocketOS class of incident
+- Core argument: layers 1–5 stop the agent from *choosing* to do harm; Layer 6 stops it from *being able* to. The agent's only verb is *propose a change* (commit + PR), never *apply a change* — a gated CI/CD pipeline (with PR review + RSOP/`terraform plan` diff + manual approval) is the only path from "agent's desired state" to "production state"
+- Canonical reference: the [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC). Same-shape patterns called out: Argo CD / Flux (Kubernetes), Atlantis / Spacelift / Terraform Cloud, Bicep deployment stacks
+- New slide **M9.8e "GitOps as the Architectural Guardrail"** added to `content/slides/09-when-to-use.md` (4h only); slide is positioned directly after 9.8d, version-guide table extended; covers the per-failure mapping table (how each PocketOS failure mode becomes impossible under GitOps), red-zone / green-zone topology diagram, and the five preconditions (repo-write-only agent identity, meaningful human PR review, dangerous-delta CI linting, stricter pipeline-definition approval, secrets out of Git)
+- MARP master `marp-presentation.md`: condensed version inserted directly after the existing 9.8d block, tagged `<!-- version: 4h -->`
+- `content/materials/destructive-operations-guardrails.md`: "five-layer model" diagram redrawn as six-layer; new section "Layer 6 — Architectural guardrails (GitOps + IaC)" with failure-mode mapping, structural argument, six preconditions (slightly expanded vs the slide), "when you cannot put GitOps in front of the system" fallback. Pre-flight checklist gains a Layer 6 question. See-also list upgraded — OECD.AI Incidents entry **2026-04-27-6153** and the **Zenity** security analysis cited as primary sources, replacing the lower-credibility Disclose.tv summary
+- `content/materials/cheat-sheet.md`: Guardrails table extended from five to six layers
+- `Build-MarpVersions.ps1` re-run after the edits to keep the 1h/2h/4h derived MARP files consistent (1h and 2h decks unchanged — the new content is 4h-only)
+
+### 2026-04-29: Failure-Mode Integration — PocketOS incident + supervisory-work theme
+- Integrated two external sources into the curriculum:
+  - **Disclose.tv / Tom's Hardware (2026-04-27)** — PocketOS / Cursor + Claude Opus 4.6 / Railway incident: production database + every backup wiped in 9 seconds via a single API call after the agent guessed the scope of a destructive Railway primitive
+  - **Axel Molist video transcript (2026-04-18)** — *"What 6 months of AI coding did to my dev team"*: the bottleneck has moved from typing code to specifications + supervision; the cheating-agent problem (broken code + broken tests); senior/junior/mid-level dynamics; "strangers in your own codebase"; angry agents as a counter-pattern; the 2 a.m. "restart the server" tribal-knowledge anecdote
+- Four new slides added (all 4h-only):
+  - M5.11a "The Cheating-Agent Trap" — mitigations: tests-as-specs first, "tests must fail first" rule, independent reviewer agent, mutation testing, hold-out acceptance criteria
+  - M9.8c "Real Incident — 9 Seconds, One Database" — chain-reaction breakdown + the agent's own verbatim confession
+  - M9.8d "Guardrails for Destructive Operations" — five-layer defence-in-depth: agent policy, tool approval (Ask always), credential scope (per-environment, not blanket), backup independence (different blast radius), rehearsed recovery (quarterly drills)
+  - M9.10a "The Bottleneck Has Moved" — three role shifts (specification / supervisory / institutional memory), three failure modes (strangers in own codebase / yes-man agents / mid-level squeeze), four counter-patterns (architecture review before generation, angry agents, agent subconscious, scheduled reading time)
+- MARP master `marp-presentation.md` updated with condensed versions of all four slides, tagged `<!-- version: 4h -->`
+- New take-home material `content/materials/destructive-operations-guardrails.md` — case studies (PocketOS + Replit), six failure layers, copy-paste agent-policy snippet, tool-approval defaults, credential-scope rules, backup-independence anti-patterns, recovery hygiene, pre-flight checklist, trip-wire patterns, OWASP/CWE mapping including LLM06 Excessive Agency
+- Cheat sheet expanded with three new sections (Destructive Operations, Cheating-Agent Trap, Bottleneck Has Moved)
+- `content/README.md` updated with the new material file; CHANGELOG.md gets a new `[Unreleased]` entry
 
 ### 2026-04-25: Real Multi-Year Tax Case Added as Sample (M11)
 - Analysed a real multi-year German income-tax case repo — multi-year German income-tax case (six VZ 2021–2026, ~80 PDFs/year, ~200 emails, three legal phases) — confirmed exceptional fit for M11 (Beyond Code) and the broader operating-model thesis

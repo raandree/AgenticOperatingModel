@@ -15,7 +15,7 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 |---------|----------|-------:|-------------------|----------|
 | **1h Keynote** | 60 min | 28 | [agentic-operating-model-1h.pptx](content/pptx/agentic-operating-model-1h.pptx) | Conference talks, meetups, lunch & learns |
 | **2h Standard** | 120 min | 65 | [agentic-operating-model-2h.pptx](content/pptx/agentic-operating-model-2h.pptx) | Team briefings, customer presentations |
-| **4h Workshop** | ~4.5h | 116 | [agentic-operating-model-4h.pptx](content/pptx/agentic-operating-model-4h.pptx) | Practitioner deep dives, hands-on workshops |
+| **4h Workshop** | ~4.5h | 120 | [agentic-operating-model-4h.pptx](content/pptx/agentic-operating-model-4h.pptx) | Practitioner deep dives, hands-on workshops |
 
 All versions share a single set of module content. See the [presentation agenda](agenda/presentation-agenda.md) for the full version matrix and slide inclusion guide.
 
