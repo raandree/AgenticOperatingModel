@@ -193,6 +193,49 @@ style: |
     margin-top: 0.3em;
     margin-bottom: 0.3em;
   }
+
+  /* ---------- Compact slide variant (denser than dense) ---------- */
+  section.compact {
+    font-size: 18px;
+  }
+  section.compact h1 {
+    font-size: 1.3em;
+    margin-bottom: 0.15em;
+    padding-bottom: 0.1em;
+  }
+  section.compact h2 {
+    font-size: 1.15em;
+  }
+  section.compact h3 {
+    font-size: 0.95em;
+    margin-top: 0.15em;
+    margin-bottom: 0.1em;
+  }
+  section.compact p {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+  section.compact pre {
+    padding: 6px;
+    font-size: 0.8em;
+  }
+  section.compact table {
+    font-size: 0.65em;
+  }
+  section.compact th, section.compact td {
+    padding: 3px 6px;
+  }
+  section.compact blockquote {
+    margin: 0.25em 0;
+    padding: 0.4em 0.6em;
+  }
+  section.compact ul, section.compact ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+  section.compact li {
+    margin-top: 0.1em;
+  }
 ---
 <!-- version: 1h 2h 4h -->
 
@@ -458,6 +501,8 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 ---
 <!-- version: 1h 2h 4h -->
 
+<!-- _class: dense -->
+
 # The Agentic Loop
 
 ```
@@ -554,6 +599,8 @@ The agent learns: public vs private locations, naming conventions, module struct
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: dense -->
+
 # AI Learns From Your Codebase
 
 ```powershell
@@ -583,6 +630,8 @@ function Get-UserData {
 
 ---
 <!-- version: 2h 4h -->
+
+<!-- _class: dense -->
 
 # README Provides Purpose
 
@@ -635,7 +684,7 @@ new file mode 100644
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # AI Does the Git Forensics for You
 
@@ -697,7 +746,7 @@ You're **never stuck**. You can always go back.
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Commit Strategies — Explained
 
@@ -947,6 +996,8 @@ function Test-Config {
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: dense -->
+
 # Custom Agents — Specialized Behaviors
 
 ```markdown
@@ -979,6 +1030,8 @@ handoffs:
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
 # Agent Handoff Chains
 
 Agents can reference each other and create **automated review pipelines**:
@@ -1007,6 +1060,8 @@ handoffs:
 
 ---
 <!-- version: 4h -->
+
+<!-- _class: dense -->
 
 # Skills — Domain Knowledge on Demand
 
@@ -1037,6 +1092,8 @@ description: >-
 
 ---
 <!-- version: 4h -->
+
+<!-- _class: compact -->
 
 # Prompt Files — Reusable Slash Commands
 
@@ -1116,7 +1173,7 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Skill-Authoring Discipline
 
@@ -1144,15 +1201,11 @@ Content starts here...
 |---|---|
 | Skill never appears in `/skills` menu | Missing YAML frontmatter, or missing `name` / `description` |
 | Skill registered but never auto-loads | Description too vague — add `USE FOR` trigger phrases |
-| Fresh skill not showing up | VS Code must be reloaded after adding a skill |
 | Frontmatter parse error | Blank line required between closing `---` and first heading |
 
-### Diagnostic tools
+**Diagnostic tools** — `Chat view gear → Open Chat Customizations` lists every registered agent / instruction / skill / prompt. `Chat view ⋯ → Show Agent Debug Logs` shows registration and parse errors.
 
-- **Chat view gear → Open Chat Customizations** — lists every registered agent, instruction, skill, prompt
-- **Chat view `…` → Show Agent Debug Logs** — exact registration/parse errors
-
-> **Rule**: If a skill is not firing, debug the *description*, not the content.
+> **Rule**: debug the *description*, not the content.
 
 ---
 <!-- version: 1h 2h 4h -->
@@ -1250,7 +1303,7 @@ Agent: "It works. Here's proof." ✅
 ---
 <!-- version: 2h 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Comprehensive Coverage
 
@@ -1390,7 +1443,7 @@ Agent: Running PSScriptAnalyzer... No issues found ✅
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # The Cheating-Agent Trap
 
@@ -1469,6 +1522,8 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
 # How MCP Works
 
 ```
@@ -1541,6 +1596,8 @@ MCP turns your agent from **"code assistant"** into **"operations assistant"**.
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: compact -->
+
 # Beyond Code — Anything You Can Script
 
 > AI agents can assist with **anything you can do from the command line or programmatically**.
@@ -1565,7 +1622,7 @@ The same agentic loop applies:
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # MCP Security Considerations
 
@@ -1590,6 +1647,8 @@ The same agentic loop applies:
 
 ---
 <!-- version: 4h -->
+
+<!-- _class: dense -->
 
 # Checkpoints & Rollback
 
@@ -1709,6 +1768,8 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
 # Where the Model Excels ✅
 
 | Task Type | Why It Works |
@@ -1773,7 +1834,7 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Agent Security & Boundaries
 
@@ -1822,7 +1883,7 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Real Incident — 9 Seconds, One Database
 
@@ -1880,20 +1941,18 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # GitOps as the Architectural Guardrail
 
 > Layer 6 — make the dangerous action **structurally unavailable**.
 
 ```
-                commit + PR             gated pipeline
-   Agent  ───────────────▶  Git  ─────────────────▶  CI/CD  ──────▶  Target nodes
-  ( red                    (config DB,                                 ( green
-    zone)                   versioned)                                    zone)
+   Agent  ──commit + PR──▶  Git  ──gated pipeline──▶  CI/CD  ──▶  Target nodes
+  (red zone)               (versioned)                              (green zone)
 ```
 
-The agent's only verb is **propose a change** — never **apply a change**. Reference: the DSC Community [`DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC). Same shape: Argo CD / Flux, Atlantis, Terraform Cloud, Bicep deployment stacks.
+The agent's only verb is **propose** — never **apply**. Same shape: DSC Community [`DscWorkshop`](https://github.com/dsccommunity/DscWorkshop), Argo CD / Flux, Atlantis, Terraform Cloud.
 
 ### How this would have stopped PocketOS
 
@@ -1902,16 +1961,10 @@ The agent's only verb is **propose a change** — never **apply a change**. Refe
 | Direct destructive API token | Agent has only a Git checkout | Cannot call destructive API |
 | Cross-environment token | Each env = separate scope + pipeline | Wrong-env edit caught at the gate |
 | No confirmation | PR review + CI + manual approval | Agent cannot self-approve |
-| Agent guessed scope | `Get-DatumRsop` posts resultant diff to PR | Guess is visible *before* it runs |
+| Agent guessed scope | `Get-DatumRsop` posts resultant diff to PR | Guess visible *before* it runs |
 | Backups deleted in same call | Git history *is* the backup of intent | `git revert` + reconcile = restore |
 
-### Preconditions (otherwise the guarantee evaporates):
-
-- Agent identity is **repo-write only** — no pipeline secrets
-- PR review is **meaningful** — human on prod-affecting changes
-- CI lints for **dangerous deltas** (`Ensure = 'Absent'`, removed roles) and posts the resultant-state diff
-- Pipeline definition itself needs **stricter approval** than the data files
-- Secrets stay out of Git (`ProtectedData`, Key Vault, sealed-secrets, SOPS)
+**Preconditions** (otherwise the guarantee evaporates): agent identity is **repo-write only** (no pipeline secrets); PR review is **meaningful** on prod-affecting changes; CI lints for **dangerous deltas** (`Ensure = 'Absent'`, removed roles) and posts the resultant-state diff.
 
 > **When you can put GitOps in front of the system, do.** When you can't (SaaS dashboards, ad-hoc cloud admin), fall back to layers 1–5 with extra rigour.
 
@@ -1955,12 +2008,11 @@ The agent's only verb is **propose a change** — never **apply a change**. Refe
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # The Bottleneck Has Moved
 
-> *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."*
-> — *Axel Molist, "What 6 months of AI coding did to my dev team" (2026)*
+> *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."* — *Axel Molist (2026)*
 
 ### Three role shifts:
 
@@ -2032,6 +2084,8 @@ The agent's only verb is **propose a change** — never **apply a change**. Refe
 
 ---
 <!-- version: 4h -->
+
+<!-- _class: dense -->
 
 # Can You Answer These?
 
@@ -2250,6 +2304,8 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: dense -->
+
 # The Universal Operating Model
 
 ```
@@ -2315,6 +2371,8 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: dense -->
+
 # Git Is Not Just for Code
 
 ```
@@ -2377,6 +2435,8 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 ---
 <!-- version: 2h 4h -->
+
+<!-- _class: dense -->
 
 # Data Governance & Confidentiality
 
@@ -2519,6 +2579,8 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
 # A Minimal Lab Definition
 
 ```powershell
@@ -2574,6 +2636,8 @@ Install-Lab
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
 # Live Example — The Kerberos RC4 Lab
 
 ### Starting state:
@@ -2594,6 +2658,8 @@ Install-Lab
 
 ---
 <!-- version: 4h -->
+
+<!-- _class: dense -->
 
 # Snapshot-Driven Iteration
 

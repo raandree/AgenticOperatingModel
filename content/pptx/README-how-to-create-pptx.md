@@ -83,6 +83,59 @@ marp marp-4h-workshop.md --html --pptx -o agentic-operating-model-4h.pptx
 
 ---
 
+## Step 3: Detect Slide Overflow (recommended after edits)
+
+Marp **silently clips** any content that does not fit inside the 1280x720 slide
+frame. Tables, code blocks, and long paragraphs can disappear without any
+warning in the PPTX, PDF, or PNG output. To catch this before publishing:
+
+```powershell
+# Quickest: just check overflow on the current md sources
+.\Test-SlideOverflow.ps1 -Version 4h -SkipBuild
+
+# Full workflow: rebuild version files, then check
+.\Test-SlideOverflow.ps1 -Version all
+
+# Generate an HTML side-by-side review report (source markdown <-> rendered slide)
+.\Test-SlideOverflow.ps1 -Version 4h -SkipBuild -Report
+
+# Or chain everything into the build
+.\Build-MarpVersions.ps1 -CheckOverflow
+.\Build-MarpVersions.ps1 -Report                # implies -CheckOverflow + PNG export
+```
+
+**How it works:**
+
+1. Marp CLI renders the deck to a single HTML file (each slide is an `<svg
+   data-marpit-svg viewBox="0 0 1280 720">` containing a `<section>`).
+2. A small Node helper (`overflow-check.mjs`) loads the HTML in headless
+   Chromium via Puppeteer and compares each section's `scrollHeight` to the
+   viewBox height. Anything taller is being clipped.
+3. The script reports per-slide overflow in pixels and exits with code `1` if
+   any slide overflows — useful as a pre-commit / CI gate.
+4. With `-Report`, an HTML file `slide-review-<ver>.html` is produced that
+   shows, for every slide, the source markdown next to the rendered PNG with
+   an OVERFLOW / fits badge. Open it in a browser and scroll through; the
+   sticky toolbar links jump straight to the offending slides.
+
+**First run only**: `Test-SlideOverflow.ps1` runs `npm install` in this folder
+to pull Puppeteer (downloads ~150 MB Chromium). Subsequent runs are fast.
+The `node_modules/` folder and `_overflow_*.html` / `slide-review-*.html`
+artifacts are gitignored.
+
+**Fixing overflow:**
+
+| Severity (`fillRatio`) | Suggested fix |
+|------------------------|---------------|
+| 1.00–1.05 | Add `<!-- _class: dense -->` at the top of the slide (smaller font) |
+| 1.05–1.20 | Trim 1–2 list items, shorten code block, or split into two slides |
+| > 1.20 | Split the slide; the content is meaningfully larger than one frame |
+
+The `dense` class is defined in the source frontmatter at
+`../slides/marp-presentation.md` (look for `section.dense { font-size: 20px; ... }`).
+
+---
+
 ## Option 2: Pandoc
 
 ```bash

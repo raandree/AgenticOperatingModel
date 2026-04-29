@@ -63,6 +63,30 @@
   - GitLens (optional)
   - Pester Test Explorer (optional)
 
+#### Node.js + Puppeteer (Slide Build Tooling)
+- **Purpose**: Programmatic slide overflow detection in `content/pptx/`
+- **Why**: Marp silently clips slide content taller than its 720 px
+  viewBox. Headless Chromium (via Puppeteer) is the only reliable way to
+  measure each slide's `scrollHeight` against the frame and detect
+  silently truncated tables, code blocks, and paragraphs.
+- **Components**:
+  - `content/pptx/overflow-check.mjs` — Node ES module, Puppeteer-based
+    detector (exit 0 = fits, 1 = overflow, 2 = error)
+  - `content/pptx/Test-SlideOverflow.ps1` — PowerShell wrapper
+  - `content/pptx/New-SlideReviewReport.ps1` — generates the
+    side-by-side `slide-review-<ver>.html` report
+  - `content/pptx/package.json` — declares the `puppeteer` dependency
+- **First-run cost**: `npm install` pulls ~150 MB of Chromium. The
+  PowerShell wrapper bootstraps it automatically when `node_modules/`
+  is missing.
+- **CSS density tiers**: `section.dense` (font 20 px) and
+  `section.compact` (font 18 px, tight tables) are defined in the
+  `marp-presentation.md` frontmatter. Apply via per-slide directive
+  `<!-- _class: dense -->` or `<!-- _class: compact -->`.
+- **Reference**: `Skills/marp-slide-overflow/SKILL.md` in CopilotAtelier
+  for the full pattern, gotchas (phantom leading section, off-by-one
+  slide indexing), and fillRatio decision table.
+
 ## Technical Concepts to Cover
 
 ### Agentic Coding Fundamentals
@@ -219,6 +243,9 @@ DemoModule/
 | Git | 2.40+ | Version control |
 | VS Code | 1.117+ | IDE (BYOK, incremental rendering, agent CLI features) |
 | GitHub Copilot | Active subscription | AI agent (primary demo tool) |
+| Node.js | 20+ | Runtime for Puppeteer-based slide overflow check |
+| Puppeteer | 23.10+ | Headless Chromium for `overflow-check.mjs` |
+| Marp CLI | latest | `npx @marp-team/marp-cli` — Markdown → HTML / PPTX / PNG |
 
 ## API/LLM Considerations
 

@@ -193,6 +193,49 @@ style: |
     margin-top: 0.3em;
     margin-bottom: 0.3em;
   }
+
+  /* ---------- Compact slide variant (denser than dense) ---------- */
+  section.compact {
+    font-size: 18px;
+  }
+  section.compact h1 {
+    font-size: 1.3em;
+    margin-bottom: 0.15em;
+    padding-bottom: 0.1em;
+  }
+  section.compact h2 {
+    font-size: 1.15em;
+  }
+  section.compact h3 {
+    font-size: 0.95em;
+    margin-top: 0.15em;
+    margin-bottom: 0.1em;
+  }
+  section.compact p {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+  section.compact pre {
+    padding: 6px;
+    font-size: 0.8em;
+  }
+  section.compact table {
+    font-size: 0.65em;
+  }
+  section.compact th, section.compact td {
+    padding: 3px 6px;
+  }
+  section.compact blockquote {
+    margin: 0.25em 0;
+    padding: 0.4em 0.6em;
+  }
+  section.compact ul, section.compact ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+  section.compact li {
+    margin-top: 0.1em;
+  }
 ---
 ---
 
@@ -424,6 +467,8 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 ---
 
+<!-- _class: dense -->
+
 # The Agentic Loop
 
 ```
@@ -515,6 +560,8 @@ The agent learns: public vs private locations, naming conventions, module struct
 
 ---
 
+<!-- _class: dense -->
+
 # AI Learns From Your Codebase
 
 ```powershell
@@ -543,6 +590,8 @@ function Get-UserData {
 **New code will match these patterns!**
 
 ---
+
+<!-- _class: dense -->
 
 # README Provides Purpose
 
@@ -808,6 +857,8 @@ function Test-Config {
 
 ---
 
+<!-- _class: dense -->
+
 # Custom Agents — Specialized Behaviors
 
 ```markdown
@@ -971,7 +1022,7 @@ Agent: "It works. Here's proof." ✅
 
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Comprehensive Coverage
 
@@ -1055,6 +1106,8 @@ Result: 5 passed, 0 failed ✅
 ```
 
 ---
+
+<!-- _class: compact -->
 
 # Beyond Code — Anything You Can Script
 
@@ -1190,6 +1243,8 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 
 ---
 
+<!-- _class: dense -->
+
 # The Universal Operating Model
 
 ```
@@ -1219,6 +1274,8 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 ```
 
 ---
+
+<!-- _class: dense -->
 
 # Git Is Not Just for Code
 
@@ -1260,6 +1317,8 @@ The same six or seven files appear in every serious GHCP project:
 > **Template shipped**: `content/materials/memory-bank-template/`
 
 ---
+
+<!-- _class: dense -->
 
 # Data Governance & Confidentiality
 

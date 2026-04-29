@@ -30,7 +30,19 @@
 │  ├── content/pptx/Build-MarpVersions.ps1  — Build script           │
 │  └── content/pptx/marp-{1h,2h,4h}-*.md   — Generated output       │
 │                                                                      │
-│  Workflow: Edit source → Run Build-MarpVersions.ps1 → Present      │
+│  Workflow: Edit source → Build → Test-SlideOverflow → fix → Build  │
+│           → Export PPTX → Present                                  │
+│                                                                      │
+│  OVERFLOW GUARDRAIL (Layer 6 of the deck itself)                    │
+│  ├── content/pptx/overflow-check.mjs       — Puppeteer detector    │
+│  ├── content/pptx/Test-SlideOverflow.ps1   — PS wrapper             │
+│  └── content/pptx/New-SlideReviewReport.ps1 — Side-by-side report  │
+│                                                                      │
+│  Marp silently clips content > 720 px. The detector renders each   │
+│  variant via marp-cli, loads the HTML in headless Chromium, and    │
+│  compares each <section>.scrollHeight to the SVG viewBox height.  │
+│  Build-MarpVersions.ps1 -CheckOverflow exits non-zero on overflow. │
+│  See Skills/marp-slide-overflow/SKILL.md for the full pattern.    │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```

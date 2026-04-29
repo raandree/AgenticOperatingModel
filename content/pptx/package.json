@@ -1,0 +1,13 @@
+{
+  "name": "agentic-operating-model-slide-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tooling for the AgenticOperatingModel Marp deck: overflow detection and review report generation.",
+  "scripts": {
+    "check-overflow": "node overflow-check.mjs"
+  },
+  "dependencies": {
+    "puppeteer": "^23.10.4"
+  }
+}

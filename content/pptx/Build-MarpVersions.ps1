@@ -7,6 +7,8 @@
 #   .\Build-MarpVersions.ps1 -AddMissingTags           # Add default tags to untagged slides
 #   .\Build-MarpVersions.ps1 -ExportPptx               # Also build PPTX files
 #   .\Build-MarpVersions.ps1 -ExportPng                # Also export PNG snapshots for visual review
+#   .\Build-MarpVersions.ps1 -CheckOverflow            # Programmatic overflow check (Puppeteer)
+#   .\Build-MarpVersions.ps1 -Report                   # PNG + HTML side-by-side review report (implies -CheckOverflow)
 #   .\Build-MarpVersions.ps1 -ExportPptx -ExportPng    # Full build + visual post-check
 #
 # Each slide in the source file should have a version tag comment right after
@@ -35,7 +37,13 @@ param(
     [switch]$ExportPptx,
 
     [Parameter()]
-    [switch]$ExportPng
+    [switch]$ExportPng,
+
+    [Parameter()]
+    [switch]$CheckOverflow,
+
+    [Parameter()]
+    [switch]$Report
 )
 
 $ErrorActionPreference = 'Stop'
@@ -307,4 +315,15 @@ if ($ExportPptx -or $ExportPng) {
     if ($ExportPng) {
         Write-Host "Review tip: open png-agentic-operating-model-<ver>/ in Explorer and flip through with Preview (Space) to spot overflow." -ForegroundColor Yellow
     }
+}
+
+# --- Optional: programmatic overflow detection / side-by-side review report ---
+if ($Report) {
+    # -Report implies -CheckOverflow plus the HTML side-by-side report.
+    Write-Host "`nGenerating side-by-side review report (this also runs the overflow check)..." -ForegroundColor Cyan
+    & "$PSScriptRoot\Test-SlideOverflow.ps1" -Version $Version -SkipBuild -Report
+}
+elseif ($CheckOverflow) {
+    Write-Host "`nRunning overflow check (Puppeteer)..." -ForegroundColor Cyan
+    & "$PSScriptRoot\Test-SlideOverflow.ps1" -Version $Version -SkipBuild
 }
