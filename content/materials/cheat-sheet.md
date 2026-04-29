@@ -174,6 +174,99 @@ The same task improves dramatically with each added layer:
 
 ---
 
+## Guardrails for Destructive Operations
+
+> A real 2026 incident: a Cursor + Claude agent deleted a production database **and every backup** in 9 seconds via a single Railway API call — because the volume was shared across environments and backups lived on the same volume.
+> See [destructive-operations-guardrails.md](destructive-operations-guardrails.md) for the full case + checklist.
+
+### The agent's own confession was the lesson:
+
+> *"NEVER GUESS. I didn't verify. I didn't read the docs. I ran a destructive action without being asked."*
+
+### Six layers — every one of them needed:
+
+| Layer | Concrete control |
+|-------|------------------|
+| **1. Agent policy** | `## Destructive Operations` rule in instructions: "identify scope, then ask" — even with Auto Approve on |
+| **2. Tool approval** | **Ask always** for terminal, MCP, and infra/API tools that mutate state |
+| **3. Credential scope** | Per-environment tokens. **No** blanket prod+staging tokens. Production tokens not on dev workstations |
+| **4. Backup independence** | Backups in a **different blast radius** — different account / region / provider — from the data they protect |
+| **5. Rehearsed recovery** | Quarterly restore drills. Untested backups are theatre |
+| **6. Architectural guardrails** *(GitOps + IaC)* | Agent commits to Git, a gated pipeline reconciles the change. Agent cannot call destructive APIs at all. Reference: [`DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC); same shape: Argo CD / Flux, Atlantis / Terraform Cloud |
+
+### Snippet for `copilot-instructions.md`:
+
+```markdown
+## Destructive Operations
+- Before any delete / drop / wipe / force-push, STOP and write out:
+  1. Exactly which resources are affected
+  2. Which environment(s) they live in
+  3. The rollback path
+- Ask the user to confirm — even with "Auto Approve" enabled.
+- Never delete to "fix" something. Delete only when explicitly asked.
+- If unsure about scope: STOP and ask. NEVER GUESS.
+```
+
+> The agent will be wrong eventually. **The system around it must not be.**
+
+---
+
+## The Cheating-Agent Trap (and How to Avoid It)
+
+> *"AI writes broken code — then writes broken tests to validate the broken code."* — *Axel Molist, 2026*
+
+Self-verification only works if **tests are independent of the code**. When the same agent writes both, both can be wrong **in the same direction**.
+
+### Five mitigations — pick at least two:
+
+| Mitigation | Why it works |
+|------------|--------------|
+| **Tests-as-specs**, written first (often by a human) | Tests anchor on real behaviour, not on the code |
+| **"Tests must fail first"** rule | Forces the agent to prove the test discriminates |
+| **Independent reviewer agent** | A second agent writes adversarial / negative tests |
+| **Mutation testing** | Mutate the code; if no test fails, the suite is too weak |
+| **Hold-out acceptance criteria** | Cases the agent never sees, run by the human after "done" |
+
+### Snippet for `copilot-instructions.md`:
+
+```markdown
+## Test Discipline
+- Write at least one test that FAILS against empty/skeleton code
+  before implementing the function. Show the failing run.
+- Treat user-provided acceptance criteria as ground truth — do
+  not modify them to make tests pass.
+- If a test is hard to write, surface this rather than weakening it.
+```
+
+> Assertions are evidence. **Evidence requires an independent witness.**
+
+---
+
+## The Bottleneck Has Moved
+
+> *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."* — *Axel Molist, 2026*
+
+| Layer | Growing | Shrinking |
+|-------|---------|-----------|
+| **Specification work** | State machines, decision tables, formal PRDs | "I'll figure it out as I code" |
+| **Supervisory work** | Agent-sized chunks; fixing the *prompt*, not the code | Manual line-by-line authoring |
+| **Institutional memory** | Documented incidents — the *agent subconscious* | Tribal knowledge in seniors' heads |
+
+### Failure modes to watch for:
+
+- **Strangers in your own codebase** — the team stops *reading* what the agent writes
+- **Yes-man agents** — every assumption agreed with, until the server is on fire
+- **Mid-level squeeze** — seniors drown in reviews, juniors thrive, mid-levels stuck retraining
+
+### Counter-patterns:
+
+- **Architecture review BEFORE generation** (approve the *plan*, not just the diff)
+- **Angry agents** — a custom agent prompted to challenge assumptions
+- **`runbooks/incidents/` corpus** the agent reads on every outage
+- **Scheduled reading time** — block calendar time to read agent-written code
+
+---
+
 ## Decision Framework
 
 ```

@@ -1335,6 +1335,37 @@ Agent: Running PSScriptAnalyzer... No issues found ✅
 
 ---
 
+<!-- _class: dense -->
+
+# The Cheating-Agent Trap
+
+> *"AI writes broken code — then writes broken tests to validate the broken code."*
+> — *Axel Molist, "What 6 months of AI coding did to my dev team" (2026)*
+
+### The trap:
+Self-verification only works if **tests are independent of the code**.
+When the same agent writes both, both can be wrong **in the same direction**.
+
+```text
+Code:  IsValidEmail("abc") → returns $true
+Tests: Should -BeTrue        ← matches the bug
+Agent: "All 12 tests passed." 🟢     Reality: function is broken.
+```
+
+### Mitigations — pick at least two:
+
+| Mitigation | Why it works |
+|---|---|
+| **Tests-as-specs**, written first (often by a human) | Tests anchor on real behaviour, not on the code |
+| **"Tests must fail first"** rule | Forces the agent to prove the test discriminates |
+| **Independent reviewer agent** | A second agent writes adversarial / negative tests |
+| **Mutation testing** | Mutate the code; if no test fails, the suite is too weak |
+| **Hold-out acceptance criteria** | Cases the agent never sees, run by the human after "done" |
+
+> Assertions are evidence. **Evidence requires an independent witness.**
+
+---
+
 # Trust Hierarchy
 
 | Layer | Who Does It | What It Checks |
@@ -1716,6 +1747,99 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 ---
 
+<!-- _class: dense -->
+
+# Real Incident — 9 Seconds, One Database
+
+> Production incident, late April 2026. **PocketOS** — SaaS for car-rental businesses — lost its production database **and every backup** in nine seconds.
+
+### The chain reaction:
+
+| # | Actor | What happened |
+|---|-------|---------------|
+| 1 | Agent (Cursor + Claude Opus 4.6) | Asked to fix a credential mismatch in **staging** |
+| 2 | Agent | Decided **on its own** to delete a Railway volume "to fix it" |
+| 3 | Railway API | Accepted the call **without confirmation** |
+| 4 | Railway architecture | Volume ID was **shared across environments** |
+| 5 | Railway architecture | Backups stored **on the same volume** — also wiped |
+| 6 | Result | **Prod DB + every backup gone in 9 seconds** |
+
+### The agent's own confession (verbatim):
+
+> *"NEVER F**KING GUESS — and that's exactly what I did. I guessed that deleting a staging volume would be scoped to staging only. I didn't verify. I didn't read the docs. I ran a destructive action without being asked."*
+
+> Sources: [Tom's Hardware (2026-04-27)](https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-deletes-entire-company-database-in-9-seconds-backups-zapped-after-cursor-tool-powered-by-anthropics-claude-goes-rogue), Disclose.tv. Replit reported a near-identical incident weeks earlier.
+
+---
+
+<!-- _class: dense -->
+
+# Guardrails for Destructive Operations
+
+### Five layers — every one of them needed:
+
+| Layer | Concrete control |
+|-------|------------------|
+| **1. Don't guess — verify** | `## Destructive Operations` rule in `copilot-instructions.md`: "identify scope, then ask" |
+| **2. Confirmation by default** | Tool approval = **Ask always** for terminal, MCP, infra/API tools |
+| **3. Scoped credentials** | Per-environment tokens. **No** blanket prod+staging tokens |
+| **4. Independent backups** | Backups in a **different account / region / provider** — a delete in one cannot reach the other |
+| **5. Rehearsed recovery** | Quarterly restore drills. *Untested backups are theatre* |
+
+### Add to the agent's system prompt:
+
+```markdown
+## Destructive Operations
+- Before any delete / drop / wipe / force-push, STOP and write out:
+    1. Exactly which resources are affected
+    2. Which environment(s) they live in
+    3. The rollback path
+- Ask the user to confirm — even with "Auto Approve" enabled.
+- Never delete to "fix" something. Delete only when explicitly asked.
+- If unsure about scope: STOP and ask. NEVER GUESS.
+```
+
+> The agent will be wrong eventually. **The system around it must not be.**
+
+---
+
+<!-- _class: dense -->
+
+# GitOps as the Architectural Guardrail
+
+> Layer 6 — make the dangerous action **structurally unavailable**.
+
+```
+                commit + PR             gated pipeline
+   Agent  ───────────────▶  Git  ─────────────────▶  CI/CD  ──────▶  Target nodes
+  ( red                    (config DB,                                 ( green
+    zone)                   versioned)                                    zone)
+```
+
+The agent's only verb is **propose a change** — never **apply a change**. Reference: the DSC Community [`DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC). Same shape: Argo CD / Flux, Atlantis, Terraform Cloud, Bicep deployment stacks.
+
+### How this would have stopped PocketOS
+
+| PocketOS failure | GitOps / IaC equivalent | Result |
+|-------------------|--------------------------|--------|
+| Direct destructive API token | Agent has only a Git checkout | Cannot call destructive API |
+| Cross-environment token | Each env = separate scope + pipeline | Wrong-env edit caught at the gate |
+| No confirmation | PR review + CI + manual approval | Agent cannot self-approve |
+| Agent guessed scope | `Get-DatumRsop` posts resultant diff to PR | Guess is visible *before* it runs |
+| Backups deleted in same call | Git history *is* the backup of intent | `git revert` + reconcile = restore |
+
+### Preconditions (otherwise the guarantee evaporates):
+
+- Agent identity is **repo-write only** — no pipeline secrets
+- PR review is **meaningful** — human on prod-affecting changes
+- CI lints for **dangerous deltas** (`Ensure = 'Absent'`, removed roles) and posts the resultant-state diff
+- Pipeline definition itself needs **stricter approval** than the data files
+- Secrets stay out of Git (`ProtectedData`, Key Vault, sealed-secrets, SOPS)
+
+> **When you can put GitOps in front of the system, do.** When you can't (SaaS dashboards, ad-hoc cloud admin), fall back to layers 1–5 with extra rigour.
+
+---
+
 # When to Avoid ❌
 
 | Scenario | Why Not |
@@ -1748,6 +1872,38 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 5. **Can I break this into testable pieces?**
    Yes → Proceed with agentic workflow ✅
+
+---
+
+<!-- _class: dense -->
+
+# The Bottleneck Has Moved
+
+> *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."*
+> — *Axel Molist, "What 6 months of AI coding did to my dev team" (2026)*
+
+### Three role shifts:
+
+| Layer | Growing | Shrinking |
+|-------|---------|-----------|
+| **Specification work** | Structured requirements, state machines, formal PRDs | "I'll figure it out as I code" |
+| **Supervisory work** | Agent-sized chunks · fixing the *prompt*, not the code | Manual line-by-line authoring |
+| **Institutional memory** | Documented incidents — the *agent subconscious* | Tribal knowledge in seniors' heads |
+
+### Three failure modes to watch for:
+
+- **Strangers in your own codebase** — the team stops *reading* what the agent writes
+- **Yes-man agents** — every assumption agreed with, until the server is on fire
+- **Mid-level squeeze** — seniors drown in reviews, juniors thrive, mid-levels stuck retraining
+
+### Counter-patterns:
+
+- **Architecture review BEFORE generation** (approve the *plan*, not just the diff)
+- **Angry agents** — a custom agent prompted to challenge assumptions and poke holes
+- **`runbooks/incidents/` corpus** the agent reads on every outage
+- **Scheduled reading time** — block calendar time to read agent-written code
+
+> The work isn't disappearing — it's moving. Make sure your team moves with it.
 
 ---
 

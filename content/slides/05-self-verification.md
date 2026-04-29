@@ -15,6 +15,7 @@
 | 5.9 | Beyond Pester | — | — | ✅ |
 | 5.10 | Demo - Watch AI Self-Verify | — | ✅ | ✅ |
 | 5.11 | When Tests Fail | — | — | ✅ |
+| 5.11a | The Cheating-Agent Trap | — | — | ✅ |
 | 5.12 | Trust Hierarchy | — | — | ✅ |
 | 5.13 | Key Takeaway | ✅ | ✅ | ✅ |
 
@@ -352,6 +353,52 @@ Agent: Running PSScriptAnalyzer... No issues found ✅
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Slide 5.11a: The Cheating-Agent Trap
+
+# When AI Validates Its Own Lies
+
+> *"AI writes broken code — and then writes broken tests to validate the broken code."*
+> — observation from a 20-person team after 6 months of agentic AI (Axel Molist, *"What 6 months of AI coding did to my dev team"*, 2026)
+
+### The trap:
+
+Self-verification only works if the **tests are independent of the code**.
+When the same agent writes both, both can be wrong **in the same direction**.
+
+```text
+Bad symbiosis:
+  Code:   IsValidEmail("abc")  → returns $true
+  Tests:  Should -BeTrue       ← matches the bug
+  Agent:  "All 12 tests passed." 🟢
+  Reality: function is broken; the test suite is theatre.
+```
+
+### Five mitigations — pick at least two:
+
+| Mitigation | Why it works |
+|------------|--------------|
+| **Tests-as-specs, written first** (often by a human) | Tests anchor on real-world behaviour, not on whatever the code happens to do |
+| **"Tests must fail first" rule** | Forces the agent to prove the test discriminates before fixing the code |
+| **Independent reviewer agent** | A second agent (or human) writes adversarial / negative tests |
+| **Mutation testing** | Mutate the code; if no test fails, the test suite is too weak |
+| **Hold-out acceptance criteria** | Cases the agent never sees, run by the human after "done" |
+
+### Add to your `copilot-instructions.md`:
+
+```markdown
+## Test Discipline
+- Write at least one test that FAILS against the empty/skeleton code
+  before implementing the function. Show the failing run.
+- Treat acceptance criteria provided by the user as ground truth — do
+  not modify them to make tests pass.
+- If a test is hard to write, the design is probably wrong. Surface
+  this rather than weakening the test.
+```
+
+> Assertions are evidence. **Evidence requires an independent witness.**
 
 ---
 
