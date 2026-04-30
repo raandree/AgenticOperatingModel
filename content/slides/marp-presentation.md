@@ -128,30 +128,33 @@ style: |
     color: #334155;
   }
 
-  /* ---------- Section divider ---------- */
+  /* ---------- Section divider ----------
+     Note: Marp's frontmatter `backgroundColor: #ffffff` injects an inline
+     style on every <section>, which beats class-based background rules
+     regardless of specificity. Section-divider slides therefore always
+     render on white; text colors below are tuned for that background. */
   section.section-divider {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-    color: #ffffff;
+    color: #1e293b;
   }
   section.section-divider h1 {
     font-size: 2.4em;
     margin-bottom: 0.2em;
-    color: #ffffff;
+    color: #0c4a6e;
     border-bottom: none;
   }
   section.section-divider h2 {
-    color: #bae6fd;
+    color: #0369a1;
     font-size: 1.2em;
   }
   section.section-divider blockquote {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-left: 4px solid #bae6fd;
-    color: #e0f2fe;
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    color: #0c4a6e;
   }
 
   /* ---------- Layout helpers ---------- */
