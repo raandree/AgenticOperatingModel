@@ -6,9 +6,24 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-04-29
+**Last Updated**: 2026-05-06
 
 ## Recent Changes
+
+### 2026-05-06: Operator-Sustainability Integration — Mössner / *KI Burnout ist real*
+- Integrated Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Closes the third leg of the failure-mode stool: alongside team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e), this is the **operator-sustainability / human-experience** angle the curriculum was missing
+- Transcript captured via user paste; cite-anchor map saved at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed). YouTube auto-caption fetch was blocked by PO-token gate — user pasted from the signed-in transcript pane
+- Three new slides added (all 4h-only):
+  - **M9.10b "Job Hollowing & Heteromation"** — defines both terms with M-quotes (*"quality control for a machine I don't trust"*, @0:32; Heteromation @21:50). BCG/HBR *AI Brainfry* survey numbers (14% report it; +33% decision fatigue; +39% serious errors; +39% want to quit, March 2026, @13:22). Brynjolfsson / Stanford (@11:20): hiring of 22–25 yr-olds in AI-exposed jobs −20% from peak; bigtech new-grad share 15%→7%. Same-mechanism-three-industries table (software @0:00, lab medicine @18:39, creative writing @19:38) prevents framing as developer-only
+  - **M9.10c "The Vigilance Trap"** — frames the problem as 78 years old, not novel. Mackworth (1948) RAF radar — vigilance breaks after 15–30 min, untrainable. Parasuraman & Manzey (2010) Automation Complacency — equally bad in novices and experts. Google self-driving 2015–17 — drivers fell asleep, did makeup; Krafcik *"hard to take over because they have lost contextual awareness"*; Waymo's response was Level 4 not Level 3 (remove the steering wheel). Cognitive-load mismatch table: ATC 2h max + 30-min break / FAA pilot autopilot-off practice / knowledge worker 8h with no break. Closes by mapping each trap to existing curriculum surfaces (M5, S9.8e, S9.10a)
+  - **M10.7a "With AI, Not From AI — The Stockfish Pattern"** — positive counter-pattern that closes the operator-sustainability arc. Stockfish/chess explosion + FAA hand-flying as proof that *machine-surpasses-human ≠ human-role-hollows*. *From* vs *with* operator-experience table. Explicit mapping of every curriculum surface (`copilot-instructions.md`, `.agent.md`, skills, memory bank, self-verification, GitOps Layer 6) to "moves operator upstream from prompter to author of intent"
+- MARP master `content/slides/marp-presentation.md` updated with condensed versions of all three slides at the correct anchors (after 9.10a, before *You Are the Conductor*), each tagged `<!-- version: 4h -->`
+- `Build-MarpVersions.ps1` re-run: 121 → 124 slides; 1h: 28 unchanged, 2h: 65 unchanged, 4h: 124
+- `content/materials/agentic-knowledge-work-patterns.md`: new **Pattern 11 — Operator Dignity ("with AI, not from AI")** with three operating rules (author intent in version control / verify by artefact / budget for review), end-of-day diagnostic question, source-list footnote citing Mackworth 1948 + Parasuraman & Manzey 2010 + KOF/ETH 2025 + BCG/HBR 2026 + Brynjolfsson 2026 + Waymo 2017
+- `content/materials/cheat-sheet.md`: new **"Job Hollowing & Heteromation — The Vocabulary"** section with four-row vocabulary table (Job Hollowing, Heteromation, AI Brainfry, Vigilance Trap), one-line definitions and diagnostics, plus operator-dignity rules
+- `content/materials/destructive-operations-guardrails.md`: See-also section gains Mössner 2026 citation as the operator-sustainability companion to existing Molist (team) and PocketOS (catastrophic) citations
+- CHANGELOG.md `[Unreleased]` entry added
+- Branch: **`ai/job-hollowing`** — local only, not pushed; user requested branch for diff review against `main`
 
 ### 2026-04-29: Layer 6 — GitOps / IaC as the architectural antidote (DscWorkshop)
 - Promoted the destructive-operations defence-in-depth model from **five layers** to **six**, adding **Layer 6: Architectural guardrails (GitOps + IaC)** — the *capability-based* answer to the PocketOS class of incident

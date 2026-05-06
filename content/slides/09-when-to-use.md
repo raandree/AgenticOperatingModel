@@ -10,6 +10,8 @@
 | 9.8e | GitOps as the Architectural Guardrail | — | — | ✅ |
 | 9.9–9.10 | All slides | — | — | ✅ |
 | 9.10a | The Bottleneck Has Moved | — | — | ✅ |
+| 9.10b | Job Hollowing & Heteromation | — | — | ✅ |
+| 9.10c | The Vigilance Trap | — | — | ✅ |
 | 9.11–9.14 | All slides | — | — | ✅ |
 
 > **This module is included in the 4-hour workshop only.**
@@ -506,6 +508,88 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 | **Scheduled reading time** | Block time to read agent-written code you didn't write yourself. The speed of AI demands this |
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
+
+---
+
+## Slide 9.10b: Job Hollowing & Heteromation
+
+# Two Words for the Feeling You Can't Name
+
+> *"Ich fühle mich wie eine Qualitätskontrolle für eine Maschine, der ich gar nicht traue."*
+> *"I feel like quality control for a machine I don't trust."*
+> — Anonymous senior developer (10 yrs experience), quoted by **Cedric Mössner / *The Morpheus***,
+> *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (@0:32)
+
+### The two new words the workshop world needs
+
+| Term | Definition (per the talk) | Diagnostic |
+|------|---------------------------|------------|
+| **Job Hollowing** | The job title, the salary, and the desk all stay. The *cognitive substance* — design, problem-solving, judgement — gets extracted. What remains is checking whether the machine got it right (@12:40) | At end-of-day: *"What did I actually decide today?"* If the answer is "nothing, I just approved" — the role has been hollowed |
+| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes you the machine's tool — you validate output, take responsibility, and hold the bag when it goes wrong (@21:50) | Look at where the *signal* flows. If your accept/reject/correct actions feed the next training run, you are the worker — the AI is the foreman |
+
+### The numbers behind the feeling
+
+BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 2026, cited @13:22):
+
+- **14%** report *AI Brainfry* — extreme mental exhaustion from supervising AI output
+- **+33%** decision fatigue
+- **+39%** more serious errors
+- **+39%** more want to quit
+
+> Stanford / Brynjolfsson (US data, @11:20): in AI-exposed jobs, hiring of 22–25 year-olds is **down ~20%** from peak. US bigtech new-grad share dropped from **15% → 7%**. The juniors aren't getting in. The seniors notice only when no one's coming up behind them.
+
+### It's not a developer-only problem
+
+| Industry | The hollowed-out task | Source from the talk |
+|----------|----------------------|----------------------|
+| Software | Ticket → Copilot proposes → "kind of" understands → commit → next | @0:00 |
+| Lab medicine (MTLA) | The *interesting* edge cases now go to the AI; humans get the routine residue | @18:39 |
+| Creative / writing | LinkedIn: AI-generated long-form posts now >50% of total, perform **43% worse** on engagement | @19:38 |
+
+> The mechanism is the same everywhere: **the meaningful work moves to the machine; the tedious supervisory residue stays with the human.**
+
+---
+
+## Slide 9.10c: The Vigilance Trap
+
+# Why Babysitting AI Breaks Humans — and Has Done So for 78 Years
+
+> The dangerous middle path — *human supervises machine* — is exactly what we are now building into all knowledge work. The aviation and automotive industries already proved this doesn't work.
+
+### Three pieces of evidence the field already had
+
+| Year | Study | Finding |
+|------|-------|---------|
+| **1948** | **Mackworth**, RAF radar operators | Detection rate breaks down measurably after **15–30 minutes** of passive monitoring. Not motivation — wiring. |
+| **2010** | **Parasuraman & Manzey** — *Automation Complacency* | Trust in automated systems exceeds self-trust. Demonstrated equally in novices and experts. **Cannot be trained away.** |
+| **2015–17** | **Google self-driving** programme | Test drivers told to stay alert: did makeup, used phones, **fell asleep on the highway.** |
+
+> *"What we found was pretty scary. It's hard to take over because they have lost contextual awareness."*
+> — **John Krafcik**, then CEO of Waymo
+
+**Google's response:** remove the steering wheel. Level 4 autonomy, not Level 3. *Take the human out of the vigilance loop entirely — because the loop itself is the problem.*
+
+### The cognitive-load mismatch we ignore in software
+
+| Role | Maximum continuous duty | Mandatory break |
+|------|------------------------|-----------------|
+| Air-traffic controller | **2 hours** | 30 minutes |
+| Commercial pilot (FAA) | Regular **autopilot-off** training to keep manual skills sharp | — |
+| **Knowledge worker reviewing AI output** | **8 hours** | None |
+
+> *"The first two hours are fine. After that I'm merging things I can't really read any more."* — Mössner's friend, on his 40-min-per-ticket budget (@18:33)
+
+### The agentic-operating-model answer
+
+| Trap | Why it happens | What this curriculum does about it |
+|------|----------------|------------------------------------|
+| Reviewing line-by-line generated code = vigilance task | Mackworth 1948 says we will fail | **Self-verification by deterministic artefact** (Module 5): tests, RSOPs, `terraform plan` diffs. Review *outcomes*, not tokens. |
+| Trusting the agent more than yourself | Automation Complacency, untrainable | **GitOps / Layer 6 architectural guardrails** (Slide 9.8e): the agent's only verb is *propose*, never *apply*. The pipeline is the brake. |
+| 8-hour passive monitoring shift | Industry-wide design flaw | **Specification work + supervisory chunking** (Slide 9.10a): humans design and approve the *plan*, the agent executes the chunk |
+
+> The fix is not *try harder to stay alert*. The fix is *design the role so vigilance isn't required.*
+
+> Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30) — synthesising Mackworth (1948), Parasuraman & Manzey (2010), and the Waymo programme.
 
 ---
 

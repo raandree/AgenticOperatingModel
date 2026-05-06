@@ -12,6 +12,7 @@
 | 10.5a | Cross-Machine Sync | — | — | ✅ |
 | 10.6 | Resources | ✅ | ✅ | ✅ |
 | 10.7 | Sample Instruction Library | — | — | ✅ |
+| 10.7a | With AI, Not From AI | — | — | ✅ |
 | 10.8 | The Future | — | — | ✅ |
 | 10.9 | Call to Action | ✅ | ✅ | ✅ |
 | 10.10 | Final Thought | — | — | ✅ |
@@ -277,6 +278,49 @@ Write-Host "Restart VS Code to apply changes."
 - Included in presentation materials
 - Use `/init` to auto-generate from your codebase
 - Share improvements via Git
+
+---
+
+## Slide 10.7a: With AI, Not From AI
+
+# The Stockfish Pattern — and How This Curriculum Operationalises It
+
+> *"I want to start a private project. I'll still use AI — but* with *AI, not* from *AI."*
+> — Mössner's friend, after a week off Copilot
+> (Cedric Mössner, *KI Burnout ist real*, 2026, @33:37)
+
+### Two facts the doomers leave out
+
+| Domain | After the machine surpassed humans … | What actually happened |
+|--------|--------------------------------------|------------------------|
+| **Chess** (Stockfish ≫ any human) | … chess **exploded in popularity**. Not despite the engine, *because* of it. The craft was never about beating the machine. | More players, deeper analysis, more streaming, more teachers. |
+| **Aviation** (autopilot ≫ manual on routine) | … the FAA still **mandates regular hand-flying practice**. Skill atrophy is a known failure mode and is actively engineered around. | Pilots stay pilots, not autopilot supervisors. |
+
+### The difference between *with* and *from*
+
+| Pattern | What the operator does | Operator experience | Who owns the intent |
+|---------|------------------------|---------------------|--------------------|
+| *Code* **from** *AI* (the burnout default) | Open ticket → accept suggestion → commit → next ticket | Vigilance, decision fatigue, hollowing | The agent (by default) |
+| *Code* **with** *AI* (the operating model) | Author intent in instruction files + memory bank → agent executes a bounded plan → operator verifies the **artefact** | Author / architect / reviewer | The human, in version control |
+
+### How this curriculum makes "with" the default
+
+| Surface from the 4h workshop | What it gives the operator |
+|------------------------------|----------------------------|
+| `copilot-instructions.md` (Module 3, Slide 10.5) | The operator's *standing intent* — version-controlled, peer-reviewed |
+| Custom agents `.agent.md` (Module 4, Slide 10.7) | The operator's *named patterns of work* — not one-off prompts |
+| Skills (`SKILL.md`) | The operator's *durable expertise* — captured once, reused everywhere |
+| Memory Bank (Module 8) | The operator's *project subconscious* — the agent reads it; the operator writes it |
+| Self-verification (Module 5) | The operator reviews *consequences* (tests, plans, diffs), not *tokens* |
+| GitOps / Layer 6 (Slide 9.8e) | The operator approves *intent in Git*; the system reconciles. Vigilance loop removed. |
+
+> Each one of those surfaces moves the operator **upstream** — from *prompter* to *author of intent*. Same AI. Same speed. Completely different role.
+
+### Closing observation from the talk
+
+> *"Ich glaube, wenn man Menschen mit einer Passion die Möglichkeit gibt, dann kann etwas wirklich Besonderes dabei rauskommen. Genau dieses Kreative ist das, was eine KI bis heute nicht hat."* (@34:50)
+
+> The agentic operating model isn't *AI replaces humans*. It's *humans get back to the part the AI cannot do — and version-control the intent that makes it possible.*
 
 ---
 

@@ -2043,6 +2043,74 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
+# Job Hollowing & Heteromation
+
+> *"I feel like quality control for a machine I don't trust."*
+> — anonymous senior dev, quoted by *Cedric Mössner / The Morpheus*,
+> *KI Burnout ist real*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (@0:32)
+
+| Term | Definition | Diagnostic |
+|------|-----------|------------|
+| **Job Hollowing** | Title, salary, desk stay. The *cognitive substance* — design, judgement, problem-solving — is extracted (@12:40) | End-of-day: *"What did I actually decide today?"* |
+| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
+
+### The numbers behind the feeling — BCG/HBR (March 2026, @13:22)
+
+- **14%** report *AI Brainfry* · **+33%** decision fatigue · **+39%** serious errors · **+39%** want to quit
+- Stanford / Brynjolfsson (@11:20): hiring of 22–25 yr-olds in AI-exposed jobs **−20% from peak**; bigtech new-grad share **15% → 7%**
+
+### Same mechanism, three industries
+
+| Industry | Hollowed-out task | Talk anchor |
+|----------|------------------|-------------|
+| Software | Ticket → Copilot → "kind of" understands → commit → next | @0:00 |
+| Lab medicine (MTLA) | Edge cases now go to AI; humans get the routine residue | @18:39 |
+| Creative writing | LinkedIn AI long-form posts >50% of total, **−43% engagement** | @19:38 |
+
+> The meaningful work moves to the machine; the supervisory residue stays with the human.
+
+---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# The Vigilance Trap
+
+> The dangerous middle path — *human supervises machine* — is what we're now building into all knowledge work. Aviation and automotive already proved it doesn't work.
+
+| Year | Study | Finding |
+|------|-------|---------|
+| **1948** | Mackworth, RAF radar operators | Detection breaks after **15–30 min** of passive monitoring. Wiring, not motivation. |
+| **2010** | Parasuraman & Manzey, *Automation Complacency* | Trust in automated systems exceeds self-trust. **Cannot be trained away.** |
+| **2015–17** | Google self-driving programme | Drivers told to stay alert: did makeup, used phones, **fell asleep on the highway**. |
+
+> *"What we found was pretty scary. It's hard to take over because they have lost contextual awareness."* — **John Krafcik**, then-CEO Waymo
+
+**Google's response:** remove the steering wheel. **Level 4, not Level 3.**
+
+### The cognitive-load mismatch we ignore in software
+
+| Role | Max continuous duty | Mandatory break |
+|------|--------------------|-----------------|
+| Air-traffic controller | **2 h** | 30 min |
+| Commercial pilot (FAA) | Regular **autopilot-off** training | — |
+| Knowledge worker reviewing AI output | **8 h** | None |
+
+### The agentic-operating-model answer
+
+- Review **outcomes, not tokens** — self-verification by deterministic artefact (Module 5)
+- Agent's only verb is *propose*, never *apply* — GitOps Layer 6 (Slide 9.8e)
+- Humans approve the *plan*, agent executes the chunk (Slide 9.10a)
+
+> The fix is not *try harder to stay alert*. The fix is *design the role so vigilance isn't required.*
+
+> Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30)
+
+---
+<!-- version: 4h -->
+
 # The Human Role Remains
 
 ### You are NOT replaced. Your role shifts:
@@ -2244,6 +2312,41 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 ### Model Context Protocol
 - **Spec**: modelcontextprotocol.io
 - **Servers**: github.com/modelcontextprotocol/servers
+
+---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# With AI, Not From AI — The Stockfish Pattern
+
+> *"I'll still use AI — but* with *AI, not* from *AI."*
+> — Mössner's friend, after a week off Copilot
+> (Cedric Mössner, *KI Burnout ist real*, 2026, @33:37)
+
+| Domain | After the machine surpassed humans … | What actually happened |
+|--------|--------------------------------------|------------------------|
+| **Chess** (Stockfish ≫ any human) | … chess **exploded in popularity**. Not despite the engine — *because* of it. | More players, deeper analysis, more streaming, more teachers. |
+| **Aviation** (autopilot ≫ manual) | … FAA **mandates** regular hand-flying practice to prevent skill atrophy. | Pilots stay pilots, not autopilot supervisors. |
+
+### *From* vs *with*
+
+| Pattern | What the operator does | Experience | Owns the intent |
+|---------|------------------------|------------|-----------------|
+| Code **from** AI (burnout default) | Open ticket → accept → commit → next | Vigilance, decision fatigue, hollowing | The agent |
+| Code **with** AI (operating model) | Author intent in instruction files + memory bank → agent executes a bounded plan → operator verifies the **artefact** | Author / architect / reviewer | The human, in version control |
+
+### How this curriculum makes "with" the default
+
+- `copilot-instructions.md` — operator's *standing intent*, version-controlled
+- `.agent.md` + skills — operator's *named patterns of work*, not one-off prompts
+- Memory Bank — operator's *project subconscious* — agent reads, operator writes
+- Self-verification (M5) — review *consequences*, not *tokens*
+- GitOps Layer 6 (S9.8e) — operator approves intent in Git; system reconciles
+
+> Each surface moves the operator **upstream** — from prompter to *author of intent*. Same AI. Same speed. Completely different role.
+
+> *"Wenn man Menschen mit einer Passion die Möglichkeit gibt, kann etwas wirklich Besonderes dabei rauskommen. Genau dieses Kreative ist das, was eine KI bis heute nicht hat."* — Mössner (@34:50)
 
 ---
 <!-- version: 1h 2h 4h -->
