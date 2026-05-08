@@ -314,5 +314,6 @@ For audiences who think in terms of standard frameworks, the failure modes here 
 - OWASP LLM Top 10 — particularly LLM06 (Excessive Agency)
 - The Replit incident (early 2026) — Tom's Hardware coverage
 - The PocketOS incident (April 2026) — primary sources: [OECD.AI Incidents Database 2026-04-27-6153](https://oecd.ai/en/incidents/2026-04-27-6153), [Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-deletes-entire-company-database-in-9-seconds-backups-zapped-after-cursor-tool-powered-by-anthropics-claude-goes-rogue), [Zenity security analysis](https://zenity.io/blog/current-events/ai-agent-database-deletion-pocketos)
+- **The third leg of the same stool — operator sustainability:** Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 — *Job Hollowing* and *Heteromation* as the human-experience failure mode that pairs with the team-dynamics angle (Molist 2026) and the catastrophic-failure angle (PocketOS / OECD.AI 2026-04-27-6153). See also Module 9 slides 9.10b/9.10c and [agentic-knowledge-work-patterns.md § Pattern 11](agentic-knowledge-work-patterns.md).
 
 > **The agent will be wrong eventually. The system around it must not be.**

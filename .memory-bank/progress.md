@@ -2,13 +2,27 @@
 
 ## Current Status
 
-**Phase**: Failure-Mode Integration Complete (PocketOS incident + supervisory-work theme + GitOps Layer 6)
+**Phase**: Operator-Sustainability Integration Complete (Job Hollowing / Heteromation / Vigilance Trap + With-AI-Not-From-AI counter-pattern)
 **Started**: 2026-02-02
-**Last Updated**: 2026-04-29
+**Last Updated**: 2026-05-06
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, and 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6 integration
+**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6 integration, and 2026-05-06 Mössner / *KI Burnout ist real* operator-sustainability integration
 
 ## Completed
+
+### Operator-Sustainability Integration ✅ (2026-05-06)
+- [x] Source: Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Transcript captured via user paste; saved as cite-anchor map at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed)
+- [x] Identified the curriculum gap: existing failure-mode coverage had team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e) but was missing the human-experience / operator-sustainability angle
+- [x] Module 9: new slide **9.10b "Job Hollowing & Heteromation"** — defines both terms with M-quotes, BCG/HBR *AI Brainfry* numbers (14% / +33% / +39% / +39%), Brynjolfsson/Stanford new-grad data (−20% peak hiring, bigtech 15%→7%), three-industries table (software / lab medicine / creative writing). Anchored to transcript timestamps
+- [x] Module 9: new slide **9.10c "The Vigilance Trap"** — Mackworth 1948 + Parasuraman & Manzey 2010 + Waymo 2015–17 with Krafcik quote; cognitive-load mismatch table (ATC 2h / pilot autopilot-off practice / knowledge worker 8h); maps each trap to existing curriculum surfaces (M5, S9.8e, S9.10a)
+- [x] Module 10: new slide **10.7a "With AI, Not From AI — The Stockfish Pattern"** — positive counter-pattern. Chess explosion + FAA hand-flying as proof. *From* vs *with* table; explicit mapping of each curriculum surface (`copilot-instructions.md`, `.agent.md`, skills, memory bank, self-verification, GitOps Layer 6) to "moves operator upstream"
+- [x] MARP master `content/slides/marp-presentation.md`: condensed versions of all three slides inserted at correct anchors, tagged `<!-- version: 4h -->`
+- [x] `Build-MarpVersions.ps1` re-run cleanly: 121 → 124 slides; 1h: 28 unchanged, 2h: 65 unchanged, 4h: 124
+- [x] `content/materials/agentic-knowledge-work-patterns.md`: new **Pattern 11 — Operator Dignity ("with AI, not from AI")** — three operating rules mapped to modules; end-of-day diagnostic question; explicit source-list footnote
+- [x] `content/materials/cheat-sheet.md`: new **"Job Hollowing & Heteromation — The Vocabulary"** section with four-row table (Job Hollowing / Heteromation / AI Brainfry / Vigilance Trap)
+- [x] `content/materials/destructive-operations-guardrails.md`: See-also gains the Mössner 2026 citation as the third leg of the failure-mode stool
+- [x] CHANGELOG.md `[Unreleased]` entry added
+- [x] Branch: `ai/job-hollowing` (local only, not pushed)
 
 ### Failure-Mode Integration ✅ (2026-04-29)
 - [x] Researched PocketOS / Cursor + Claude Opus 4.6 / Railway incident via Disclose.tv and Tom's Hardware (incident date late April 2026; published 2026-04-27)

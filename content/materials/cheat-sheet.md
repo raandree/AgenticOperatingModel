@@ -267,6 +267,29 @@ Self-verification only works if **tests are independent of the code**. When the 
 
 ---
 
+## Job Hollowing & Heteromation — The Vocabulary
+
+> *"I feel like quality control for a machine I don't trust."*
+> — anonymous senior dev, quoted by *Cedric Mössner* ("The Morpheus"),
+> *KI Burnout ist real*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026
+
+| Term | One-line definition | Diagnostic |
+|------|--------------------|------------|
+| **Job Hollowing** | Title, salary, and desk stay; the *cognitive substance* (design, judgement, problem-solving) is extracted by the AI. | End-of-day question: *"What did I actually decide today?"* — if "nothing, I just approved", the role is hollowed. |
+| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag. | Where does the signal flow? If your accept/reject feeds the next training run, you are the worker. |
+| **AI Brainfry** (BCG/HBR, 2026) | Mental exhaustion from supervising AI output. 14% of AI-intensive workers report it; +33% decision fatigue; +39% serious errors; +39% want to quit. | Friday-afternoon "brain fog" after a week of agent-supervised work. |
+| **Vigilance Trap** (Mackworth 1948) | Passive monitoring fails measurably after 15–30 min. Untrainable. Automation Complacency (Parasuraman & Manzey, 2010) makes it worse with experience, not better. | If your job is *to watch*, the design is wrong — not your concentration. |
+
+### Operator-dignity rules ("with AI, not from AI")
+
+1. **Author intent in version control, not in prompts** (`copilot-instructions.md`, `.agent.md`, skills, memory bank live in Git)
+2. **Verify by artefact, not by line-reading** (tests, RSOPs, `terraform plan` diffs — review *consequences*, not tokens)
+3. **Budget for review, not for typing** (if per-ticket budgets assume AI speedup, redistribute the saved time into verification — otherwise you have built a burnout factory)
+
+> Pair-reads: Module 9 slides 9.10b/9.10c, [agentic-knowledge-work-patterns.md § Pattern 11](agentic-knowledge-work-patterns.md), [destructive-operations-guardrails.md](destructive-operations-guardrails.md).
+
+---
+
 ## Decision Framework
 
 ```

@@ -292,6 +292,53 @@ study (`demo-tax-case-study.md`).
 
 ---
 
+## Pattern 11 — Operator Dignity ("with AI, not from AI")
+
+**Problem.** The default workflow with agentic tools is *job hollowing*
+(Mössner 2026): the agent absorbs the part of the work that *built* the
+operator's expertise — reading, reasoning, designing — and leaves only
+the mechanical residue (accept / reject / commit / next). Productivity
+looks fine on paper; the operator is increasingly *quality control for
+a machine they don't trust*. The same mechanism is documented in
+software (Mössner @0:00), lab medicine (@18:39) and creative writing
+(@19:38) — it is not a developer-specific failure mode.
+
+The vigilance literature (Mackworth 1948; Parasuraman & Manzey 2010)
+is blunt about why this breaks humans: passive monitoring fails after
+15–30 minutes, automation complacency cannot be trained away, and the
+automotive industry's response (Waymo 2017) was to *remove the
+steering wheel* rather than ask drivers to stay vigilant.
+
+**Pattern.** Three operating rules that move the operator from *prompter*
+to *author of intent*, without giving up the speed of agentic tools:
+
+| Rule | Concrete control | Curriculum surface |
+|------|------------------|--------------------|
+| **Author intent in version control, not in prompts** | The operator owns `copilot-instructions.md`, `.agent.md`, skills, memory bank — *the standing intent lives in Git, not in chat history* | Module 3 (instruction files), Module 4 (custom agents), Module 8 (memory bank) |
+| **Verify by artefact, not by line-reading** | Reviewer inspects test runs, RSOPs, `terraform plan` diffs, schema migrations — *consequences*, not tokens | Module 5 (self-verification), Slide 9.8e (GitOps Layer 6) |
+| **Budget for review, not for typing** | If the team's per-ticket budget assumes AI speedup, *redistribute the saved time into verification*. Otherwise the team has built the burnout factory the talk describes (Mössner @0:13) | Slide 9.10b (Job Hollowing) |
+
+**Diagnostic.** Ask the operator at end of day: *"What did you actually
+decide today?"* If the answer is "nothing, I just approved" — the
+role has been hollowed and the pattern needs to be re-applied.
+
+**Counter-evidence the pattern relies on.** Two domains where the
+machine surpassed humans without hollowing the operator: **chess**
+(Stockfish ≫ any human; chess exploded in popularity) and
+**aviation** (autopilot ≫ manual; FAA mandates regular hand-flying
+practice to prevent skill atrophy). In both, the human kept the
+*intent and the craft*; the machine did the execution. Same pattern
+the operating model encodes.
+
+> Source: Cedric Mössner, *"KI Burnout ist real"*, 2026,
+> [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM)
+> — synthesising Mackworth (1948), Parasuraman & Manzey (2010),
+> KOF/ETH Zürich diff-in-diff labour-market study (2025), BCG/HBR
+> *AI Brainfry* survey (March 2026), Brynjolfsson et al. (Stanford,
+> 2026), and Waymo's removal of the steering wheel (2017).
+
+---
+
 ## Pattern Combinations
 
 The patterns compose. The source tax case uses **all ten** simultaneously:
