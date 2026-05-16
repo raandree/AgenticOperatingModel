@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Beads / `bd` brief signpost in M8** (2026-05-16)
+  - New slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) — frames Beads as an *upgrade path* for when the default Memory Bank + GitHub Issues stack stops scaling: multiple agents writing the same backlog in parallel, hundreds of issues with real dependency graphs, stateless sessions across many machines/contributors. Explicitly tells the audience to **stay with the Memory Bank** below that threshold (matches the 1–4 person team profile of dsccommunity-style projects). Reinforces the operating-model thesis: judgment, not tooling.
+  - MARP master `marp-presentation.md` gets the condensed version, tagged `<!-- version: 4h -->`. `Build-MarpVersions.ps1` re-run: 4h 124 → 125 slides; 1h (28) and 2h (65) unchanged.
+  - Cheat-sheet Resources gains one line linking to the Beads repo with the same "only when you outgrow Memory Bank + Issues" qualifier.
+
+### Added
+
 - **Job Hollowing, Heteromation, and the Vigilance Trap — operator-sustainability angle** (2026-05-06)
   - Integrated Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 — the third leg of the failure-mode stool that already covers team dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e). Adds the *human-experience* failure mode the curriculum was missing.
   - Module 9: new slide **9.10b "Job Hollowing & Heteromation"** — defines both terms with the speaker's own framing (*"I feel like quality control for a machine I don't trust"*, @0:32), the BCG/HBR *AI Brainfry* numbers (14% report it; +33% decision fatigue; +39% serious errors; +39% want to quit; March 2026), the Brynjolfsson/Stanford new-grad data (−20% peak hiring in AI-exposed jobs, bigtech new-grad share 15%→7%), and the *same-mechanism-three-industries* table (software / lab medicine / creative writing) that prevents the audience from filing this as a developer-only problem (4h)

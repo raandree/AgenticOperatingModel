@@ -465,6 +465,7 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~2
 - **Complementary Tools**: Warp (warp.dev), GitHub Copilot CLI, Zed (zed.dev)
 - **MCP Standard**: https://modelcontextprotocol.io
 - **CopilotAtelier** (reference repo for cross-machine customization): https://github.com/raandree/CopilotAtelier
+- **Beads / `bd`** (agent-native issue tracker — only when you outgrow Memory Bank + Issues): https://github.com/gastownhall/beads
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
 

@@ -4,7 +4,7 @@
 
 | Slide | Title | 1h | 2h | 4h |
 |-------|-------|:---:|:---:|:---:|
-| 8.1–8.14 | All slides (incl. 8.5a: Beyond Code, 8.13: What's New 2026 Q2) | — | — | ✅ |
+| 8.1–8.14 | All slides (incl. 8.5a: Beyond Code, 8.5b: Scaling the Backlog — Beads, 8.13: What's New 2026 Q2) | — | — | ✅ |
 
 > **This module is included in the 4-hour workshop only.**
 
@@ -218,6 +218,32 @@ Agent (using SQLite MCP):
 
 See the [AD Troubleshooting Lab](../demos/ad-troubleshooting-lab/) for a
 hands-on example of this principle with 5 real Active Directory scenarios.
+
+---
+
+## Slide 8.5b: Scaling the Backlog — When to Reach for Beads
+
+# When the Memory Bank Is Not Enough
+
+### The default stack — Memory Bank + GitHub Issues + `ai/<slug>` branches —
+is the right level of ceremony for **1–4 person teams, one agent at a time,
+backlogs in the tens**.
+
+### Reach for a dedicated agent-native tracker (e.g. **[Beads / `bd`](https://github.com/gastownhall/beads)**) when *all three* hold:
+
+| Signal | Why it matters |
+|--------|----------------|
+| **Multiple agents writing the same backlog in parallel** | Need atomic claim and cell-level merge, not file locks |
+| **Hundreds of issues with real dependency graphs** | `bd ready` becomes a genuine query, not a paragraph |
+| **Stateless sessions across many machines / contributors** | `bd prime` re-bootstraps context that a single Memory Bank can't |
+
+### Below that threshold:
+> Beads adds a second database (Dolt), a second tracker next to GitHub Issues,
+> and a new vocabulary — for problems you don't have yet. **Stay with the
+> Memory Bank.**
+
+> **Judgment, not tooling.** The agentic operating model is the discipline.
+> The tracker is an implementation detail you upgrade when the seams show.
 
 ---
 
