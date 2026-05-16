@@ -253,3 +253,4 @@ These are optional additions if time permits:
 | Demo Script | 1 file | ~1,500 |
 | Materials | 9 files | ~2,500 |
 | **Total** | **25 files** | **~19,000 words** |
+- 2026-05-16: Added demo MCP server (content/demos/mcp-demo-server/) + 12-min workshop script. Seven tools (notes_* persistence + system_* host reach) on @modelcontextprotocol/sdk stdio. Verified end-to-end via probe.cjs.

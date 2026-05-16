@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Demo MCP server (`content/demos/mcp-demo-server/`) + demo script** (2026-05-16)
+  - Minimal Node.js / ESM MCP server (`server.js`, ~150 LOC) built on `@modelcontextprotocol/sdk` over stdio. Two intentionally distinct tool families: **`notes_*`** (`add`, `list`, `search`, `delete`) backed by a JSON file under `%LOCALAPPDATA%\AgenticDemoMcp\notes.json` to demonstrate *persistence the LLM does not have*; **`system_*`** (`os_info`, `disk_free`, `top_processes`) that shell out to PowerShell (Win32_OperatingSystem / Win32_LogicalDisk / Get-Process) to demonstrate *reach into the host the LLM does not have*
+  - `probe.cjs` — standalone JSON-RPC smoke test (no MCP client required); exercises `initialize` → `tools/list` → all seven `tools/call`. Verified end-to-end on Windows 11 Pro for Workstations, Node 24.11.1
+  - `mcp.example.json` — drop-in VS Code `mcp.json` snippet using `${workspaceFolder}` so it works without per-machine paths
+  - `README.md` covers tools, prerequisites, install, smoke test, VS Code wiring, pedagogical uses (show-the-JSON / break-it-on-purpose / identity-discussion / destructive-ops-confirmation), and honest limits (single-user, no auth, Windows-first)
+  - `content/demos/demo-mcp-server.md` — 12-min live script with five beats (protocol-is-not-magic / persistence / reach / identity decoupling under `runas` / destructive-tool guardrail), audience/slot guidance (primary: 4h workshop M4; optional: 2h sidebar; skip in 1h), common-failure table, and back-references to M3, M4, M5, M9.8
+  - Closes the conceptual gap exposed by the May 16 thread on MCP servers — server identity vs. user identity, MCP vs. raw Graph API, what makes a *teachable* MCP demo for a mixed audience
+
 - **Beads / `bd` brief signpost in M8** (2026-05-16)
   - New slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) — frames Beads as an *upgrade path* for when the default Memory Bank + GitHub Issues stack stops scaling: multiple agents writing the same backlog in parallel, hundreds of issues with real dependency graphs, stateless sessions across many machines/contributors. Explicitly tells the audience to **stay with the Memory Bank** below that threshold (matches the 1–4 person team profile of dsccommunity-style projects). Reinforces the operating-model thesis: judgment, not tooling.
   - MARP master `marp-presentation.md` gets the condensed version, tagged `<!-- version: 4h -->`. `Build-MarpVersions.ps1` re-run: 4h 124 → 125 slides; 1h (28) and 2h (65) unchanged.

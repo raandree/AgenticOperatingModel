@@ -10,6 +10,13 @@
 
 ## Recent Changes
 
+### 2026-05-16: Demo MCP server + workshop script
+- New folder `content/demos/mcp-demo-server/` — Node ESM MCP server on `@modelcontextprotocol/sdk` over stdio. Seven tools split into two families that demonstrate the two distinct things MCP gives an LLM: **persistence** (`notes_add/list/search/delete` → JSON file under `%LOCALAPPDATA%\AgenticDemoMcp\`) and **reach** (`system_os_info/disk_free/top_processes` → PowerShell shell-out via CIM and `Get-Process`).
+- `probe.cjs` smoke test exercises all seven tools via raw JSON-RPC; verified on Win11 + Node 24.11.1. First attempt used `Get-PSDrive` for disk free → hung on network-drive enumeration; switched to `Win32_LogicalDisk DriveType=3`.
+- `README.md`, `mcp.example.json` (uses `${workspaceFolder}` for portability), and `content/demos/demo-mcp-server.md` (12-min live script for 4h workshop M4; optional 2h sidebar; skip in 1h). Five-beat structure: protocol-is-not-magic / persistence / reach / identity-decoupling under `runas` / destructive-ops gate.
+- Closes the conceptual gap raised in the May-16 Q&A on MCP server identity, MCP vs. raw Graph API, and what makes a *teachable* MCP demo for a mixed audience (PowerShell devs + sysadmins + knowledge workers).
+- Branch: **`ai/mcp-demo-server`** — local only, not pushed.
+
 ### 2026-05-16: Beads / `bd` brief signpost in M8
 - Added new slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) after 8.5a. Frames Beads as an *upgrade path*, not a default. Three-signal threshold (parallel agents on shared backlog / hundreds of dependency-tangled issues / stateless multi-machine sessions); explicit "stay with the Memory Bank" guidance below that.
 - Decision driven by assessment of dsccommunity org (representative audience): 1–4 person teams, one agent at a time, issue counts in single/low-double digits. Beads' sweet spot (multi-writer cell-merge, atomic claim, dependency graph queries) doesn't materialize at that scale; cost of a second tracker next to GitHub Issues + Dolt runtime + new vocabulary is not justified.
