@@ -1564,6 +1564,26 @@ The same agentic loop applies:
 
 <!-- _class: compact -->
 
+# Scaling the Backlog — When to Reach for Beads
+
+**Default stack** (Memory Bank + GitHub Issues + `ai/<slug>` branches) fits **1–4 person teams, one agent at a time, tens of issues**.
+
+Reach for an agent-native tracker like **[Beads / `bd`](https://github.com/gastownhall/beads)** only when *all three* hold:
+
+| Signal | Why it matters |
+|--------|----------------|
+| Multiple agents writing the same backlog in parallel | Atomic claim + cell-level merge |
+| Hundreds of issues with real dependency graphs | `bd ready` becomes a genuine query |
+| Stateless sessions across many machines/contributors | `bd prime` re-bootstraps context the Memory Bank can't |
+
+> Below that threshold, Beads adds a second database (Dolt) and a second tracker next to GitHub Issues — for problems you don't have yet. **Stay with the Memory Bank.**
+
+> **Judgment, not tooling.** The operating model is the discipline; the tracker is an implementation detail you upgrade when the seams show.
+
+---
+
+<!-- _class: compact -->
+
 # MCP Security Considerations
 
 ### MCP servers CAN:

@@ -10,6 +10,12 @@
 
 ## Recent Changes
 
+### 2026-05-16: Beads / `bd` brief signpost in M8
+- Added new slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) after 8.5a. Frames Beads as an *upgrade path*, not a default. Three-signal threshold (parallel agents on shared backlog / hundreds of dependency-tangled issues / stateless multi-machine sessions); explicit "stay with the Memory Bank" guidance below that.
+- Decision driven by assessment of dsccommunity org (representative audience): 1–4 person teams, one agent at a time, issue counts in single/low-double digits. Beads' sweet spot (multi-writer cell-merge, atomic claim, dependency graph queries) doesn't materialize at that scale; cost of a second tracker next to GitHub Issues + Dolt runtime + new vocabulary is not justified.
+- MARP master updated with condensed version tagged `<!-- version: 4h -->`; `Build-MarpVersions.ps1` re-run — 4h: 124→125 slides; 1h/2h unchanged.
+- Cheat-sheet Resources: one-line link to Beads repo with "only when you outgrow Memory Bank + Issues" qualifier.
+
 ### 2026-05-06: Operator-Sustainability Integration — Mössner / *KI Burnout ist real*
 - Integrated Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Closes the third leg of the failure-mode stool: alongside team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e), this is the **operator-sustainability / human-experience** angle the curriculum was missing
 - Transcript captured via user paste; cite-anchor map saved at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed). YouTube auto-caption fetch was blocked by PO-token gate — user pasted from the signed-in transcript pane
