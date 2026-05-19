@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "agentic-demo-ps": {
+      "type": "stdio",
+      "command": "pwsh",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-File",
+        "${workspaceFolder}/content/demos/mcp-demo-server-ps/server.ps1"
+      ],
+      "env": {
+        "AGENTIC_DEMO_DIR": "${env:LOCALAPPDATA}\\AgenticDemoMcp"
+      }
+    }
+  }
+}
