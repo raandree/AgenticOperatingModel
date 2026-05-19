@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Obsidian + MCP server cheat-sheet reference** (2026-05-19)
+  - One-line entry under cheat-sheet **Resources**, immediately after the Beads line, framing Obsidian as a *complement* to the per-repo Memory Bank for personal cross-project knowledge — explicitly **not** a replacement. Same rhetorical guardrail as the Beads signpost: reach for it only when the problem appears, do not displace the default stack. No slide changes; the Memory Bank vs. Obsidian distinction (project state vs. personal corpus, deterministic full-file load vs. embedding RAG) is intentionally kept off the deck to preserve the sharp 8.5b *stay with the Memory Bank* message.
+
 - **Beads / `bd` brief signpost in M8** (2026-05-16)
   - New slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) — frames Beads as an *upgrade path* for when the default Memory Bank + GitHub Issues stack stops scaling: multiple agents writing the same backlog in parallel, hundreds of issues with real dependency graphs, stateless sessions across many machines/contributors. Explicitly tells the audience to **stay with the Memory Bank** below that threshold (matches the 1–4 person team profile of dsccommunity-style projects). Reinforces the operating-model thesis: judgment, not tooling.
   - MARP master `marp-presentation.md` gets the condensed version, tagged `<!-- version: 4h -->`. `Build-MarpVersions.ps1` re-run: 4h 124 → 125 slides; 1h (28) and 2h (65) unchanged.

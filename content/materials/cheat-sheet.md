@@ -466,6 +466,7 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~2
 - **MCP Standard**: https://modelcontextprotocol.io
 - **CopilotAtelier** (reference repo for cross-machine customization): https://github.com/raandree/CopilotAtelier
 - **Beads / `bd`** (agent-native issue tracker — only when you outgrow Memory Bank + Issues): https://github.com/gastownhall/beads
+- **Obsidian + MCP server** (personal cross-project knowledge corpus — *complement* to the per-repo Memory Bank, not a replacement): https://obsidian.md · https://github.com/MarkusPfundstein/mcp-obsidian
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
 
