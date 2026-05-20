@@ -11,6 +11,7 @@
 | 4.5 | Rule Categories | — | ✅ | ✅ |
 | 4.6 | Before and After | — | ✅ | ✅ |
 | 4.7 | Hierarchy of Instructions | — | ✅ | ✅ |
+| 4.7a | Spec-Driven Development | — | ✅ | ✅ |
 | 4.8 | Custom Agents | — | ✅ | ✅ |
 | 4.9 | Custom Agent Examples | — | — | ✅ |
 | 4.10 | Skills | — | — | ✅ |
@@ -270,6 +271,72 @@ function Test-Config {
 - You keep personal preferences in user-level settings
 - Organizations enforce company-wide policies
 - Pattern-matched files apply only to relevant code
+
+---
+
+## Slide 4.7a: Spec-Driven Development
+
+# Make the *Spec* the Primary Artefact — Not the Code
+
+> Instruction files (4.3–4.7) capture **persistent rules** — *how* this codebase wants to be coded.
+> Spec-driven development captures **per-task intent** — *what* and *why* for the change about to happen.
+> The two are complementary. Both belong in Git, written by a human, **before** the agent touches code.
+
+### The flip
+
+| Old order (code-first) | New order (spec-first) |
+|------------------------|------------------------|
+| 1. Prompt the agent | 1. Write the **spec** — intent, constraints, acceptance criteria |
+| 2. Agent generates code | 2. Agent produces a **plan** — architecture, task list, risks |
+| 3. Human reviews diff | 3. Human **approves the plan** (cheap to change) |
+| 4. Hope it matches intent | 4. Agent executes tasks sequentially |
+| | 5. Verify each task **against the spec**, not just "it compiles" |
+
+> The code becomes an *implementation detail*. The spec is the source of truth.
+
+### Project constitution (GitHub Spec Kit pattern)
+
+A `spec/constitution.md` (or `.spec-kit/constitution.md`) checked into the repo declares **non-negotiable principles** the agent must honour on every task:
+
+```markdown
+# Project Constitution
+
+## Quality
+- All public functions ship with Pester tests covering success, error, edge cases.
+- No new code merged without an updated CHANGELOG entry.
+
+## Testing
+- Tests are evidence. Tests that mock the thing under test are not evidence.
+- Coverage floor: 80% line, 70% branch.
+
+## Security
+- No secrets in code. No `Invoke-Expression` on untrusted input.
+- Destructive operations require an explicit `-Confirm` or pipeline approval.
+```
+
+> Per task you write a short **spec** (1 page); the **constitution** never changes per task. Plans are validated against both.
+
+### Why this beats prompt engineering
+
+- The agent pattern-matches from training data. Your **architectural intent**, **service boundaries**, and **why-that-field-changed-6-months-ago** are not in that data. The spec is the only place they exist.
+- **TypeScript catches ~94% of LLM errors that surface as type-check failures.** A strongly-typed spec + strongly-typed code is a guardrail, not a style preference. (The same principle generalises: schemas, JSON-Schema, Pester `Should -Throw`, ARM/Bicep validation — pick the guardrail your language affords.)
+- A spec is **reviewable cheaply** (1 page); a 600-line diff is not. Catch the wrong building before the contractor pours the foundation.
+
+### Pitfall — a spec is *not* a substitute for code review
+
+Running the compiler from the spec **without reading the generated code** produces progressively worse code on every cycle. The spec captures *per-task intent*; it does not capture the **design of the system**. Skip the read step and the codebase drifts into software entropy — vibe-coding with extra ceremony.
+
+> *"You have to invest in the design of the system every day."* — **Kent Beck**
+>
+> *"Compile-from-spec without reading what it wrote produces worse and worse code."* — Matt Pocock, *"Claude Code for real engineers"*, 2026
+
+### Cross-reference
+
+- Pair with **M3 Power of Context** — the spec lives in Git like everything else.
+- Pair with **M5 Self-Verification** — "verify against the spec" is the acceptance test.
+- Pair with **M9.10a counter-pattern "Architecture review BEFORE generation"** — the spec *is* the artefact that gets reviewed.
+
+> See: [GitHub Spec Kit](https://github.com/github/spec-kit) · the agentic-operating-model take is *instruction files for the codebase, specs for the change, constitution for the line nobody crosses*.
 
 ---
 

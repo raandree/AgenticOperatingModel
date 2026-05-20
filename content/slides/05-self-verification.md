@@ -180,6 +180,14 @@ Result: 5 passed, 0 failed ✅
 
 > **This happens automatically.** You receive working code.
 
+### Callout — the rate of feedback is your speed limit
+
+> *"Don't outrun your headlights."* — **Hunt & Thomas**, *The Pragmatic Programmer*
+
+A fast, deterministic test loop is **not** an optional discipline for agents — it is the *governor* on how far the agent is allowed to drive between checks. Slow tests = long, dangerous strides; fast tests = small, correctable steps. This is why TDD, far from being incompatible with AI, is what *keeps AI honest*.
+
+> Pairs with **M9** (when to use): if you cannot build a fast feedback loop for a task, the agent's stride exceeds your braking distance — don't generate.
+
 ---
 
 ## Slide 5.6: Enabling Self-Verification

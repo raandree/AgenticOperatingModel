@@ -425,6 +425,16 @@ Write-Host "Restart VS Code to apply changes."
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+### Operating metaphor — sergeant and commander
+
+> *"The AI is the tactical sergeant on the ground. You are the strategic commander above it."*
+> — paraphrased from **Matt Pocock**, *"Claude Code for real engineers"*, 2026
+
+- **Sergeant (AI)**: executes the assault, reports what it sees, surfaces casualties (failing tests, broken builds, unexpected behaviour).
+- **Commander (you)**: holds the map, sets the objective, decides what counts as victory, owns the consequences.
+
+Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
 ---
 
 ## Slide 10.11: Q&A

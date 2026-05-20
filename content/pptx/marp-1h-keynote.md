@@ -703,6 +703,20 @@ But also:
 
 <!-- _class: lead -->
 
+# Sergeant and Commander
+
+> *"The AI is the tactical sergeant on the ground. You are the strategic commander above it."*
+> — paraphrased from **Matt Pocock**, *"Claude Code for real engineers"*, 2026
+
+- **Sergeant (AI)** — executes, reports, surfaces casualties (failing tests, broken builds).
+- **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
+
+> Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
+---
+
+<!-- _class: lead -->
+
 # Thank You!
 
 ### Key Takeaways

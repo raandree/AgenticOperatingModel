@@ -246,6 +246,8 @@ Self-verification only works if **tests are independent of the code**. When the 
 
 > *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."* — *Axel Molist, 2026*
 
+> **Comprehension debt** = code that exists in the system − code any human can still explain. Unlike technical debt, it is *invisible* — you only meet it during a 2 a.m. incident. The failure modes below are its symptoms. Empirical signal: GetClear analysed 211 M LOC; code-churn (lines rewritten/deleted within 2 weeks) rose **5.5% → 7.9%** as AI authoring spread.
+
 | Layer | Growing | Shrinking |
 |-------|---------|-----------|
 | **Specification work** | State machines, decision tables, formal PRDs | "I'll figure it out as I code" |
@@ -264,6 +266,7 @@ Self-verification only works if **tests are independent of the code**. When the 
 - **Angry agents** — a custom agent prompted to challenge assumptions
 - **`runbooks/incidents/` corpus** the agent reads on every outage
 - **Scheduled reading time** — block calendar time to read agent-written code
+- **Reject "future AI will fix it"** — a refactor needs *intent* you never wrote down. SQLite bans AI-generated contributions; NASA DO-178C Level A requires MC/DC coverage AI-generated code routinely fails. Where the stakes are real, comprehension is not deferrable.
 
 ---
 
@@ -467,6 +470,7 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~2
 - **CopilotAtelier** (reference repo for cross-machine customization): https://github.com/raandree/CopilotAtelier
 - **Beads / `bd`** (agent-native issue tracker — only when you outgrow Memory Bank + Issues): https://github.com/gastownhall/beads
 - **Obsidian + MCP server** (personal cross-project knowledge corpus — *complement* to the per-repo Memory Bank, not a replacement): https://obsidian.md · https://github.com/MarkusPfundstein/mcp-obsidian
+- **mattpocockuk/skills** (worked examples of grill-me, spec-driven, and review-oriented skills for Claude Code / Copilot; ~13k ★): https://github.com/mattpocockuk/skills
 - **Pester Docs**: https://pester.dev
 - **PSScriptAnalyzer**: https://github.com/PowerShell/PSScriptAnalyzer
 
