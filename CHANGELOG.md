@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **PowerShell edition of the demo MCP server (`content/demos/mcp-demo-server-ps/`)** (2026-05-20)
+  - Single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+) speaks Model Context Protocol over stdio as raw JSON-RPC — no SDK dependency, no `npm install`, the whole protocol fits in one `.ps1` readable on a projector. Built for PowerShell-conference demos where the Node.js implementation would distract from the protocol itself
+  - Protocol-identical to the Node version: same seven tools (`notes_add/list/search/delete` for persistence, `system_os_info/disk_free/top_processes` for host reach), same JSON store under `%LOCALAPPDATA%\AgenticDemoMcp\`, same instrumentation pattern (timestamped colored stderr logging, per-call duration, `notifications/progress` frames when the host passes a `progressToken`)
+  - Follows PowerShell best practices: approved verbs, `[CmdletBinding()]`, comment-based help, parameter validation, `$ErrorActionPreference = 'Stop'`, `Set-StrictMode -Version 3.0`, UTF-8 console encoding (stdout reserved for JSON-RPC, all human output to stderr). Tool registry via `Register-McpTool` — adding a capability is one call, no manifest
+  - Toggles: `-Quiet` / `AGENTIC_DEMO_VERBOSE=0`, `-NoColor` / `AGENTIC_DEMO_NO_COLOR=1`, `-StorePath` / `AGENTIC_DEMO_DIR`
+  - `probe.ps1` mirrors `probe.cjs` — spawns the server as a child process, exercises `initialize` → `tools/list` → all seven `tools/call` over stdio, prints `INIT / TOOLS / ADD / LIST / SEARCH / OS / TOP / DISK / DEL`. Verified end-to-end on Windows 11 Pro for Workstations, pwsh 7.5.5
+  - `mcp.example.json` (drop-in VS Code wiring using `pwsh -NoProfile -NonInteractive -File`), `README.md` (tools / prerequisites / smoke test / VS Code wiring / what to show on stage — *the whole protocol in one file* / *stdout is sacred* / *tool registry as data* / *progress notifications* / *pair with the Node version*)
+  - `content/demos/demo-mcp-server.md` gains a *PowerShell variant* callout pointing at the new folder. Reinforces the talking point that MCP is a contract, not a framework — the agent cannot tell the two implementations apart
+
 - **Demo MCP server (`content/demos/mcp-demo-server/`) + demo script** (2026-05-16)
   - Minimal Node.js / ESM MCP server (`server.js`, ~150 LOC) built on `@modelcontextprotocol/sdk` over stdio. Two intentionally distinct tool families: **`notes_*`** (`add`, `list`, `search`, `delete`) backed by a JSON file under `%LOCALAPPDATA%\AgenticDemoMcp\notes.json` to demonstrate *persistence the LLM does not have*; **`system_*`** (`os_info`, `disk_free`, `top_processes`) that shell out to PowerShell (Win32_OperatingSystem / Win32_LogicalDisk / Get-Process) to demonstrate *reach into the host the LLM does not have*
   - `probe.cjs` — standalone JSON-RPC smoke test (no MCP client required); exercises `initialize` → `tools/list` → all seven `tools/call`. Verified end-to-end on Windows 11 Pro for Workstations, Node 24.11.1

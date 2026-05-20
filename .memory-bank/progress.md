@@ -4,11 +4,20 @@
 
 **Phase**: Operator-Sustainability Integration Complete (Job Hollowing / Heteromation / Vigilance Trap + With-AI-Not-From-AI counter-pattern)
 **Started**: 2026-02-02
-**Last Updated**: 2026-05-06
+**Last Updated**: 2026-05-20
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6 integration, and 2026-05-06 Mössner / *KI Burnout ist real* operator-sustainability integration
+**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6 integration, 2026-05-06 Mössner / *KI Burnout ist real* operator-sustainability integration, 2026-05-16 demo MCP server, and 2026-05-20 PowerShell edition of the demo MCP server
 
 ## Completed
+
+### PowerShell Edition of Demo MCP Server ✅ (2026-05-20)
+- [x] New folder `content/demos/mcp-demo-server-ps/` — single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+); speaks MCP as raw JSON-RPC over stdio, no SDK dependency
+- [x] Protocol-identical to the Node version: same seven tools (`notes_*` persistence + `system_*` reach), same JSON store, same instrumentation (timestamped colored stderr, per-call duration, `notifications/progress`)
+- [x] PowerShell best practices applied: approved verbs, `[CmdletBinding()]`, comment-based help, validation, `Set-StrictMode 3.0`, UTF-8 stdio with stdout reserved for JSON-RPC frames
+- [x] `probe.ps1` mirrors `probe.cjs`; verified end-to-end on pwsh 7.5.5 / Win11
+- [x] `mcp.example.json` (VS Code wiring via `pwsh -NoProfile -NonInteractive -File`), `README.md` (what to show on stage), demo-script callout in `demo-mcp-server.md`
+- [x] CHANGELOG.md `[Unreleased]` entry added
+- [x] Branch: `feature/mcp-demo-server` (local only, not pushed)
 
 ### Operator-Sustainability Integration ✅ (2026-05-06)
 - [x] Source: Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Transcript captured via user paste; saved as cite-anchor map at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed)

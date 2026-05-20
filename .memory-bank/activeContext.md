@@ -6,16 +6,25 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-05-06
+**Last Updated**: 2026-05-20
 
 ## Recent Changes
+
+### 2026-05-20: PowerShell edition of the demo MCP server
+- New folder `content/demos/mcp-demo-server-ps/` — single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+) speaks MCP as raw JSON-RPC over stdio, no SDK dependency. Built for a PowerShell-conference demo: the entire protocol fits in one readable `.ps1`.
+- Protocol-identical to the Node version. Same seven tools, same JSON store (`%LOCALAPPDATA%\AgenticDemoMcp\notes.json`), same instrumentation (timestamped colored stderr, per-call duration, `notifications/progress` when host passes a `progressToken`). Toggles: `-Quiet` / `AGENTIC_DEMO_VERBOSE=0`, `-NoColor` / `AGENTIC_DEMO_NO_COLOR=1`, `-StorePath` / `AGENTIC_DEMO_DIR`.
+- Follows PowerShell best practices: approved verbs, `[CmdletBinding()]`, comment-based help, validation attributes, `Set-StrictMode 3.0`, UTF-8 stdio (stdout reserved for JSON-RPC frames, all human output to stderr). Tool registry via `Register-McpTool` — one call adds a capability.
+- `probe.ps1` mirrors `probe.cjs` end-to-end. Verified on pwsh 7.5.5 / Win11.
+- Two small polish fixes during verification: trim leading blank line from `Out-String` formatting; pass `-DateKind String` to `ConvertFrom-Json` (PS 7.5+) so ISO timestamps survive round-trip instead of being coerced to local-culture `[datetime]`.
+- `content/demos/demo-mcp-server.md` gains a *PowerShell variant* callout; the agent cannot tell the two implementations apart → reinforces "MCP is a contract, not a framework".
+- Branch: **`feature/mcp-demo-server`** — local only, not pushed.
 
 ### 2026-05-16: Demo MCP server + workshop script
 - New folder `content/demos/mcp-demo-server/` — Node ESM MCP server on `@modelcontextprotocol/sdk` over stdio. Seven tools split into two families that demonstrate the two distinct things MCP gives an LLM: **persistence** (`notes_add/list/search/delete` → JSON file under `%LOCALAPPDATA%\AgenticDemoMcp\`) and **reach** (`system_os_info/disk_free/top_processes` → PowerShell shell-out via CIM and `Get-Process`).
 - `probe.cjs` smoke test exercises all seven tools via raw JSON-RPC; verified on Win11 + Node 24.11.1. First attempt used `Get-PSDrive` for disk free → hung on network-drive enumeration; switched to `Win32_LogicalDisk DriveType=3`.
 - `README.md`, `mcp.example.json` (uses `${workspaceFolder}` for portability), and `content/demos/demo-mcp-server.md` (12-min live script for 4h workshop M4; optional 2h sidebar; skip in 1h). Five-beat structure: protocol-is-not-magic / persistence / reach / identity-decoupling under `runas` / destructive-ops gate.
 - Closes the conceptual gap raised in the May-16 Q&A on MCP server identity, MCP vs. raw Graph API, and what makes a *teachable* MCP demo for a mixed audience (PowerShell devs + sysadmins + knowledge workers).
-- Branch: **`ai/mcp-demo-server`** — local only, not pushed.
+- Branch: **`feature/mcp-demo-server`** — local only, not pushed.
 
 ### 2026-05-16: Beads / `bd` brief signpost in M8
 - Added new slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) after 8.5a. Frames Beads as an *upgrade path*, not a default. Three-signal threshold (parallel agents on shared backlog / hundreds of dependency-tangled issues / stateless multi-machine sessions); explicit "stay with the Memory Bank" guidance below that.

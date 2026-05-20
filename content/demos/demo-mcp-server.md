@@ -41,6 +41,16 @@ Then add to `.vscode/mcp.json` (or merge):
 Restart VS Code. In the Copilot chat tool picker you should now see seven new
 tools prefixed `agentic-demo_`.
 
+### PowerShell variant (for PowerShell-conference demos)
+
+A protocol-identical second implementation lives in
+[`content/demos/mcp-demo-server-ps/`](mcp-demo-server-ps/README.md): a single
+`Start-AgenticDemoMcp.ps1` (PowerShell 7+) that speaks raw JSON-RPC over stdio
+with no SDK dependency. Same seven tools, same instrumentation, same notes
+store. Swap the `.vscode/mcp.json` entry for the one in
+`mcp-demo-server-ps/mcp.example.json` and the agent doesn't notice — useful for
+reinforcing that **MCP is a contract, not a framework**.
+
 ## Live script (12 min)
 
 ### Beat 1 — the protocol is not magic (2 min)
