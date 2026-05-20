@@ -862,6 +862,41 @@ function Test-Config {
 
 <!-- _class: dense -->
 
+# Spec-Driven Development — Make the Spec the Primary Artefact
+
+> Instruction files = *persistent rules* (how this codebase codes). Specs = *per-task intent* (what & why, for this change). Both in Git, both by a human, **before** code.
+
+| Old order (code-first) | New order (spec-first) |
+|------------------------|------------------------|
+| Prompt agent → code → review diff → hope | Spec → agent plan → **approve plan** → execute → **verify against spec** |
+
+### Project constitution (GitHub Spec Kit pattern)
+
+`spec/constitution.md` in the repo — non-negotiable rules the agent must honour on **every** task:
+
+- *No public function without Pester tests for success / error / edge.*
+- *Tests are evidence. Tests that mock the thing under test are not evidence.*
+- *Destructive operations require explicit `-Confirm` or pipeline approval.*
+
+### Why it beats prompt engineering
+
+- The agent's training data has no idea what *your* service boundaries mean. The spec is the only place that exists.
+- **Strong types catch ~94% of LLM errors** at compile time (TypeScript benchmark) — schemas, Pester, Bicep validation generalise the same idea.
+- A 1-page spec reviewed up front is cheaper to fix than a 600-line diff reviewed at the end.
+
+### Pitfall — a spec is *not* a substitute for code review
+
+Running the compiler from the spec **without reading what it wrote** makes the code worse every cycle. The spec is per-task intent; **the design is a daily investment**.
+
+> *"Invest in the design of the system every day."* — **Kent Beck** · *"Compile-from-spec without reading = software entropy."* — Matt Pocock, 2026
+
+> Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation).
+> See [GitHub Spec Kit](https://github.com/github/spec-kit).
+
+---
+
+<!-- _class: dense -->
+
 # Custom Agents — Specialized Behaviors
 
 ```markdown
@@ -1080,6 +1115,8 @@ Result: 5 passed, 0 failed ✅
 ```
 
 **This happens automatically.** You receive working code.
+
+> **Rate of feedback = speed limit.** *"Don't outrun your headlights."* — Hunt & Thomas, *Pragmatic Programmer*. Fast tests = small correctable strides for the agent; slow tests = long dangerous ones. TDD doesn't fight AI — it **governs** it.
 
 ---
 
@@ -1465,6 +1502,20 @@ The same six or seven files appear in every serious GHCP project:
 5. **Verified change + diffed runbook + git commit** is the system engineer's equivalent of green tests.
 
 > **The full model: agent writes code, runs it in a lab, verifies with events, documents the result, commits. This is agentic operations.**
+
+---
+
+<!-- _class: lead -->
+
+# Sergeant and Commander
+
+> *"The AI is the tactical sergeant on the ground. You are the strategic commander above it."*
+> — paraphrased from **Matt Pocock**, *"Claude Code for real engineers"*, 2026
+
+- **Sergeant (AI)** — executes, reports, surfaces casualties (failing tests, broken builds).
+- **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
+
+> Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
 
 ---
 
