@@ -790,6 +790,37 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 - Mix styles — inconsistency → inconsistent output
 
 ---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# Two Patterns for Context — Grill-Me + Ubiquitous Language
+
+Two concrete, repo-checkable instances of *"context lives in Git"*.
+
+### 1. The Grill-Me Pattern — adversarial requirements interview
+
+The agent interviews **you** (40–100 questions: edge cases, failure modes, owner, rollback) and emits a written design concept you sign off on **before** any code.
+
+- Brooks, *Design of Design*: defects originate in requirements, not code.
+- Ship as a custom agent / skill — e.g. [`github.com/mattpocockuk/skills`](https://github.com/mattpocockuk/skills) (~13k ★).
+- The grill-me transcript **becomes the spec** (pairs with M4 spec-driven dev).
+
+### 2. Ubiquitous-Language File — DDD for human-AI collaboration
+
+`docs/glossary.md` — checked-in markdown table of every domain term, with *forbidden synonyms*.
+
+| Term | Means | Don't say |
+|------|-------|-----------|
+| `Tenant` | Billable customer organisation | Account, Client, Org |
+| `Seat` | Licensed user inside a Tenant | User, Member, Login |
+| `Run` | End-to-end pipeline execution | Job, Build, Invocation |
+
+Agent reads it before planning → log lines, tests, variable names use the **team's** language, not the model's. Drift shows up in `git log`.
+
+> Vague *"context"* → **artefacts a human reviewed and a diff can prove**.
+
+---
 <!-- version: 1h 2h 4h -->
 
 <!-- _class: section-divider -->
@@ -1022,6 +1053,12 @@ function Test-Config {
 - The agent's training data has no idea what *your* service boundaries mean. The spec is the only place that exists.
 - **Strong types catch ~94% of LLM errors** at compile time (TypeScript benchmark) — schemas, Pester, Bicep validation generalise the same idea.
 - A 1-page spec reviewed up front is cheaper to fix than a 600-line diff reviewed at the end.
+
+### Pitfall — a spec is *not* a substitute for code review
+
+Running the compiler from the spec **without reading what it wrote** makes the code worse every cycle. The spec is per-task intent; **the design is a daily investment**.
+
+> *"Invest in the design of the system every day."* — **Kent Beck** · *"Compile-from-spec without reading = software entropy."* — Matt Pocock, 2026
 
 > Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation).
 > See [GitHub Spec Kit](https://github.com/github/spec-kit).
@@ -1392,6 +1429,8 @@ Result: 5 passed, 0 failed ✅
 ```
 
 **This happens automatically.** You receive working code.
+
+> **Rate of feedback = speed limit.** *"Don't outrun your headlights."* — Hunt & Thomas, *Pragmatic Programmer*. Fast tests = small correctable strides for the agent; slow tests = long dangerous ones. TDD doesn't fight AI — it **governs** it.
 
 ---
 <!-- version: 2h 4h -->
@@ -2091,6 +2130,8 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 - **Angry agents** — a custom agent prompted to challenge assumptions and poke holes
 - **`runbooks/incidents/` corpus** the agent reads on every outage
 - **Scheduled reading time** — block calendar time to read agent-written code
+- **Daily design investment** — *"Invest in the design of the system every day."* (**Kent Beck**)
+- **Gray-box delegation** — *design the interface, delegate the implementation*. **Not** hollowing (next slide): hollowing surrenders the *design*; gray-boxing keeps it and delegates only the *body*.
 
 ### Anti-pattern: *"future AI will fix it"*
 
@@ -2117,6 +2158,35 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 | Term | Definition | Diagnostic |
 |------|-----------|------------|
 | **Job Hollowing** | Title, salary, desk stay. The *cognitive substance* — design, judgement, problem-solving — is extracted (@12:40) | End-of-day: *"What did I actually decide today?"* |
+
+<!-- _split_ -->
+
+---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# Deep Modules — A Codebase the Agent Can Navigate
+
+> *"The most important technique for managing complexity is to design deep modules."* — **John Ousterhout**, *A Philosophy of Software Design*
+
+| | Deep module | Shallow module |
+|---|-------------|----------------|
+| Interface | Small, stable | Wide, churn-prone |
+| Hidden behind it | Lots of capability | Almost nothing |
+| Cost to reader | Read signature, trust contract | Read every caller + callee |
+| Cost to agent | One symbol in context, bounded effects | Drag whole call graph into context |
+
+### Why it matters for agentic work
+
+- LLMs default to **shallow modules**: thin wrappers, premature abstractions, helpers of helpers.
+- Shallow code **degrades the agent's own future performance** on the same repo — each task drags more files into context, planning lengthens, edits get riskier.
+- Slow-acting form of *comprehension debt* (prev. slide): codebase becomes less navigable for **both** humans and agents.
+
+### Operating rule
+
+At architecture review (the *plan*, before generation), ask: **"Deep module, or another shallow wrapper?"** Push back **before** the agent writes it.
+
 | **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
 
 ### The numbers behind the feeling — BCG/HBR (March 2026, @13:22)
@@ -2935,6 +3005,21 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 5. **Verified change + diffed runbook + git commit** is the system engineer's equivalent of green tests.
 
 > **The full model: agent writes code, runs it in a lab, verifies with events, documents the result, commits. This is agentic operations.**
+
+---
+<!-- version: 1h 2h 4h -->
+
+<!-- _class: lead -->
+
+# Sergeant and Commander
+
+> *"The AI is the tactical sergeant on the ground. You are the strategic commander above it."*
+> — paraphrased from **Matt Pocock**, *"Claude Code for real engineers"*, 2026
+
+- **Sergeant (AI)** — executes, reports, surfaces casualties (failing tests, broken builds).
+- **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
+
+> Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
 
 ---
 <!-- version: 1h 2h 4h -->

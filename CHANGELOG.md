@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **M3 / M4 / M5 / M9 / M10 — Matt Pocock, *"Claude Code for real engineers"* integration (2026-05-20).**
+  - **M3 Slide 3.11a (new, 4h)** — *Two Patterns for Context: Grill-Me + Ubiquitous Language*. Named patterns for adversarial requirements interview (Brooks, *Design of Design*) and DDD glossary-in-Git. References `github.com/mattpocockuk/skills`.
+  - **M4 Slide 4.7a (Spec-Driven Development) — Pitfall block added.** *"Compile from spec without reading the code = software entropy."* Pairs Pocock with Kent Beck: *"invest in the design every day."*
+  - **M5 Slide 5.5 (Iteration Power) — Rate-of-feedback callout.** *"Don't outrun your headlights"* (Hunt & Thomas, *Pragmatic Programmer*) reframed as the agent's speed governor; explains why fast TDD pairs with — not against — LLM agents.
+  - **M9 Slide 9.10a — Counter-patterns expanded** with Kent Beck daily-design-investment bullet and **gray-box delegation rule** (interface kept, implementation delegated) explicitly distinguished from hollowing (9.10b).
+  - **M9 Slide 9.10d (new, 4h)** — *Deep Modules: A Codebase the Agent Can Navigate*. Ousterhout *Philosophy of Software Design* deep-vs-shallow contrast, with the observation that LLMs default to shallow modules which then degrade the agent's own future performance on the same repo.
+  - **M10 Slide 10.10 (Final Thought) — Sergeant / Commander metaphor** added as closing operating image (AI = tactical sergeant, you = strategic commander). Mirrored as standalone closing slide in MARP master before *Thank You!*.
+  - **cheat-sheet.md Resources** — `github.com/mattpocockuk/skills` added.
+  - All MARP-master twins updated. Source citation: Matt Pocock, *"Claude Code for real engineers"*, 2026 (`aihero.dev`).
+
+
 - **Comprehension debt, spec-driven development, and the "future AI will fix it" anti-pattern** (2026-05-20)
   - Module 9 slide **9.10a "The Bottleneck Has Moved"** gains an explicit named-concept block introducing **comprehension debt** (the gap between code that exists and code any human can still explain) as the umbrella diagnosis for the three existing failure modes (Strangers / Yes-man / Mid-level squeeze). Empirical hook: the GetClear 211 M-LOC analysis showing code churn rising from **5.5% → 7.9%** within 2 weeks of authoring as AI assistance spread
   - Same slide gains an **"Anti-pattern: future AI will fix it"** subsection refuting the belief that a smarter future model will retroactively clean up unowned code (a refactor needs *intent*, and intent is exactly what was never written down). Two industry anchors next to the existing PocketOS/Replit case studies: **SQLite's** code-of-ethics rejection of AI-generated contributions (total-accountability standard), and **NASA / DO-178C Level A** MC/DC coverage requirements that AI-generated bloat routinely fails. Framed as a hard guardrail for finance, healthcare, and physical-infrastructure domains where *"the AI wrote it"* is not a post-mortem defense

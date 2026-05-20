@@ -17,6 +17,7 @@
 | 3.10 | Commit Strategies | — | — | ✅ |
 | 3.10a | Commit Strategies Explained | — | — | ✅ |
 | 3.11 | Best Practices for Context | — | ✅ | ✅ |
+| 3.11a | Two Patterns: Grill-Me + Ubiquitous Language | — | — | ✅ |
 | 3.12 | Demo - Context in Action | — | — | ✅ |
 | 3.13 | Key Takeaway | ✅ | ✅ | ✅ |
 
@@ -414,6 +415,37 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 - **Don't have random file locations** — Confuses AI
 - **Don't skip README** — AI needs to understand purpose
 - **Don't mix styles** — Inconsistency → inconsistent output
+
+---
+
+## Slide 3.11a: Two Patterns for Context
+
+# Grill-Me + Ubiquitous Language
+
+Two concrete, repo-checkable instances of "context lives in Git".
+
+### 1. The Grill-Me Pattern — adversarial requirements interview
+
+Before writing any code, the agent **interviews you**: 40–100 questions about edge cases, failure modes, integration points, owner, rollback. Output is a written design concept the human signs off on.
+
+- Anchored in Brooks, *The Design of Design*: most defects originate in the requirements, not the code.
+- Implemented as a custom agent / skill (e.g. `github.com/mattpocockuk/skills`, ~13k stars).
+- Pairs with **M4** spec-driven development: the grill-me transcript *becomes* the spec.
+
+### 2. Ubiquitous-Language File — DDD for human-AI collaboration
+
+A `docs/glossary.md` checked into the repo. Markdown table of every domain term the agent is allowed to use, with definitions and *forbidden synonyms*.
+
+| Term | Means | Don't say |
+|------|-------|-----------|
+| `Tenant` | A billable customer organisation | Account, Client, Org |
+| `Seat` | A licensed user inside a Tenant | User, Member, Login |
+| `Run` | One end-to-end pipeline execution | Job, Build, Invocation |
+
+- Agent reads the glossary before planning → variable names, log lines, and tests use the team's language, not the model's.
+- Drift in the glossary = drift in the system — surfaces in `git log`.
+
+> Both patterns turn vague *"context"* into **artefacts a human reviewed and a diff can prove**.
 
 ---
 

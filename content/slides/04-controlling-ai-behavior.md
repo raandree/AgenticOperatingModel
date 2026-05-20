@@ -322,6 +322,14 @@ A `spec/constitution.md` (or `.spec-kit/constitution.md`) checked into the repo 
 - **TypeScript catches ~94% of LLM errors that surface as type-check failures.** A strongly-typed spec + strongly-typed code is a guardrail, not a style preference. (The same principle generalises: schemas, JSON-Schema, Pester `Should -Throw`, ARM/Bicep validation — pick the guardrail your language affords.)
 - A spec is **reviewable cheaply** (1 page); a 600-line diff is not. Catch the wrong building before the contractor pours the foundation.
 
+### Pitfall — a spec is *not* a substitute for code review
+
+Running the compiler from the spec **without reading the generated code** produces progressively worse code on every cycle. The spec captures *per-task intent*; it does not capture the **design of the system**. Skip the read step and the codebase drifts into software entropy — vibe-coding with extra ceremony.
+
+> *"You have to invest in the design of the system every day."* — **Kent Beck**
+>
+> *"Compile-from-spec without reading what it wrote produces worse and worse code."* — Matt Pocock, *"Claude Code for real engineers"*, 2026
+
 ### Cross-reference
 
 - Pair with **M3 Power of Context** — the spec lives in Git like everything else.
