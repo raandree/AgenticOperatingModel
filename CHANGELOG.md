@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Editable PPTX export via Pandoc (2026-07-02).** Added
+  [content/pptx/Export-PandocToPptx.ps1](content/pptx/Export-PandocToPptx.ps1),
+  which converts the version-specific Marp decks
+  ([marp-1h-keynote.md](content/pptx/marp-1h-keynote.md),
+  [marp-2h-standard.md](content/pptx/marp-2h-standard.md),
+  [marp-4h-workshop.md](content/pptx/marp-4h-workshop.md)) to *native, editable*
+  PowerPoint files with selectable text, bullet lists, tables, and code blocks —
+  unlike [Export-MarpToPptx.ps1](content/pptx/Export-MarpToPptx.ps1), which embeds
+  each slide as a single image and produces an uneditable deck. Strips Marp YAML
+  frontmatter and directive comments (`<!-- _class: ... -->`, `<!-- version: ... -->`)
+  before invoking Pandoc 3.x; writes `agentic-operating-model-{1h|2h|4h}-editable.pptx`.
+  An optional `-ReferenceDoc <template.pptx>` applies a corporate template (fonts,
+  colors, master layout). Trade-off: lower visual fidelity (no per-slide CSS or
+  `dense`/`compact` density classes) in exchange for full editability — keep Marp
+  for PDF/PNG distribution where layout matters, use Pandoc for an editable PPTX
+  hand-off.
 - **Root-level `build.ps1` slide-build entry point (2026-07-01).** Added
   [build.ps1](build.ps1), a thin wrapper around
   [content/pptx/Build-MarpVersions.ps1](content/pptx/Build-MarpVersions.ps1)
