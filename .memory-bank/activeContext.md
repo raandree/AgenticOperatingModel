@@ -25,6 +25,10 @@
 - `README.md`, `mcp.example.json` (uses `${workspaceFolder}` for portability), and `content/demos/demo-mcp-server.md` (12-min live script for 4h workshop M4; optional 2h sidebar; skip in 1h). Five-beat structure: protocol-is-not-magic / persistence / reach / identity-decoupling under `runas` / destructive-ops gate.
 - Closes the conceptual gap raised in the May-16 Q&A on MCP server identity, MCP vs. raw Graph API, and what makes a *teachable* MCP demo for a mixed audience (PowerShell devs + sysadmins + knowledge workers).
 - Branch: **`feature/mcp-demo-server`** — local only, not pushed.
+### 2026-05-19: Obsidian + MCP server cheat-sheet reference
+- Added one line under cheat-sheet **Resources** (immediately after the Beads link) pointing to Obsidian + the `mcp-obsidian` MCP server, framed as a *complement* to the per-repo Memory Bank for personal cross-project knowledge — explicitly **not** a replacement.
+- Deliberately scoped to the cheat-sheet only. Considered and rejected adding Obsidian to slides 8.5a (Beyond Code) or 8.5b (Scaling the Backlog): wrong axis (personal knowledge vs. shared backlog), not agent-native by default, no sharp "you've outgrown X" threshold for the 1–4-person dsccommunity audience. Would dilute the Beads slide's "stay with the Memory Bank" message.
+- No slide build re-run needed; cheat-sheet only.
 
 ### 2026-05-16: Beads / `bd` brief signpost in M8
 - Added new slide **8.5b "Scaling the Backlog — When to Reach for Beads"** (4h only) after 8.5a. Frames Beads as an *upgrade path*, not a default. Three-signal threshold (parallel agents on shared backlog / hundreds of dependency-tangled issues / stateless multi-machine sessions); explicit "stay with the Memory Bank" guidance below that.
