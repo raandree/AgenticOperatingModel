@@ -792,7 +792,7 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Two Patterns for Context — Grill-Me + Ubiquitous Language
 
