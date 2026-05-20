@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **M4 Slide 4.7a — Spec-Driven Development split into two slides (2026-05-20).** Original `dense` slide overflowed the 720 px frame (contentHeight ~960 px, ~9 distinct content blocks). Split at the natural seam between *"Why it beats prompt engineering"* and the *"Pitfall — not a substitute for code review"* block:
+  - **4.7a "Make the Spec the Primary Artefact"** — intro, code-first/spec-first table, project-constitution pattern, why-it-beats-prompt-engineering bullets, continuation pointer.
+  - **4.7b "The Spec Is Not a Substitute for Code Review"** — Pitfall framing, per-cycle entropy bullets, two-daily-investments rule (read the diff / refactor the design), Kent Beck + Pocock quotes, pair-cross-references, Spec Kit link.
+  - Both slides switched from `dense` → `compact` to leave headroom. Verified via `Test-SlideOverflow.ps1`: contentHeight = 720 / overflowY = 0 / fillRatio = 1.0 on both. 4h slide count 130 → 130 (one merged, two created).
+
 ### Added
 
 - **M3 / M4 / M5 / M9 / M10 — Matt Pocock, *"Claude Code for real engineers"* integration (2026-05-20).**

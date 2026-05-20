@@ -991,7 +991,7 @@ function Test-Config {
 
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Spec-Driven Development — Make the Spec the Primary Artefact
 
@@ -1015,14 +1015,35 @@ function Test-Config {
 - **Strong types catch ~94% of LLM errors** at compile time (TypeScript benchmark) — schemas, Pester, Bicep validation generalise the same idea.
 - A 1-page spec reviewed up front is cheaper to fix than a 600-line diff reviewed at the end.
 
-### Pitfall — a spec is *not* a substitute for code review
+> Continued → next slide: *the spec is not a substitute for code review*.
+
+---
+
+<!-- _class: compact -->
+
+# Spec-Driven Development — The Spec Is Not a Substitute for Code Review
+
+> The spec tells the agent *what* to build. It does not absolve you from reading *what it actually wrote*.
+
+### Pitfall — compile-from-spec without reading
 
 Running the compiler from the spec **without reading what it wrote** makes the code worse every cycle. The spec is per-task intent; **the design is a daily investment**.
 
-> *"Invest in the design of the system every day."* — **Kent Beck** · *"Compile-from-spec without reading = software entropy."* — Matt Pocock, 2026
+Each unread cycle:
 
-> Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation).
-> See [GitHub Spec Kit](https://github.com/github/spec-kit).
+- Drifts the implementation further from the spec's intent.
+- Bakes in subtle bugs the next cycle has to work around.
+- Compounds — software entropy is exponential, not linear.
+
+### The two daily investments
+
+- **Read the diff.** Every AI commit. No exceptions.
+- **Refactor the design.** When the spec and the code disagree, fix the *design*, not just the next prompt.
+
+> *"Invest in the design of the system every day."* — **Kent Beck**
+> *"Compile-from-spec without reading = software entropy."* — Matt Pocock, 2026
+
+> Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation). See [GitHub Spec Kit](https://github.com/github/spec-kit).
 
 ---
 
