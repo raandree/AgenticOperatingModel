@@ -1001,6 +1001,36 @@ function Test-Config {
 
 <!-- _class: dense -->
 
+# Spec-Driven Development — Make the Spec the Primary Artefact
+
+> Instruction files = *persistent rules* (how this codebase codes). Specs = *per-task intent* (what & why, for this change). Both in Git, both by a human, **before** code.
+
+| Old order (code-first) | New order (spec-first) |
+|------------------------|------------------------|
+| Prompt agent → code → review diff → hope | Spec → agent plan → **approve plan** → execute → **verify against spec** |
+
+### Project constitution (GitHub Spec Kit pattern)
+
+`spec/constitution.md` in the repo — non-negotiable rules the agent must honour on **every** task:
+
+- *No public function without Pester tests for success / error / edge.*
+- *Tests are evidence. Tests that mock the thing under test are not evidence.*
+- *Destructive operations require explicit `-Confirm` or pipeline approval.*
+
+### Why it beats prompt engineering
+
+- The agent's training data has no idea what *your* service boundaries mean. The spec is the only place that exists.
+- **Strong types catch ~94% of LLM errors** at compile time (TypeScript benchmark) — schemas, Pester, Bicep validation generalise the same idea.
+- A 1-page spec reviewed up front is cheaper to fix than a 600-line diff reviewed at the end.
+
+> Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation).
+> See [GitHub Spec Kit](https://github.com/github/spec-kit).
+
+---
+<!-- version: 2h 4h -->
+
+<!-- _class: dense -->
+
 # Custom Agents — Specialized Behaviors
 
 ```markdown
@@ -2038,6 +2068,9 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 
 > *"The bottleneck used to be typing code. Now it's decision-making, verification, and starting from clear intent."* — *Axel Molist (2026)*
 
+> **Comprehension debt** = code that exists − code any human on the team can still explain. Unlike technical debt, it grows **invisibly**. The three failure modes below are its symptoms.
+> Signal: 211 M LOC analysed (GetClear) — *code churn* (rewritten/deleted within 2 weeks) rose **5.5% → 7.9%** as AI authoring spread. Rework on a loop, by a team that no longer owns the code.
+
 ### Three role shifts:
 
 | Layer | Growing | Shrinking |
@@ -2058,6 +2091,15 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 - **Angry agents** — a custom agent prompted to challenge assumptions and poke holes
 - **`runbooks/incidents/` corpus** the agent reads on every outage
 - **Scheduled reading time** — block calendar time to read agent-written code
+
+### Anti-pattern: *"future AI will fix it"*
+
+A refactor needs *intent*. If no human ever understood **why** the system was built that way, a smarter future model just stacks new assumptions on old ones. Two anchors:
+
+- **SQLite** (billions of devices): code of ethics requires human contributors — AI-generated code is not accepted. Bar = *total accountability, precision over probability.*
+- **NASA / DO-178C Level A**: requires **MC/DC** coverage. AI-generated bloat and unnecessary abstraction routinely fails it.
+
+> Finance, healthcare, infrastructure: *"the AI wrote it"* is not a post-mortem defense. The debt compounds where you cannot see it.
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 

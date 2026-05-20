@@ -480,6 +480,13 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 > — observation from a 20-person dev team after 6 months of agentic AI
 > (Axel Molist, *"What 6 months of AI coding did to my dev team"*, 2026)
 
+### The name for the underlying liability: **comprehension debt**
+
+> **Comprehension debt** = the gap between how much code exists in the system and how much of it any human on the team can still explain.
+> Unlike technical debt — which you can *see* and chose to take on — comprehension debt grows **invisibly**. The agent writes code that compiles, passes tests, and ships fast; nobody can explain it when production breaks at 2 a.m. The three failure modes below are its visible symptoms.
+
+> Empirical signal: a study of **211 million lines of code** (GetClear, 2024–2025) measured *code churn* — lines rewritten or deleted within two weeks of being written — rising from **5.5% → 7.9%** as AI-assisted authoring spread. That is not velocity. That is rework on a loop, and the team that authored the original code is no longer the team that understands it.
+
 ### Three role shifts every team is feeling:
 
 | Layer | What's growing | What's shrinking |
@@ -506,6 +513,19 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 | **Angry agents** | A custom agent specifically prompted to challenge assumptions and poke holes — a *security-reviewer* with attitude. Counters yes-man agents |
 | **Agent subconscious** | A `runbooks/incidents/` corpus the agent reads on every outage. Captures the tribal knowledge that lived in seniors' heads |
 | **Scheduled reading time** | Block time to read agent-written code you didn't write yourself. The speed of AI demands this |
+
+### Anti-pattern: *"future AI will fix it"*
+
+The most seductive escape from comprehension debt is the belief that a future, smarter model will refactor the unowned code for you. It will not. A refactor needs **intent** — the *why* behind the original design — and intent is exactly what was never written down. An AI cleaning up code no human ever understood is just **layering new assumptions on top of old ones**.
+
+Two industry anchors that took the opposite stance — and are worth citing on this slide:
+
+| Project | Position | Why it matters here |
+|---------|----------|---------------------|
+| **SQLite** (deployed in billions of devices) | [Code of Ethics + Contribution rules](https://sqlite.org/codeofethics.html) — all contributors are human; AI-generated code is not accepted | Their bar is *total accountability* and *precision over probability* — incompatible with probabilistic output that no human can fully reason about |
+| **NASA safety-critical software** | Requires **MC/DC** (Modified Condition / Decision Coverage) per NPR 7150.2 / DO-178C Level A | AI-generated code routinely introduces bloat and unnecessary abstraction that fails MC/DC analysis — the standard exists *because* unreviewed complexity kills people |
+
+> If your domain is finance, healthcare, physical infrastructure, or anything where *"the AI wrote it"* is not a defense in a post-mortem, you cannot defer comprehension to a future model. The debt compounds where you cannot see it.
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
