@@ -332,7 +332,7 @@ style: |
 
 # Why Dev & DevOps Practices Are the Foundation
 
-> **The engineering discipline that makes agentic AI trustworthy is the same whether you ship code or a Schriftsatz.**
+> **The engineering discipline that makes agentic AI trustworthy is the same whether you ship code or a legal pleading.**
 
 | Practice | Why it matters for AI-assisted work |
 |---|---|
