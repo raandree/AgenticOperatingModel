@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "agentic-demo": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/content/demos/mcp-demo-server/server.js"],
+      "env": {
+        "AGENTIC_DEMO_DIR": "${env:LOCALAPPDATA}\\AgenticDemoMcp"
+      }
+    }
+  }
+}
