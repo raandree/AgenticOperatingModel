@@ -10,6 +10,12 @@
 
 ## Recent Changes
 
+### 2026-05-20: Spec-Driven slide split (M4 4.7a → 4.7a + 4.7b)
+- Original `dense` slide overflowed 4h render by ~240 px (contentHeight ~960 / 720). Split at the natural seam between *"Why it beats prompt engineering"* and the Pitfall block.
+- 4.7a now carries intro + code-first/spec-first table + project-constitution pattern + why-it-beats-prompt-engineering bullets + "continued →" pointer.
+- 4.7b carries the Pitfall framing, per-cycle entropy bullets, two-daily-investments rule (read the diff / refactor the design), Kent Beck + Pocock quotes, pair-cross-refs, Spec Kit link.
+- Both switched `dense` → `compact`. Verified via `Test-SlideOverflow.ps1`: both contentHeight=720, overflowY=0, fillRatio=1.0. 4h overflow count 9 → 7. `Build-MarpVersions.ps1` re-run; 4h: 130 slides; 1h/2h unchanged.
+
 ### 2026-05-20: PowerShell edition of the demo MCP server
 - New folder `content/demos/mcp-demo-server-ps/` — single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+) speaks MCP as raw JSON-RPC over stdio, no SDK dependency. Built for a PowerShell-conference demo: the entire protocol fits in one readable `.ps1`.
 - Protocol-identical to the Node version. Same seven tools, same JSON store (`%LOCALAPPDATA%\AgenticDemoMcp\notes.json`), same instrumentation (timestamped colored stderr, per-call duration, `notifications/progress` when host passes a `progressToken`). Toggles: `-Quiet` / `AGENTIC_DEMO_VERBOSE=0`, `-NoColor` / `AGENTIC_DEMO_NO_COLOR=1`, `-StorePath` / `AGENTIC_DEMO_DIR`.

@@ -10,6 +10,12 @@
 
 ## Completed
 
+### Spec-Driven Slide Split ✅ (2026-05-20)
+- [x] M4 Slide 4.7a *"Spec-Driven Development — Make the Spec the Primary Artefact"* overflowed at 4h. Measured via `Test-SlideOverflow.ps1`: contentHeight ~960 px in `dense` (target 720)
+- [x] Split into 4.7a (intro + table + project constitution + why-it-beats-prompt-engineering) and 4.7b (Pitfall + per-cycle entropy + two daily investments + Beck/Pocock quotes + pair-refs); both switched `dense` → `compact`
+- [x] Re-verified: both slides now contentHeight=720, overflowY=0, fillRatio=1.0. Total 4h overflow count 9 → 7
+- [x] CHANGELOG.md `[Unreleased]` updated; promptHistory.md entry appended
+
 ### PowerShell Edition of Demo MCP Server ✅ (2026-05-20)
 - [x] New folder `content/demos/mcp-demo-server-ps/` — single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+); speaks MCP as raw JSON-RPC over stdio, no SDK dependency
 - [x] Protocol-identical to the Node version: same seven tools (`notes_*` persistence + `system_*` reach), same JSON store, same instrumentation (timestamped colored stderr, per-call duration, `notifications/progress`)
