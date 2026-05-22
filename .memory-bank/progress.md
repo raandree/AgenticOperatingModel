@@ -2,6 +2,7 @@
 
 ## Recent
 
+- 2026-05-22: Added inline speaker notes in `marp-presentation.md` for the 12 slides that the split-file merge couldn't reach (orphaned monolith-only slides + title drift). Added 6 new Pester tests (in `content/pptx/Build-MarpVersions.Tests.ps1`) that enforce "every built slide has a speaker-note HTML comment" and "every section-divider carries its module appendix" across all three versions (1h/2h/4h). Code-fence-aware parser — won't be fooled by `---` inside ```\`\`\`markdown``` fences. All 11 tests green.
 - 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Not committed yet.
 
 ## Current Status

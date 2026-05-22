@@ -887,6 +887,14 @@ Speaker notes (for newcomers):
                            └──▶ Go to step 3
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This is the loop that makes "agentic" different from "autocomplete". Autocomplete stops after step 1. An agent only stops when step 3 says PASS.
+- **Pester** = the test framework for PowerShell (`Invoke-Pester` runs all tests). Other languages have equivalents (pytest, Jest, JUnit).
+- The iteration is automatic — you don't approve every cycle, you approve the final result.
+- Critical prerequisite: you must HAVE tests. No tests = no loop. The next slides show how to make sure the agent writes them.
+-->
+
 ---
 
 # Getting Started — Week 1
@@ -926,6 +934,13 @@ The single most-skipped step in this list is `/init`. Teams routinely write thei
 - **Spec**: modelcontextprotocol.io
 - **Servers**: github.com/modelcontextprotocol/servers
 
+<!--
+Speaker notes (for newcomers):
+- Bookmark the top three links and you have a complete on-ramp: Agent Mode docs (what), Custom Instructions docs (how), MCP servers list (what to plug in).
+- All slides + materials for this training live in the repo — attendees get the link in the chat after the session.
+- If you're brand new: start with the Agent Mode docs. Everything else makes more sense after you've used it once.
+-->
+
 ---
 
 # You Are the Conductor — AI Is Your Orchestra
@@ -942,6 +957,13 @@ The single most-skipped step in this list is `/init`. Teams routinely write thei
 
 ### = A Symphony: *Better code, faster delivery, less tedium*
 
+<!--
+Speaker notes (for newcomers):
+- Closing image to take home: your role doesn't shrink — it changes shape.
+- A conductor knows every instrument but plays none. The better you understand each AI capability (and each model's quirks), the better the orchestra sounds.
+- The fear "AI will make me redundant" assumes you stay a violin player. Promote yourself to conductor before the question even applies.
+-->
+
 ---
 
 <!-- _class: lead -->
@@ -955,6 +977,13 @@ The single most-skipped step in this list is `/init`. Teams routinely write thei
 - **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
 
 > Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
+<!--
+Speaker notes (for newcomers):
+- Use this metaphor in your own team conversations. It survives translation across roles: dev, ops, legal, research.
+- The hardest discipline isn't telling the AI what to do — it's deciding *what counts as victory* before the AI starts moving. That's the commander's job and nobody else can do it for you.
+- Pairs with the earlier conductor metaphor (slide 16 / 10.10): same role, different verb. Conductor for creative work, commander for operational work. Same person.
+-->
 
 ---
 

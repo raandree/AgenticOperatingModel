@@ -1215,6 +1215,14 @@ Each unread cycle:
 
 > Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation). See [GitHub Spec Kit](https://github.com/github/spec-kit).
 
+<!--
+Speaker notes (for newcomers):
+- Companion to the previous slide: writing a spec is half the discipline. **Reading the diff** is the other half.
+- "Compile-from-spec" = asking the agent "build me X from the spec" and merging whatever it produces without looking. Feels productive. Compounds into garbage.
+- The two daily habits to internalise: (1) read every AI diff, (2) when the design no longer matches the spec, fix the *design*, not the prompt.
+- Software entropy is exponential. Three unread cycles isn't 3× worse — it's unrecoverable without a refactor.
+-->
+
 ---
 
 <!-- _class: dense -->
@@ -1411,6 +1419,14 @@ Speaker notes (for newcomers):
                            └──▶ Go to step 3
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This is the loop that makes "agentic" different from "autocomplete". Autocomplete stops after step 1. An agent only stops when step 3 says PASS.
+- **Pester** = the test framework for PowerShell (`Invoke-Pester` runs all tests). Other languages have equivalents (pytest, Jest, JUnit).
+- The iteration is automatic — you don't approve every cycle, you approve the final result.
+- Critical prerequisite: you must HAVE tests. No tests = no loop. The next slides show how to make sure the agent writes them.
+-->
+
 ---
 
 <!-- _class: dense -->
@@ -1550,6 +1566,13 @@ The quantitative version: a five-second test loop lets the agent iterate twelve 
 - Report final test results to user
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This is the single most practical slide in Module 4 — copy-paste this block into your own `copilot-instructions.md` today.
+- The magic line is "do not report completion until all tests pass." That one rule forces the agent to iterate rather than give up.
+- Want it in a non-PowerShell project? Replace `Invoke-Pester` with `pytest`, `npm test`, `dotnet test`, etc. The pattern is language-agnostic.
+-->
+
 ---
 
 <!-- _class: compact -->
@@ -1576,17 +1599,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
--->
-
-<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
+-->
+
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 
@@ -1654,6 +1677,13 @@ The order also matters. Enabling Agent Mode before writing an instruction file l
 - **Spec**: modelcontextprotocol.io
 - **Servers**: github.com/modelcontextprotocol/servers
 
+<!--
+Speaker notes (for newcomers):
+- Bookmark the top three links and you have a complete on-ramp: Agent Mode docs (what), Custom Instructions docs (how), MCP servers list (what to plug in).
+- All slides + materials for this training live in the repo — attendees get the link in the chat after the session.
+- If you're brand new: start with the Agent Mode docs. Everything else makes more sense after you've used it once.
+-->
+
 ---
 
 # You Are the Conductor — AI Is Your Orchestra
@@ -1669,6 +1699,13 @@ The order also matters. Enabling Agent Mode before writing an instruction file l
 > *"The whole is greater than the sum of its parts."* — **Aristotle**
 
 ### = A Symphony: *Better code, faster delivery, less tedium*
+
+<!--
+Speaker notes (for newcomers):
+- Closing image to take home: your role doesn't shrink — it changes shape.
+- A conductor knows every instrument but plays none. The better you understand each AI capability (and each model's quirks), the better the orchestra sounds.
+- The fear "AI will make me redundant" assumes you stay a violin player. Promote yourself to conductor before the question even applies.
+-->
 
 ---
 
@@ -1994,6 +2031,13 @@ The closing line is the operational claim of the entire module. The lab is where
 
 > **One cohesive workflow. No tab-switching between PowerShell ISE, a Word runbook, and a change ticket.**
 
+<!--
+Speaker notes (for newcomers):
+- Step 5 ("first verification fails, agent diagnoses from event logs") is the moment everything in the training clicks. Wait for the audience reaction.
+- The runbook stays in Markdown next to the scripts. One PR shows both the script and the doc change — they cannot drift apart.
+- This is `Invoke-Pester` for infrastructure. Same loop. Different artefact.
+-->
+
 ---
 
 # M9 Key Takeaway
@@ -2005,6 +2049,13 @@ The closing line is the operational claim of the entire module. The lab is where
 5. **Verified change + diffed runbook + git commit** is the system engineer's equivalent of green tests.
 
 > **The full model: agent writes code, runs it in a lab, verifies with events, documents the result, commits. This is agentic operations.**
+
+<!--
+Speaker notes (for newcomers):
+- One-line summary for sysadmins who joined late: *give the agent a lab, snapshot before every destructive action, verify with events, commit the runbook.*
+- The four sandbox properties (reversible · reproducible · observable · isolated) are the checklist for any platform you let an agent loose on — not just AutomatedLab.
+- This module closes the loop with Module 5 (self-verification): same pattern, infrastructure scale.
+-->
 
 ---
 
@@ -2019,6 +2070,13 @@ The closing line is the operational claim of the entire module. The lab is where
 - **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
 
 > Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
+<!--
+Speaker notes (for newcomers):
+- Use this metaphor in your own team conversations. It survives translation across roles: dev, ops, legal, research.
+- The hardest discipline isn't telling the AI what to do — it's deciding *what counts as victory* before the AI starts moving. That's the commander's job and nobody else can do it for you.
+- Pairs with the earlier conductor metaphor (slide 16 / 10.10): same role, different verb. Conductor for creative work, commander for operational work. Same person.
+-->
 
 ---
 
