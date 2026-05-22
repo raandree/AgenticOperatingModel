@@ -320,6 +320,26 @@ style: |
 > *"All life is problem solving."*
 > — **Karl Popper**
 
+<!--
+Speaker notes — Module 1 appendix
+
+### Timing: 10 minutes
+
+### Key Points to Emphasize:
+1. This is a **paradigm shift**, not incremental improvement
+2. The audience's existing skills (Git, testing) are **advantages**
+3. This applies to **any language**, we use PowerShell because they know it
+4. Tokens and cost are real considerations — agentic loops use more tokens than single-shot requests
+
+### Common Questions:
+- "Will AI replace developers?" → No, it changes the role from typist to architect
+- "Is this just hype?" → Show productivity statistics
+- "What about code quality?" → Covered in verification module
+- "How much does it cost?" → Depends on model and usage; token slide covers the economics
+
+### Transition to Module 2:
+"Now that we understand why this matters, let's define exactly what makes coding 'agentic'..."
+-->
 ---
 
 # Speaking the Same Language
@@ -416,6 +436,13 @@ Speaker notes (for newcomers):
    Pass ──▶ DONE ✅    Fail ──▶ ITERATE ────────┘
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This 5-step loop is the single most important concept in the whole training. Everything else is detail.
+- Compare to how YOU code: you read the file, decide what to change, change it, run it, fix the error. Same loop — the agent just does it faster and without coffee breaks.
+- The loop is what makes "agentic" different from "autocomplete": autocomplete stops after step 3 (Act). An agent keeps going until VERIFY says PASS.
+- Iteration is automatic. You don't approve every cycle — you approve the final result.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -427,6 +454,31 @@ Speaker notes (for newcomers):
 > *"The limits of my language mean the limits of my world."*
 > — **Ludwig Wittgenstein**
 
+<!--
+Speaker notes — Module 2 appendix
+
+### Timing: 25-30 minutes (including demo)
+
+### Key Points to Emphasize:
+1. The **loop** is the core concept: Observe → Plan → Act → Verify → Iterate
+2. Self-verification is what makes this **trustworthy**
+3. The role shift: You're now the architect and reviewer
+4. The **conductor analogy**: You don't play every instrument — you understand each one's capabilities and orchestrate the ensemble. The better the conductor, the better the orchestra. This applies to multi-agent workflows (Slide 2.4a)
+
+### Demo Tips:
+- Keep it simple: One function with tests
+- Highlight what the AGENT is doing, not the code
+- Show the iteration if a test fails (this is powerful)
+- Don't explain PowerShell syntax
+
+### Common Questions:
+- "What if it makes a mistake?" → That's what verification is for
+- "Is it really autonomous?" → Show file creation, test execution
+- "Can I trust it?" → Trust but verify (testing + review)
+
+### Transition to Module 3:
+"The agent needs to understand your project to work effectively. Let's see how Git provides that context..."
+-->
 ---
 
 # Why Context Changes Everything
@@ -512,6 +564,13 @@ new file mode 100644
 - No hidden changes
 - **Full accountability**
 
+<!--
+Speaker notes (for newcomers):
+- **Diff** = the literal list of "what changed". Removed lines shown in red, added lines in green.
+- This is the single most important safety net: you never have to wonder "what did the AI silently touch?" — the diff shows you, every time.
+- VS Code shows diffs visually in the Source Control panel (the branch icon on the left). No command line required.
+- Rule of thumb: never accept agent work without reading the diff. Module 9 returns to why this matters.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -522,6 +581,32 @@ new file mode 100644
 > *"Luck is what happens when preparation meets opportunity."*
 > — **Seneca**
 
+<!--
+Speaker notes — Module 3 appendix
+
+### Timing: 20-25 minutes
+
+### Key Points to Emphasize:
+1. **Context transforms generic AI into your coding partner**
+2. AI learns from your repository: structure, patterns, conventions
+3. Git provides **traceability** — you always know what changed
+4. **Checkpoints** mean you can always roll back
+
+### Demo Tips:
+- Show a real repository with existing patterns
+- Have agent create something new
+- Highlight how output matches existing code style
+- Show git diff to prove traceability
+- Demonstrate a rollback if time permits
+
+### Common Questions:
+- "Does it read ALL files?" → It reads relevant files based on task
+- "What about large repos?" → Smart context selection
+- "Private/sensitive files?" → Can use .gitignore patterns
+
+### Transition to Module 4:
+"Context helps AI understand your project. But how do you teach it your specific rules? That's what custom instructions and instruction files are for..."
+-->
 ---
 
 <!-- _class: dense -->
@@ -623,6 +708,42 @@ Function Validate-Input {
 >
 > *"An experiment is a question which science poses to Nature, and a measurement is the recording of Nature's answer."* — **Max Planck**
 
+<!--
+Speaker notes — Module 4 appendix
+
+### Timing: 30-35 minutes
+
+### Key Points to Emphasize:
+1. Instruction files solve the **consistency problem**
+2. Write rules for things you find yourself **repeating**
+3. Commit `.github/copilot-instructions.md` to Git for **team consistency**
+4. Custom agents allow **specialized behaviors**
+5. **Skills** give agents domain knowledge, loaded on demand
+6. **Prompt files** create reusable `/slash` commands for common tasks
+7. **Agent handoffs** enable multi-agent pipelines (Dev → QA → Prod)
+8. Use `/init` to auto-generate instructions from your codebase
+
+### Demo Tips:
+- Show clear before/after comparison
+- Use same request both times for dramatic effect
+- Don't spend time on the file syntax — show the result
+- Highlight how tests appear automatically with rules
+- If time permits, show a `/CodeReview` prompt invocation
+- **For extended sessions**: Use the [Prompt Evolution demo](../demos/demo-prompt-evolution.md) to show 6 levels of prompt quality
+
+### Common Questions:
+- "Where do I put it?" → `.github/copilot-instructions.md` for project-wide, `.github/instructions/` for pattern-matched
+- "How specific should rules be?" → Specific enough to be actionable
+- "Can I have multiple files?" → Yes, use `.instructions.md` files with `applyTo` patterns
+- "Do rules slow down AI?" → No, they improve quality
+- "Does this work with other tools?" → Use `AGENTS.md` for cross-tool compatibility
+- "What's the difference between skills and instructions?" → Instructions are rules always applied; skills are domain knowledge loaded only when relevant
+- "What's the difference between agents and prompts?" → Agents are persistent personas; prompts are single-use task templates
+- "Can agents call other agents?" → Yes, via handoffs in YAML frontmatter — great for release pipelines
+
+### Transition to Module 5:
+"Now you can control what AI produces. But how do you know it actually works? That's where automated testing and self-verification come in..."
+-->
 ---
 
 <!-- _class: dense -->

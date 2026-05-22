@@ -370,17 +370,39 @@ if ($mergeNotes) {
     # would break on the mismatched nested triple-backtick fences present in
     # some split files (e.g. slide 3.5).
     $notesMap = @{}
+    # Per-module appendices: "## Speaker Notes - Module N" sections at the
+    # end of each split file. Keyed by module number (string).
+    $appendixMap = @{}
     foreach ($file in $splitFiles) {
         $lines = (Get-Content $file.FullName -Raw -Encoding UTF8) -split "`r?`n"
+
+        $moduleNum = $null
+        foreach ($l in $lines) {
+            if ($l -match '^#\s+Module\s+(\d+)\s*:') { $moduleNum = $Matches[1]; break }
+        }
 
         $currentTitle = $null
         $inSlide = $false
         $inComment = $false
         $commentBuf = $null
+        $inAppendix = $false
+        $appendixBuf = $null
 
         foreach ($raw in $lines) {
             $line = $raw.TrimEnd("`r")
             $t = $line.Trim()
+
+            # Detect the start of the per-module appendix section
+            if ($line -match '^##\s+Speaker\s+Notes\s*[-–—]\s*Module') {
+                $inAppendix = $true
+                $inSlide = $false
+                $appendixBuf = [System.Collections.Generic.List[string]]::new()
+                continue
+            }
+            if ($inAppendix) {
+                [void]$appendixBuf.Add($line)
+                continue
+            }
 
             if ($line -match '^##\s+Slide\s+') {
                 # New slide starts — reset state
@@ -426,9 +448,77 @@ if ($mergeNotes) {
                 continue
             }
         }
+
+        # Finalise per-module appendix
+        if ($moduleNum -and $appendixBuf -and $appendixBuf.Count -gt 0) {
+            # Trim trailing blank lines
+            while ($appendixBuf.Count -gt 0 -and $appendixBuf[$appendixBuf.Count - 1].Trim() -eq '') {
+                $appendixBuf.RemoveAt($appendixBuf.Count - 1)
+            }
+            if ($appendixBuf.Count -gt 0) {
+                $appendixText = "<!--`nSpeaker notes — Module $moduleNum appendix`n" + ($appendixBuf -join "`n") + "`n-->"
+                $appendixMap[$moduleNum] = $appendixText
+            }
+        }
     }
 
     Write-Host "Speaker-note pool: $($notesMap.Count) titled slides from splits" -ForegroundColor Cyan
+
+    # --- Load optional title-drift override map ---
+    # notes-title-map.psd1 (next to this script) maps split-file slide H1
+    # titles to the corresponding monolith H1 titles. Each mapping copies the
+    # note block under the monolith title key as well.
+    $titleMapFile = Join-Path $PSScriptRoot 'notes-title-map.psd1'
+    $aliasReverse = @{}  # monolith-key -> split-key (so we can mark both matched)
+    if (Test-Path $titleMapFile) {
+        try {
+            $titleOverrides = Import-PowerShellDataFile -Path $titleMapFile
+            $aliased = 0
+            foreach ($pair in $titleOverrides.GetEnumerator()) {
+                $fromKey = Get-NormalizedTitle -Title $pair.Key
+                $toKey = Get-NormalizedTitle -Title $pair.Value
+                if ($notesMap.ContainsKey($fromKey) -and -not $notesMap.ContainsKey($toKey)) {
+                    $notesMap[$toKey] = $notesMap[$fromKey]
+                    $aliasReverse[$toKey] = $fromKey
+                    $aliased++
+                }
+            }
+            if ($aliased -gt 0) {
+                Write-Host "Applied $aliased title-map alias(es) from notes-title-map.psd1" -ForegroundColor Cyan
+            }
+        }
+        catch {
+            Write-Warning "Failed to load $titleMapFile : $_"
+        }
+    }
+
+    # --- Inject per-module appendices into the module's section-divider slide ---
+    if ($appendixMap.Count -gt 0) {
+        $dividerInjected = 0
+        foreach ($slide in $parsed.Slides) {
+            $sliceText = ($slide.Lines -join "`n")
+            if ($sliceText -notmatch '_class:\s*section-divider') { continue }
+            if ($sliceText -match '(?ms)<!--\s*\r?\n[^-]*Speaker\s*notes') { continue }
+            if ($slide.Lines | Where-Object { $_ -match '^#\s+Module\s+(\d+)\s*$' } | Select-Object -First 1) {
+                $modLine = $slide.Lines | Where-Object { $_ -match '^#\s+Module\s+(\d+)\s*$' } | Select-Object -First 1
+                if ($modLine -match '^#\s+Module\s+(\d+)\s*$') {
+                    $num = $Matches[1]
+                    if ($appendixMap.ContainsKey($num)) {
+                        $newLines = [System.Collections.Generic.List[string]]::new()
+                        $newLines.AddRange([string[]]$slide.Lines)
+                        while ($newLines.Count -gt 0 -and $newLines[$newLines.Count - 1].Trim() -eq '') {
+                            $newLines.RemoveAt($newLines.Count - 1)
+                        }
+                        $newLines.Add('')
+                        $newLines.Add($appendixMap[$num])
+                        $slide.Lines = [string[]]$newLines.ToArray()
+                        $dividerInjected++
+                    }
+                }
+            }
+        }
+        Write-Host "Injected module appendices into $dividerInjected section-divider slide(s)" -ForegroundColor Green
+    }
 
     # Inject notes into monolith slides
     $injected = 0
@@ -458,6 +548,7 @@ if ($mergeNotes) {
         $slide.Lines = [string[]]$newLines.ToArray()
         $injected++
         [void]$unmatchedSplit.Remove($key)
+        if ($aliasReverse.ContainsKey($key)) { [void]$unmatchedSplit.Remove($aliasReverse[$key]) }
     }
 
     Write-Host "Injected speaker notes into $injected monolith slides" -ForegroundColor Green
@@ -474,6 +565,9 @@ if ($mergeNotes) {
 
 # --- AddMissingTags mode ---
 if ($AddMissingTags) {
+    if ($splitFiles.Count -gt 0 -and -not $useSplits) {
+        Write-Warning "-AddMissingTags operates on the monolith ($sourcePath). Split files use the per-file Version Guide table — edit those tables directly."
+    }
     $untagged = 0
     foreach ($slide in $parsed.Slides) {
         $version = Get-SlideVersion -SlideLines $slide.Lines

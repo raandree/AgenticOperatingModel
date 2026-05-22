@@ -26,8 +26,33 @@ This produces:
 > Each slide has a `<!-- version: 1h 2h 4h -->` tag controlling which versions include it.
 > The generated files have these tags stripped — they're clean MARP ready for projection.
 
-## Step 2: Convert to PowerPoint (MARP)
+## Speaker Notes from Split Files
 
+Per-module split files in `../slides/NN-*.md` (e.g. `03-power-of-context.md`) carry
+expanded speaker notes as multi-line HTML comments. When split files exist alongside
+the monolith, `Build-MarpVersions.ps1` automatically merges those notes into the
+matching monolith slide (matched by normalised H1 title).
+
+Per-module appendix sections (`## Speaker Notes - Module N` at the end of each split
+file) are attached to that module's section-divider slide as an additional note block.
+
+Flags:
+
+| Flag | Default | Effect |
+|------|---------|--------|
+| `-MergeNotesFromSplits` | auto-on when split files exist | Merge note comments and module appendices into the monolith. Set `:$false` to disable. |
+| `-AssembleFromSplits` | off | Use split files as the full slide source instead of the monolith. Off by default because split content currently overflows the slide canvas. |
+
+When a split slide's H1 differs from the monolith H1, add an alias in
+`notes-title-map.psd1` (next to the script):
+
+```powershell
+@{
+    'Knowing What AI Changed' = 'Git Provides Traceability'
+}
+```
+
+The build reports any unmatched split notes so you know which aliases to add.
 ### Using the Export Script (Recommended)
 
 The `Export-MarpToPptx.ps1` script handles the full workflow: builds version files,
