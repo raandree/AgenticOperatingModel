@@ -97,6 +97,18 @@ Describe 'Build-MarpVersions speaker-note merging' {
             '- Checkpoint note belongs here only.'
             '-->'
             ''
+            '---'
+            ''
+            '## Slide 9.4: Traceability (deep dive)'
+            ''
+            '# Git Provides Traceability'
+            ''
+            'Body for the deep-dive perspective on the same monolith slide.'
+            ''
+            '<!--'
+            'Second note: deep-dive framing for the same Traceability slide.'
+            '-->'
+            ''
             '## Speaker Notes - Module 9'
             ''
             '### Timing: 10 min'
@@ -125,6 +137,14 @@ Describe 'Build-MarpVersions speaker-note merging' {
     It 'attaches the Diff note to Git Provides Traceability via the title-map alias' {
         $segment = [regex]::Match($script:output, '(?s)# Git Provides Traceability.*?(?=\n---\n|\z)').Value
         $segment | Should -Match 'Diff note belongs here'
+    }
+
+    It 'concatenates notes when multiple split slides target the same monolith slide' {
+        $segment = [regex]::Match($script:output, '(?s)# Git Provides Traceability.*?(?=\n---\n|\z)').Value
+        # Both the aliased note (Slide 9.2 -> Knowing What AI Changed) and the
+        # direct-match note (Slide 9.4 -> Git Provides Traceability) must be present.
+        $segment | Should -Match 'Diff note belongs here'
+        $segment | Should -Match 'deep-dive framing'
     }
 
     It 'attaches the Checkpoint note via the title-map alias' {

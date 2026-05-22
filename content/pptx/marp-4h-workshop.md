@@ -400,6 +400,11 @@ The three caveats at the bottom are not throat-clearing. They define the rest of
 
 > **If you don't write code, you are still in scope.** The agent loop is identical — only the artefact changes.
 
+<!--
+The audience for this training is wider than "developers who write production code." Module 11 makes that case in depth; this 1h-cut slide is the abbreviated version of the same claim. Systems engineers writing PowerShell against Active Directory, SREs maintaining runbooks, security analysts triaging incidents, and knowledge workers reasoning over document corpora all do work that fits the agentic operating model. The verb changes — author, operate, investigate, draft — but the loop (Observe → Plan → Act → Verify → Iterate) and the supervision pattern (Git, Markdown, tests or verifiable artefacts, rollback) do not.
+
+The slide is also a defensive framing. In mixed-audience rooms the most common silent objection from non-developers is "this is interesting but not for me." Naming the four roles up front removes that escape hatch and keeps the room engaged with the operating-model content rather than mentally filing it under "developer stuff I can ignore."
+-->
 ---
 
 # Why Dev & DevOps Practices Are the Foundation
@@ -417,6 +422,11 @@ The three caveats at the bottom are not throat-clearing. They define the rest of
 
 > Sysadmins and knowledge workers who adopt these practices get the **same leverage** developers do — just applied to runbooks, case files, and research notes instead of code.
 
+<!--
+The argument compressed into this 1h slide is one of the curriculum's load-bearing claims: the engineering hygiene that developer and DevOps teams adopted for human reasons (version control, code review, automated tests, infrastructure as code, CI/CD) turns out to be exactly the substrate an agent needs to operate safely. Git gives the agent context and the human rollback; tests give the agent a verification signal; conventional repository structure gives the agent a navigable surface; pipeline automation gives the agent reversible deployments.
+
+The implication for teams that do *not* yet have these practices is uncomfortable but honest: agentic tooling amplifies whatever discipline already exists. A team with strong tests, clean Git history, and IaC gets multiplicative gains; a team without them gets multiplicative incidents. The right sequence is to invest in the foundation first and adopt the agent against that foundation, not to adopt the agent in the hope that it will somehow build the foundation along the way. The expanded version of this argument appears in Module 9 (the cardinal rule, the destructive-operations guardrails) and Module 12 (the lab as the agent's sandbox).
+-->
 ---
 
 # Why This Matters to You — If You Already Write Code
@@ -757,6 +767,12 @@ The layout shown is the Sampler / standard PowerShell-module convention: `Public
 
 The corollary is that a non-conventional layout costs you context. A repo with everything in a single `scripts/` folder and no test directory gives the agent nothing to infer from, and the output will reflect that. Reorganising for convention is one of the highest-leverage things a team can do before adopting agentic tooling.
 -->
+
+<!--
+Observe is the phase most people underestimate. A modern agent does not "read the whole repository" — the context window cannot hold it. Instead it does a structured discovery pass: directory listing, README, manifest files, top-of-file comments, then targeted reads of the files most likely to be relevant. Tools like semantic search, grep, and symbol lookup are how this scales beyond toy projects.
+
+The `.github/copilot-instructions.md` file shown here matters disproportionately: it is the one file the agent reads *unconditionally* on every task. Anything written there becomes baseline behaviour. This is why Module 4 spends so much time on instruction files — it is the cheapest, most durable lever a team has on agent behaviour.
+-->
 ---
 
 <!-- _class: dense -->
@@ -983,6 +999,12 @@ These rules are not new — they are decades-old software-engineering hygiene. W
 
 The single-highest-leverage item on the DO list is "meaningful structure." A repository with a clear conventional layout (src/Public, src/Private, tests/, docs/) gives the agent a place to put new things without asking. A flat repository with everything in the root forces a choice the agent will make somewhat arbitrarily.
 -->
+
+<!--
+Vague rules degrade silently. "Make sure to test stuff" survives review because no one can claim it is wrong, but the agent has no way to operationalise it — there is no observable difference between honouring the rule and ignoring it. Specific rules ("create a Pester test file for every new public function, covering at least one success path and one failure path") are testable and therefore enforceable.
+
+The rule-writing skill is closer to writing technical documentation than to writing prompts. Each rule should answer: what should happen, when, and how would I know it happened? Rules that fail that test are usually wishes, not instructions.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1185,6 +1207,13 @@ Speaker notes (for newcomers):
 The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
 
 Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
+Speaker notes (for newcomers):
+- This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
+- The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
+- **Invoke-Pester** is the command that runs all the tests in your project.
 -->
 ---
 
@@ -1790,6 +1819,12 @@ The self-verification loop on this slide is the structural reason agentic coding
 
 The loop is genuinely automatic but bounded — every host enforces some maximum on iteration count, typically five to ten cycles before the agent stops and reports failure to the human. Hitting that cap is itself a signal: usually it means the test is testing the wrong thing, or the requirement is under-specified, or the agent has been chasing a symptom across files. The remedy is rarely "give it more cycles."
 -->
+
+<!--
+The Pragmatic Programmer headlights metaphor is the right framing for test-loop speed. Slow tests do not just slow the human — they slow the agent's iteration cycle, which means the agent runs further between checks and accumulates more uncorrected drift before a failure surfaces.
+
+The quantitative version: a five-second test loop lets the agent iterate twelve times per minute. A five-minute test loop lets it iterate twice per hour. The same model on the same task produces dramatically different code quality at those two rates, because the corrective signal arrives at fundamentally different cadences. Investing in test speed is therefore not a developer-experience nicety — it is direct investment in agent output quality.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2114,6 +2149,12 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
@@ -2205,6 +2246,13 @@ Start   Created  Modified  Added   Deleted   Broke
 Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
 
 The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
+
+<!--
+Speaker notes (for newcomers):
+- VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
+- Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
+- Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
 -->
 ---
 
@@ -2588,6 +2636,11 @@ The categories on the table are not absolute prohibitions — they are *defaults
 5. **Can I break this into testable pieces?**
    Yes → Proceed with agentic workflow ✅
 
+<!--
+The five questions on this flowchart are deliberately sequential — each one gates the next, and a NO on any of them short-circuits the rest. That ordering matters operationally: if you cannot verify the result (question 1), it is irrelevant whether the task is well-suited to AI generation, because you have no signal for whether the output is correct.
+
+The framework is a thinking tool, not a checklist to fill in mechanically. The right way to use it is as a conversation starter for the team — for each YES, name the specific verification mechanism, the domain expert, the test harness, the rollback path. Teams that adopt agentic tooling well typically run a version of this conversation explicitly for each new use case; teams that adopt it badly skip the conversation and discover the answers in production.
+-->
 ---
 
 <!-- _class: compact -->
@@ -2743,6 +2796,12 @@ Speaker notes (for newcomers):
 - Definition in plain English: "how much of our code can nobody on the team still explain anymore."
 - It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
 - Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
+
+<!--
+Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
+
+The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
 -->
 ---
 

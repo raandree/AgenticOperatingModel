@@ -258,6 +258,34 @@ In the 1h cut, only modules 1–3 and 7 are covered; the 2h adds 4 and 6; the 4h
 
 ---
 
+## Slide 1.6b: Why This Matters to You — Whatever Your Role
+
+# Why This Matters to You — Whatever Your Role
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+The audience for this training is wider than "developers who write production code." Module 11 makes that case in depth; this 1h-cut slide is the abbreviated version of the same claim. Systems engineers writing PowerShell against Active Directory, SREs maintaining runbooks, security analysts triaging incidents, and knowledge workers reasoning over document corpora all do work that fits the agentic operating model. The verb changes — author, operate, investigate, draft — but the loop (Observe → Plan → Act → Verify → Iterate) and the supervision pattern (Git, Markdown, tests or verifiable artefacts, rollback) do not.
+
+The slide is also a defensive framing. In mixed-audience rooms the most common silent objection from non-developers is "this is interesting but not for me." Naming the four roles up front removes that escape hatch and keeps the room engaged with the operating-model content rather than mentally filing it under "developer stuff I can ignore."
+-->
+
+---
+
+## Slide 1.6c: Why Dev & DevOps Practices Are the Foundation
+
+# Why Dev & DevOps Practices Are the Foundation
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+The argument compressed into this 1h slide is one of the curriculum's load-bearing claims: the engineering hygiene that developer and DevOps teams adopted for human reasons (version control, code review, automated tests, infrastructure as code, CI/CD) turns out to be exactly the substrate an agent needs to operate safely. Git gives the agent context and the human rollback; tests give the agent a verification signal; conventional repository structure gives the agent a navigable surface; pipeline automation gives the agent reversible deployments.
+
+The implication for teams that do *not* yet have these practices is uncomfortable but honest: agentic tooling amplifies whatever discipline already exists. A team with strong tests, clean Git history, and IaC gets multiplicative gains; a team without them gets multiplicative incidents. The right sequence is to invest in the foundation first and adopt the agent against that foundation, not to adopt the agent in the hope that it will somehow build the foundation along the way. The expanded version of this argument appears in Module 9 (the cardinal rule, the destructive-operations guardrails) and Module 12 (the lab as the agent's sandbox).
+-->
+
+---
+
 ## Speaker Notes - Module 1
 
 ### Timing: 10 minutes

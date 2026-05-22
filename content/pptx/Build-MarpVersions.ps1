@@ -472,7 +472,7 @@ if ($mergeNotes) {
     # titles to the corresponding monolith H1 titles. Each mapping copies the
     # note block under the monolith title key as well.
     $titleMapFile = Join-Path $PSScriptRoot 'notes-title-map.psd1'
-    $aliasReverse = @{}  # monolith-key -> split-key (so we can mark both matched)
+    $aliasReverse = @{}  # monolith-key -> list of split-keys (so we can mark all matched)
     if (Test-Path $titleMapFile) {
         try {
             $titleOverrides = Import-PowerShellDataFile -Path $titleMapFile
@@ -480,11 +480,20 @@ if ($mergeNotes) {
             foreach ($pair in $titleOverrides.GetEnumerator()) {
                 $fromKey = Get-NormalizedTitle -Title $pair.Key
                 $toKey = Get-NormalizedTitle -Title $pair.Value
-                if ($notesMap.ContainsKey($fromKey) -and -not $notesMap.ContainsKey($toKey)) {
-                    $notesMap[$toKey] = $notesMap[$fromKey]
-                    $aliasReverse[$toKey] = $fromKey
-                    $aliased++
+                if (-not $notesMap.ContainsKey($fromKey)) { continue }
+                if ($notesMap.ContainsKey($toKey)) {
+                    # Concatenate: monolith slide is the target of multiple
+                    # splits. Stack the comment blocks; Marp surfaces both
+                    # in the speaker-notes pane.
+                    if ($notesMap[$toKey] -ne $notesMap[$fromKey]) {
+                        $notesMap[$toKey] = $notesMap[$toKey] + "`n`n" + $notesMap[$fromKey]
+                    }
                 }
+                else {
+                    $notesMap[$toKey] = $notesMap[$fromKey]
+                }
+                $aliasReverse[$toKey] = @($aliasReverse[$toKey]) + $fromKey | Where-Object { $_ }
+                $aliased++
             }
             if ($aliased -gt 0) {
                 Write-Host "Applied $aliased title-map alias(es) from notes-title-map.psd1" -ForegroundColor Cyan
@@ -551,7 +560,9 @@ if ($mergeNotes) {
         $slide.Lines = [string[]]$newLines.ToArray()
         $injected++
         [void]$unmatchedSplit.Remove($key)
-        if ($aliasReverse.ContainsKey($key)) { [void]$unmatchedSplit.Remove($aliasReverse[$key]) }
+        if ($aliasReverse.ContainsKey($key)) {
+            foreach ($src in @($aliasReverse[$key])) { [void]$unmatchedSplit.Remove($src) }
+        }
     }
 
     Write-Host "Injected speaker notes into $injected monolith slides" -ForegroundColor Green
