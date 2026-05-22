@@ -253,6 +253,13 @@ style: |
 > *"The spirits that I summoned, I now cannot rid myself of."*
 > — **Johann Wolfgang von Goethe**, *Der Zauberlehrling*
 
+<!--
+The quote is from Goethe's ballad *Der Zauberlehrling* (1797), "The Sorcerer's Apprentice." An apprentice, left alone, enchants a broom to fetch water for him — then realises he never learned the counter-spell to stop it. The poem is the cultural ancestor of every "runaway automation" story since, from Disney's *Fantasia* to modern AI-safety essays.
+
+The relevance to agentic AI is direct: the capability to *summon* autonomous behaviour is now widely available; the capability to *supervise and stop* it lags behind. Most organisations are at the apprentice's stage — the spirits are already in motion, the operating model is being written after the fact.
+
+This training is built around closing that gap: not how to summon harder, but how to keep a deliberate hand on the broom — through version control, verification, guardrails, and reversibility.
+-->
 ---
 
 <!-- _class: lead -->
@@ -268,6 +275,16 @@ style: |
 
 > **Whatever you build** — code, runbooks, reports, case files — **this talk is for you.**
 
+<!--
+The four answers correspond to four distinct mental models of what AI "is":
+
+- **A) Autocomplete** — AI as a faster keyboard. Productivity gain is real but bounded; the human is still author and integrator.
+- **B) Chat assistant** — AI as a knowledgeable colleague you consult. Better for explanation and one-off snippets; copy-paste is the bottleneck.
+- **C) Agent** — AI as a workflow participant that reads the repository, edits files, runs commands, and reads the results. Different category of tool, not just a better B.
+- **D) Not yet** — includes regulated industries, classified environments, and teams that explicitly chose to wait. Often the most prepared audience for an operating-model conversation, because they haven't yet accumulated bad habits.
+
+In 2026 audiences, A and B together typically account for the large majority. The jump from B to C is the substantive topic of this training; A→B and B→C are very different transitions.
+-->
 ---
 
 # AI Has Evolved in Three Waves
@@ -280,6 +297,17 @@ style: |
 | **Who drives** | You type | You paste | AI acts, you review |
 | **Deliverable** | Lines of code | Snippets, answers | **Code, runbooks, documents, decisions** |
 
+<!--
+The three waves are cumulative, not replacements — autocomplete still lives inside every modern agent.
+
+**Wave 1 (2021–22)** opened with GitHub Copilot's general availability in June 2022. The interaction unit was a single line or block; the human remained author, integrator, and runner. Productivity gains were measurable (~30–55% on benchmark tasks) but the engineering process around the code was unchanged.
+
+**Wave 2 (2023–24)** is the chat era: ChatGPT (Nov 2022), Claude, Gemini. The interaction unit became a *conversation*, and the AI could explain, refactor, or generate larger fragments. The bottleneck moved to the human's copy-paste step and to the lack of context — the model could not see the repository or run the code.
+
+**Wave 3 (2025–26)** is the agentic era: Copilot Agent Mode, Cursor, Claude Code, Aider. The model gains tools (file I/O, shell, search) and runs a loop — observe, plan, act, verify, iterate. The unit of work is no longer a snippet but a *task with verification*. The human role shifts from typist to reviewer.
+
+The shift to Wave 3 is what creates the need for an operating model: once the agent can take actions, version control, tests, and guardrails stop being optional hygiene and become the supervision mechanism.
+-->
 ---
 
 # Why the Agentic Operating Model Is Possible NOW
@@ -296,6 +324,14 @@ style: |
 - **Cloud agents** running autonomously (Copilot Coding Agent)
 - **Agentic Workflows** in CI/CD (GitHub, GA April 2026)
 
+<!--
+Speaker notes (for newcomers):
+- **LLM** = Large Language Model. The "brain" behind the assistant (Claude, GPT, Gemini).
+- **Context window** = how much text (your code + chat + docs) the model can read at once.
+- **Tool use** = the model can call functions like "read file", "run command", not just generate text.
+- **MCP** = a USB-like standard that lets any AI tool talk to any data source. Covered in Module 8.
+- The point of this slide: the *capability* existed for a while, but only NOW are price, context size, and tooling good enough for autonomous loops.
+-->
 ---
 
 # Understanding the Economics
@@ -314,6 +350,13 @@ style: |
 - Cloud agents run autonomously — costs accumulate
 - Monitor usage via GitHub settings or Copilot output panel
 
+<!--
+Speaker notes (for newcomers):
+- Think of tokens like minutes on a prepaid phone: every message you send and every reply you get "costs" some.
+- One agentic task = many small back-and-forth calls (read file, plan, write, run tests, read error, fix). Each call eats tokens.
+- That is why even a "cheap" model can produce a noticeable bill when run on autopilot for hours.
+- Concrete rule of thumb: 1 page of English text ≈ 500 tokens; a medium PowerShell file ≈ 1000–3000 tokens.
+-->
 ---
 
 # Real-World Impact
@@ -331,6 +374,17 @@ style: |
 - Works best for **certain task types**
 - Still needs **human oversight** and architectural judgment
 
+<!--
+The quoted productivity numbers come from the 2024–25 wave of empirical studies:
+
+- The 55% figure is GitHub's Copilot RCT (Peng et al., 2023) on a controlled boilerplate task; later real-world studies put the median closer to 20–30%.
+- The 40% debugging-time figure is from Microsoft Research's 2024 internal study, narrower in scope than the GitHub number suggests.
+- The Windsurf 94% claim refers to *lines authored*, not *value delivered*; the metric is genuine but selection-biased toward greenfield work.
+
+The enterprise-adoption list (NVIDIA ≈40k engineers, Salesforce ≈20k developers, much of the Fortune 500) is meaningful because it answers the "is this just hype?" question at the procurement level — these are organisations with formal security reviews, not enthusiasts.
+
+The three caveats at the bottom are not throat-clearing. They define the rest of the curriculum: *new skills* (prompting, verification) is Modules 3–5, *task fit* is Module 6, and *oversight* is Modules 7–9. Productivity gains compound when those three are in place and silently regress when they are not.
+-->
 ---
 
 # Why This Matters to You — Whatever Your Role
@@ -346,6 +400,11 @@ style: |
 
 > **If you don't write code, you are still in scope.** The agent loop is identical — only the artefact changes.
 
+<!--
+The audience for this training is wider than "developers who write production code." Module 11 makes that case in depth; this 1h-cut slide is the abbreviated version of the same claim. Systems engineers writing PowerShell against Active Directory, SREs maintaining runbooks, security analysts triaging incidents, and knowledge workers reasoning over document corpora all do work that fits the agentic operating model. The verb changes — author, operate, investigate, draft — but the loop (Observe → Plan → Act → Verify → Iterate) and the supervision pattern (Git, Markdown, tests or verifiable artefacts, rollback) do not.
+
+The slide is also a defensive framing. In mixed-audience rooms the most common silent objection from non-developers is "this is interesting but not for me." Naming the four roles up front removes that escape hatch and keeps the room engaged with the operating-model content rather than mentally filing it under "developer stuff I can ignore."
+-->
 ---
 
 # Why Dev & DevOps Practices Are the Foundation
@@ -363,6 +422,11 @@ style: |
 
 > Sysadmins and knowledge workers who adopt these practices get the **same leverage** developers do — just applied to runbooks, case files, and research notes instead of code.
 
+<!--
+The argument compressed into this 1h slide is one of the curriculum's load-bearing claims: the engineering hygiene that developer and DevOps teams adopted for human reasons (version control, code review, automated tests, infrastructure as code, CI/CD) turns out to be exactly the substrate an agent needs to operate safely. Git gives the agent context and the human rollback; tests give the agent a verification signal; conventional repository structure gives the agent a navigable surface; pipeline automation gives the agent reversible deployments.
+
+The implication for teams that do *not* yet have these practices is uncomfortable but honest: agentic tooling amplifies whatever discipline already exists. A team with strong tests, clean Git history, and IaC gets multiplicative gains; a team without them gets multiplicative incidents. The right sequence is to invest in the foundation first and adopt the agent against that foundation, not to adopt the agent in the hope that it will somehow build the foundation along the way. The expanded version of this argument appears in Module 9 (the cardinal rule, the destructive-operations guardrails) and Module 12 (the lab as the agent's sandbox).
+-->
 ---
 
 # Why This Matters to You — If You Already Write Code
@@ -376,6 +440,16 @@ style: |
 
 These practices make the agentic model **even more effective** for you — and they are the **blueprint** your non-developer colleagues adopt next.
 
+<!--
+The four bullets on this slide are not nice-to-have qualifications; they are the *substrate* an agent needs to operate.
+
+- **Structured repositories** give the agent a knowable surface area. An agent let loose on a flat folder of loose scripts has no map; an agent inside a Sampler/PowerShell project layout knows where public functions, private helpers, and tests live by convention.
+- **Git** is the supervision mechanism. Every action the agent takes becomes a diff — reviewable, revertible, attributable. Without Git, there is no equivalent of "undo last 30 minutes".
+- **Pester tests** turn intent into something an agent can verify against. The agent's success criterion is no longer "does this look right?" but "does the test suite go green?", which is automatable.
+- **Conventions** (Approved Verbs, parameter patterns, comment-based help) compress the prompt: the agent infers what new code should look like from what already exists, instead of being told explicitly every time.
+
+The broader observation: the engineering hygiene PowerShell and DevOps teams adopted for human reasons (review, rollback, reproducibility) is the *same* hygiene that makes AI agents productive and safe. Teams without it tend to discover this the expensive way.
+-->
 ---
 
 # Today's Journey
@@ -389,6 +463,17 @@ These practices make the agentic model **even more effective** for you — and t
 7. **When to Use (and Not Use)** — Good judgment matters
 8. **Your Agentic Future** — Getting started
 
+<!--
+The five points cover roughly the same territory in every version of the deck; the difference is depth, not topic.
+
+- **Module 2 — "agentic" defined.** The vocabulary slide and the Observe→Plan→Act→Verify loop. Without this, later modules sound like tooling marketing.
+- **Module 3 — Context.** Why Git, the repository structure, and a written glossary matter more than choice of model. This module is the one most teams underweight.
+- **Module 4 — Controlling behaviour.** Instruction files, custom agents, skills, prompt files. The shift from "prompt the model" to "configure the model’s behaviour as code".
+- **Module 5 — Self-verification.** Tests as the executable spec, the "cheating agent" failure mode, and how Pester-style discipline becomes the AI feedback signal.
+- **Practical application.** A live walkthrough that shows the loop, not just the screenshots. Saved for the end so the earlier abstractions have something concrete to anchor on.
+
+In the 1h cut, only modules 1–3 and 7 are covered; the 2h adds 4 and 6; the 4h includes hands-on labs (AutomatedLab, MCP server) in modules 8–10. The structure is deliberately *concept → demo → "how this applies to your repo"* in every module.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -399,6 +484,26 @@ These practices make the agentic model **even more effective** for you — and t
 > *"All life is problem solving."*
 > — **Karl Popper**
 
+<!--
+Speaker notes — Module 1 appendix
+
+### Timing: 10 minutes
+
+### Key Points to Emphasize:
+1. This is a **paradigm shift**, not incremental improvement
+2. The audience's existing skills (Git, testing) are **advantages**
+3. This applies to **any language**, we use PowerShell because they know it
+4. Tokens and cost are real considerations — agentic loops use more tokens than single-shot requests
+
+### Common Questions:
+- "Will AI replace developers?" → No, it changes the role from typist to architect
+- "Is this just hype?" → Show productivity statistics
+- "What about code quality?" → Covered in verification module
+- "How much does it cost?" → Depends on model and usage; token slide covers the economics
+
+### Transition to Module 2:
+"Now that we understand why this matters, let's define exactly what makes coding 'agentic'..."
+-->
 ---
 
 # Speaking the Same Language
@@ -414,6 +519,19 @@ These practices make the agentic model **even more effective** for you — and t
 | **Context Window** | Maximum tokens a model can consider at once |
 | **MCP** | Model Context Protocol — standard for connecting agents to external tools |
 
+<!--
+Speaker notes (for newcomers):
+- Don't memorize this slide — we'll revisit each term as it comes up.
+- Easy mental model:
+  - **Model** = the engine (the LLM itself).
+  - **Agent** = the driver (uses the engine + tools to reach a goal).
+  - **Tool** = a hand (file read, shell, web fetch).
+  - **Instruction** = a standing order the driver must always follow.
+  - **Skill** = a specialist manual the driver opens only when needed.
+  - **Prompt** = what you tell the driver right now.
+  - **Memory Bank** = the driver's logbook between trips.
+- This vocabulary is shared across Copilot, Claude Code, Cursor — it's not Microsoft-specific.
+-->
 ---
 
 # What IS an Agent?
@@ -429,6 +547,11 @@ These practices make the agentic model **even more effective** for you — and t
 > An agentic AI doesn't just **suggest** — it **acts, verifies, and iterates** autonomously.
 > The *thing it acts on* can be code, a server, an email corpus, or a legal case file.
 
+<!--
+The word "agent" has a long pedigree in computer science — Marvin Minsky's *Society of Mind* (1986), the BDI architecture from the 1990s (Belief–Desire–Intention), reinforcement-learning agents from the 2010s. The current LLM-driven definition keeps the same five properties (goal, context, tools, autonomy, iteration) but supplies them with natural-language reasoning instead of hand-coded planners.
+
+The practical distinction worth holding onto: an autocomplete suggests; a chatbot explains; an agent *acts and observes the result of its action*. The fifth property — iteration based on feedback — is the one that separates "agent" from "script with an LLM in it."
+-->
 ---
 
 # Traditional AI vs Agentic AI
@@ -451,6 +574,11 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 > *"Verification"* means Pester for code, `dcdiag` for a DC, or "every citation resolves" for a legal draft.
 
+<!--
+The traditional flow has a human in every loop iteration: copy, paste, run, read error, decide what to do next. Each transition is a context switch costing seconds to minutes. On a 30-step task the wall-clock cost is dominated by these handoffs, not by either the human or the model thinking.
+
+The second observation — less obvious — is that the human is also the *only memory* in this flow. The model forgets between turns; the editor doesn't know about the chat; the terminal doesn't know about the file. Everything that persists has to pass through the human's working memory, which is exactly where errors enter.
+-->
 ---
 
 # Your Role Changes
@@ -468,6 +596,11 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 > *"Sapere aude! — Have the courage to use your own understanding."* — **Immanuel Kant**
 
+<!--
+The Kant quote ("Dare to know!") is the motto of the Enlightenment, from his 1784 essay *Was ist Aufklarung?*. He was arguing against intellectual tutelage — the habit of letting others think for you. The parallel here is deliberate and slightly pointed: agentic tools can either amplify your judgement or replace it, and which one happens is a choice the user makes, not a property of the tool.
+
+The table itself describes a skill rotation rather than a skill loss. Reviewing code well is *harder* than writing it — it requires holding the whole system in mind, not just the next line. Teams that thrive with agents are typically the ones whose seniors were already good reviewers; teams that struggle are usually those who conflated "writes code" with "understands code."
+-->
 ---
 
 # You Are the Conductor 🎼
@@ -486,6 +619,12 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 > Works the same whether your "score" is a codebase, a data center, or a legal brief.
 
+<!--
+Speaker notes (for newcomers):
+- The analogy answers the most common fear: "Do I need to know less now that AI codes for me?" — No, you need to know *more*, just differently.
+- A conductor doesn't play the violin — but they hear when the violin is wrong. That's exactly your new job: hear when the AI is wrong.
+- "Multi-agent" sounds futuristic but in practice means: one agent writes, a second reviews security, a third writes docs. We'll see how in Module 4.
+-->
 ---
 
 <!-- _class: dense -->
@@ -515,6 +654,13 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
    Pass ──▶ DONE ✅    Fail ──▶ ITERATE ────────┘
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This 5-step loop is the single most important concept in the whole training. Everything else is detail.
+- Compare to how YOU code: you read the file, decide what to change, change it, run it, fix the error. Same loop — the agent just does it faster and without coffee breaks.
+- The loop is what makes "agentic" different from "autocomplete": autocomplete stops after step 3 (Act). An agent keeps going until VERIFY says PASS.
+- Iteration is automatic. You don't approve every cycle — you approve the final result.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -526,6 +672,31 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 > *"The limits of my language mean the limits of my world."*
 > — **Ludwig Wittgenstein**
 
+<!--
+Speaker notes — Module 2 appendix
+
+### Timing: 25-30 minutes (including demo)
+
+### Key Points to Emphasize:
+1. The **loop** is the core concept: Observe → Plan → Act → Verify → Iterate
+2. Self-verification is what makes this **trustworthy**
+3. The role shift: You're now the architect and reviewer
+4. The **conductor analogy**: You don't play every instrument — you understand each one's capabilities and orchestrate the ensemble. The better the conductor, the better the orchestra. This applies to multi-agent workflows (Slide 2.4a)
+
+### Demo Tips:
+- Keep it simple: One function with tests
+- Highlight what the AGENT is doing, not the code
+- Show the iteration if a test fails (this is powerful)
+- Don't explain PowerShell syntax
+
+### Common Questions:
+- "What if it makes a mistake?" → That's what verification is for
+- "Is it really autonomous?" → Show file creation, test execution
+- "Can I trust it?" → Trust but verify (testing + review)
+
+### Transition to Module 3:
+"The agent needs to understand your project to work effectively. Let's see how Git provides that context..."
+-->
 ---
 
 # Why Context Changes Everything
@@ -544,6 +715,11 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 > **Context transforms a generic AI into YOUR coding partner.**
 
+<!--
+The word "context" carries two meanings here that are easy to conflate. The first is the model's context window — the literal token budget (200k–2M in 2026 frontier models) that bounds how much text the model can hold at once. The second is *project context* — the structure, conventions, glossary, and history of the specific codebase. The first is a hardware constraint; the second is an authoring problem the team controls.
+
+Low-context output is the failure mode users notice first: code that looks reasonable in isolation but uses the wrong logger, the wrong error type, the wrong test framework. The model has not regressed — it has just defaulted to the most common pattern on the open internet, which is rarely the pattern in your repo.
+-->
 ---
 
 # Git Gives AI a Brain
@@ -556,6 +732,13 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 | **Commit History** | "This is what's been worked on recently" |
 | **README** | "This is the project's purpose" |
 
+<!--
+Speaker notes (for newcomers):
+- **Git** = the version-control system. Think of it as "track changes" for an entire project, with full history.
+- **Repository** ("repo") = one project's folder + its history. Usually hosted on GitHub or Azure DevOps.
+- Why does Git matter here? Because the AI reads your repo to learn HOW your team writes code, not just WHAT they wrote.
+- If you've never used Git: GitHub Desktop is the easiest GUI. The agentic operating model assumes a Git repo — if you skip Git, you skip most of the value.
+-->
 ---
 
 # Repository as Knowledge Base
@@ -579,6 +762,17 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 The agent learns: public vs private locations, naming conventions, module structure.
 
+<!--
+The layout shown is the Sampler / standard PowerShell-module convention: `Public/` for exported cmdlets, `Private/` for internal helpers, `tests/` mirroring `src/`. None of that is enforced by the language — it is convention all the way down — but agents are remarkably good at recognising it and writing files that fit.
+
+The corollary is that a non-conventional layout costs you context. A repo with everything in a single `scripts/` folder and no test directory gives the agent nothing to infer from, and the output will reflect that. Reorganising for convention is one of the highest-leverage things a team can do before adopting agentic tooling.
+-->
+
+<!--
+Observe is the phase most people underestimate. A modern agent does not "read the whole repository" — the context window cannot hold it. Instead it does a structured discovery pass: directory listing, README, manifest files, top-of-file comments, then targeted reads of the files most likely to be relevant. Tools like semantic search, grep, and symbol lookup are how this scales beyond toy projects.
+
+The `.github/copilot-instructions.md` file shown here matters disproportionately: it is the one file the agent reads *unconditionally* on every task. Anything written there becomes baseline behaviour. This is why Module 4 spends so much time on instruction files — it is the cheapest, most durable lever a team has on agent behaviour.
+-->
 ---
 
 <!-- _class: dense -->
@@ -610,6 +804,11 @@ function Get-UserData {
 
 **New code will match these patterns!**
 
+<!--
+Pattern recognition is mostly few-shot learning at inference time: the model sees three or four examples of how your project handles parameters and errors, and it generalises. No fine-tuning, no training run — just the surrounding files acting as in-context demonstrations.
+
+The practical implication is asymmetric: *good* patterns propagate, but so do *bad* ones. If half your codebase uses `Write-Host` for errors and the other half uses `Write-Error`, the agent will pick whichever it saw most recently. Consistency in the existing code is therefore not just hygiene — it is the signal the agent uses to decide what to write next.
+-->
 ---
 
 <!-- _class: dense -->
@@ -636,6 +835,11 @@ against defined schemas.
 
 > Your README isn't just documentation — it's **AI context**.
 
+<!--
+A good README has two audiences now — humans onboarding to the project and agents starting a task. The information they need overlaps almost completely: what does this thing do, what does it *not* do, what are the entry points, what are the conventions. A README that fails the human onboarding test will fail the agent in exactly the same ways.
+
+The "AI context" framing also explains why README rot is more expensive in an agentic workflow than it used to be. An outdated README does not just confuse newcomers — it actively steers the agent toward producing code that matches the stale description.
+-->
 ---
 
 # Git Provides Traceability
@@ -661,6 +865,13 @@ new file mode 100644
 - No hidden changes
 - **Full accountability**
 
+<!--
+Speaker notes (for newcomers):
+- **Diff** = the literal list of "what changed". Removed lines shown in red, added lines in green.
+- This is the single most important safety net: you never have to wonder "what did the AI silently touch?" — the diff shows you, every time.
+- VS Code shows diffs visually in the Source Control panel (the branch icon on the left). No command line required.
+- Rule of thumb: never accept agent work without reading the diff. Module 9 returns to why this matters.
+-->
 ---
 
 <!-- _class: compact -->
@@ -692,6 +903,11 @@ git log --follow --format='%aN' -- src/Public/Deploy-Application.ps1 |
 
 > AI + Git = **full audit trail** with zero manual effort.
 
+<!--
+Git forensics — `git log`, `git blame`, `git bisect` — has always existed; what changes with agents is the activation energy. Asking the agent to compute contributor frequency across a directory tree is a one-sentence prompt; doing it by hand is ten minutes of shell scripting most people never bother with.
+
+The attribution pattern shown (Copilot as a named author via `Co-authored-by:` trailer) is becoming the standard way to make AI involvement countable. It does not solve the question "is this code good?" but it solves "how much of our recent code touched AI?", which is the question audit, compliance, and engineering management actually ask.
+-->
 ---
 
 # Checkpoint System — Rollback When Needed
@@ -710,6 +926,13 @@ Start    Feature     Tests      Oops!     Working
 
 You're **never stuck**. You can always go back.
 
+<!--
+Speaker notes (for newcomers):
+- **Checkpoint** = a saved snapshot of all files at one moment. Like "save game" in a video game.
+- VS Code automatically creates checkpoints after each agent turn — you didn't have to do anything.
+- This is *separate* from Git commits. Checkpoints are short-term, in-editor. Commits are the permanent, shareable history.
+- The combination is powerful: small, free undos via checkpoints; big, durable history via Git.
+-->
 ---
 
 # Commit Strategies for AI Work
@@ -720,6 +943,11 @@ You're **never stuck**. You can always go back.
 | **Branch Strategy** | `main → feature/add-validation → ai/config-validation` |
 | **Co-authored** | `Co-authored-by: AI Assistant <ai@example.com>` |
 
+<!--
+The three strategies are not alternatives — most mature teams use all three at once. Conventional Commits give the message structure (and feed semantic-version tooling like `semantic-release`); branch prefixes make AI work visible at the branch level; the `Co-authored-by:` trailer makes it visible per commit.
+
+The branch-prefix convention (`ai/<slug>`) is more important than it looks. It triggers different CI rules — stricter linting, mandatory human review, sometimes additional security scans — without requiring per-commit metadata. The branch name *is* the policy hook.
+-->
 ---
 
 <!-- _class: compact -->
@@ -744,6 +972,11 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 - Clear signal in `git log` and `git blame`
 - Team knows which code had AI involvement
 
+<!--
+The `Co-authored-by:` trailer is a Git convention, not a Git feature — it is just a structured line in the commit message body. GitHub recognises it and adds the named co-author to the commit's contributor list; other forges (GitLab, Azure DevOps, Gitea) increasingly do the same.
+
+The useful side-effect for AI-augmented teams is that `git log --author="AI Assistant"` becomes a real query. Reporting "what fraction of last quarter's commits had AI co-authorship?" stops being a survey question and becomes a one-line shell command.
+-->
 ---
 
 # Maximize AI Effectiveness
@@ -761,6 +994,17 @@ Git's `Co-authored-by` trailer gives **explicit attribution**:
 - Skip README — AI needs to understand purpose
 - Mix styles — inconsistency → inconsistent output
 
+<!--
+These rules are not new — they are decades-old software-engineering hygiene. What is new is that the cost of violating them is now immediate and visible: the agent produces inconsistent output the same hour you skip the README update, not weeks later when the next developer onboards.
+
+The single-highest-leverage item on the DO list is "meaningful structure." A repository with a clear conventional layout (src/Public, src/Private, tests/, docs/) gives the agent a place to put new things without asking. A flat repository with everything in the root forces a choice the agent will make somewhat arbitrarily.
+-->
+
+<!--
+Vague rules degrade silently. "Make sure to test stuff" survives review because no one can claim it is wrong, but the agent has no way to operationalise it — there is no observable difference between honouring the rule and ignoring it. Specific rules ("create a Pester test file for every new public function, covering at least one success path and one failure path") are testable and therefore enforceable.
+
+The rule-writing skill is closer to writing technical documentation than to writing prompts. Each rule should answer: what should happen, when, and how would I know it happened? Rules that fail that test are usually wishes, not instructions.
+-->
 ---
 
 <!-- _class: compact -->
@@ -791,6 +1035,13 @@ Agent reads it before planning → log lines, tests, variable names use the **te
 
 > Vague *"context"* → **artefacts a human reviewed and a diff can prove**.
 
+<!--
+The Grill-Me pattern operationalises Fred Brooks's observation from *The Design of Design* (2010) that most defects originate in the requirements, not the implementation. By forcing the agent to interview the human *before* writing code, the cost of the inevitable misunderstanding moves from "discovered after deployment" to "discovered in chat." The transcript itself becomes a reviewable spec artefact — not a side-effect, but the point.
+
+The Ubiquitous-Language pattern applies Eric Evans's Domain-Driven Design idea (*Domain-Driven Design*, 2003) to human-AI collaboration. Without a glossary, the agent picks whichever synonym is most common in its training data: "customer" instead of your "tenant," "job" instead of your "run." The result is code that compiles but uses vocabulary nobody on the team uses, which is invisible at PR-time and corrosive over months.
+
+Both patterns share a structural property worth naming: they produce *artefacts* (transcript, glossary) that live in Git. "Context" stops being something hand-waved in a hallway conversation and becomes something a diff can show changed.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -801,6 +1052,32 @@ Agent reads it before planning → log lines, tests, variable names use the **te
 > *"Luck is what happens when preparation meets opportunity."*
 > — **Seneca**
 
+<!--
+Speaker notes — Module 3 appendix
+
+### Timing: 20-25 minutes
+
+### Key Points to Emphasize:
+1. **Context transforms generic AI into your coding partner**
+2. AI learns from your repository: structure, patterns, conventions
+3. Git provides **traceability** — you always know what changed
+4. **Checkpoints** mean you can always roll back
+
+### Demo Tips:
+- Show a real repository with existing patterns
+- Have agent create something new
+- Highlight how output matches existing code style
+- Show git diff to prove traceability
+- Demonstrate a rollback if time permits
+
+### Common Questions:
+- "Does it read ALL files?" → It reads relevant files based on task
+- "What about large repos?" → Smart context selection
+- "Private/sensitive files?" → Can use .gitignore patterns
+
+### Transition to Module 4:
+"Context helps AI understand your project. But how do you teach it your specific rules? That's what custom instructions and instruction files are for..."
+-->
 ---
 
 <!-- _class: dense -->
@@ -825,6 +1102,11 @@ Function Validate-Input {
 ```
 *Different style, verbose, inconsistent*
 
+<!--
+The inconsistency on this slide is genuine and reproducible — the same prompt to the same model on different days produces different code, because the model has nothing to anchor on beyond its training-data priors. Temperature, recent context, even time-of-day sampling variance all contribute.
+
+The practical cost is hidden until a team scales. One developer alternating between two styles is annoying; ten developers each getting two random styles produces a codebase no reviewer can pattern-match against. The fix is not "better prompting" — it is removing the question from the prompt entirely by writing it down once, in a file the agent reads automatically.
+-->
 ---
 
 <!-- _class: dense -->
@@ -851,6 +1133,11 @@ Function Validate-Input {
           AI applies these rules AUTOMATICALLY
 ```
 
+<!--
+Instruction files implement a pattern called "prompt prefixing": the host application silently prepends the file's contents to every system prompt the model sees. From the model's perspective there is no difference between rules you typed five seconds ago and rules you wrote six months ago — they all arrive together.
+
+The leverage is asymmetric. Writing one rule once costs a minute; the rule then applies to every subsequent task for every developer on the team, indefinitely. This is the single highest-ROI configuration most teams make to their AI tooling, and it is also the one most likely to be skipped because it does not look like "work."
+-->
 ---
 
 <!-- _class: dense -->
@@ -878,6 +1165,16 @@ Function Validate-Input {
 └── AGENTS.md                        ← Cross-tool instructions
 ```
 
+<!--
+Speaker notes (for newcomers):
+- Don't panic at five file types — 90% of teams only use the first one (`copilot-instructions.md`).
+- Quick mental model:
+  - `copilot-instructions.md` = the rulebook that always applies.
+  - `*.instructions.md` files = rules that only apply to certain file types (e.g. only `*.ps1`).
+  - `AGENTS.md` / `CLAUDE.md` = same idea but readable by *other* AI tools too (Claude Code, etc.).
+  - `.agent.md` = a named specialist (e.g. "security-reviewer") you can summon on demand.
+- Start with one file. Add more only when you catch yourself repeating an instruction.
+-->
 ---
 
 <!-- _class: dense -->
@@ -906,6 +1203,18 @@ Function Validate-Input {
 - Include meaningful error messages
 ```
 
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
+Speaker notes (for newcomers):
+- This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
+- The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
+- **Invoke-Pester** is the command that runs all the tests in your project.
+-->
 ---
 
 # Before — Without Instruction Files
@@ -925,6 +1234,11 @@ function Test-Config {
 
 > What if AI **always** followed your standards?
 
+<!--
+The "before" half of the comparison shows the agent's default behaviour when no project rules are in scope. The output is syntactically correct, idiomatically generic, and visibly out of place in a team codebase: no `[CmdletBinding()]`, no parameter validation, no comment-based help, no error handling. The model is doing exactly what it was asked — produce a function that validates a config — at the lowest defensible level of effort, because nothing in the prompt told it the team cared about anything more.
+
+This baseline matters as a calibration point: it is the level the agent reaches when the instruction file is missing, empty, or ignored. Teams that adopt agentic tooling and then complain about output quality are usually looking at this level of output and assuming the model is the bottleneck. The next slide shows the same prompt against the same model with a twenty-line rulebook in scope.
+-->
 ---
 
 <!-- _class: dense -->
@@ -957,6 +1271,11 @@ function Test-Config {
 ```
 **Plus**: Tests created automatically!
 
+<!--
+The "after" half is the same prompt against the same model — the only thing that changed is the presence of `copilot-instructions.md` with rules about cmdlet binding, parameter validation, comment-based help, error handling, and tests. The output now matches what a senior on the team would have written, because the instruction file transferred the team's standards into the agent's defaults.
+
+The delta is intentionally dramatic, but it is also genuinely representative. The instruction file is not a clever prompt-engineering trick; it is a configuration document that arrives with every request. The same effect compounds across every task for every developer on the team, indefinitely. This is the single highest-ROI configuration change most teams make to their AI tooling, and it is also the one most likely to be skipped because writing a rulebook does not look like "real" engineering work.
+-->
 ---
 
 # What You Can Control
@@ -974,6 +1293,11 @@ function Test-Config {
 
 > Write rules for things you find yourself **repeating** to AI.
 
+<!--
+The "things you find yourself repeating" heuristic is the right discovery mechanism for instruction-file content. If a developer corrects the agent three times in a week about how to format errors, that correction belongs in the instruction file, not in the next chat.
+
+What does *not* belong in the instruction file: anything project-specific to a single task (use a prompt file), anything domain-specific that only matters for certain code (use a pattern-matched `.instructions.md`), or anything that is really just a personal preference (use user-level settings). Treating the always-on file as a dumping ground is the most common failure mode — it bloats fast and starts contradicting itself.
+-->
 ---
 
 # Priority Order
@@ -989,6 +1313,11 @@ function Test-Config {
 - You keep personal preferences in user settings
 - Organizations enforce company-wide policies
 
+<!--
+The hierarchy mirrors how human teams already work: personal habits, team norms, company policy — each level overrides the more general one only where it has something specific to say. The agent applies all layers simultaneously, with conflicts resolved by specificity (the more local rule wins).
+
+The most useful layer for most teams is the middle one: repository instructions in Git. Personal-level settings drift between developers; org-level policies are usually too coarse to be operational. The Git-committed instruction file is the only layer where "the team agreed to this" and "the agent enforces this" become the same statement.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1017,6 +1346,14 @@ function Test-Config {
 
 > Continued → next slide: *the spec is not a substitute for code review*.
 
+<!--
+Speaker notes (for newcomers):
+- **Spec** = a short written description of WHAT you want and WHY — written *before* any code.
+- Think of it like a one-page work order: "Build me X, it must handle Y, must NOT do Z."
+- Why bother? Because if the agent goes off-track, the spec is the cheap thing to fix (1 page) vs. re-reading 600 lines of generated code.
+- **Constitution** = the project's permanent ground rules (e.g. "all public functions get tests"). One per project, rarely changes.
+- Spec = per task. Constitution = forever. Instructions (slide 4.3) = forever, like the constitution.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1044,6 +1381,14 @@ Each unread cycle:
 > *"Compile-from-spec without reading = software entropy."* — Matt Pocock, 2026
 
 > Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation). See [GitHub Spec Kit](https://github.com/github/spec-kit).
+
+<!--
+Speaker notes (for newcomers):
+- Companion to the previous slide: writing a spec is half the discipline. **Reading the diff** is the other half.
+- "Compile-from-spec" = asking the agent "build me X from the spec" and merging whatever it produces without looking. Feels productive. Compounds into garbage.
+- The two daily habits to internalise: (1) read every AI diff, (2) when the design no longer matches the spec, fix the *design*, not the prompt.
+- Software entropy is exponential. Three unread cycles isn't 3× worse — it's unrecoverable without a refactor.
+-->
 
 ---
 
@@ -1078,6 +1423,11 @@ handoffs:
 5. Hand off to security-reviewer when ready
 ```
 
+<!--
+A custom agent is a named bundle of three things: a system prompt (the persona), a tool allowlist (what the agent can actually do), and optional handoffs (which other agents it can call). The same underlying model powers all of them; the difference is configuration, not capability.
+
+The tool allowlist matters more than the persona. A "refactor agent" without `runTests` cannot actually verify its refactors; a "security reviewer" with `editFiles` is no longer a reviewer. Choosing the minimal tool set for each agent is what turns the agent definition from cosplay into an actual constraint.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1108,6 +1458,12 @@ handoffs:
 - Decision: PASS / FAIL / CONDITIONAL
 ```
 
+<!--
+Speaker notes (for newcomers):
+- **Handoff** = one agent finishing its job and passing the result to a different agent with a different specialty.
+- Real-world analogy: developer commits → hands to QA → hands to security → hands to release engineer. Same idea, fully automated.
+- Don't build a 5-agent pipeline on day one. Start with a single agent. Add a second only when you keep doing the same review by hand.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1139,6 +1495,13 @@ description: >-
 
 **Key difference**: Instructions = always-on rules · Skills = loaded **only when relevant**
 
+<!--
+Speaker notes (for newcomers):
+- Why not just put everything in instructions? Because instructions are loaded on *every* request — burning tokens (= money) even when irrelevant.
+- A **skill** is like a reference book on a shelf: the agent grabs it only when the task title matches its description.
+- Example: a "debug failing Pester tests" skill is useless 95% of the time. As a skill, it costs zero tokens until you actually have a failing test.
+- Key field: the `description:` in the skill's frontmatter is what triggers it. Write it like a search query — keywords matter.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1173,6 +1536,12 @@ Perform a 3-phase review of the specified code:
 
 Type `/CodeReview` in Copilot Chat → the template runs with your context.
 
+<!--
+Speaker notes (for newcomers):
+- A prompt file is just a saved message you re-use. Type `/CodeReview` instead of pasting the same paragraph for the hundredth time.
+- Easy way to start: every time you re-type the same paragraph, save it as a `.prompt.md`. After a month you'll have your own toolkit.
+- Difference from a skill: a skill is loaded *automatically* when relevant. A prompt is loaded *manually* when you type the slash command.
+-->
 ---
 
 # The Complete Customization Ecosystem
@@ -1186,6 +1555,11 @@ Type `/CodeReview` in Copilot Chat → the template runs with your context.
 | 5 | **Prompt Templates** | `.prompt.md` | When `/command` is invoked |
 | 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
 
+<!--
+The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.
+
+Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1216,6 +1590,11 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 
 > **Write an agent once, use it everywhere.** Your personal agent config travels with you like your dotfiles.
 
+<!--
+"Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
+
+The "as code" framing is the load-bearing claim. The atelier is not a collection of saved chat snippets or browser bookmarks; it is a Git-tracked directory tree with diffable history, peer review, and rollback. The same engineering discipline the curriculum applies to project code applies to the developer's personal AI configuration. Mature practitioners maintain their atelier with the same care they give to their dotfiles or their PowerShell profile — and for the same reason: small daily investments compound into a permanent productivity advantage.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1252,6 +1631,14 @@ Content starts here...
 
 > **Rule**: debug the *description*, not the content.
 
+<!--
+Speaker notes (for newcomers):
+- The most common skill bug: "my skill never fires." Almost always the `description:` is too vague.
+- Treat the description like a search query. Include the exact phrases users would say ("USE FOR: debug Pester, mock issues, ModuleBuilder error…").
+- The `DO NOT USE FOR:` line is just as important — it stops the skill firing on adjacent-but-wrong tasks.
+- If your skill won't load at all: 99% of the time the YAML frontmatter is malformed. Open the Agent Debug Logs panel — the error is there.
+-->
+
 ---
 
 <!-- _class: section-divider -->
@@ -1263,6 +1650,42 @@ Content starts here...
 >
 > *"An experiment is a question which science poses to Nature, and a measurement is the recording of Nature's answer."* — **Max Planck**
 
+<!--
+Speaker notes — Module 4 appendix
+
+### Timing: 30-35 minutes
+
+### Key Points to Emphasize:
+1. Instruction files solve the **consistency problem**
+2. Write rules for things you find yourself **repeating**
+3. Commit `.github/copilot-instructions.md` to Git for **team consistency**
+4. Custom agents allow **specialized behaviors**
+5. **Skills** give agents domain knowledge, loaded on demand
+6. **Prompt files** create reusable `/slash` commands for common tasks
+7. **Agent handoffs** enable multi-agent pipelines (Dev → QA → Prod)
+8. Use `/init` to auto-generate instructions from your codebase
+
+### Demo Tips:
+- Show clear before/after comparison
+- Use same request both times for dramatic effect
+- Don't spend time on the file syntax — show the result
+- Highlight how tests appear automatically with rules
+- If time permits, show a `/CodeReview` prompt invocation
+- **For extended sessions**: Use the [Prompt Evolution demo](../demos/demo-prompt-evolution.md) to show 6 levels of prompt quality
+
+### Common Questions:
+- "Where do I put it?" → `.github/copilot-instructions.md` for project-wide, `.github/instructions/` for pattern-matched
+- "How specific should rules be?" → Specific enough to be actionable
+- "Can I have multiple files?" → Yes, use `.instructions.md` files with `applyTo` patterns
+- "Do rules slow down AI?" → No, they improve quality
+- "Does this work with other tools?" → Use `AGENTS.md` for cross-tool compatibility
+- "What's the difference between skills and instructions?" → Instructions are rules always applied; skills are domain knowledge loaded only when relevant
+- "What's the difference between agents and prompts?" → Agents are persistent personas; prompts are single-use task templates
+- "Can agents call other agents?" → Yes, via handoffs in YAML frontmatter — great for release pipelines
+
+### Transition to Module 5:
+"Now you can control what AI produces. But how do you know it actually works? That's where automated testing and self-verification come in..."
+-->
 ---
 
 <!-- _class: dense -->
@@ -1284,6 +1707,12 @@ But also:
 
 > **Automated tests let AI verify its own work.**
 
+<!--
+Speaker notes (for newcomers):
+- **Automated test** = a small piece of code that checks another piece of code does what it should. Either passes or fails — no opinion involved.
+- In PowerShell the test framework is called **Pester**. In Python it's pytest, in JavaScript it's Jest. Same idea everywhere.
+- Why this matters for AI: tests are the only objective signal the agent has that its work is right. Without tests, "done" means "I think so."
+-->
 ---
 
 <!-- _class: dense -->
@@ -1315,6 +1744,14 @@ But also:
                            └──▶ Go to step 3
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This is the loop that makes "agentic" different from "autocomplete". Autocomplete stops after step 1. An agent only stops when step 3 says PASS.
+- **Pester** = the test framework for PowerShell (`Invoke-Pester` runs all tests). Other languages have equivalents (pytest, Jest, JUnit).
+- The iteration is automatic — you don't approve every cycle, you approve the final result.
+- Critical prerequisite: you must HAVE tests. No tests = no loop. The next slides show how to make sure the agent writes them.
+-->
+
 ---
 
 <!-- _class: dense -->
@@ -1341,6 +1778,11 @@ Agent: "It works. Here's proof." ✅
 
 > *"Experiments are the only means of knowledge at our disposal. Everything else is poetry, imagination."* — **Max Planck**
 
+<!--
+The Planck quote frames the philosophical claim under this entire module: knowledge requires evidence, and in software the evidence is a passing test. "It compiles" and "the chat output looks reasonable" are not evidence — they are absence of one specific class of failure.
+
+The "executable specification" framing has been around since Beck's *Test-Driven Development* (2002), but it acquires new force in the agent era. For a human team, a test suite is a check on the code. For an agent, the test suite is the *only signal that closes the verification loop*. Without tests, the agent has no way to know when to stop iterating — it falls back to the model's own assessment of its work, which is exactly the unreliable judgement the tests were supposed to replace.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1373,6 +1815,11 @@ Describe 'Test-EmailAddress' {
 }
 ```
 
+<!--
+The Pester structure shown (`Describe` → `Context` → `It`) is BDD-style nesting borrowed from Ruby's RSpec by way of JavaScript's Jasmine and Mocha. The structure does not affect test execution — it affects readability and the granularity of the failure report. A flat list of `It` blocks passes the same tests; a well-grouped suite tells you *which class of behaviour* broke.
+
+The six categories on the table are not arbitrary — they correspond to the six places defects empirically cluster in production code (success-path bugs are rare; null/empty/edge are common; error-path defects are the most expensive because they only surface in incidents). An agent told to write "comprehensive tests" will usually produce a balanced sample across these six; a vague "write some tests" instruction produces three success-path tests and nothing else.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1401,6 +1848,22 @@ Result: 5 passed, 0 failed ✅
 
 > **Rate of feedback = speed limit.** *"Don't outrun your headlights."* — Hunt & Thomas, *Pragmatic Programmer*. Fast tests = small correctable strides for the agent; slow tests = long dangerous ones. TDD doesn't fight AI — it **governs** it.
 
+<!--
+Iteration is bounded, not infinite. Every agent host imposes some cap — maximum tool calls per turn, maximum turns per task, maximum tokens consumed — partly for cost reasons, partly because runaway loops are a real failure mode (the agent fixing a symptom that re-creates itself in another file).
+
+The interesting variable to watch in practice is *iteration depth*: how many cycles does the agent need before VERIFY passes? On well-structured repositories with good tests, two or three. On under-tested codebases the agent may iterate ten times and still ship something that compiles but is wrong. Iteration depth is therefore a useful proxy for "how AI-ready is this repo?" — high counts mean the verification signal is too weak.
+-->
+<!--
+The self-verification loop on this slide is the structural reason agentic coding is different from autocomplete. Autocomplete stops at step 1; the chat-era model stops at step 2; only an agent with tool access can run step 3 and iterate on the result.
+
+The loop is genuinely automatic but bounded — every host enforces some maximum on iteration count, typically five to ten cycles before the agent stops and reports failure to the human. Hitting that cap is itself a signal: usually it means the test is testing the wrong thing, or the requirement is under-specified, or the agent has been chasing a symptom across files. The remedy is rarely "give it more cycles."
+-->
+
+<!--
+The Pragmatic Programmer headlights metaphor is the right framing for test-loop speed. Slow tests do not just slow the human — they slow the agent's iteration cycle, which means the agent runs further between checks and accumulates more uncorrected drift before a failure surfaces.
+
+The quantitative version: a five-second test loop lets the agent iterate twelve times per minute. A five-minute test loop lets it iterate twice per hour. The same model on the same task produces dramatically different code quality at those two rates, because the corrective signal arrives at fundamentally different cadences. Investing in test speed is therefore not a developer-experience nicety — it is direct investment in agent output quality.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1428,6 +1891,13 @@ Result: 5 passed, 0 failed ✅
 - Report final test results to user
 ```
 
+<!--
+Speaker notes (for newcomers):
+- This is the single most practical slide in Module 4 — copy-paste this block into your own `copilot-instructions.md` today.
+- The magic line is "do not report completion until all tests pass." That one rule forces the agent to iterate rather than give up.
+- Want it in a non-PowerShell project? Replace `Invoke-Pester` with `pytest`, `npm test`, `dotnet test`, etc. The pattern is language-agnostic.
+-->
+
 ---
 
 <!-- _class: dense -->
@@ -1442,6 +1912,11 @@ Result: 5 passed, 0 failed ✅
 
 > **Tests become the specification. The agent's job is to satisfy them.**
 
+<!--
+Test-first development with AI inverts the failure mode of the cheating-agent trap (slide 5.11a). When tests are written first and the code is written to pass them, the tests act as the specification the code must conform to — the agent cannot rewrite the spec to fit the bug, because the spec exists before the bug does.
+
+The practical concern is that not all requirements are easy to express as tests upfront. Anything involving UI, performance, or fuzzy correctness ("the error message should be helpful") resists test-first authoring. The mature pattern is hybrid: test-first for behaviour with crisp acceptance criteria, code-first followed by tests for behaviour that has to be discovered before it can be specified.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1458,6 +1933,11 @@ Result: 5 passed, 0 failed ✅
 3. Runs `Invoke-Pester`, iterates until green.
 4. You review one commit: tests + code + green run.
 
+<!--
+The test code on this slide is the executable form of a requirements document. Each `It` block names a behaviour the function must exhibit; the function does not exist yet and the tests fail by design. The agent's task is to produce the smallest implementation that turns all the assertions green — nothing more.
+
+The pattern aligns with what the spec-driven module called "plan before code" (slide 4.7a). The test suite *is* the plan; the implementation is downstream of it. This eliminates a class of disagreement that otherwise has to be resolved by reading generated code — if the tests pass, the behaviour matches the spec by definition.
+-->
 ---
 
 # Beyond Pester — Additional Verification
@@ -1477,6 +1957,11 @@ Agent: Fixing — changing to Write-Output
 Agent: Running PSScriptAnalyzer... No issues found ✅
 ```
 
+<!--
+The verification surface extends well beyond unit tests. Static analysers (PSScriptAnalyzer, ESLint, Pylint, Roslyn analysers) catch a different class of defect than tests do — style, common bug patterns, security smells — and they run in milliseconds rather than seconds. Type checkers (mypy, pyright, TypeScript's `tsc`, F#'s compiler) catch yet another class, the one Matt Pocock pointed at when he claimed TypeScript catches ~94% of LLM errors that surface as type-check failures.
+
+The practical implication is that verification should be a *layered* signal, not a single check. Compile/type-check (instant), lint (sub-second), unit tests (seconds), integration tests (minutes), end-to-end (longer). The agent should iterate at the fastest layer it can, escalating to slower layers only when faster ones go green. Skipping the fast layers in favour of running the full test suite on every iteration is a common mistake — it wastes the cheap signal that would have caught most of the defects.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1508,6 +1993,12 @@ Agent: "All 12 tests passed." 🟢     Reality: function is broken.
 
 > Assertions are evidence. **Evidence requires an independent witness.**
 
+<!--
+Speaker notes (for newcomers):
+- The trap in one sentence: if the same brain writes the bug AND the test, it writes a test that approves the bug.
+- Easiest mitigation for beginners: write (or sketch) the tests yourself BEFORE asking the agent to implement the function. Now tests are independent.
+- Or: ask a *different* agent (a "reviewer" agent from Module 4) to write the tests. Two brains, one truth.
+-->
 ---
 
 # Trust Hierarchy
@@ -1523,6 +2014,11 @@ Agent: "All 12 tests passed." 🟢     Reality: function is broken.
 Agent handles layers 1–3 **automatically**.
 You handle layers 4–5 with **full visibility** via `git diff`.
 
+<!--
+The split between automated and human layers is not arbitrary — it tracks which questions have objective answers. "Does the code compile?", "do the tests pass?", "is the code free of lint warnings?" are decidable; an agent can answer them as well as a human. "Is the logic correct?", "is this the right abstraction?", "does this fit our architecture?" are judgement calls; an agent can offer an opinion but the decision lives with the human.
+
+The practical implication is that human review should focus on layers 4–5. Spending review cycles re-checking the agent's syntax and tests is wasted effort — the agent already checked them, and the human is not faster or more accurate at the same check. Time saved at the bottom of the hierarchy is time available to spend on the top, where human judgement is genuinely scarce.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -1534,6 +2030,33 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 > *"Everything is connected to everything else."*
 > — **Alexander von Humboldt**
 
+<!--
+Speaker notes — Module 5 appendix
+
+### Timing: 20-25 minutes
+
+### Key Points to Emphasize:
+1. Tests transform "I think it works" into "I proved it works"
+2. The agent **iterates until tests pass** — you get working code
+3. Test-first approach treats tests as **specifications**
+4. You still review, but automated checks handle basics
+
+### Demo Tips:
+- Show a real test execution
+- If possible, have a test fail and show agent fixing it
+- Show the final "all tests passed" output
+- Highlight that this happened without your intervention
+
+### Common Questions:
+- "What if tests are wrong?" → Tests are also code you review
+- "How long does iteration take?" → Usually 1-2 cycles
+- "What about complex logic?" → Works best with clear specifications
+- "Does it always pass?" → No, but you see exactly what failed
+
+### Transition to Module 6 (Extended) or Summary:
+- Extended: "Now let's see all of this in action with Copilot Agent Mode..."
+- 2-Hour: "Let's see all these concepts come together in a live demo..."
+-->
 ---
 
 # MCP — The Universal Connector
@@ -1552,6 +2075,14 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 > **MCP (Model Context Protocol)** gives agents a standardized way
 > to connect to external tools, data sources, and services.
 
+<!--
+Speaker notes (for newcomers):
+- **MCP** = Model Context Protocol. Think of it as "USB for AI tools."
+- Before MCP: every AI tool needed a custom integration for every data source. Painful.
+- After MCP: one plug fits everything. Write an MCP server once, every AI tool (Copilot, Claude, Cursor…) can use it.
+- Standardized by the Linux Foundation — so it's not a Microsoft- or Anthropic-only thing.
+- You don't need to build MCP servers to benefit; hundreds already exist for GitHub, Azure, databases, browsers, etc.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1579,6 +2110,11 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 - **Growing ecosystem** — hundreds of MCP servers available
 - Think of it as **"USB for AI tools"**
 
+<!--
+The protocol Anthropic published in late 2024 caught on faster than anyone expected; by mid-2026 it had been moved to the Linux Foundation and adopted by every major AI coding tool. The reason is structural: before MCP, every AI host had to write its own integration for every tool, and every tool vendor had to maintain N adapters. MCP turned an N×M problem into an N+M problem.
+
+The "USB for AI tools" framing is more than analogy. MCP defines transport (stdio, HTTP), discovery (`list_tools`), invocation (`call_tool`), and a typed schema language. A server exposes capabilities; the agent discovers and uses them without bespoke wiring. The economic effect mirrors what USB did for peripherals: once the protocol stabilises, the ecosystem can scale independently of any single vendor.
+-->
 ---
 
 # MCP in VS Code
@@ -1605,6 +2141,11 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 
 Agent discovers tools automatically → calls them during tasks → you approve calls.
 
+<!--
+The `mcp.json` configuration is the same pattern as `launch.json` or `tasks.json` — a small JSON file that wires the editor to an external process. The `command`/`args` shape means almost any executable can be an MCP server; the only contract is that it speaks the protocol on stdin/stdout.
+
+The `${input:...}` interpolation is the right way to handle secrets — it prompts the user once and stores the value in the OS credential store, not in the JSON file. Hard-coded tokens in `mcp.json` are the single most common security mistake when teams first adopt MCP, because the file is committed to Git by default.
+-->
 ---
 
 # MCP Use Cases
@@ -1623,6 +2164,11 @@ Agent discovers tools automatically → calls them during tasks → you approve 
 
 MCP turns your agent from **"code assistant"** into **"operations assistant"**.
 
+<!--
+The CMDB example is the kind of workflow that resists conventional automation: it requires reading a database, applying domain logic, generating configuration, and validating the result. Before MCP, every step would have been a separate script with its own glue. With MCP, the agent treats database query, code generation, and test execution as a single planning surface.
+
+The operational implication is that "AI in operations" stops being a slogan and becomes a concrete capability. A PowerShell-focused team can wire MCP servers to Active Directory, Exchange, SCCM, Azure, and SQL Server, and end up with an agent that can answer questions like "which servers haven't reported a successful backup in 48 hours?" by walking the same systems a human operator would walk — only faster, and with the query inspectable in the diff.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1648,6 +2194,19 @@ The same agentic loop applies:
 > *"The impact only reveals itself through hands-on experience — not on slides."*
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
+<!--
+Speaker notes (for newcomers):
+- Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
+- Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
+- Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
+- **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
+-->
+
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1668,6 +2227,11 @@ Reach for an agent-native tracker like **[Beads / `bd`](https://github.com/gasto
 
 > **Judgment, not tooling.** The operating model is the discipline; the tracker is an implementation detail you upgrade when the seams show.
 
+<!--
+Beads (`bd`) is one of several agent-native trackers that appeared in 2025–26 in response to a real problem: GitHub Issues and similar trackers were designed for human teams writing issues one at a time, and they degrade when multiple agents attempt to claim, update, and link issues concurrently. The Dolt backend underneath Beads provides cell-level merge semantics that file-based trackers cannot offer.
+
+The slide's discipline is to resist adopting the tool prematurely. A two-person team with one agent and twenty open issues will not benefit from Beads; they will benefit from the friction-cost of learning it. The threshold for adoption is structural — multiple agents writing in parallel, hundreds of issues with real dependencies, sessions distributed across machines and contributors. Below that threshold, GitHub Issues plus a Memory Bank plus `ai/<slug>` branches is the right answer.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1693,6 +2257,11 @@ Reach for an agent-native tracker like **[Beads / `bd`](https://github.com/gasto
 
 > **Golden rule**: Give MCP servers the **minimum permissions** needed.
 
+<!--
+The security model deserves the same scrutiny as any other extension mechanism. An MCP server is arbitrary code running in the user's process with whatever credentials the user provides. The "open source" safeguard on this slide is only as good as the actual reading of the server's source — in practice teams pin specific versions and treat MCP-server updates with the same caution as npm-package updates.
+
+The least-privilege principle is more important here than in most software contexts because the agent will *use* whatever capabilities you grant it, and will sometimes use them in combinations the human did not anticipate. A read-only database token plus a public-internet HTTP tool is not the same risk surface as their union — the agent can join the two into queries that exfiltrate data the human would not have asked for. The safe default is the smallest tool set that lets the agent finish the actual task at hand.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1719,6 +2288,18 @@ Start   Created  Modified  Added   Deleted   Broke
 
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
+<!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
+
+<!--
+Speaker notes (for newcomers):
+- VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
+- Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
+- Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
+-->
 ---
 
 # Multi-File Operations
@@ -1737,6 +2318,11 @@ Start   Created  Modified  Added   Deleted   Broke
 
 Agent uses **search** to find all references, then **tests** to verify nothing broke.
 
+<!--
+Multi-file refactoring is one of the operations where the agent's behaviour most clearly exceeds what autocomplete or chat could do. Modern IDEs already had "rename symbol" features, but those break down once the rename has to cross file types (source, tests, documentation, manifest files) or follow a less mechanical pattern (rename a concept, not a token).
+
+The agent's advantage here is that it uses the same tools a human would use — grep, semantic search, the test runner — in sequence, with the test suite as the convergence check. The trade-off is that the operation is opaque while in progress: the agent might touch fifty files before showing the result. This is the canonical case for letting the agent run, then reviewing the consolidated diff rather than each step.
+-->
 ---
 
 # Agent Types
@@ -1749,6 +2335,15 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 | **Background** | Separate worktree | Long-running tasks |
 | **Cloud Agent** | GitHub infrastructure | Issues → PRs automatically |
 | **Third-party** | VS Code extensions | Specialized workflows |
+
+<!--
+Speaker notes (for newcomers):
+- Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
+- **Start with Agent Mode** in VS Code — you see every step. Comfortable, low risk.
+- **Ask Mode** is read-only: great for "explain this file" or code reviews where you don't want anything modified.
+- **Background agent** is Agent Mode running in a parallel copy of the repo — doesn't block your editor. Good for long refactors.
+- **Cloud agent** runs on GitHub's servers with no human in the loop. Only use after your `copilot-instructions.md` is mature.
+-->
 
 ---
 
@@ -1778,6 +2373,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
    • Merge when satisfied
 ```
 
+<!--
+The cloud-agent pattern compresses a workflow that previously required a junior developer, a senior reviewer, and a CI pipeline into something resembling a delegation primitive. The interesting design choice is that the output is a Pull Request, not a merged change — the existing review machinery (code owners, required reviewers, branch protection rules) all still apply, unchanged.
+
+Where this pattern works well: well-scoped, low-ambiguity changes against codebases with strong tests and clear conventions — dependency bumps, lint fixes, documented bug reports with reproduction steps. Where it works poorly: anything ambiguous, anything cross-cutting, anything that requires reading a human's intent rather than a written specification. Teams that adopt cloud agents successfully spend most of the work writing better issues, not configuring the agent.
+-->
 ---
 
 # The Horizon — What's Coming
@@ -1796,6 +2396,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 - **Git** provides traceability
 - **Tests** provide verification
 
+<!--
+Forecasting in this space ages fast — the slide deliberately separates capabilities that are *available now*, *in technical preview*, and *emerging*. The trajectory worth holding onto is that the unit of delegation keeps growing: from a line to a function to a file to a feature to a task to a sprint. Each step expands the agent's autonomy and correspondingly raises the cost of weak supervision.
+
+The "what stays the same" list is the more important half of the slide. Every capability listed above amplifies whatever discipline the team already has — strong tests, clean Git history, good instructions — and amplifies the absence of that discipline just as effectively. The operating model the curriculum teaches is the thing that holds value across each generation of capability; the specific features will be obsolete within eighteen months.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -1807,6 +2412,86 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 > *"Science is organized knowledge. Wisdom is organized life."*
 > — **Immanuel Kant**
 
+<!--
+Speaker notes — Module 8 appendix
+
+### Timing: 25 minutes (Extended agenda only)
+
+### Slide Timing Breakdown:
+- Slides 8.1-8.6: MCP (10 min)
+- Slides 8.7-8.8: Checkpoints (5 min)
+- Slides 8.9: Multi-file operations (5 min)
+- Slides 8.10-8.12: Agent types and future (5 min)
+- Slides 8.13-8.14: 2026 Q2 capabilities + takeaway (5 min)
+
+### Key Points to Emphasize:
+1. MCP is the "USB for AI tools" — one standard that works everywhere
+2. Checkpoints remove fear — let agents take bigger steps
+3. Multi-file operations are where agentic coding truly shines
+4. Cloud agents represent the next phase — Issues become PRs automatically
+5. Despite all the power, human review remains the constant
+
+### Demo Suggestions:
+- **MCP demo**: Show configuring a GitHub MCP server, then ask the
+  agent to "list my open issues" — demonstrates tool discovery
+- **Checkpoint demo**: Have the agent make several changes, then
+  click "Undo" to roll back to an earlier state
+- **Multi-file demo**: Ask the agent to rename a function and watch
+  it update all references across files, then run tests
+
+### Common Questions:
+- "Is MCP safe?" → Tool approval prompts, scoped credentials,
+  open source servers. Start with read-only access.
+- "Can the cloud agent access private repos?" → Yes, with proper
+  GitHub App permissions configured.
+- "How long can a cloud agent run?" → Several minutes per task;
+  it creates a PR when done.
+- "What happens if the agent breaks something?" → Checkpoints
+  let you roll back. Tests catch regressions.
+- "Can I build my own MCP server?" → Yes, MCP has SDKs for
+  TypeScript, Python, and other languages.
+
+### Tone:
+- Exciting but grounded
+- Show the possibilities, but remind that fundamentals
+  (instructions, tests, review) still apply
+- These are power tools for people who already understand the basics
+
+### Transition to Module 9:
+"Now that you've seen what agentic coding can do at its most
+advanced, let's talk about an equally important topic: knowing
+when to use these capabilities and when to exercise caution..."
+-->
+
+<!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+-->
 ---
 
 <!-- _class: dense -->
@@ -1828,6 +2513,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 > Common thread: **well-defined tasks with verifiable outcomes** —
 > including anything you can do from the command line, not just writing code.
 
+<!--
+The common thread on this slide is the discriminating one: "well-defined tasks with verifiable outcomes." Boilerplate, tests, documentation, and refactoring all share the structural property that you can mechanically check whether the agent's output is correct — the code compiles, the tests pass, the documentation matches the signature, the refactor preserves behaviour.
+
+The operational-troubleshooting and infrastructure-diagnostics rows are the under-appreciated ones in this list. They look different from the others (no code being written), but they share the same structural property — the verification step is `run the diagnostic again and see if the error is gone`. That makes them an excellent fit for agentic work, even though the work product is a fixed system rather than a new function.
+-->
 ---
 
 # Where to Be Careful ⚠️
@@ -1846,6 +2536,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 - Smaller increments
 - More comprehensive testing
 
+<!--
+The categories in this table share a structural property: the cost of being wrong is asymmetric. Boilerplate that is slightly off is annoying; performance code that is slightly off is the difference between a working system and an outage. The asymmetry, not the difficulty, is what moves these tasks from green to yellow.
+
+The mitigations are not about preventing the agent from working in these areas — they are about adjusting the supervision intensity to match the cost of error. Smaller increments, stricter prompts, and more thorough testing all increase the per-task overhead, which is exactly what is justified when the downside is severe. The mature pattern is to make this adjustment explicit ("this is a sensitive area, slow down") rather than letting the agent operate at default intensity everywhere.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1870,6 +2565,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 ### Always: security review, run scanners, test auth paths, verify secret handling.
 
+<!--
+Security-sensitive code is the category where the agent's training data is most likely to be wrong, because the open-source corpus contains an enormous amount of subtly insecure code that compiles, runs, and looks idiomatic. The agent does not learn "this is the secure pattern" — it learns "this is the common pattern," and security-wise those are routinely different.
+
+The most effective mitigation is structural: pair the engineer agent with a security-reviewer agent (from Module 4's handoff pattern), so AI-authored code is reviewed by a second pass before it reaches a human. Even an imperfect automated review filters the highest-volume class of mistakes (hardcoded secrets, missing input validation, plaintext credential logging), leaving the human's attention free for the harder cases.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1897,6 +2597,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 > *"Autonomy and security don't grow at the same pace."* — **Stephan Scheuer**, Handelsblatt
 
+<!--
+The Scheuer quote ("Autonomie und Sicherheit wachsen nicht im gleichen Tempo") names the structural tension this slide is built around. Capability expands generation by generation; safeguards expand only when the industry has seen enough incidents to learn what to guard against. The window between "new capability available" and "safeguards mature" is where most preventable damage happens.
+
+The "worst thing" question is the right frame because it directs attention to the *system the agent operates in*, not the agent itself. The agent does not need to be malicious to do harm; it only needs to combine its granted capabilities in a way the human did not anticipate. The PocketOS incident two slides later is the canonical illustration: every individual permission the agent had was reasonable; the combination was catastrophic.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1917,6 +2622,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 > *"He who learns but does not think, is lost. He who thinks but does not learn is in great danger."*
 > — **Confucius**
 
+<!--
+The pilot/autopilot analogy is apt but worth unpacking. Commercial aviation requires pilots to maintain manual flying skills through regular training even though autopilot handles most cruise-phase flying — because the moment the autopilot disengages is exactly the moment the pilot needs to be sharpest. The same logic applies to AI-augmented engineering: the work where the agent gives up and asks for help is precisely the work where human capability has to be intact.
+
+The paradox in the inset box is the operating lesson. Speed gains compound for engineers who already understand the systems they are accelerating; they decay for engineers who use the agent to avoid building that understanding. The cardinal rule is therefore preventive, not corrective — invest in understanding *before* you delegate, because trying to acquire it after the fact, in the middle of an incident, is the worst possible time.
+-->
 ---
 
 <!-- _class: compact -->
@@ -1942,6 +2652,13 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 > Sources: [Tom's Hardware (2026-04-27)](https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-deletes-entire-company-database-in-9-seconds-backups-zapped-after-cursor-tool-powered-by-anthropics-claude-goes-rogue), Disclose.tv. Replit reported a near-identical incident weeks earlier.
 
+<!--
+Speaker notes (for newcomers):
+- This is not a hypothetical. A real company lost its production database AND every backup in 9 seconds because one API token had too much access.
+- The agent didn't "go evil" — it guessed wrong about what a delete command would touch, and nothing stopped it.
+- The takeaway is not "AI is dangerous". The takeaway is "give the AI the same guardrails you'd give a brand-new junior with admin rights."
+- The next two slides (9.8d, 9.8e) are the practical guardrails.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1973,6 +2690,11 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 
 > The agent will be wrong eventually. **The system around it must not be.**
 
+<!--
+The five-layer model on this slide is defence-in-depth applied to the agentic operating model. No single layer would have prevented the PocketOS incident; the failure required *all five* to be missing simultaneously. That is uncomfortably common in fast-moving startup environments where speed of shipping has historically been valued more than operational rigour.
+
+The destructive-operations rule in the system prompt is worth implementing even on solo projects — it costs nothing, slows the agent only on dangerous actions, and the discipline of writing it forces the team to enumerate which operations they consider destructive. That enumeration is itself a useful artefact, because most teams have never had the conversation explicitly before being asked.
+-->
 ---
 
 <!-- _class: compact -->
@@ -2002,6 +2724,13 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 
 > **When you can put GitOps in front of the system, do.** When you can't (SaaS dashboards, ad-hoc cloud admin), fall back to layers 1–5 with extra rigour.
 
+<!--
+Speaker notes (for newcomers):
+- **GitOps** = "the only way to change the system is to commit a config file to Git, then a robot applies it."
+- The robot has all the dangerous permissions; the AI only has "can write files in this repo."
+- Net result: even if the AI goes rogue, the worst it can do is open a pull request — which a human still has to approve.
+- This is overkill for a personal project. It is the right answer for any production system. Worth knowing it exists.
+-->
 ---
 
 # When to Avoid ❌
@@ -2016,6 +2745,11 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 
 > **If you can't verify it, don't generate it.**
 
+<!--
+The rule on this slide is the closing principle for the entire module — verification capability bounds generation capability. If the workflow has no test, no diff review, no rollback, and no way to detect that the output is wrong, the agent is operating without a safety net, and the productivity gain becomes a leveraged bet on the agent being right every time.
+
+The categories on the table are not absolute prohibitions — they are *defaults to revisit when the verification problem is solved*. "Code you don't understand" becomes a use case once you have an expert reviewer; "highly novel problems" become a use case once you have written enough of the design that the agent has a pattern to follow. The rule is dynamic: verify first, then generate.
+-->
 ---
 
 # Decision Framework
@@ -2037,6 +2771,11 @@ The agent's only verb is **propose** — never **apply**. Same shape: DSC Commun
 5. **Can I break this into testable pieces?**
    Yes → Proceed with agentic workflow ✅
 
+<!--
+The five questions on this flowchart are deliberately sequential — each one gates the next, and a NO on any of them short-circuits the rest. That ordering matters operationally: if you cannot verify the result (question 1), it is irrelevant whether the task is well-suited to AI generation, because you have no signal for whether the output is correct.
+
+The framework is a thinking tool, not a checklist to fill in mechanically. The right way to use it is as a conversation starter for the team — for each YES, name the specific verification mechanism, the domain expert, the test harness, the rollback path. Teams that adopt agentic tooling well typically run a version of this conversation explicitly for each new use case; teams that adopt it badly skip the conversation and discover the answers in production.
+-->
 ---
 
 <!-- _class: compact -->
@@ -2082,6 +2821,13 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
+<!--
+Speaker notes (for newcomers):
+- **Comprehension debt** is the key term on this slide. Coin it for your team.
+- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
+- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
+- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2098,6 +2844,11 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 
 <!-- _split_ -->
 
+<!--
+Moessner's two terms — *Job Hollowing* and *Heteromation* — are the most precise vocabulary available for the labour shift this slide describes. The terms matter because the phenomenon is real but easily mistaken for ordinary burnout. The diagnostic in the second column gives teams a way to test for it: ask, at end of day, what was actually decided. If the answer is "nothing, I approved things," the role has been hollowed regardless of how busy the day felt.
+
+The industry-spread data is the part of the slide most likely to land with non-developer audiences. The same pattern in lab medicine, in copywriting, in legal research: the interesting cases move to the AI; the routine residue stays with the human. The agentic operating model's response is not to slow down adoption — it is to design roles deliberately so the human keeps the cognitively substantive work and the machine takes the tedious work, not the other way around.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2140,6 +2891,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > The meaningful work moves to the machine; the supervisory residue stays with the human.
 
+<!--
+Ousterhout's deep-vs-shallow distinction (*A Philosophy of Software Design*, 2018) was already the most useful design heuristic in software architecture; in the agent era it becomes load-bearing. The agent's context window is finite; every additional file it has to drag into context to reason about a change is tax on the cognitive budget available for the actual problem. Deep modules are cheap to use; shallow modules compound the agent's working-memory cost on every interaction.
+
+LLMs left to their own devices tend to produce shallow modules, because shallow modules are what the open-source training corpus is full of. Helper wrappers, single-method classes, abstraction layers that hide nothing — the agent has seen millions of them and produces them by default. Counteracting that bias requires an explicit architectural review of the *plan* before code is written: "does this introduce public surface that hides meaningful complexity, or is it another shallow wrapper?" If the latter, push back before the diff exists.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2176,6 +2932,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30)
 
+<!--
+Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
+
+The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
+-->
 ---
 
 # The Human Role Remains
@@ -2195,6 +2956,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 > *"Man is nothing else but what he makes of himself."*
 > — **Jean-Paul Sartre**
 
+<!--
+The four roles — architect, reviewer, judge, owner — collectively describe the work that does not transfer to the agent. Each one is a specific kind of judgement: what to build, whether the build is correct, whether the agent should be used here at all, who is responsible if it goes wrong. None of these has a credible automation story in 2026; all of them benefit from agent support but none can be delegated.
+
+The distinction worth holding onto is between work that is *augmented* and work that is *substituted*. The agent augments architecting (it can sketch options), reviewing (it can flag obvious issues), and judging (it can supply prior-art examples). The agent cannot substitute for *being responsible*, which is the only one that survives the loop — because responsibility is a social and legal construct, not a technical one, and there is no construct yet for transferring it to an AI system.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -2204,6 +2970,35 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > *"The journey of a thousand miles begins with a single step."* — **Lao Tzu**
 
+<!--
+Speaker notes — Module 10 appendix
+
+### Timing: 10-15 minutes (including Q&A)
+
+### Key Points:
+1. Recap the core concepts (now including skills, prompts, handoffs)
+2. Give actionable next steps (including VS Code settings)
+3. Show cross-machine sync as an advanced pattern
+4. Provide resources
+5. Inspire action, not intimidation
+
+### Q&A Tips:
+- Common questions and answers prepared
+- If stumped: "Great question, let me follow up with you"
+- Time-box Q&A to stay on schedule
+
+### Closing:
+- End on empowerment, not complexity
+- "Start small" message
+- Thank them for their time
+- Share contact info
+
+### Post-Session:
+- Share slides immediately
+- Follow up on unanswered questions
+- Send feedback survey
+- Offer office hours if appropriate
+-->
 ---
 
 # What We've Learned
@@ -2218,6 +3013,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 | 6 | **Self-Verification** | Automated testing lets AI prove its work |
 | 7 | **Judgment Matters** | Know when to use it and when to be careful |
 
+<!--
+The five concepts on this slide are the load-bearing ones in the curriculum. Each maps to a module: agentic coding (M2), context (M3), instructions (M4), self-verification (M5), judgement (M9). The other modules — advanced capabilities (M8), beyond code (M11), the lab as sandbox (M12) — are extensions; these five are the foundation.
+
+The ordering also matters. The agentic loop is the prerequisite vocabulary; context is what makes the loop produce useful output; instructions are how that context becomes durable; self-verification is what closes the loop; judgement is what decides whether the loop should run at all. A team that internalises only one of these in isolation tends to misuse the others; the value compounds when all five are present.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2239,6 +3039,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 **5. When should I use agentic coding?**
 > For well-defined tasks where you can verify results.
 
+<!--
+The five questions are a self-test the audience can run privately. Each one has a precise answer the curriculum supplied, and inability to answer any of them is a signal to revisit that module before adopting the practice in their own work. The questions are short enough to take home; the answers are the operating model in summary form.
+
+The questions also form a useful interview pattern — teams adopting agentic tooling can use this list when hiring or onboarding to test whether a candidate has actually internalised the concepts or merely heard the vocabulary. The third question ("how do I control AI behaviour?") and the fifth ("when should I use agentic coding?") are the ones that most distinguish reflective practitioners from enthusiastic adopters.
+-->
 ---
 
 # Getting Started — Week 1
@@ -2256,6 +3061,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 □ Try one simple task in Agent mode
 ```
 
+<!--
+The three-week ramp is a deliberate pacing recommendation, not a fixed schedule. Most engineers can compress the first week into a day if they already use Copilot in chat or completion mode; the more important variable is the *progression* (alone → with real work → with the team) rather than the calendar.
+
+The single most-skipped step in this list is `/init`. Teams routinely write their first `copilot-instructions.md` from scratch, miss conventions that the agent's auto-scan would have surfaced, and end up with a file that misses what the codebase already implies. The `/init` output is rarely the final file, but it is almost always a better starting point than a blank page.
+-->
 ---
 
 # Getting Started — Weeks 2–3
@@ -2278,6 +3088,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 □ Establish team conventions for AI use
 ```
 
+<!--
+The immediate / this-week / ongoing structure is calibrated to convert intent into action. Most adoption failures happen in the gap between leaving a workshop motivated and opening the editor the next morning unsure what to do first. The immediate items are deliberately small enough to complete in twenty minutes; the week-one items expand the surface; the ongoing items are the durable practice.
+
+The order also matters. Enabling Agent Mode before writing an instruction file leaves the operator unsupervised; writing the instruction file first ensures the first agentic task already operates under the team's rules. The "share with a colleague" item in week one is the social-mechanism step — it moves the practice from individual to team without requiring a top-down rollout.
+-->
 ---
 
 # Your First copilot-instructions.md
@@ -2294,6 +3109,14 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 ```
 
 > Start with 5–10 rules. Add more as you learn what the AI gets wrong.
+
+<!--
+Speaker notes (for newcomers):
+- Don't try to write a perfect rulebook on day one. You'll guess wrong about what the AI gets wrong.
+- Method that actually works: every time you find yourself re-typing the same correction ("use CmdletBinding", "add try/catch", "include help"), add it to the file.
+- After 2–3 weeks the file stabilises around the things YOUR project actually cares about.
+- The file lives at `.github/copilot-instructions.md` inside the repo. Commit it. Now every teammate gets the same AI behaviour.
+-->
 
 ---
 
@@ -2317,6 +3140,11 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > **Tip**: Use `/init` in chat to auto-generate a starting point!
 
+<!--
+The progression from V1 to V2 is the realistic shape of an instruction file's evolution. V1 is the minimum viable rulebook — short enough to write in five minutes, specific enough to be enforceable. V2 is what the same file looks like after a few weeks of catching the agent doing things the team did not want.
+
+The discipline that matters is *additive iteration*. Every new rule should answer the question "what behaviour did the agent produce in the last week that I want to prevent next week?" Rules added speculatively ("we should probably have a rule about X") rarely improve output because the agent had no problem with X to begin with. The file gets stronger by responding to observed failures, not by enumerating imagined ones.
+-->
 ---
 
 # Cross-Machine Customization Sync
@@ -2336,6 +3164,13 @@ $settings = @{
 Write an agent once, use it on **every machine**.
 OneDrive syncs Instructions, Agents, Skills, and Prompts automatically.
 
+<!--
+Speaker notes (for newcomers):
+- Two layers of customisation: **per-project** (lives in `.github/` inside the repo) and **personal** (lives in your user profile, follows you everywhere).
+- This slide is the personal layer. Use OneDrive / Dropbox / iCloud — doesn't matter which.
+- The script looks scary but only does one thing: tell VS Code "look in this synced folder for my instructions."
+- Always back up `settings.json` before running configuration scripts — the script does this automatically.
+-->
 ---
 
 # Suggested Starting Points
@@ -2353,6 +3188,11 @@ OneDrive syncs Instructions, Agents, Skills, and Prompts automatically.
 
 Expected outcome: **working tests in minutes**, verified by the agent.
 
+<!--
+The four "easy wins" on this slide are deliberately uninspiring. They are the tasks engineers already know they should do and tend to put off — missing tests, missing documentation, untouched scaffolding, error handling that never quite got added. The agent removes the activation cost and the engineer gets the closure of finally addressing the backlog.
+
+The pattern is psychological as well as practical. A first successful agent task on a real piece of work converts more skeptics than any demo can. The win does not have to be impressive; it has to be *theirs* — their codebase, their problem, their improvement. The training's job is to make sure the first task is structured so that success is the overwhelmingly likely outcome.
+-->
 ---
 
 # Resources
@@ -2369,6 +3209,13 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 ### Model Context Protocol
 - **Spec**: modelcontextprotocol.io
 - **Servers**: github.com/modelcontextprotocol/servers
+
+<!--
+Speaker notes (for newcomers):
+- Bookmark the top three links and you have a complete on-ramp: Agent Mode docs (what), Custom Instructions docs (how), MCP servers list (what to plug in).
+- All slides + materials for this training live in the repo — attendees get the link in the chat after the session.
+- If you're brand new: start with the Agent Mode docs. Everything else makes more sense after you've used it once.
+-->
 
 ---
 
@@ -2404,6 +3251,11 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 
 > *"Wenn man Menschen mit einer Passion die Möglichkeit gibt, kann etwas wirklich Besonderes dabei rauskommen. Genau dieses Kreative ist das, was eine KI bis heute nicht hat."* — Mössner (@34:50)
 
+<!--
+The Stockfish comparison is the strongest historical anchor available for the "AI does not replace the craft" claim. Computer chess engines have been superhuman since the late 1990s; the population of competitive human players is at an all-time high, the supporting industry (streaming, coaching, analysis) is the largest it has ever been, and the human game is qualitatively more interesting because the engine raised the floor on what counts as a good move. None of this was the prediction in 1997.
+
+The with/from distinction on this slide is the single most important sentence in Module 10. "Code from AI" is the burnout pattern named in Module 9 — the human becomes a quality gate for output they did not author. "Code with AI" is the operating-model pattern — the human authors intent (in instruction files, in specs, in the Memory Bank), and the agent executes against that intent. Same agent, same model, same speed; entirely different relationship to the work. The curriculum's claim is not that the second pattern is virtuous — it is that the second pattern is the one that sustains for years rather than burning out the operator in months.
+-->
 ---
 
 # You Are the Conductor — AI Is Your Orchestra
@@ -2420,6 +3272,13 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 
 ### = A Symphony: *Better code, faster delivery, less tedium*
 
+<!--
+Speaker notes (for newcomers):
+- Closing image to take home: your role doesn't shrink — it changes shape.
+- A conductor knows every instrument but plays none. The better you understand each AI capability (and each model's quirks), the better the orchestra sounds.
+- The fear "AI will make me redundant" assumes you stay a violin player. Promote yourself to conductor before the question even applies.
+-->
+
 ---
 
 <!-- _class: section-divider -->
@@ -2430,6 +3289,15 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 > *"The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. The marriage of the two is a force beyond calculation."*
 > — attributed to **Leo Cherne**
 
+<!--
+Speaker notes — Module 11 appendix
+
+### Timing: 15-20 minutes (2h cut) / 25 minutes (4h cut)
+
+Module 11 widens the agentic operating model beyond code. The pedagogical move is to defuse the assumption that this curriculum is a developers-only practice; the structural claim is that runbooks, legal correspondence, research synthesis, and operational reports all submit to the same loop when the verification step can be made concrete.
+
+When presenting to a mixed audience, this is the module that earns the non-developer attendees' attention. The three-project table (Kerberos rollout, multi-year legal dispute, German tenancy case) is the empirical anchor; the data-governance slide is the gatekeeper that keeps the talk credible in regulated contexts. The transition to Module 12 narrows back to one concrete extension — the lab as the agent's sandbox for infrastructure work.
+-->
 ---
 
 # This Pattern Is Not About Code
@@ -2446,6 +3314,11 @@ Everything you have learned so far applies **unchanged** to:
 
 > **The loop is identical. Only the artefact changes.**
 
+<!--
+The table on this slide is one of the strongest claims in the curriculum. Up to this point the audience has been encouraged to picture agents working on source code; this slide widens the frame to claim the same operating model applies to runbooks, legal arguments, research synthesis, and operational reports. The claim is empirical — the next slide names three projects where it has held — not aspirational.
+
+The structural property that makes the loop transfer is verifiability. Code can be compiled and tested; a runbook can be executed in a lab; a legal argument can be cross-checked against a corpus; a research synthesis can be audited against its sources. The agentic loop closes wherever there is a way to check the work. The artefact looks different in each domain, but the supervision pattern — Observe, Plan, Act, Verify, Iterate — is identical.
+-->
 ---
 
 # Three Real Projects, One Pattern
@@ -2459,6 +3332,11 @@ Everything you have learned so far applies **unchanged** to:
 ### All three use the **same six building blocks**:
 VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured input corpus · deterministic Markdown output
 
+<!--
+The three projects on this slide are deliberately drawn from non-software domains — systems engineering, multi-year legal dispute, German tenancy law — to defuse the assumption that the operating model is a software-only practice. The Kerberos RC4 rollout (Project A) produced numbered PowerShell runbooks; the legal dispute (Project B) produced argumentation structures and formal correspondence; the tenancy case (Project C) produced Schriftsatz drafts citing the BGB and BetrKV.
+
+The six building blocks listed at the bottom are the load-bearing finding. None of the three projects could have proceeded with a chat interface alone; each one needed a Git repository, Markdown as the working medium, PowerShell as the bridge to local systems, and a Memory Bank for context that survives across sessions. The operating model is what made the work *durable* — weeks of analysis that could be paused, resumed, audited, and reverted, rather than evaporating between chat sessions.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2491,6 +3369,11 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
            (diff · revert · blame · branch)
 ```
 
+<!--
+The input / Memory Bank / output / agent / Git diagram is the architectural summary of every project that uses this operating model. The shape is consistent across domains: a structured input corpus (emails, PDFs, logs, evidence), a stable context store (the Memory Bank), an output folder for the deliverables (runbooks, letters, reports), an agent with tools that connects them, and Git underneath everything as the audit and rollback layer.
+
+The diagram's most underappreciated feature is the Memory Bank in the middle. Without it, every chat session begins with the user re-briefing the agent on the project's state; with it, the briefing is the file the agent reads first. The asymmetry compounds quickly — a long-running project (weeks or months) accumulates context that a short chat history cannot reproduce. The Memory Bank is the part of the operating model that turns "the agent helped me with one task" into "the agent participates in a multi-month effort."
+-->
 ---
 
 # What Counts as "Non-Coding"?
@@ -2507,6 +3390,11 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 
 > **Verifiable, auditable reasoning tasks** — exactly what git + Markdown + an agent loop are good at.
 
+<!--
+The examples on this slide were chosen to span very different domains while sharing one structural property — each one involves reading a large corpus, extracting structured information, producing a synthesised artefact, and being able to defend the synthesis with citations back to the source. That structure is precisely where agentic tooling excels, because the agent's strength is mechanical attention to detail across volumes of text that exceed a human's working memory.
+
+The boundary between "coding" and "non-coding" turns out to be soft. A runbook is text but might embed PowerShell; a legal Schriftsatz is prose but cites case files via structured references; an incident analysis is narrative but includes evidence links into logs. The operating model treats all of these the same way — versioned text artefacts with verifiable claims — and the tools (Git, Markdown, an agent with shell access) are equally applicable in each case.
+-->
 ---
 
 # Markdown as the Reasoning Substrate
@@ -2523,6 +3411,12 @@ VS Code + Git + GHCP · Markdown · PowerShell · `memory-bank/` · structured i
 
 > **A Word document is a destination. Markdown is a working medium.**
 
+<!--
+Speaker notes (for newcomers):
+- **Markdown** = plain text with a few simple symbols for headings (`#`), lists (`-`), bold (`**`), tables (`|`). That's it.
+- Why use it instead of Word? Because plain text shows up perfectly in a `git diff` — you can SEE what changed, line by line. Word's tracked changes can't compete.
+- Convert to Word/PDF at the END, only when you have to hand the document to someone outside your workflow. Tools like pandoc do this in one command.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2547,6 +3441,11 @@ a0fe73c  Correct timeline for approval workflow
 
 > **Your complaint letter, your runbook, and your case file deserve the same rigour as production code.**
 
+<!--
+The `git log` example is real, drawn from a multi-month tenancy dispute. Each commit corresponds to a substantive decision — the version of the letter that incorporated review feedback, the version that restructured around the regulatory directive, the version that added the twenty-eight evidence references. Reading the log backwards reconstructs the thinking; reading it forwards explains the result.
+
+The four properties below the log (reversible, blameable, branchable, citable) are the same properties software engineers value in Git for source code, applied to prose artefacts. "Version as of commit d4f8ea1" is a precise identifier for the exact text that left the office on a specific day; the equivalent in a Word-based workflow is "the version we sent on Tuesday, I think," with no way to recover the lost edits since.
+-->
 ---
 
 # The Memory Bank Pattern
@@ -2566,6 +3465,13 @@ The same six or seven files appear in every serious GHCP project:
 > **Tool-neutral**: Copilot · Claude Code · Cline all converge here.
 > **Template shipped**: `content/materials/memory-bank-template/`
 
+<!--
+Speaker notes (for newcomers):
+- **Memory Bank** = a small set of Markdown files that act as the project's long-term memory between AI chat sessions.
+- Why needed? Because each new chat starts fresh — the AI doesn't remember yesterday. The Memory Bank is the briefing you hand it on day 1.
+- Don't overthink it: start with `projectbrief.md` ("what is this project") and `activeContext.md` ("what are we working on right now"). Add the rest only when you feel the pain.
+- The template in `content/materials/` is ready to copy into any new project.
+-->
 ---
 
 # PowerShell as the "Fingers"
@@ -2585,6 +3491,11 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 > **The agent proposes, PowerShell executes, git records.**
 
+<!--
+The "fingers" metaphor is the right framing for what PowerShell does in this operating model. The chat interface gives the agent a mouth and a brain; the shell gives it hands. Without the hands, the agent can recommend that the user run `Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625}` and the user has to copy and paste; with the hands, the agent runs the command, reads the output, and decides what to do next.
+
+Windows knowledge workers have a particular advantage in this regard because of how much of the operating system is already scriptable — Outlook COM, Word COM, Excel COM, Active Directory cmdlets, Hyper-V, Exchange management. The agent's ability to integrate these without bespoke wiring turns workflows that were previously "manual operational work" into structured pipelines that can be audited and reused. The economic effect on system-administration teams is significant; the practical effect on individual researchers and analysts is that they suddenly have an automation layer over their own filing system.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2606,6 +3517,11 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 ### Rule of thumb:
 > **If you would not paste it into a public forum, configure your stack before you paste it into a prompt.**
 
+<!--
+The data-governance slide is the gatekeeper for any non-software audience and increasingly for software audiences too. The matrix is intentionally aimed at the practical questions a compliance officer or legal team will ask: where does the prompt go, who trains on it, what stays out of context, which model handles the request, what is the local-only fallback.
+
+The distinction between Copilot Individual, Business, and Enterprise tiers is the one most teams get wrong. Individual plans default to using prompts for training unless the user opts out; Business and Enterprise plans do not train on customer prompts at all and offer data-residency controls. For HR, legal, healthcare, and any regulated context, the tier choice is the difference between a defensible deployment and a compliance incident waiting to surface. The rule of thumb at the bottom is unsubtle on purpose — it gives non-technical reviewers a clear test they can apply without understanding the underlying details.
+-->
 ---
 
 # Four Profiles, One Training
@@ -2624,6 +3540,11 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 > **Agentic coding is a special case of agentic knowledge work.**
 
+<!--
+The four-profile matrix is what allows this training to address mixed audiences. The slides do not change between profiles — the principles, the operating model, the tools, the governance considerations are identical. What changes is the demonstration: a code-focused demo for developers, a runbook-focused demo for system engineers, a case-file demo for analysts and lawyers. The substrate underneath each demo is the same.
+
+The "special case" framing in the closing line is the inversion of how the field usually presents itself. Agentic AI is typically marketed to developers first and extended outward; the training argues the reverse direction is more accurate — reasoning over structured corpora is the general capability, and writing code is one instance of it. That reframing matters because it changes who the audience can include: a sysadmin running PowerShell against Active Directory and a lawyer drafting Schriftsatz against the BGB are doing structurally identical work, even though the field rarely says so out loud.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2647,6 +3568,14 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 
 > **Proof that the operating model is real** — the same shape of work (lab runbook, DSC debug session, legal Schriftsatz, payslip PDF parse) uses the same four customization surfaces, one agent loop, one git history.
 
+<!--
+Speaker notes (for newcomers):
+- The CopilotAtelier repo is a live, public example — browse it after the session to see what a "mature" personal setup looks like.
+- The point isn't to copy the skills (most won't apply to your work) — it's to see how *the same four file types* (Agents / Instructions / Skills / Prompts) cover wildly different domains.
+- You won't reach this level in week one. That's fine. Pick ONE skill area, build one skill, see if the agent uses it. Then add another.
+- The OneDrive sync trick (covered on slide 10.5a) is what makes a personal library practical — write once, every machine has it.
+-->
+
 ---
 
 # M8 Key Takeaway
@@ -2659,6 +3588,11 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 
 > **Next: how a lab makes the agent safe to let loose on real infrastructure.**
 
+<!--
+The summary collapses Module 8 into four capabilities that change the shape of what an agent can do: external reach (MCP), reversibility (checkpoints), coordinated change (multi-file ops), and deployment flexibility (local / background / cloud). Each one expands a different dimension of the basic agentic loop; together they constitute the difference between an editor feature and an operations platform.
+
+The progression to Module 9 is deliberate. Module 8 shows what agents *can* do; Module 9 turns to what they *should* do. The expanded capability surface makes the discrimination harder — a task that was obviously out of scope for autocomplete is no longer obviously out of scope for a cloud agent with database access and rollback. The decision framework moves from technical (can the tool handle this?) to organisational (do we want the tool handling this?).
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -2669,6 +3603,15 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 > *"In theory, there is no difference between theory and practice. In practice, there is."*
 > — attributed to **Jan L. A. van de Snepscheut**
 
+<!--
+Speaker notes — Module 12 appendix
+
+### Timing: 20-25 minutes (4h cut only)
+
+Module 12 is the operations-track closer. The argument structure is: agents acting on production infrastructure are unsafe by default; a properly designed lab (reversible, reproducible, observable, isolated) makes the agentic loop safe to run; AutomatedLab on Hyper-V is the Hyper-V-native answer for Windows-stack work; Invoke-LabCommand closes the verification loop the way Invoke-Pester does for code.
+
+The Kerberos RC4 example is deliberately chosen because it combines every difficulty mode at once — production-critical, poorly documented, incremental, irreversible-feeling. A lab that rebuilds in twenty minutes turns that fear into a routine test. The operational claim worth landing: the agent does not change production; the agent produces a reviewable artefact (script + runbook + event-log evidence) that lets a human change production with confidence. That is what 'agentic operations' actually means in practice.
+-->
 ---
 
 # Why Sysadmins Don't Let Agents Touch Prod
@@ -2684,6 +3627,11 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 ### The way out:
 > **Give it full autonomy — in a place where nothing matters.**
 
+<!--
+The four examples in the bullet list are not hypothetical — each one has happened in field reports during 2025–26. The reboot of a domain controller at 14:07 on a Tuesday is paraphrased from a real Reddit thread. The mass-change of `msDS-SupportedEncryptionTypes` is the kind of thing the Kerberos RC4 deprecation timeline produced as agents misread Microsoft's guidance. The recursive OU delete is a periodic Microsoft 365 incident.
+
+The dilemma framing matters because it cuts through the binary discourse common in operations contexts. "Just don't use AI agents on infrastructure" is one answer, and it leaves the productivity gains on the table; "trust the agent because the demos look great" is the opposite answer, and it produces the incidents above. The sandbox pattern is the middle path: give the agent full autonomy in a structurally safe place, then promote only the verified change to production through normal change-management channels.
+-->
 ---
 
 # The Four Properties of a Good Agent Sandbox
@@ -2705,6 +3653,11 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 | Kind / Minikube | ★★★★☆ *(containers only)* |
 | Bare-metal test lab | ★★☆☆☆ |
 
+<!--
+The four properties — reversibility, reproducibility, observability, isolation — are the minimum set for an environment that an agent can operate in safely and usefully. Take any one of them away and either the agent becomes unsafe (no isolation, no reversibility) or it stops being useful (no reproducibility means each iteration starts from a different baseline; no observability means the agent cannot close its verification loop).
+
+The scoring table is a frank assessment, not a marketing claim. AutomatedLab scores well for Windows infrastructure work because every property maps to a native PowerShell cmdlet (`Restore-LabVMSnapshot`, `Install-Lab`, `Invoke-LabCommand`, Hyper-V isolation). Dev containers score lower on observability because Windows event logs and registry state are not first-class inside a Linux container. Cloud sandboxes score well *if* cost discipline holds; teams that forget the teardown script discover that an "isolated" agent can run up a four-figure cloud bill over a weekend.
+-->
 ---
 
 # AutomatedLab in 60 Seconds
@@ -2720,6 +3673,13 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 
 > **Everything scriptable. Everything discoverable via PowerShell.**
 
+<!--
+Speaker notes (for newcomers):
+- **AutomatedLab** = open-source PowerShell module that builds entire Windows lab environments (DCs, member servers, SQL, etc.) from a script.
+- **Hyper-V** = Microsoft's built-in virtualisation in Windows Pro/Enterprise/Server. Free, already installed in most enterprise setups.
+- Why does the AI need this? Because it needs a place where rebooting a domain controller costs nothing. AutomatedLab gives that place.
+- Alternatives exist (Vagrant, Terraform + Azure) but none are as Windows-native or as PowerShell-first.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2749,6 +3709,11 @@ Install-Lab
 
 > **Twelve lines of PowerShell → a fully functioning AD domain the agent can experiment on.**
 
+<!--
+The sample script on this slide is a complete working lab definition; nothing has been elided for the slide. The `Install-Lab` call at the bottom triggers AutomatedLab to download (or use locally cached) Windows Server ISOs, provision two Hyper-V VMs, promote the first to a domain controller, join the second to the new domain, and configure the virtual network. The whole sequence takes roughly twenty to forty minutes depending on the host and whether the ISOs are cached.
+
+The brevity is deliberate evidence of the broader claim: infrastructure-as-code is mature enough that a non-trivial environment fits in a twelve-line script. That brevity is what makes the lab a credible sandbox for agents — if rebuilding the environment cost an afternoon, no one would let the agent break it. Because rebuilding takes one command and the agent can drive it, the cost of letting the agent be wrong is essentially the wall-clock time of the next `Install-Lab` invocation.
+-->
 ---
 
 # The Agent's Feedback Loop on Infrastructure
@@ -2775,6 +3740,11 @@ Install-Lab
 └─────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+The diagram is the most explicit mapping in the curriculum between the abstract agentic loop and a concrete infrastructure workflow. Each phase has a literal PowerShell cmdlet behind it — `Get-LabVM` for observe, `Checkpoint-LabVM` and `Invoke-LabCommand` for act, `Get-WinEvent` for verify, `Restore-LabVMSnapshot` for the iteration fallback. None of these were designed with AI agents in mind; they were designed for human operators, and they happen to give the agent the same affordances.
+
+The verify step is the one most often misunderstood. "Did event 205 appear?" is a binary check the agent can run by reading the system event log; it succeeds or fails in a way the agent can act on. By contrast, "is the domain healthy?" is a check no agent can perform reliably because it is not operationalised. The discipline of designing verification steps as concrete log entries or registry values is what makes the loop closable; vague verification criteria collapse the loop back into the cheating-agent trap from Module 5.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2797,6 +3767,11 @@ Install-Lab
 
 > **Output: one git commit that captures the change AND the evidence it worked.**
 
+<!--
+The Kerberos RC4 deprecation is the textbook example for this module because it combines all the difficulty modes at once: production-critical (every domain logon depends on it), poorly documented (Microsoft's published guidance has moved several times), incremental (the change happens in named phases with specific event signatures), and irreversible-feeling (operators are afraid to test it because failure cascades across the directory). A lab where the entire environment can be reverted in seconds turns that fear into a routine test.
+
+The eight-step session is the canonical agentic-operations workflow in eight bullets. The output — one commit that includes both the change script and the verified runbook — is what makes the work transferable. A human operator on the production change ticket can read the runbook, see the events that prove the script worked in the lab, and decide whether the same change is safe to roll out. The agent did not change production; the agent produced a reviewable artefact that lets a human change production with confidence.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2825,6 +3800,11 @@ Restore-LabVMSnapshot -ComputerName DC1, DC2 -SnapshotName 'pre-phase-2'
 
 > **Every experiment is cheap. Every mistake is a restore away from undone.**
 
+<!--
+The snapshot-checkpoint-rollback sequence is the operational equivalent of the Git-based reversibility the curriculum has been arguing for since Module 3. Just as `git revert` makes code changes structurally reversible, `Checkpoint-LabVM` and `Restore-LabVMSnapshot` make infrastructure changes structurally reversible. The agent is allowed to be wrong because the cost of being wrong has been engineered down to seconds.
+
+The rule embedded in the example — take a snapshot before any destructive change, automatically — should be a hard rule in the agent's instruction file for infrastructure work. It costs nothing on success (the snapshot is discarded with the lab teardown) and saves the entire investigation on failure (a single restore call returns to a known-good state). Teams that internalise this rule report dramatically more willingness to let the agent try novel sequences, because the downside has been removed.
+-->
 ---
 
 # Invoke-LabCommand — The Key Cmdlet
@@ -2845,6 +3825,12 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **`Invoke-LabCommand` is to infrastructure what `Invoke-Pester` is to code.**
 
+<!--
+Speaker notes (for newcomers):
+- One cmdlet to remember: **`Invoke-LabCommand`**. It runs PowerShell *inside* a lab VM and gives you the results back as real objects.
+- This is what closes the agentic loop for infrastructure: the agent acts on a VM, then reads back what happened, then decides what to do next.
+- Without something like this, the agent is just "typing scripts and hoping" — no feedback, no verification, no iteration.
+-->
 ---
 
 # Lab vs. Cloud vs. Dev Container
@@ -2860,6 +3846,11 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **Pick the smallest sandbox that still contains the risk you are trying to de-risk.**
 
+<!--
+The table is intentionally specific about which sandbox suits which workload. There is no general-purpose answer; the right choice depends on what the agent is going to interact with. Windows-stack work (AD, GPO, Kerberos, DSC, SCCM) has essentially one defensible answer (AutomatedLab on Hyper-V); cloud-stack work has a different one (Terraform against an isolated subscription); cross-platform application code has yet another (dev containers).
+
+The closing rule — pick the smallest sandbox that still contains the risk — is the parsimony principle for sandbox selection. A multi-forest AutomatedLab with PKI and SCCM is overkill for testing a single DSC composite resource; a dev container is insufficient for rehearsing a domain-wide Kerberos change. Matching the sandbox to the risk surface keeps the iteration cycle fast enough to be useful and complete enough to be trustworthy.
+-->
 ---
 
 # What You Can Actually Test Safely
@@ -2874,6 +3865,11 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **The lab is not a toy. It is the place where risk goes to get rehearsed.**
 
+<!--
+The before/after comparison on this slide compresses what is often a multi-week procedural difference into a single table. The three-week CAB process for a mass attribute change is not paranoia — it is the rational response to a change that touches authentication for every account in the forest. The lab variant does not skip the rigour; it relocates it. The script is still reviewed, the change is still rehearsed, the verification is still required. What changes is that all of that happens in a place where mistakes cost minutes rather than incidents.
+
+The closing line is the operational claim of the entire module. The lab is where risk is rehearsed *before* it touches production, not a place where risk is ignored. A team that uses agents in a lab to rehearse changes ends up with better change tickets — specific scripts, observed event sequences, documented side effects — not lower-quality ones. The CAB review on the production change is still required; it is now able to read a runbook that says "we did this in the lab, here is the event log proving it worked, here is the rollback snapshot reference."
+-->
 ---
 
 # Demo Reference
@@ -2890,6 +3886,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **One cohesive workflow. No tab-switching between PowerShell ISE, a Word runbook, and a change ticket.**
 
+<!--
+Speaker notes (for newcomers):
+- Step 5 ("first verification fails, agent diagnoses from event logs") is the moment everything in the training clicks. Wait for the audience reaction.
+- The runbook stays in Markdown next to the scripts. One PR shows both the script and the doc change — they cannot drift apart.
+- This is `Invoke-Pester` for infrastructure. Same loop. Different artefact.
+-->
+
 ---
 
 # M9 Key Takeaway
@@ -2901,6 +3904,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 5. **Verified change + diffed runbook + git commit** is the system engineer's equivalent of green tests.
 
 > **The full model: agent writes code, runs it in a lab, verifies with events, documents the result, commits. This is agentic operations.**
+
+<!--
+Speaker notes (for newcomers):
+- One-line summary for sysadmins who joined late: *give the agent a lab, snapshot before every destructive action, verify with events, commit the runbook.*
+- The four sandbox properties (reversible · reproducible · observable · isolated) are the checklist for any platform you let an agent loose on — not just AutomatedLab.
+- This module closes the loop with Module 5 (self-verification): same pattern, infrastructure scale.
+-->
 
 ---
 
@@ -2915,6 +3925,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 - **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
 
 > Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
+<!--
+Speaker notes (for newcomers):
+- Use this metaphor in your own team conversations. It survives translation across roles: dev, ops, legal, research.
+- The hardest discipline isn't telling the AI what to do — it's deciding *what counts as victory* before the AI starts moving. That's the commander's job and nobody else can do it for you.
+- Pairs with the earlier conductor metaphor (slide 16 / 10.10): same role, different verb. Conductor for creative work, commander for operational work. Same person.
+-->
 
 ---
 
@@ -2933,6 +3950,11 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **Start small. Build confidence. Transform your workflow.**
 
+<!--
+The closing slide compresses the entire training into eight bullets and one operating sentence. The sentence — "you become the architect and reviewer, AI becomes your tireless implementer" — is the line the training wants people to leave the room remembering. If everything else fades, that role assignment is what stays useful.
+
+The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles begins with a single step") is the right closing note. The training does not promise transformation; it promises a starting point and a map. The transformation, if it happens, is the result of the work the team does in the weeks after, applying the operating model to their actual codebase, on their actual problems, with their actual constraints. The training's job is done when the audience leaves knowing what to do tomorrow morning.
+-->
 ---
 
 <!-- _class: lead -->
@@ -2942,3 +3964,9 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 *[Your Contact Info]*
 *[Your Email]*
 *[Materials Download Link]*
+
+<!--
+The Q&A is usually where the most useful conversation of the training happens, because the questions surface what the audience has internalised versus what slid past. The five common topics listed on the slide are reliable starters when no one raises a hand first; in practice the room usually has its own opening question.
+
+The most common genuine question after this training is some version of "how do I convince my team / my manager / my security organisation to allow this?" That question is partly about the technology but mostly about organisational change — instruction files committed to a shared repository, GitOps as a structural guardrail, Memory Bank as an audit trail. The curriculum has these answers in its body; the Q&A is where they get connected to the specific organisation in the room.
+-->

@@ -1,0 +1,68 @@
+# Text normalization
+* text=auto eol=lf
+
+# Windows-native scripts keep CRLF
+*.ps1    text eol=crlf
+*.psm1   text eol=crlf
+*.psd1   text eol=crlf
+*.cmd    text eol=crlf
+*.bat    text eol=crlf
+
+# Unix shell stays LF
+*.sh     text eol=lf
+
+# Common text formats stay LF
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.json   text eol=lf
+*.jsonc  text eol=lf
+*.js     text eol=lf
+*.mjs    text eol=lf
+*.cjs    text eol=lf
+*.ts     text eol=lf
+*.css    text eol=lf
+*.html   text eol=lf
+*.xml    text eol=lf
+*.svg    text eol=lf
+
+# Binary Office/ZIP-container formats
+*.pptx   binary
+*.docx   binary
+*.xlsx   binary
+*.odt    binary
+*.ods    binary
+*.odp    binary
+*.pdf    binary
+
+# Binary images / media
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.bmp    binary
+*.tif    binary
+*.tiff   binary
+*.mp3    binary
+*.mp4    binary
+*.mov    binary
+*.wav    binary
+
+# Archives
+*.zip    binary
+*.7z     binary
+*.gz     binary
+*.tar    binary
+
+# Fonts
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.otf    binary
+*.eot    binary
+
+# Collapse generated slide-deck artifacts in PR diffs / language stats
+content/pptx/*.pptx  linguist-generated=true
+*.pptx               linguist-generated=true

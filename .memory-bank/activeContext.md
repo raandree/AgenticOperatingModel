@@ -6,9 +6,23 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-05-20
+**Last Updated**: 2026-05-22
 
 ## Recent Changes
+
+### 2026-05-22: Speaker-note coverage — inline gap-fill + Pester guard
+- User-reported gap: 12 slides in the built 4h deck still had no speaker notes despite the earlier split-file note pass. Root cause split three ways: (a) monolith-only slides with no split-file equivalent (8 of 12), (b) title drift between split H1 and monolith H1 not yet captured in `notes-title-map.psd1` (3 of 12), (c) one orphan from earlier oversight (4.7b).
+- Fix: injected 12 inline `<!-- ... -->` newbie notes directly into `marp-presentation.md` (cleanest fix — guaranteed regardless of merge logic). Slides covered: Spec "Not a Substitute", Skill-Authoring Discipline, The Self-Verification Loop, Enabling Self-Verification, Agent Types, Your First copilot-instructions.md, Resources, You Are the Conductor, A Mature Personal Atelier, Demo Reference, M9 Key Takeaway, Sergeant and Commander.
+- Guard: 6 new Pester tests in `content/pptx/Build-MarpVersions.Tests.ps1` (3 versions × 2 invariants). Code-fence-aware separator counter mirrors `Split-MarpSlides` so `---` inside ```​```markdown``` example fences is not mis-counted. Skips gracefully (`Set-ItResult -Skipped`) if the built file is missing. All 11 tests green.
+- `<!-- _split_ -->` (line 2184 of monolith) clarified: it's an editorial marker for human readers, ignored by Marp and by the build script. Harmless; the new test explicitly excludes it from the directive blocklist.
+- Still not committed per user instruction.
+
+### 2026-05-22: Newbie-friendly speaker notes across all slide modules
+- Added concise Marp speaker notes (`<!-- ... -->` HTML comments — render in presenter mode, export as PPTX notes) to ~30 jargon-heavy / concept-introducing slides spanning M1, M2, M3, M4, M5, M8, M9, M10, M11, M12.
+- Each note is 3–5 short bullets in plain English: defines jargon (LLM, context window, MCP, GitOps, Memory Bank, Pester, checkpoint, diff, comprehension debt…), gives an everyday analogy, and cross-references where the concept is revisited.
+- No structural / layout / build-output changes. Notes are HTML comments; rendered slides are byte-identical visually.
+- **Not yet committed** per explicit user instruction ("please don't commit yet").
+- Next step: user reviews notes in presenter mode (or PPTX export) and signals whether to commit / adjust tone / add more.
 
 ### 2026-05-20: Spec-Driven slide split (M4 4.7a → 4.7a + 4.7b)
 - Original `dense` slide overflowed 4h render by ~240 px (contentHeight ~960 / 720). Split at the natural seam between *"Why it beats prompt engineering"* and the Pitfall block.

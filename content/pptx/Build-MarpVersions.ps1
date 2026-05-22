@@ -43,10 +43,181 @@ param(
     [switch]$CheckOverflow,
 
     [Parameter()]
-    [switch]$Report
+    [switch]$Report,
+
+    # Opt-in: assemble the full source from per-module split files instead of
+    # using the monolithic marp-presentation.md. Off by default — the splits
+    # currently contain expanded prose that overflows the slide canvas.
+    [Parameter()]
+    [switch]$AssembleFromSplits,
+
+    # Default ON when split files exist: pull speaker-note HTML comments out
+    # of the split files and inject them into the matching monolith slide
+    # (matched by normalized H1 title). Set -MergeNotesFromSplits:$false to
+    # disable.
+    [Parameter()]
+    [Nullable[bool]]$MergeNotesFromSplits = $null
 )
 
 $ErrorActionPreference = 'Stop'
+
+# --- Assemble source from per-module split files ---
+# Reads frontmatter from $SourcePath, then concatenates NN-*.md files in the
+# same folder. Each split file's "Version Guide" table is parsed to derive
+# per-slide version tags; a section-divider slide is synthesized from the
+# module header + quote block; "## Slide X.Y:" markers are stripped.
+function Build-AssembledSource {
+    param(
+        [Parameter(Mandatory)][string]$FrontmatterFile,
+        [Parameter(Mandatory)][System.IO.FileInfo[]]$SplitFiles
+    )
+
+    # Extract frontmatter (everything up to and including the closing --- of YAML)
+    $fmLines = Get-Content $FrontmatterFile -Encoding UTF8
+    $fmEnd = -1
+    $seenOpen = $false
+    for ($i = 0; $i -lt $fmLines.Count; $i++) {
+        if ($fmLines[$i].TrimEnd() -eq '---') {
+            if (-not $seenOpen) { $seenOpen = $true; continue }
+            $fmEnd = $i
+            break
+        }
+    }
+    if ($fmEnd -lt 0) {
+        throw "Could not locate YAML frontmatter in $FrontmatterFile"
+    }
+    $frontmatter = ($fmLines[0..$fmEnd]) -join "`n"
+
+    $out = [System.Text.StringBuilder]::new()
+    [void]$out.AppendLine($frontmatter)
+
+    foreach ($file in $SplitFiles) {
+        $text = Get-Content $file.FullName -Raw -Encoding UTF8
+        $lines = $text -split "`r?`n"
+
+        # --- Parse Version Guide table ---
+        # Header row: | Slide | Title | 1h | 2h | 4h |
+        $versionMap = @{}
+        $tableHeaderIdx = -1
+        for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^\|\s*Slide\s*\|.*\|\s*1h\s*\|\s*2h\s*\|\s*4h\s*\|') {
+                $tableHeaderIdx = $i
+                break
+            }
+        }
+        if ($tableHeaderIdx -ge 0) {
+            for ($i = $tableHeaderIdx + 2; $i -lt $lines.Count; $i++) {
+                $row = $lines[$i]
+                if ($row -notmatch '^\|') { break }
+                # | 3.1 | Title | ✅ | ✅ | ✅ |
+                $cells = ($row -split '\|') | ForEach-Object { $_.Trim() }
+                # cells[0] = '', cells[1] = id, cells[2] = title, cells[3..5] = ver flags
+                if ($cells.Count -lt 6) { continue }
+                $id = $cells[1]
+                if (-not $id) { continue }
+                $vers = @()
+                if ($cells[3] -match '✅|x|X|yes') { $vers += '1h' }
+                if ($cells[4] -match '✅|x|X|yes') { $vers += '2h' }
+                if ($cells[5] -match '✅|x|X|yes') { $vers += '4h' }
+                $versionMap[$id] = $vers
+            }
+        }
+
+        # --- Extract module title + quote for section-divider synthesis ---
+        $moduleNumber = $null
+        $moduleTitle = $null
+        $quoteLines = [System.Collections.Generic.List[string]]::new()
+        foreach ($line in $lines) {
+            if (-not $moduleNumber -and $line -match '^#\s+Module\s+(\d+)\s*:\s*(.+)$') {
+                $moduleNumber = $Matches[1]
+                $moduleTitle = $Matches[2].Trim()
+                continue
+            }
+            if ($line -match '^\s*>\s') {
+                $quoteLines.Add($line)
+            }
+            elseif ($quoteLines.Count -gt 0 -and $line.Trim() -eq '') {
+                # blank between quote lines is OK; stop on next non-quote non-blank
+                continue
+            }
+            elseif ($quoteLines.Count -gt 0) {
+                break
+            }
+        }
+
+        if ($moduleNumber) {
+            $divider = @(
+                '---'
+                '<!-- version: 1h 2h 4h -->'
+                ''
+                '<!-- _class: section-divider -->'
+                ''
+                "# Module $moduleNumber"
+                "## $moduleTitle"
+            )
+            if ($quoteLines.Count -gt 0) {
+                $divider += ''
+                $divider += $quoteLines
+            }
+            [void]$out.AppendLine(($divider -join "`n"))
+        }
+
+        # --- Split body into slide chunks at top-level --- ---
+        # Skip everything up to the first "## Slide " marker; from there,
+        # treat each `---`-bounded chunk that contains a "## Slide X.Y:" line
+        # as a slide.
+        $firstSlideIdx = -1
+        for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^##\s+Slide\s+') { $firstSlideIdx = $i; break }
+        }
+        if ($firstSlideIdx -lt 0) { continue }
+
+        $body = $lines[$firstSlideIdx..($lines.Count - 1)]
+        $chunks = [System.Collections.Generic.List[System.Collections.Generic.List[string]]]::new()
+        $current = [System.Collections.Generic.List[string]]::new()
+        $inCode = $false
+        foreach ($line in $body) {
+            if ($line -match '^```') { $inCode = -not $inCode }
+            if (-not $inCode -and $line.TrimEnd() -eq '---') {
+                if ($current.Count -gt 0) { $chunks.Add($current); $current = [System.Collections.Generic.List[string]]::new() }
+                continue
+            }
+            $current.Add($line)
+        }
+        if ($current.Count -gt 0) { $chunks.Add($current) }
+
+        foreach ($chunk in $chunks) {
+            $slideId = $null
+            $cleaned = [System.Collections.Generic.List[string]]::new()
+            $skipBlankAfterMarker = $false
+            foreach ($line in $chunk) {
+                if (-not $slideId -and $line -match '^##\s+Slide\s+([0-9]+\.[0-9]+[a-z]?)\s*:') {
+                    $slideId = $Matches[1]
+                    $skipBlankAfterMarker = $true
+                    continue
+                }
+                if ($skipBlankAfterMarker -and $line.Trim() -eq '') {
+                    $skipBlankAfterMarker = $false
+                    continue
+                }
+                $skipBlankAfterMarker = $false
+                $cleaned.Add($line)
+            }
+            if (-not $slideId) { continue }
+
+            $vers = $versionMap[$slideId]
+            if (-not $vers -or $vers.Count -eq 0) { $vers = @('4h') }
+            $tag = '<!-- version: ' + ($vers -join ' ') + ' -->'
+
+            [void]$out.AppendLine('---')
+            [void]$out.AppendLine($tag)
+            [void]$out.AppendLine('')
+            [void]$out.AppendLine(($cleaned -join "`n").TrimEnd())
+        }
+    }
+
+    return $out.ToString()
+}
 
 # --- Parse the MARP source file into slides ---
 function Split-MarpSlides {
@@ -153,13 +324,288 @@ function Remove-VersionTag {
 
 # --- Main logic ---
 $sourcePath = (Resolve-Path $SourcePath -ErrorAction Stop).Path
-$content = Get-Content $sourcePath -Raw -Encoding UTF8
+
+# Detect split files (NN-*.md) in the same folder as the monolith.
+$slidesDir = Split-Path $sourcePath -Parent
+$splitFiles = Get-ChildItem -Path $slidesDir -Filter '*.md' |
+    Where-Object { $_.Name -match '^\d{2}-.+\.md$' } |
+    Sort-Object Name
+
+$useSplits = [bool]$AssembleFromSplits
+$mergeNotes = if ($null -ne $MergeNotesFromSplits) { [bool]$MergeNotesFromSplits } else { (-not $useSplits) -and ($splitFiles.Count -gt 0) }
+
+if ($useSplits -and $splitFiles.Count -gt 0) {
+    Write-Host "Assembling source from $($splitFiles.Count) split files in $slidesDir" -ForegroundColor Cyan
+    $content = Build-AssembledSource -FrontmatterFile $sourcePath -SplitFiles $splitFiles
+}
+else {
+    $content = Get-Content $sourcePath -Raw -Encoding UTF8
+}
+
 $parsed = Split-MarpSlides -Content $content
 
 Write-Host "Parsed: $($parsed.Slides.Count) slides from source" -ForegroundColor Cyan
 
+# --- Merge speaker notes from split files into monolith slides ---
+if ($mergeNotes) {
+    function Get-NormalizedTitle {
+        param([string]$Title)
+        if (-not $Title) { return '' }
+        $t = $Title.ToLowerInvariant()
+        $t = [regex]::Replace($t, '[^a-z0-9]+', ' ')
+        return $t.Trim()
+    }
+
+    function Get-SlideTitle {
+        param([string[]]$Lines)
+        foreach ($line in $Lines) {
+            if ($line -match '^#\s+(.+?)\s*$') { return $Matches[1].Trim() }
+        }
+        return $null
+    }
+
+    # Build map: normalized-title -> speaker-note block (raw HTML comment text)
+    # Marker-driven scan: walk each split file line by line. The current "slide"
+    # is bounded by `## Slide X.Y:` markers — we do NOT split on `---`, which
+    # would break on the mismatched nested triple-backtick fences present in
+    # some split files (e.g. slide 3.5).
+    $notesMap = @{}
+    # Per-module appendices: "## Speaker Notes - Module N" sections at the
+    # end of each split file. Keyed by module number (string).
+    $appendixMap = @{}
+    foreach ($file in $splitFiles) {
+        $lines = (Get-Content $file.FullName -Raw -Encoding UTF8) -split "`r?`n"
+
+        $moduleNum = $null
+        foreach ($l in $lines) {
+            if ($l -match '^#\s+Module\s+(\d+)\s*:') { $moduleNum = $Matches[1]; break }
+        }
+
+        $currentTitle = $null
+        $inSlide = $false
+        $inComment = $false
+        $commentBuf = $null
+        $inAppendix = $false
+        $appendixBuf = $null
+
+        foreach ($raw in $lines) {
+            $line = $raw.TrimEnd("`r")
+            $t = $line.Trim()
+
+            # Detect the start of the per-module appendix section
+            if ($line -match '^##\s+Speaker\s+Notes\s*[-–—]\s*Module') {
+                $inAppendix = $true
+                $inSlide = $false
+                $appendixBuf = [System.Collections.Generic.List[string]]::new()
+                continue
+            }
+            if ($inAppendix) {
+                [void]$appendixBuf.Add($line)
+                continue
+            }
+
+            if ($line -match '^##\s+Slide\s+') {
+                # New slide starts — reset state
+                $currentTitle = $null
+                $inSlide = $true
+                $inComment = $false
+                $commentBuf = $null
+                continue
+            }
+
+            if (-not $inSlide) { continue }
+
+            if ($inComment) {
+                [void]$commentBuf.Add($line)
+                if ($t -eq '-->') {
+                    $blockText = ($commentBuf -join "`n")
+                    # Accept any multi-line HTML comment block that follows a
+                    # slide H1. Directive comments (_class:, _paginate:,
+                    # version:) are single-line and never reach here.
+                    if ($currentTitle) {
+                        $key = Get-NormalizedTitle -Title $currentTitle
+                        if ($notesMap.ContainsKey($key)) {
+                            $notesMap[$key] = $notesMap[$key] + "`n" + $blockText
+                        }
+                        else {
+                            $notesMap[$key] = $blockText
+                        }
+                    }
+                    $inComment = $false
+                    $commentBuf = $null
+                }
+                continue
+            }
+
+            # Capture first H1 after the slide marker as the slide title
+            if (-not $currentTitle -and $line -match '^#\s+(.+?)\s*$') {
+                $currentTitle = $Matches[1].Trim()
+                continue
+            }
+
+            # Detect start of multi-line HTML comment
+            if ($t -eq '<!--' -or $t -match '^<!--\s*$') {
+                $inComment = $true
+                $commentBuf = [System.Collections.Generic.List[string]]::new()
+                [void]$commentBuf.Add($line)
+                continue
+            }
+        }
+
+        # Finalise per-module appendix
+        if ($moduleNum -and $appendixBuf -and $appendixBuf.Count -gt 0) {
+            # Trim trailing blank lines
+            while ($appendixBuf.Count -gt 0 -and $appendixBuf[$appendixBuf.Count - 1].Trim() -eq '') {
+                $appendixBuf.RemoveAt($appendixBuf.Count - 1)
+            }
+            if ($appendixBuf.Count -gt 0) {
+                $appendixText = "<!--`nSpeaker notes — Module $moduleNum appendix`n" + ($appendixBuf -join "`n") + "`n-->"
+                $appendixMap[$moduleNum] = $appendixText
+            }
+        }
+    }
+
+    Write-Host "Speaker-note pool: $($notesMap.Count) titled slides from splits" -ForegroundColor Cyan
+
+    # --- Load optional title-drift override map ---
+    # notes-title-map.psd1 (next to this script) maps split-file slide H1
+    # titles to the corresponding monolith H1 titles. Each mapping copies the
+    # note block under the monolith title key as well.
+    $titleMapFile = Join-Path $PSScriptRoot 'notes-title-map.psd1'
+    $aliasReverse = @{}  # monolith-key -> list of split-keys (so we can mark all matched)
+    if (Test-Path $titleMapFile) {
+        try {
+            $titleOverrides = Import-PowerShellDataFile -Path $titleMapFile
+            $aliased = 0
+            foreach ($pair in $titleOverrides.GetEnumerator()) {
+                $fromKey = Get-NormalizedTitle -Title $pair.Key
+                $toKey = Get-NormalizedTitle -Title $pair.Value
+                if (-not $notesMap.ContainsKey($fromKey)) { continue }
+                if ($notesMap.ContainsKey($toKey)) {
+                    # Concatenate: monolith slide is the target of multiple
+                    # splits. Stack the comment blocks; Marp surfaces both
+                    # in the speaker-notes pane.
+                    if ($notesMap[$toKey] -ne $notesMap[$fromKey]) {
+                        $notesMap[$toKey] = $notesMap[$toKey] + "`n`n" + $notesMap[$fromKey]
+                    }
+                }
+                else {
+                    $notesMap[$toKey] = $notesMap[$fromKey]
+                }
+                $aliasReverse[$toKey] = @($aliasReverse[$toKey]) + $fromKey | Where-Object { $_ }
+                $aliased++
+            }
+            if ($aliased -gt 0) {
+                Write-Host "Applied $aliased title-map alias(es) from notes-title-map.psd1" -ForegroundColor Cyan
+            }
+        }
+        catch {
+            Write-Warning "Failed to load $titleMapFile : $_"
+        }
+    }
+
+    # --- Inject per-module appendices into the module's section-divider slide ---
+    # The monolith uses a 9-module structure (1..9) while split files use the
+    # original 12-module pedagogical numbering (01..05, 08..12). Map the split
+    # appendix numbers onto the monolith divider numbers so the right module
+    # narrative reaches the right divider. Multiple splits per monolith module
+    # are concatenated.
+    $monolithFromSplit = @{
+        '1' = '1'; '2' = '2'; '3' = '3'; '4' = '4'; '5' = '5'
+        '8' = '6'; '9' = '6'   # Advanced Capabilities + When-to-Use both land under M6
+        '10' = '7'             # Your Agentic Future -> M7
+        '11' = '8'             # Beyond Code -> M8
+        '12' = '9'             # Lab as Sandbox -> M9
+    }
+    $remappedAppendix = @{}
+    foreach ($pair in $appendixMap.GetEnumerator()) {
+        $target = if ($monolithFromSplit.ContainsKey($pair.Key)) { $monolithFromSplit[$pair.Key] } else { $pair.Key }
+        if ($remappedAppendix.ContainsKey($target)) {
+            $remappedAppendix[$target] = $remappedAppendix[$target] + "`n`n" + $pair.Value
+        }
+        else {
+            $remappedAppendix[$target] = $pair.Value
+        }
+    }
+    $appendixMap = $remappedAppendix
+
+    if ($appendixMap.Count -gt 0) {
+        $dividerInjected = 0
+        foreach ($slide in $parsed.Slides) {
+            $sliceText = ($slide.Lines -join "`n")
+            if ($sliceText -notmatch '_class:\s*section-divider') { continue }
+            if ($sliceText -match '(?ms)<!--\s*\r?\n[^-]*Speaker\s*notes') { continue }
+            if ($slide.Lines | Where-Object { $_ -match '^#\s+Module\s+(\d+)\s*$' } | Select-Object -First 1) {
+                $modLine = $slide.Lines | Where-Object { $_ -match '^#\s+Module\s+(\d+)\s*$' } | Select-Object -First 1
+                if ($modLine -match '^#\s+Module\s+(\d+)\s*$') {
+                    $num = $Matches[1]
+                    if ($appendixMap.ContainsKey($num)) {
+                        $newLines = [System.Collections.Generic.List[string]]::new()
+                        $newLines.AddRange([string[]]$slide.Lines)
+                        while ($newLines.Count -gt 0 -and $newLines[$newLines.Count - 1].Trim() -eq '') {
+                            $newLines.RemoveAt($newLines.Count - 1)
+                        }
+                        $newLines.Add('')
+                        $newLines.Add($appendixMap[$num])
+                        $slide.Lines = [string[]]$newLines.ToArray()
+                        $dividerInjected++
+                    }
+                }
+            }
+        }
+        Write-Host "Injected module appendices into $dividerInjected section-divider slide(s)" -ForegroundColor Green
+    }
+
+    # Inject notes into monolith slides
+    $injected = 0
+    $unmatchedSplit = [System.Collections.Generic.HashSet[string]]::new()
+    foreach ($k in $notesMap.Keys) { [void]$unmatchedSplit.Add($k) }
+    foreach ($slide in $parsed.Slides) {
+        $title = Get-SlideTitle -Lines $slide.Lines
+        if (-not $title) { continue }
+        $key = Get-NormalizedTitle -Title $title
+        if (-not $notesMap.ContainsKey($key)) { continue }
+
+        # Skip if the monolith slide already contains a Speaker-notes comment
+        $existing = ($slide.Lines -join "`n")
+        if ($existing -match '(?ms)<!--\s*\r?\n[^-]*Speaker\s*notes') {
+            [void]$unmatchedSplit.Remove($key)
+            continue
+        }
+
+        $newLines = [System.Collections.Generic.List[string]]::new()
+        $newLines.AddRange([string[]]$slide.Lines)
+        # Trim trailing blank lines
+        while ($newLines.Count -gt 0 -and $newLines[$newLines.Count - 1].Trim() -eq '') {
+            $newLines.RemoveAt($newLines.Count - 1)
+        }
+        $newLines.Add('')
+        $newLines.Add($notesMap[$key])
+        $slide.Lines = [string[]]$newLines.ToArray()
+        $injected++
+        [void]$unmatchedSplit.Remove($key)
+        if ($aliasReverse.ContainsKey($key)) {
+            foreach ($src in @($aliasReverse[$key])) { [void]$unmatchedSplit.Remove($src) }
+        }
+    }
+
+    Write-Host "Injected speaker notes into $injected monolith slides" -ForegroundColor Green
+    if ($unmatchedSplit.Count -gt 0) {
+        Write-Host "  $($unmatchedSplit.Count) split-file note(s) had no matching monolith slide (title drift):" -ForegroundColor DarkYellow
+        $unmatchedSplit | Sort-Object | Select-Object -First 10 | ForEach-Object {
+            Write-Host "    - $_" -ForegroundColor DarkYellow
+        }
+        if ($unmatchedSplit.Count -gt 10) {
+            Write-Host "    ... and $($unmatchedSplit.Count - 10) more" -ForegroundColor DarkYellow
+        }
+    }
+}
+
 # --- AddMissingTags mode ---
 if ($AddMissingTags) {
+    if ($splitFiles.Count -gt 0 -and -not $useSplits) {
+        Write-Warning "-AddMissingTags operates on the monolith ($sourcePath). Split files use the per-file Version Guide table — edit those tables directly."
+    }
     $untagged = 0
     foreach ($slide in $parsed.Slides) {
         $version = Get-SlideVersion -SlideLines $slide.Lines

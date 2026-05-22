@@ -26,7 +26,87 @@ This produces:
 > Each slide has a `<!-- version: 1h 2h 4h -->` tag controlling which versions include it.
 > The generated files have these tags stripped — they're clean MARP ready for projection.
 
-## Step 2: Convert to PowerPoint (MARP)
+## Speaker Notes from Split Files
+
+Per-module split files in `../slides/NN-*.md` (e.g. `03-power-of-context.md`) carry
+expanded speaker notes as multi-line HTML comments. When split files exist alongside
+the monolith, `Build-MarpVersions.ps1` automatically merges those notes into the
+matching monolith slide (matched by normalised H1 title).
+
+Per-module appendix sections (`## Speaker Notes - Module N` at the end of each split
+file) are attached to that module's section-divider slide as an additional note block.
+
+Flags:
+
+| Flag | Default | Effect |
+|------|---------|--------|
+| `-MergeNotesFromSplits` | auto-on when split files exist | Merge note comments and module appendices into the monolith. Set `:$false` to disable. |
+| `-AssembleFromSplits` | off | Use split files as the full slide source instead of the monolith. Off by default because split content currently overflows the slide canvas. |
+
+When a split slide's H1 differs from the monolith H1, add an alias in
+`notes-title-map.psd1` (next to the script):
+
+```powershell
+@{
+    'Knowing What AI Changed' = 'Git Provides Traceability'
+}
+```
+
+The build reports any unmatched split notes so you know which aliases to add.
+
+### Adding notes for a monolith-only slide (stub pattern)
+
+Some monolith slides (typically version-specific intros and recap slides in the
+1h cut) have no counterpart in any split file. To attach a note to one of those,
+add a *stub slide* in the most relevant split file with the same H1 as the
+monolith slide, an explanatory comment, and the note block. The stub never
+renders — the monolith already owns the rendered slide — but its note flows in
+via the normal merger.
+
+```markdown
+## Slide 1.6b: Why This Matters to You — Whatever Your Role
+
+# Why This Matters to You — Whatever Your Role
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+Background paragraph here.
+-->
+```
+
+### Multiple splits targeting one monolith slide (concatenation)
+
+When two or more split slides (directly by H1 or via the title-map) resolve to
+the same monolith slide, the merger **concatenates** their note blocks rather
+than dropping one. Marp surfaces all of them in the speaker-notes pane,
+separated by a blank line. This is the right behaviour when 1h and 4h splits
+each contribute pedagogically distinct framing for the same rendered slide.
+
+### Writing the notes (tone)
+
+Speaker notes in this deck are **background context the presenter reads to
+derive their own actions**, not speaker-imperative scripts. Avoid
+*"open with..."*, *"run the poll..."*, *"land the line..."*. Prefer
+descriptive paragraphs about why the slide is here, what it claims, and where
+the claim comes from.
+
+- **One paragraph** for simple slides (definitions, transitions, recap tables).
+- **Two or three paragraphs** for slides carrying genuine complexity
+  (productivity numbers with sources, multi-step diagrams, incident narratives).
+- **Story format** when the slide has a quote or anecdote whose origin or
+  reception is worth a sentence (Goethe's *Zauberlehrling*, the PocketOS
+  9-second incident, the Mackworth 1948 radar study).
+
+### Files involved at a glance
+
+| File | Purpose |
+|------|---------|
+| `../slides/marp-presentation.md` | Single rendering source of truth |
+| `../slides/NN-*.md` | Per-module split files; own all speaker notes |
+| `notes-title-map.psd1` | Aliases for split↔monolith H1 drift |
+| `Build-MarpVersions.ps1` | Builds per-version `.md`; merges notes |
+| `Build-MarpVersions.Tests.ps1` | Pester regression tests for the merger |
 
 ### Using the Export Script (Recommended)
 

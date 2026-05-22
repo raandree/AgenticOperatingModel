@@ -1085,6 +1085,14 @@ Each unread cycle:
 
 > Pair: **M3** (spec lives in Git) · **M5** (verify against spec) · **M9.10a** (architecture review *before* generation). See [GitHub Spec Kit](https://github.com/github/spec-kit).
 
+<!--
+Speaker notes (for newcomers):
+- Companion to the previous slide: writing a spec is half the discipline. **Reading the diff** is the other half.
+- "Compile-from-spec" = asking the agent "build me X from the spec" and merging whatever it produces without looking. Feels productive. Compounds into garbage.
+- The two daily habits to internalise: (1) read every AI diff, (2) when the design no longer matches the spec, fix the *design*, not the prompt.
+- Software entropy is exponential. Three unread cycles isn't 3× worse — it's unrecoverable without a refactor.
+-->
+
 ---
 <!-- version: 2h 4h -->
 
@@ -1299,6 +1307,14 @@ Content starts here...
 
 > **Rule**: debug the *description*, not the content.
 
+<!--
+Speaker notes (for newcomers):
+- The most common skill bug: "my skill never fires." Almost always the `description:` is too vague.
+- Treat the description like a search query. Include the exact phrases users would say ("USE FOR: debug Pester, mock issues, ModuleBuilder error…").
+- The `DO NOT USE FOR:` line is just as important — it stops the skill firing on adjacent-but-wrong tasks.
+- If your skill won't load at all: 99% of the time the YAML frontmatter is malformed. Open the Agent Debug Logs panel — the error is there.
+-->
+
 ---
 <!-- version: 1h 2h 4h -->
 
@@ -1364,6 +1380,14 @@ But also:
                            │
                            └──▶ Go to step 3
 ```
+
+<!--
+Speaker notes (for newcomers):
+- This is the loop that makes "agentic" different from "autocomplete". Autocomplete stops after step 1. An agent only stops when step 3 says PASS.
+- **Pester** = the test framework for PowerShell (`Invoke-Pester` runs all tests). Other languages have equivalents (pytest, Jest, JUnit).
+- The iteration is automatic — you don't approve every cycle, you approve the final result.
+- Critical prerequisite: you must HAVE tests. No tests = no loop. The next slides show how to make sure the agent writes them.
+-->
 
 ---
 <!-- version: 2h 4h -->
@@ -1481,6 +1505,13 @@ Result: 5 passed, 0 failed ✅
 - If tests fail, fix code and re-run
 - Report final test results to user
 ```
+
+<!--
+Speaker notes (for newcomers):
+- This is the single most practical slide in Module 4 — copy-paste this block into your own `copilot-instructions.md` today.
+- The magic line is "do not report completion until all tests pass." That one rule forces the agent to iterate rather than give up.
+- Want it in a non-PowerShell project? Replace `Invoke-Pester` with `pytest`, `npm test`, `dotnet test`, etc. The pattern is language-agnostic.
+-->
 
 ---
 <!-- version: 4h -->
@@ -1819,6 +1850,15 @@ Agent uses **search** to find all references, then **tests** to verify nothing b
 | **Background** | Separate worktree | Long-running tasks |
 | **Cloud Agent** | GitHub infrastructure | Issues → PRs automatically |
 | **Third-party** | VS Code extensions | Specialized workflows |
+
+<!--
+Speaker notes (for newcomers):
+- Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
+- **Start with Agent Mode** in VS Code — you see every step. Comfortable, low risk.
+- **Ask Mode** is read-only: great for "explain this file" or code reviews where you don't want anything modified.
+- **Background agent** is Agent Mode running in a parallel copy of the repo — doesn't block your editor. Good for long refactors.
+- **Cloud agent** runs on GitHub's servers with no human in the loop. Only use after your `copilot-instructions.md` is mature.
+-->
 
 ---
 <!-- version: 4h -->
@@ -2389,6 +2429,14 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > Start with 5–10 rules. Add more as you learn what the AI gets wrong.
 
+<!--
+Speaker notes (for newcomers):
+- Don't try to write a perfect rulebook on day one. You'll guess wrong about what the AI gets wrong.
+- Method that actually works: every time you find yourself re-typing the same correction ("use CmdletBinding", "add try/catch", "include help"), add it to the file.
+- After 2–3 weeks the file stabilises around the things YOUR project actually cares about.
+- The file lives at `.github/copilot-instructions.md` inside the repo. Commit it. Now every teammate gets the same AI behaviour.
+-->
+
 ---
 <!-- version: 4h -->
 
@@ -2468,6 +2516,13 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 - **Spec**: modelcontextprotocol.io
 - **Servers**: github.com/modelcontextprotocol/servers
 
+<!--
+Speaker notes (for newcomers):
+- Bookmark the top three links and you have a complete on-ramp: Agent Mode docs (what), Custom Instructions docs (how), MCP servers list (what to plug in).
+- All slides + materials for this training live in the repo — attendees get the link in the chat after the session.
+- If you're brand new: start with the Agent Mode docs. Everything else makes more sense after you've used it once.
+-->
+
 ---
 <!-- version: 4h -->
 
@@ -2519,6 +2574,13 @@ Expected outcome: **working tests in minutes**, verified by the agent.
 > *"The whole is greater than the sum of its parts."* — **Aristotle**
 
 ### = A Symphony: *Better code, faster delivery, less tedium*
+
+<!--
+Speaker notes (for newcomers):
+- Closing image to take home: your role doesn't shrink — it changes shape.
+- A conductor knows every instrument but plays none. The better you understand each AI capability (and each model's quirks), the better the orchestra sounds.
+- The fear "AI will make me redundant" assumes you stay a violin player. Promote yourself to conductor before the question even applies.
+-->
 
 ---
 <!-- version: 2h 4h -->
@@ -2758,6 +2820,14 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 ### One person. Four surfaces (Agents · Instructions · Skills · Prompts). Git-versioned. OneDrive-synced.
 
 > **Proof that the operating model is real** — the same shape of work (lab runbook, DSC debug session, legal Schriftsatz, payslip PDF parse) uses the same four customization surfaces, one agent loop, one git history.
+
+<!--
+Speaker notes (for newcomers):
+- The CopilotAtelier repo is a live, public example — browse it after the session to see what a "mature" personal setup looks like.
+- The point isn't to copy the skills (most won't apply to your work) — it's to see how *the same four file types* (Agents / Instructions / Skills / Prompts) cover wildly different domains.
+- You won't reach this level in week one. That's fine. Pick ONE skill area, build one skill, see if the agent uses it. Then add another.
+- The OneDrive sync trick (covered on slide 10.5a) is what makes a personal library practical — write once, every machine has it.
+-->
 
 ---
 <!-- version: 2h 4h -->
@@ -3015,6 +3085,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 
 > **One cohesive workflow. No tab-switching between PowerShell ISE, a Word runbook, and a change ticket.**
 
+<!--
+Speaker notes (for newcomers):
+- Step 5 ("first verification fails, agent diagnoses from event logs") is the moment everything in the training clicks. Wait for the audience reaction.
+- The runbook stays in Markdown next to the scripts. One PR shows both the script and the doc change — they cannot drift apart.
+- This is `Invoke-Pester` for infrastructure. Same loop. Different artefact.
+-->
+
 ---
 <!-- version: 2h 4h -->
 
@@ -3027,6 +3104,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 5. **Verified change + diffed runbook + git commit** is the system engineer's equivalent of green tests.
 
 > **The full model: agent writes code, runs it in a lab, verifies with events, documents the result, commits. This is agentic operations.**
+
+<!--
+Speaker notes (for newcomers):
+- One-line summary for sysadmins who joined late: *give the agent a lab, snapshot before every destructive action, verify with events, commit the runbook.*
+- The four sandbox properties (reversible · reproducible · observable · isolated) are the checklist for any platform you let an agent loose on — not just AutomatedLab.
+- This module closes the loop with Module 5 (self-verification): same pattern, infrastructure scale.
+-->
 
 ---
 <!-- version: 1h 2h 4h -->
@@ -3042,6 +3126,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 - **Commander (you)** — holds the map, sets the objective, decides what counts as victory, owns the consequences.
 
 > Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
+
+<!--
+Speaker notes (for newcomers):
+- Use this metaphor in your own team conversations. It survives translation across roles: dev, ops, legal, research.
+- The hardest discipline isn't telling the AI what to do — it's deciding *what counts as victory* before the AI starts moving. That's the commander's job and nobody else can do it for you.
+- Pairs with the earlier conductor metaphor (slide 16 / 10.10): same role, different verb. Conductor for creative work, commander for operational work. Same person.
+-->
 
 ---
 <!-- version: 1h 2h 4h -->

@@ -34,6 +34,12 @@
 - Where to avoid it ❌
 - The human role that remains
 
+<!--
+The Kant epigraph ("Wissenschaft ist geordnetes Wissen. Weisheit ist geordnetes Leben.") sets the module's stance: knowing how the tool works is knowledge; knowing when not to use it is wisdom. Modules 1–8 were the knowledge half; Module 9 is the wisdom half.
+
+The honest framing on this slide matters because the surrounding industry rarely supplies it. Vendor demos optimise for tasks where the agent looks brilliant; field reports surface the cases where it looks reckless. Neither captures the actual distribution, which is heavily case-dependent. A team that takes this module seriously typically produces an internal "agentic do/don't" document for their codebase — the same shape as this module, populated with their own examples.
+-->
+
 ---
 
 ## Slide 9.2: Where It Excels
@@ -55,6 +61,12 @@
 ### Common thread:
 > **Well-defined tasks with verifiable outcomes** — and that includes
 > anything you can do from the command line or programmatically, not just writing code.
+
+<!--
+The common thread on this slide is the discriminating one: "well-defined tasks with verifiable outcomes." Boilerplate, tests, documentation, and refactoring all share the structural property that you can mechanically check whether the agent's output is correct — the code compiles, the tests pass, the documentation matches the signature, the refactor preserves behaviour.
+
+The operational-troubleshooting and infrastructure-diagnostics rows are the under-appreciated ones in this list. They look different from the others (no code being written), but they share the same structural property — the verification step is `run the diagnostic again and see if the error is gone`. That makes them an excellent fit for agentic work, even though the work product is a fixed system rather than a new function.
+-->
 
 ---
 
@@ -89,14 +101,12 @@
 └─────────────────────────────────────────┘
 ```
 
----
+<!--
+Boilerplate is the historical sweet spot for AI code generation — it was the killer demo for Copilot in 2021 and remains the highest-confidence use case in 2026. The economics are favourable because the human time saved is large (boilerplate is slow to type, fast to read) and the verification step is cheap (the boilerplate either matches the template or it does not).
 
-## Slide 9.4: Test Generation
+The failure mode worth naming is *concept-vs-template confusion*. The agent will happily generate scaffolding for the framework it thinks you are using, even if your project uses something else. The fix is convention-by-example: a single well-formed existing module is worth more than any amount of prompting.
+-->
 
-# AI Test Generation ✅
-
-### Why it works:
-- Tests follow predictable patterns
 - Coverage can be verified automatically
 - Edge cases are systematic to enumerate
 - Tests validate themselves (pass/fail)
@@ -113,6 +123,12 @@ Get-ConfigValue function, covering:
 
 ### Result:
 Thorough test coverage in minutes vs. hours.
+
+<!--
+Test generation is the case Module 5 already covered structurally; this slide is the practical recommendation. Tests are an excellent fit because the agent's output is self-checking — a test that passes when the code is broken is a defective test, and the cheating-agent trap from Module 5 names the failure mode and the mitigations.
+
+The productivity claim ("minutes vs hours") is conservative for genuinely well-tested code. The bigger win is not the time saved on writing the tests — it is the number of edge cases the agent enumerates that a tired human would have skipped. Null, empty, whitespace-only, very-long, malformed-but-parseable inputs are the agent's default checklist; humans tend to write three success-path tests and call it done.
+-->
 
 ---
 
@@ -139,6 +155,12 @@ Return types      ──▶    README sections
 
 > AI is excellent at the tedious work of reading and summarizing.
 
+<!--
+Documentation is the agentic use case with the highest expected value per minute of human review, because the failure mode of bad documentation is mild (a confused reader) and the cost of writing it well by hand is high (most engineers actively dislike doing it). The agent's strength here — mechanical summarisation of existing code — happens to be exactly the task most teams under-invest in.
+
+The one caveat: documentation written from code reflects what the code *does*, not what it *should* do. If the code is wrong, the documentation will faithfully document the wrongness. Comment-based help, API references, README usage sections — these are safe targets. Conceptual docs that explain *why* the system exists need human authorship; the agent can polish the prose but not invent the rationale.
+-->
+
 ---
 
 ## Slide 9.6: Where to Be Careful
@@ -158,6 +180,12 @@ Return types      ──▶    README sections
 - More specific prompts
 - Smaller increments
 - More comprehensive testing
+
+<!--
+The categories in this table share a structural property: the cost of being wrong is asymmetric. Boilerplate that is slightly off is annoying; performance code that is slightly off is the difference between a working system and an outage. The asymmetry, not the difficulty, is what moves these tasks from green to yellow.
+
+The mitigations are not about preventing the agent from working in these areas — they are about adjusting the supervision intensity to match the cost of error. Smaller increments, stricter prompts, and more thorough testing all increase the per-task overhead, which is exactly what is justified when the downside is severe. The mature pattern is to make this adjustment explicit ("this is a sensitive area, slow down") rather than letting the agent operate at default intensity everywhere.
+-->
 
 ---
 
@@ -185,6 +213,12 @@ Your domain knowledge          AI's understanding
 - Write tests FIRST as specifications
 - Review logic carefully, not just syntax
 - Break into smaller, verifiable pieces
+
+<!--
+The gap on this slide — between a domain expert's compressed requirement and the agent's literal interpretation — is the failure mode that produces shippable code with wrong behaviour. The agent will write a function that runs, passes the tests the agent itself authored, and quietly misimplements the business rule. The defect surfaces in production, not in CI.
+
+The "tests first as specifications" mitigation matters more here than anywhere else in the curriculum. A test that asserts "FIFO with 30-day lookback and cross-entity netting" by name will fail loudly if the implementation does any of those wrong. A test that just checks "the totals balance" will pass whether the implementation is correct or accidentally correct. In business-logic domains, the test design is the spec design — sloppy tests guarantee sloppy implementations.
+-->
 
 ---
 
@@ -218,6 +252,12 @@ Your domain knowledge          AI's understanding
 - Run security scanners
 - Test authentication paths
 - Verify secret handling
+
+<!--
+Security-sensitive code is the category where the agent's training data is most likely to be wrong, because the open-source corpus contains an enormous amount of subtly insecure code that compiles, runs, and looks idiomatic. The agent does not learn "this is the secure pattern" — it learns "this is the common pattern," and security-wise those are routinely different.
+
+The most effective mitigation is structural: pair the engineer agent with a security-reviewer agent (from Module 4's handoff pattern), so AI-authored code is reviewed by a second pass before it reaches a human. Even an imperfect automated review filters the highest-volume class of mistakes (hardcoded secrets, missing input validation, plaintext credential logging), leaving the human's attention free for the harder cases.
+-->
 
 ---
 
@@ -269,6 +309,12 @@ Your domain knowledge          AI's understanding
 ### Key question to ask yourself:
 > "What is the worst thing the agent could do with the access I've given it?"
 
+<!--
+The Scheuer quote ("Autonomie und Sicherheit wachsen nicht im gleichen Tempo") names the structural tension this slide is built around. Capability expands generation by generation; safeguards expand only when the industry has seen enough incidents to learn what to guard against. The window between "new capability available" and "safeguards mature" is where most preventable damage happens.
+
+The "worst thing" question is the right frame because it directs attention to the *system the agent operates in*, not the agent itself. The agent does not need to be malicious to do harm; it only needs to combine its granted capabilities in a way the human did not anticipate. The PocketOS incident two slides later is the canonical illustration: every individual permission the agent had was reasonable; the combination was catastrophic.
+-->
+
 ---
 
 ## Slide 9.8b: The Cardinal Rule
@@ -307,6 +353,12 @@ Your domain knowledge          AI's understanding
 
 > *"He who learns but does not think, is lost. He who thinks but does not learn is in great danger."* — **Confucius**
 
+<!--
+The pilot/autopilot analogy is apt but worth unpacking. Commercial aviation requires pilots to maintain manual flying skills through regular training even though autopilot handles most cruise-phase flying — because the moment the autopilot disengages is exactly the moment the pilot needs to be sharpest. The same logic applies to AI-augmented engineering: the work where the agent gives up and asks for help is precisely the work where human capability has to be intact.
+
+The paradox in the inset box is the operating lesson. Speed gains compound for engineers who already understand the systems they are accelerating; they decay for engineers who use the agent to avoid building that understanding. The cardinal rule is therefore preventive, not corrective — invest in understanding *before* you delegate, because trying to acquire it after the fact, in the middle of an incident, is the worst possible time.
+-->
+
 ---
 
 ## Slide 9.8c: Real Incident — 9 Seconds, One Database
@@ -337,6 +389,14 @@ Your domain knowledge          AI's understanding
 - The agent broke **every principle it was given** in a single API call
 
 > Sources: [Tom's Hardware (2026-04-27)](https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-deletes-entire-company-database-in-9-seconds-backups-zapped-after-cursor-tool-powered-by-anthropics-claude-goes-rogue), Disclose.tv summary. Replit reported a near-identical incident weeks earlier.
+
+<!--
+Speaker notes (for newcomers):
+- This is not a hypothetical. A real company lost its production database AND every backup in 9 seconds because one API token had too much access.
+- The agent didn't "go evil" — it guessed wrong about what a delete command would touch, and nothing stopped it.
+- The takeaway is not "AI is dangerous". The takeaway is "give the AI the same guardrails you'd give a brand-new junior with admin rights."
+- The next two slides (9.8d, 9.8e) are the practical guardrails.
+-->
 
 ---
 
@@ -380,6 +440,12 @@ Your domain knowledge          AI's understanding
 
 > The agent will be wrong eventually. **The system around it must not be.**
 
+<!--
+The five-layer model on this slide is defence-in-depth applied to the agentic operating model. No single layer would have prevented the PocketOS incident; the failure required *all five* to be missing simultaneously. That is uncomfortably common in fast-moving startup environments where speed of shipping has historically been valued more than operational rigour.
+
+The destructive-operations rule in the system prompt is worth implementing even on solo projects — it costs nothing, slows the agent only on dangerous actions, and the discipline of writing it forces the team to enumerate which operations they consider destructive. That enumeration is itself a useful artefact, because most teams have never had the conversation explicitly before being asked.
+-->
+
 ---
 
 ## Slide 9.8e: GitOps as the Architectural Guardrail
@@ -421,6 +487,14 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 
 > Reference: [`dsccommunity/DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) · see also [`content/materials/destructive-operations-guardrails.md`](../materials/destructive-operations-guardrails.md) § Layer 6.
 
+<!--
+Speaker notes (for newcomers):
+- **GitOps** = "the only way to change the system is to commit a config file to Git, then a robot applies it."
+- The robot has all the dangerous permissions; the AI only has "can write files in this repo."
+- Net result: even if the AI goes rogue, the worst it can do is open a pull request — which a human still has to approve.
+- This is overkill for a personal project. It is the right answer for any production system. Worth knowing it exists.
+-->
+
 ---
 
 ## Slide 9.9: When to Avoid
@@ -437,6 +511,12 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 
 ### The rule:
 > **If you can't verify it, don't generate it.**
+
+<!--
+The rule on this slide is the closing principle for the entire module — verification capability bounds generation capability. If the workflow has no test, no diff review, no rollback, and no way to detect that the output is wrong, the agent is operating without a safety net, and the productivity gain becomes a leveraged bet on the agent being right every time.
+
+The categories on the table are not absolute prohibitions — they are *defaults to revisit when the verification problem is solved*. "Code you don't understand" becomes a use case once you have an expert reviewer; "highly novel problems" become a use case once you have written enough of the design that the agent has a pattern to follow. The rule is dynamic: verify first, then generate.
+-->
 
 ---
 
@@ -469,6 +549,12 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+The failure shown here is more common than the security failure on slide 9.8 and harder to detect. Insecure code can sometimes be caught by scanners; code the human cannot evaluate cannot be caught by anything except outcomes — and outcomes arrive after the code is already in production.
+
+The practical defence is uncomfortably old-fashioned: do not generate at the edge of your competence without a co-reviewer who is inside it. Pair-programming with an expert, requesting domain-specific code review, or simply refusing the task until the team has someone qualified to evaluate the output are all valid responses. "The agent looks confident" is not a substitute for "a human who understands this signed off."
+-->
 
 ---
 
@@ -531,6 +617,14 @@ Two industry anchors that took the opposite stance — and are worth citing on t
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
+<!--
+Speaker notes (for newcomers):
+- **Comprehension debt** is the key term on this slide. Coin it for your team.
+- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
+- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
+- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
+
 ---
 
 ## Slide 9.10b: Job Hollowing & Heteromation
@@ -570,6 +664,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 
 > The mechanism is the same everywhere: **the meaningful work moves to the machine; the tedious supervisory residue stays with the human.**
 
+<!--
+Moessner's two terms — *Job Hollowing* and *Heteromation* — are the most precise vocabulary available for the labour shift this slide describes. The terms matter because the phenomenon is real but easily mistaken for ordinary burnout. The diagnostic in the second column gives teams a way to test for it: ask, at end of day, what was actually decided. If the answer is "nothing, I approved things," the role has been hollowed regardless of how busy the day felt.
+
+The industry-spread data is the part of the slide most likely to land with non-developer audiences. The same pattern in lab medicine, in copywriting, in legal research: the interesting cases move to the AI; the routine residue stays with the human. The agentic operating model's response is not to slow down adoption — it is to design roles deliberately so the human keeps the cognitively substantive work and the machine takes the tedious work, not the other way around.
+-->
+
 ---
 
 ## Slide 9.10d: Deep Modules — A Codebase the Agent Can Navigate
@@ -598,6 +698,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 - If the diff adds public surface without hiding meaningful complexity, push back **before** the agent writes it.
 
 > Pairs with **M3** (context lives in Git), **M4** (spec-driven dev), **M5** (fast feedback). Reference: Ousterhout, *A Philosophy of Software Design*, 2nd ed.
+
+<!--
+Ousterhout's deep-vs-shallow distinction (*A Philosophy of Software Design*, 2018) was already the most useful design heuristic in software architecture; in the agent era it becomes load-bearing. The agent's context window is finite; every additional file it has to drag into context to reason about a change is tax on the cognitive budget available for the actual problem. Deep modules are cheap to use; shallow modules compound the agent's working-memory cost on every interaction.
+
+LLMs left to their own devices tend to produce shallow modules, because shallow modules are what the open-source training corpus is full of. Helper wrappers, single-method classes, abstraction layers that hide nothing — the agent has seen millions of them and produces them by default. Counteracting that bias requires an explicit architectural review of the *plan* before code is written: "does this introduce public surface that hides meaningful complexity, or is it another shallow wrapper?" If the latter, push back before the diff exists.
+-->
 
 ---
 
@@ -642,6 +748,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 
 > Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30) — synthesising Mackworth (1948), Parasuraman & Manzey (2010), and the Waymo programme.
 
+<!--
+Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
+
+The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
+-->
+
 ---
 
 ## Slide 9.11: The Human Role
@@ -682,6 +794,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 └─────────────────────────────────────────┘
 ```
 
+<!--
+The four roles — architect, reviewer, judge, owner — collectively describe the work that does not transfer to the agent. Each one is a specific kind of judgement: what to build, whether the build is correct, whether the agent should be used here at all, who is responsible if it goes wrong. None of these has a credible automation story in 2026; all of them benefit from agent support but none can be delegated.
+
+The distinction worth holding onto is between work that is *augmented* and work that is *substituted*. The agent augments architecting (it can sketch options), reviewing (it can flag obvious issues), and judging (it can supply prior-art examples). The agent cannot substitute for *being responsible*, which is the only one that survives the loop — because responsibility is a social and legal construct, not a technical one, and there is no construct yet for transferring it to an AI system.
+-->
+
 ---
 
 ## Slide 9.12: The Review Responsibility
@@ -710,6 +828,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 > *"L'homme n'est rien d'autre que ce qu'il se fait."*
 > *"Man is nothing else but what he makes of himself."*
 > — **Jean-Paul Sartre**
+
+<!--
+The Sartre quote, from *L'existentialisme est un humanisme* (1946), supplies the philosophical underpinning the slide leans on. Existentialism's argument that we are defined by our choices applies cleanly to engineering: a commit signed by you is your choice, regardless of who or what wrote the underlying lines. "AI wrote it" is not a defence in a post-mortem any more than "the previous developer wrote it" was — the act of merging it makes it yours.
+
+The code-review checklist embedded in the diff comment is a useful concrete pattern. Some teams formalise it: every PR with AI involvement must have the reviewer list — in the commit message or the PR description — the specific properties they verified ("reviewed input validation," "checked error paths," "confirmed no secrets exposed"). The check is partly a forcing function for actual review and partly an audit trail for later incident investigation.
+-->
 
 ---
 
@@ -747,6 +871,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+The five questions on this flowchart are deliberately sequential — each one gates the next, and a NO on any of them short-circuits the rest. That ordering matters operationally: if you cannot verify the result (question 1), it is irrelevant whether the task is well-suited to AI generation, because you have no signal for whether the output is correct.
+
+The framework is a thinking tool, not a checklist to fill in mechanically. The right way to use it is as a conversation starter for the team — for each YES, name the specific verification mechanism, the domain expert, the test harness, the rollback path. Teams that adopt agentic tooling well typically run a version of this conversation explicitly for each new use case; teams that adopt it badly skip the conversation and discover the answers in production.
+-->
+
 ---
 
 ## Slide 9.14: Key Takeaway
@@ -778,6 +908,12 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 ```
 
 > **AI is a powerful tool. Like all powerful tools, it requires judgment.**
+
+<!--
+The summary deliberately frames agentic AI as a power tool rather than an inevitability. Power tools — chainsaws, table saws, MIG welders — are extraordinarily useful in skilled hands and routinely dangerous in unskilled ones. The industries that adopted them successfully developed training, safety practices, and accepted that some tasks require the older slower tool. None of those industries decided that learning the safety practices was optional.
+
+The last line of the slide — "more valuable with AI, not less, but only if you use it wisely" — is the strategic claim of the entire training. The alternative readings (AI replaces you, AI changes nothing) both fail empirically. The pattern that survives is augmentation: humans who learn to direct, review, and supervise agentic systems become more productive than they were; humans who delegate uncritically become less reliable than they were. The choice is not made once; it is made every day.
+-->
 
 ---
 
