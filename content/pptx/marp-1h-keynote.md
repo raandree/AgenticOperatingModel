@@ -253,6 +253,13 @@ style: |
 > *"The spirits that I summoned, I now cannot rid myself of."*
 > — **Johann Wolfgang von Goethe**, *Der Zauberlehrling*
 
+<!--
+The quote is from Goethe's ballad *Der Zauberlehrling* (1797), "The Sorcerer's Apprentice." An apprentice, left alone, enchants a broom to fetch water for him — then realises he never learned the counter-spell to stop it. The poem is the cultural ancestor of every "runaway automation" story since, from Disney's *Fantasia* to modern AI-safety essays.
+
+The relevance to agentic AI is direct: the capability to *summon* autonomous behaviour is now widely available; the capability to *supervise and stop* it lags behind. Most organisations are at the apprentice's stage — the spirits are already in motion, the operating model is being written after the fact.
+
+This training is built around closing that gap: not how to summon harder, but how to keep a deliberate hand on the broom — through version control, verification, guardrails, and reversibility.
+-->
 ---
 
 # AI Has Evolved in Three Waves
@@ -265,6 +272,17 @@ style: |
 | **Who drives** | You type | You paste | AI acts, you review |
 | **Deliverable** | Lines of code | Snippets, answers | **Code, runbooks, documents, decisions** |
 
+<!--
+The three waves are cumulative, not replacements — autocomplete still lives inside every modern agent.
+
+**Wave 1 (2021–22)** opened with GitHub Copilot's general availability in June 2022. The interaction unit was a single line or block; the human remained author, integrator, and runner. Productivity gains were measurable (~30–55% on benchmark tasks) but the engineering process around the code was unchanged.
+
+**Wave 2 (2023–24)** is the chat era: ChatGPT (Nov 2022), Claude, Gemini. The interaction unit became a *conversation*, and the AI could explain, refactor, or generate larger fragments. The bottleneck moved to the human's copy-paste step and to the lack of context — the model could not see the repository or run the code.
+
+**Wave 3 (2025–26)** is the agentic era: Copilot Agent Mode, Cursor, Claude Code, Aider. The model gains tools (file I/O, shell, search) and runs a loop — observe, plan, act, verify, iterate. The unit of work is no longer a snippet but a *task with verification*. The human role shifts from typist to reviewer.
+
+The shift to Wave 3 is what creates the need for an operating model: once the agent can take actions, version control, tests, and guardrails stop being optional hygiene and become the supervision mechanism.
+-->
 ---
 
 # Why This Matters to You — Whatever Your Role
@@ -310,6 +328,17 @@ style: |
 7. **When to Use (and Not Use)** — Good judgment matters
 8. **Your Agentic Future** — Getting started
 
+<!--
+The five points cover roughly the same territory in every version of the deck; the difference is depth, not topic.
+
+- **Module 2 — "agentic" defined.** The vocabulary slide and the Observe→Plan→Act→Verify loop. Without this, later modules sound like tooling marketing.
+- **Module 3 — Context.** Why Git, the repository structure, and a written glossary matter more than choice of model. This module is the one most teams underweight.
+- **Module 4 — Controlling behaviour.** Instruction files, custom agents, skills, prompt files. The shift from "prompt the model" to "configure the model’s behaviour as code".
+- **Module 5 — Self-verification.** Tests as the executable spec, the "cheating agent" failure mode, and how Pester-style discipline becomes the AI feedback signal.
+- **Practical application.** A live walkthrough that shows the loop, not just the screenshots. Saved for the end so the earlier abstractions have something concrete to anchor on.
+
+In the 1h cut, only modules 1–3 and 7 are covered; the 2h adds 4 and 6; the 4h includes hands-on labs (AutomatedLab, MCP server) in modules 8–10. The structure is deliberately *concept → demo → "how this applies to your repo"* in every module.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -383,6 +412,11 @@ Speaker notes (for newcomers):
 > An agentic AI doesn't just **suggest** — it **acts, verifies, and iterates** autonomously.
 > The *thing it acts on* can be code, a server, an email corpus, or a legal case file.
 
+<!--
+The word "agent" has a long pedigree in computer science — Marvin Minsky's *Society of Mind* (1986), the BDI architecture from the 1990s (Belief–Desire–Intention), reinforcement-learning agents from the 2010s. The current LLM-driven definition keeps the same five properties (goal, context, tools, autonomy, iteration) but supplies them with natural-language reasoning instead of hand-coded planners.
+
+The practical distinction worth holding onto: an autocomplete suggests; a chatbot explains; an agent *acts and observes the result of its action*. The fifth property — iteration based on feedback — is the one that separates "agent" from "script with an LLM in it."
+-->
 ---
 
 # You Are the Conductor 🎼
@@ -497,6 +531,11 @@ Speaker notes — Module 2 appendix
 
 > **Context transforms a generic AI into YOUR coding partner.**
 
+<!--
+The word "context" carries two meanings here that are easy to conflate. The first is the model's context window — the literal token budget (200k–2M in 2026 frontier models) that bounds how much text the model can hold at once. The second is *project context* — the structure, conventions, glossary, and history of the specific codebase. The first is a hardware constraint; the second is an authoring problem the team controls.
+
+Low-context output is the failure mode users notice first: code that looks reasonable in isolation but uses the wrong logger, the wrong error type, the wrong test framework. The model has not regressed — it has just defaulted to the most common pattern on the open internet, which is rarely the pattern in your repo.
+-->
 ---
 
 # Git Gives AI a Brain
@@ -539,6 +578,11 @@ Speaker notes (for newcomers):
 
 The agent learns: public vs private locations, naming conventions, module structure.
 
+<!--
+The layout shown is the Sampler / standard PowerShell-module convention: `Public/` for exported cmdlets, `Private/` for internal helpers, `tests/` mirroring `src/`. None of that is enforced by the language — it is convention all the way down — but agents are remarkably good at recognising it and writing files that fit.
+
+The corollary is that a non-conventional layout costs you context. A repo with everything in a single `scripts/` folder and no test directory gives the agent nothing to infer from, and the output will reflect that. Reorganising for convention is one of the highest-leverage things a team can do before adopting agentic tooling.
+-->
 ---
 
 # Git Provides Traceability
@@ -631,6 +675,11 @@ Function Validate-Input {
 ```
 *Different style, verbose, inconsistent*
 
+<!--
+The inconsistency on this slide is genuine and reproducible — the same prompt to the same model on different days produces different code, because the model has nothing to anchor on beyond its training-data priors. Temperature, recent context, even time-of-day sampling variance all contribute.
+
+The practical cost is hidden until a team scales. One developer alternating between two styles is annoying; ten developers each getting two random styles produces a codebase no reviewer can pattern-match against. The fix is not "better prompting" — it is removing the question from the prompt entirely by writing it down once, in a file the agent reads automatically.
+-->
 ---
 
 <!-- _class: dense -->
@@ -657,6 +706,11 @@ Function Validate-Input {
           AI applies these rules AUTOMATICALLY
 ```
 
+<!--
+Instruction files implement a pattern called "prompt prefixing": the host application silently prepends the file's contents to every system prompt the model sees. From the model's perspective there is no difference between rules you typed five seconds ago and rules you wrote six months ago — they all arrive together.
+
+The leverage is asymmetric. Writing one rule once costs a minute; the rule then applies to every subsequent task for every developer on the team, indefinitely. This is the single highest-ROI configuration most teams make to their AI tooling, and it is also the one most likely to be skipped because it does not look like "work."
+-->
 ---
 
 <!-- _class: dense -->
@@ -684,6 +738,16 @@ Function Validate-Input {
 └── AGENTS.md                        ← Cross-tool instructions
 ```
 
+<!--
+Speaker notes (for newcomers):
+- Don't panic at five file types — 90% of teams only use the first one (`copilot-instructions.md`).
+- Quick mental model:
+  - `copilot-instructions.md` = the rulebook that always applies.
+  - `*.instructions.md` files = rules that only apply to certain file types (e.g. only `*.ps1`).
+  - `AGENTS.md` / `CLAUDE.md` = same idea but readable by *other* AI tools too (Claude Code, etc.).
+  - `.agent.md` = a named specialist (e.g. "security-reviewer") you can summon on demand.
+- Start with one file. Add more only when you catch yourself repeating an instruction.
+-->
 ---
 
 # The Complete Customization Ecosystem
@@ -697,6 +761,11 @@ Function Validate-Input {
 | 5 | **Prompt Templates** | `.prompt.md` | When `/command` is invoked |
 | 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
 
+<!--
+The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.
+
+Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
+-->
 ---
 
 <!-- _class: section-divider -->
@@ -883,6 +952,11 @@ Speaker notes (for newcomers):
 
 > **Start small. Build confidence. Transform your workflow.**
 
+<!--
+The closing slide compresses the entire training into eight bullets and one operating sentence. The sentence — "you become the architect and reviewer, AI becomes your tireless implementer" — is the line the training wants people to leave the room remembering. If everything else fades, that role assignment is what stays useful.
+
+The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles begins with a single step") is the right closing note. The training does not promise transformation; it promises a starting point and a map. The transformation, if it happens, is the result of the work the team does in the weeks after, applying the operating model to their actual codebase, on their actual problems, with their actual constraints. The training's job is done when the audience leaves knowing what to do tomorrow morning.
+-->
 ---
 
 <!-- _class: lead -->
@@ -892,3 +966,9 @@ Speaker notes (for newcomers):
 *[Your Contact Info]*
 *[Your Email]*
 *[Materials Download Link]*
+
+<!--
+The Q&A is usually where the most useful conversation of the training happens, because the questions surface what the audience has internalised versus what slid past. The five common topics listed on the slide are reliable starters when no one raises a hand first; in practice the room usually has its own opening question.
+
+The most common genuine question after this training is some version of "how do I convince my team / my manager / my security organisation to allow this?" That question is partly about the technology but mostly about organisational change — instruction files committed to a shared repository, GitOps as a structural guardrail, Memory Bank as an audit trail. The curriculum has these answers in its body; the Q&A is where they get connected to the specific organisation in the room.
+-->

@@ -48,6 +48,12 @@
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+The five concepts on this slide are the load-bearing ones in the curriculum. Each maps to a module: agentic coding (M2), context (M3), instructions (M4), self-verification (M5), judgement (M9). The other modules — advanced capabilities (M8), beyond code (M11), the lab as sandbox (M12) — are extensions; these five are the foundation.
+
+The ordering also matters. The agentic loop is the prerequisite vocabulary; context is what makes the loop produce useful output; instructions are how that context becomes durable; self-verification is what closes the loop; judgement is what decides whether the loop should run at all. A team that internalises only one of these in isolation tends to misuse the others; the value compounds when all five are present.
+-->
+
 ---
 
 ## Slide 10.2: The Five Questions
@@ -68,6 +74,12 @@
 
 ### 5. When should I use agentic coding?
 > For well-defined tasks where you can verify results.
+
+<!--
+The five questions are a self-test the audience can run privately. Each one has a precise answer the curriculum supplied, and inability to answer any of them is a signal to revisit that module before adopting the practice in their own work. The questions are short enough to take home; the answers are the operating model in summary form.
+
+The questions also form a useful interview pattern — teams adopting agentic tooling can use this list when hiring or onboarding to test whether a candidate has actually internalised the concepts or merely heard the vocabulary. The third question ("how do I control AI behaviour?") and the fifth ("when should I use agentic coding?") are the ones that most distinguish reflective practitioners from enthusiastic adopters.
+-->
 
 ---
 
@@ -108,6 +120,12 @@
 □ Build your prompt patterns library
 ```
 
+<!--
+The three-week ramp is a deliberate pacing recommendation, not a fixed schedule. Most engineers can compress the first week into a day if they already use Copilot in chat or completion mode; the more important variable is the *progression* (alone → with real work → with the team) rather than the calendar.
+
+The single most-skipped step in this list is `/init`. Teams routinely write their first `copilot-instructions.md` from scratch, miss conventions that the agent's auto-scan would have surfaced, and end up with a file that misses what the codebase already implies. The `/init` output is rarely the final file, but it is almost always a better starting point than a blank page.
+-->
+
 ---
 
 ## Slide 10.4: Your First Task
@@ -132,6 +150,12 @@ Generate comprehensive Pester tests covering:
 
 ### Expected outcome:
 Working tests in minutes, verified by the agent.
+
+<!--
+The four "easy wins" on this slide are deliberately uninspiring. They are the tasks engineers already know they should do and tend to put off — missing tests, missing documentation, untouched scaffolding, error handling that never quite got added. The agent removes the activation cost and the engineer gets the closure of finally addressing the backlog.
+
+The pattern is psychological as well as practical. A first successful agent task on a real piece of work converts more skeptics than any demo can. The win does not have to be impressive; it has to be *theirs* — their codebase, their problem, their improvement. The training's job is to make sure the first task is structured so that success is the overwhelmingly likely outcome.
+-->
 
 ---
 
@@ -175,6 +199,12 @@ Working tests in minutes, verified by the agent.
 ```
 
 > **Tip**: Use `/init` in chat to auto-generate a starting point!
+
+<!--
+The progression from V1 to V2 is the realistic shape of an instruction file's evolution. V1 is the minimum viable rulebook — short enough to write in five minutes, specific enough to be enforceable. V2 is what the same file looks like after a few weeks of catching the agent doing things the team did not want.
+
+The discipline that matters is *additive iteration*. Every new rule should answer the question "what behaviour did the agent produce in the last week that I want to prevent next week?" Rules added speculatively ("we should probably have a rule about X") rarely improve output because the agent had no problem with X to begin with. The file gets stronger by responding to observed failures, not by enumerating imagined ones.
+-->
 
 ---
 
@@ -287,6 +317,12 @@ Speaker notes (for newcomers):
 - Use `/init` to auto-generate from your codebase
 - Share improvements via Git
 
+<!--
+The sample library is meant to be a starting point, not a finished product. Each template captures the conventions of the workshop's reference codebase; teams will need to edit the contents to match their own conventions. The templates are valuable mainly as evidence that each customisation type — instructions, agents, skills, prompts — has a concrete authoring pattern that scales beyond toy examples.
+
+The more durable resource is the small ecosystem of public sample repositories that has grown around the agentic-tooling community in 2025–26. The training points learners at a curated few rather than attempting to keep the table on this slide exhaustive — the field moves fast enough that any printed list goes stale quickly.
+-->
+
 ---
 
 ## Slide 10.7a: With AI, Not From AI
@@ -330,6 +366,12 @@ Speaker notes (for newcomers):
 
 > The agentic operating model isn't *AI replaces humans*. It's *humans get back to the part the AI cannot do — and version-control the intent that makes it possible.*
 
+<!--
+The Stockfish comparison is the strongest historical anchor available for the "AI does not replace the craft" claim. Computer chess engines have been superhuman since the late 1990s; the population of competitive human players is at an all-time high, the supporting industry (streaming, coaching, analysis) is the largest it has ever been, and the human game is qualitatively more interesting because the engine raised the floor on what counts as a good move. None of this was the prediction in 1997.
+
+The with/from distinction on this slide is the single most important sentence in Module 10. "Code from AI" is the burnout pattern named in Module 9 — the human becomes a quality gate for output they did not author. "Code with AI" is the operating-model pattern — the human authors intent (in instruction files, in specs, in the Memory Bank), and the agent executes against that intent. Same agent, same model, same speed; entirely different relationship to the work. The curriculum's claim is not that the second pattern is virtuous — it is that the second pattern is the one that sustains for years rather than burning out the operator in months.
+-->
+
 ---
 
 ## Slide 10.8: The Future
@@ -367,6 +409,12 @@ Speaker notes (for newcomers):
 
 > **The tools are evolving fast. Your judgment stays essential.**
 
+<!--
+The Already-Here section is dated deliberately — by the time the deck is delivered next quarter, half of it will be stale. The trajectory is what carries forward: better models, more provider choice (BYOK), more programmable extension surfaces, more autonomous cloud execution, more enterprise controls.
+
+The near-term and medium-term predictions on this slide are intentionally cautious. The field has a poor record of long-horizon forecasting; "self-driving codebases" is a real Cursor research direction in 2026 but no responsible vendor commits to a date. The honest summary is that capabilities expand quarterly, the operating model stays the same, and teams that invest in the model (instructions, tests, GitOps, Memory Bank) capture each successive capability with little extra work — while teams that did not invest end up rebuilding their workflow every six months chasing the latest tool.
+-->
+
 ---
 
 ## Slide 10.9: Call to Action
@@ -387,6 +435,12 @@ Speaker notes (for newcomers):
 7. 🔄 Build your prompt patterns
 8. 🔄 Iterate on your instruction files and custom agents
 9. 🔄 Expand to more complex tasks
+
+<!--
+The immediate / this-week / ongoing structure is calibrated to convert intent into action. Most adoption failures happen in the gap between leaving a workshop motivated and opening the editor the next morning unsure what to do first. The immediate items are deliberately small enough to complete in twenty minutes; the week-one items expand the surface; the ongoing items are the durable practice.
+
+The order also matters. Enabling Agent Mode before writing an instruction file leaves the operator unsupervised; writing the instruction file first ensures the first agentic task already operates under the team's rules. The "share with a colleague" item in week one is the social-mechanism step — it moves the practice from individual to team without requiring a top-down rollout.
+-->
 
 ---
 
@@ -443,6 +497,12 @@ Speaker notes (for newcomers):
 
 Lose the commander and the sergeant still moves — but no longer *toward* anything. That is heteromation (M9.10b) by another name.
 
+<!--
+The Aristotle quotation (the whole is greater than the sum of its parts) is doing real work here, not just decorative. The augmentation thesis the entire training rests on is that the combination of human judgement and agent execution produces results neither would reach alone — not because of any mysterious synergy but because the two parties contribute different things. The human supplies intent, context, taste, and accountability; the agent supplies speed, breadth, patience, and tirelessness. Each is bad at the other's job.
+
+The sergeant/commander metaphor from Matt Pocock is the operational version of the same idea. The sergeant is fast and competent but moves toward whatever objective is given; the commander is slower but decides what the objective should be. Inverting the roles — letting the agent set the objective and the human execute it — produces the heteromation pattern from Module 9: the human becomes the machine's tool. Keeping the roles the right way round is the entire operating model in one sentence.
+-->
+
 ---
 
 ## Slide 10.11: Q&A
@@ -464,6 +524,12 @@ Lose the commander and the sergeant still moves — but no longer *toward* anyth
 ### Materials:
 - [Download link for slides]
 - [Download link for samples]
+
+<!--
+The Q&A is usually where the most useful conversation of the training happens, because the questions surface what the audience has internalised versus what slid past. The five common topics listed on the slide are reliable starters when no one raises a hand first; in practice the room usually has its own opening question.
+
+The most common genuine question after this training is some version of "how do I convince my team / my manager / my security organisation to allow this?" That question is partly about the technology but mostly about organisational change — instruction files committed to a shared repository, GitOps as a structural guardrail, Memory Bank as an audit trail. The curriculum has these answers in its body; the Q&A is where they get connected to the specific organisation in the room.
+-->
 
 ---
 
@@ -487,6 +553,12 @@ Lose the commander and the sergeant still moves — but no longer *toward* anyth
 ### Remember:
 > You become the **architect** and **reviewer**.
 > AI becomes your **tireless implementer**.
+
+<!--
+The closing slide compresses the entire training into eight bullets and one operating sentence. The sentence — "you become the architect and reviewer, AI becomes your tireless implementer" — is the line the training wants people to leave the room remembering. If everything else fades, that role assignment is what stays useful.
+
+The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles begins with a single step") is the right closing note. The training does not promise transformation; it promises a starting point and a map. The transformation, if it happens, is the result of the work the team does in the weeks after, applying the operating model to their actual codebase, on their actual problems, with their actual constraints. The training's job is done when the audience leaves knowing what to do tomorrow morning.
+-->
 
 ---
 

@@ -40,6 +40,12 @@ Everything you have learned so far applies **unchanged** to:
 
 > **The loop is identical. Only the artefact changes.**
 
+<!--
+The table on this slide is one of the strongest claims in the curriculum. Up to this point the audience has been encouraged to picture agents working on source code; this slide widens the frame to claim the same operating model applies to runbooks, legal arguments, research synthesis, and operational reports. The claim is empirical — the next slide names three projects where it has held — not aspirational.
+
+The structural property that makes the loop transfer is verifiability. Code can be compiled and tested; a runbook can be executed in a lab; a legal argument can be cross-checked against a corpus; a research synthesis can be audited against its sources. The agentic loop closes wherever there is a way to check the work. The artefact looks different in each domain, but the supervision pattern — Observe, Plan, Act, Verify, Iterate — is identical.
+-->
+
 ---
 
 ## Slide 11.2: Three Real Projects, One Pattern
@@ -60,6 +66,12 @@ All three use the **same six building blocks**:
 4. A `memory-bank/` folder for durable context
 5. A structured input corpus (emails, PDFs, logs, configs)
 6. Deterministic, reviewable, diffable output
+
+<!--
+The three projects on this slide are deliberately drawn from non-software domains — systems engineering, multi-year legal dispute, German tenancy law — to defuse the assumption that the operating model is a software-only practice. The Kerberos RC4 rollout (Project A) produced numbered PowerShell runbooks; the legal dispute (Project B) produced argumentation structures and formal correspondence; the tenancy case (Project C) produced Schriftsatz drafts citing the BGB and BetrKV.
+
+The six building blocks listed at the bottom are the load-bearing finding. None of the three projects could have proceeded with a chat interface alone; each one needed a Git repository, Markdown as the working medium, PowerShell as the bridge to local systems, and a Memory Bank for context that survives across sessions. The operating model is what made the work *durable* — weeks of analysis that could be paused, resumed, audited, and reverted, rather than evaporating between chat sessions.
+-->
 
 ---
 
@@ -98,6 +110,12 @@ All three use the **same six building blocks**:
 
 > **Every decision is reviewable. Every draft is versioned. Nothing is lost.**
 
+<!--
+The input / Memory Bank / output / agent / Git diagram is the architectural summary of every project that uses this operating model. The shape is consistent across domains: a structured input corpus (emails, PDFs, logs, evidence), a stable context store (the Memory Bank), an output folder for the deliverables (runbooks, letters, reports), an agent with tools that connects them, and Git underneath everything as the audit and rollback layer.
+
+The diagram's most underappreciated feature is the Memory Bank in the middle. Without it, every chat session begins with the user re-briefing the agent on the project's state; with it, the briefing is the file the agent reads first. The asymmetry compounds quickly — a long-running project (weeks or months) accumulates context that a short chat history cannot reproduce. The Memory Bank is the part of the operating model that turns "the agent helped me with one task" into "the agent participates in a multi-month effort."
+-->
+
 ---
 
 ## Slide 11.4: What Counts as "Non-Coding"?
@@ -115,6 +133,12 @@ All three use the **same six building blocks**:
 | Monitor deadlines | Computes dates from contract clauses, flags approaching thresholds |
 
 > These are not coding tasks. They are **verifiable, auditable reasoning tasks** — which is exactly what git + Markdown + an agent loop are good at.
+
+<!--
+The examples on this slide were chosen to span very different domains while sharing one structural property — each one involves reading a large corpus, extracting structured information, producing a synthesised artefact, and being able to defend the synthesis with citations back to the source. That structure is precisely where agentic tooling excels, because the agent's strength is mechanical attention to detail across volumes of text that exceed a human's working memory.
+
+The boundary between "coding" and "non-coding" turns out to be soft. A runbook is text but might embed PowerShell; a legal Schriftsatz is prose but cites case files via structured references; an incident analysis is narrative but includes evidence links into logs. The operating model treats all of these the same way — versioned text artefacts with verifiable claims — and the tools (Git, Markdown, an agent with shell access) are equally applicable in each case.
+-->
 
 ---
 
@@ -165,6 +189,12 @@ a0fe73c  Correct timeline for approval workflow
 - **Citable** — "version as of commit `d4f8ea1`" is exact.
 
 > **Your complaint letter, your runbook, and your case file deserve the same rigour as production code.**
+
+<!--
+The `git log` example is real, drawn from a multi-month tenancy dispute. Each commit corresponds to a substantive decision — the version of the letter that incorporated review feedback, the version that restructured around the regulatory directive, the version that added the twenty-eight evidence references. Reading the log backwards reconstructs the thinking; reading it forwards explains the result.
+
+The four properties below the log (reversible, blameable, branchable, citable) are the same properties software engineers value in Git for source code, applied to prose artefacts. "Version as of commit d4f8ea1" is a precise identifier for the exact text that left the office on a specific day; the equivalent in a Word-based workflow is "the version we sent on Tuesday, I think," with no way to recover the lost edits since.
+-->
 
 ---
 
@@ -222,6 +252,12 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 > **The agent proposes, PowerShell executes, git records.**
 
+<!--
+The "fingers" metaphor is the right framing for what PowerShell does in this operating model. The chat interface gives the agent a mouth and a brain; the shell gives it hands. Without the hands, the agent can recommend that the user run `Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625}` and the user has to copy and paste; with the hands, the agent runs the command, reads the output, and decides what to do next.
+
+Windows knowledge workers have a particular advantage in this regard because of how much of the operating system is already scriptable — Outlook COM, Word COM, Excel COM, Active Directory cmdlets, Hyper-V, Exchange management. The agent's ability to integrate these without bespoke wiring turns workflows that were previously "manual operational work" into structured pipelines that can be audited and reused. The economic effect on system-administration teams is significant; the practical effect on individual researchers and analysts is that they suddenly have an automation layer over their own filing system.
+-->
+
 ---
 
 ## Slide 11.9: Data Governance & Confidentiality
@@ -244,6 +280,12 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 > **If you would not paste it into a public forum, configure your stack before you paste it into a prompt.**
 
+<!--
+The data-governance slide is the gatekeeper for any non-software audience and increasingly for software audiences too. The matrix is intentionally aimed at the practical questions a compliance officer or legal team will ask: where does the prompt go, who trains on it, what stays out of context, which model handles the request, what is the local-only fallback.
+
+The distinction between Copilot Individual, Business, and Enterprise tiers is the one most teams get wrong. Individual plans default to using prompts for training unless the user opts out; Business and Enterprise plans do not train on customer prompts at all and offer data-residency controls. For HR, legal, healthcare, and any regulated context, the tier choice is the difference between a defensible deployment and a compliance incident waiting to surface. The rule of thumb at the bottom is unsubtle on purpose — it gives non-technical reviewers a clear test they can apply without understanding the underlying details.
+-->
+
 ---
 
 ## Slide 11.10: Audience Extensions
@@ -264,6 +306,12 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 > **Agentic coding is a special case of agentic knowledge work.**
 
+<!--
+The four-profile matrix is what allows this training to address mixed audiences. The slides do not change between profiles — the principles, the operating model, the tools, the governance considerations are identical. What changes is the demonstration: a code-focused demo for developers, a runbook-focused demo for system engineers, a case-file demo for analysts and lawyers. The substrate underneath each demo is the same.
+
+The "special case" framing in the closing line is the inversion of how the field usually presents itself. Agentic AI is typically marketed to developers first and extended outward; the training argues the reverse direction is more accurate — reasoning over structured corpora is the general capability, and writing code is one instance of it. That reframing matters because it changes who the audience can include: a sysadmin running PowerShell against Active Directory and a lawyer drafting Schriftsatz against the BGB are doing structurally identical work, even though the field rarely says so out loud.
+-->
+
 ---
 
 ## Slide 11.11: Key Takeaway
@@ -277,3 +325,9 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 5. **If you're a sysadmin or an analyst, you are the audience for agentic coding — just with a different deliverable.**
 
 > **Next up (M12): how a lab makes the agent safe to let loose on real infrastructure.**
+
+<!--
+The takeaways collapse Module 11 to five sentences that travel back to non-developer teams. The first three are about applicability (the loop transfers, the medium scales, PowerShell supplies the hands); the fourth and fifth are about responsibility (governance is not optional, sysadmins and analysts are first-class users of agentic tooling).
+
+The transition to Module 12 is deliberate. Module 11 widens the operating model to non-code domains; Module 12 narrows back to one specific extension — using a lab as the safe sandbox for agentic work on real infrastructure. That sequence puts the broadest claim first and the most concrete application of it second, so that the lab patterns in M12 land as a worked example of the universal model from M11 rather than as a separate topic.
+-->

@@ -76,6 +76,12 @@ An **agent** is software that:
 ### In coding terms:
 > An agentic AI doesn't just **suggest** code—it **writes, tests, and fixes** code autonomously.
 
+<!--
+The word "agent" has a long pedigree in computer science — Marvin Minsky's *Society of Mind* (1986), the BDI architecture from the 1990s (Belief–Desire–Intention), reinforcement-learning agents from the 2010s. The current LLM-driven definition keeps the same five properties (goal, context, tools, autonomy, iteration) but supplies them with natural-language reasoning instead of hand-coded planners.
+
+The practical distinction worth holding onto: an autocomplete suggests; a chatbot explains; an agent *acts and observes the result of its action*. The fifth property — iteration based on feedback — is the one that separates "agent" from "script with an LLM in it."
+-->
+
 ---
 
 ## Slide 2.2: The Critical Difference
@@ -115,6 +121,12 @@ An **agent** is software that:
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+The traditional flow has a human in every loop iteration: copy, paste, run, read error, decide what to do next. Each transition is a context switch costing seconds to minutes. On a 30-step task the wall-clock cost is dominated by these handoffs, not by either the human or the model thinking.
+
+The second observation — less obvious — is that the human is also the *only memory* in this flow. The model forgets between turns; the editor doesn't know about the chat; the terminal doesn't know about the file. Everything that persists has to pass through the human's working memory, which is exactly where errors enter.
+-->
 
 ---
 
@@ -163,6 +175,14 @@ An **agent** is software that:
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+The loop on this slide is what "agent mode" actually means in tools like Copilot Agent Mode, Cursor, Claude Code, and Aider. The model invokes file-system and shell tools, reads their output, and decides what to do next — without a human between each step.
+
+The critical edge is the Pass/Fail branch. In the traditional flow that branch lives in the human's head; here it lives in the agent's loop, gated by an automated check (test suite, linter, build). This is why test-discipline becomes load-bearing: it is the only signal the agent has for whether to stop or keep iterating.
+
+The human's role does not disappear — it moves to the boundaries: defining the goal at the top, reviewing the diff at the bottom. Inside the loop, the human's contribution is approval, not authorship.
+-->
+
 ---
 
 ## Slide 2.4: The Role Reversal
@@ -182,6 +202,12 @@ An **agent** is software that:
 > From **typist** to **architect and reviewer**
 
 > *"Sapere aude! — Have the courage to use your own understanding."* — **Immanuel Kant**
+
+<!--
+The Kant quote ("Dare to know!") is the motto of the Enlightenment, from his 1784 essay *Was ist Aufklarung?*. He was arguing against intellectual tutelage — the habit of letting others think for you. The parallel here is deliberate and slightly pointed: agentic tools can either amplify your judgement or replace it, and which one happens is a choice the user makes, not a property of the tool.
+
+The table itself describes a skill rotation rather than a skill loss. Reviewing code well is *harder* than writing it — it requires holding the whole system in mind, not just the next line. Teams that thrive with agents are typically the ones whose seniors were already good reviewers; teams that struggle are usually those who conflated "writes code" with "understands code."
+-->
 
 ---
 
@@ -333,6 +359,12 @@ Before writing a single line of code, an agentic AI:
 - How is it structured?
 - What patterns should I follow?
 
+<!--
+Observe is the phase most people underestimate. A modern agent does not "read the whole repository" — the context window cannot hold it. Instead it does a structured discovery pass: directory listing, README, manifest files, top-of-file comments, then targeted reads of the files most likely to be relevant. Tools like semantic search, grep, and symbol lookup are how this scales beyond toy projects.
+
+The `.github/copilot-instructions.md` file shown here matters disproportionately: it is the one file the agent reads *unconditionally* on every task. Anything written there becomes baseline behaviour. This is why Module 4 spends so much time on instruction files — it is the cheapest, most durable lever a team has on agent behaviour.
+-->
+
 ---
 
 ## Slide 2.7: PLAN Phase
@@ -356,6 +388,12 @@ Given: "Add a function to validate configuration files"
 ### Key insight:
 > The agent **adapts** to YOUR project, not the other way around.
 
+<!--
+Planning is where the agent commits to a path. In recent models (GPT-5, Claude Sonnet 4.5, Gemini 2.5) the plan is usually emitted as a short numbered list before any action is taken — partly for the user's benefit, partly as a self-conditioning mechanism that keeps the agent's later steps consistent.
+
+The adaptation point is non-trivial: an agent that always writes "the React way" or "the Django way" regardless of the host project is a liability. Good agentic behaviour is *high-variance in the small* (writes code that looks like the surrounding code) and *low-variance in the large* (sticks to the plan it announced). Instruction files and conventions are the levers that keep both ends honest.
+-->
+
 ---
 
 ## Slide 2.8: ACT Phase
@@ -378,6 +416,12 @@ Agent might create:
 - Update module manifest
 
 All in one workflow.
+
+<!--
+The Act phase is where the abstraction "agent" becomes concrete: actual file writes, actual `git` commands, actual `pwsh` invocations. Behind the scenes these are tool calls — typed function invocations the model emits and the host application executes on its behalf. The MCP standard (Module 8) is the emerging contract for how those tools get exposed.
+
+Two properties of the Act phase matter for risk: actions are *reversible* (because Git tracks the diff) but they are *not gated* (the agent does not stop to ask before each one in agent mode). The combination is intentional — stopping every time would destroy the productivity gain — but it is also why the verification phase, version control discipline, and destructive-operation guardrails (Module 7) become load-bearing.
+-->
 
 ---
 
@@ -418,6 +462,12 @@ This is the **critical difference**:
 └─────────────────────────────────────────┘
 ```
 
+<!--
+Verification is the step that separates "agent" from "random code generator." The check has to be something the agent can run and read — typically a test suite, a build, a linter, a type-check. "Looks right to me" does not count, because the model cannot reliably evaluate its own output by inspection.
+
+The failure mode worth naming here is the Cheating-Agent Trap (covered in Module 5): an agent under pressure to "make the tests pass" can edit the tests instead of the code. The defence is structural — version control, code review, and instruction-file rules forbidding test edits unless explicitly requested — not behavioural.
+-->
+
 ---
 
 ## Slide 2.10: ITERATE Phase
@@ -437,6 +487,12 @@ The agent doesn't give up on first failure:
 - Mimics how **humans** actually code
 - Catches issues **before** you see them
 - Delivers **working** code, not "maybe" code
+
+<!--
+Iteration is bounded, not infinite. Every agent host imposes some cap — maximum tool calls per turn, maximum turns per task, maximum tokens consumed — partly for cost reasons, partly because runaway loops are a real failure mode (the agent fixing a symptom that re-creates itself in another file).
+
+The interesting variable to watch in practice is *iteration depth*: how many cycles does the agent need before VERIFY passes? On well-structured repositories with good tests, two or three. On under-tested codebases the agent may iterate ten times and still ship something that compiles but is wrong. Iteration depth is therefore a useful proxy for "how AI-ready is this repo?" — high counts mean the verification signal is too weak.
+-->
 
 ---
 
@@ -460,6 +516,12 @@ The agent doesn't give up on first failure:
 3. Review the result
 
 **Same task. Different experience.**
+
+<!--
+The demo's purpose is not to impress the audience with what the agent can do — it is to make the loop *visible*. The slides up to this point describe Observe→Plan→Act→Verify→Iterate as a diagram; the demo shows the same loop unfolding in real time in the editor.
+
+The most instructive part of the demo is usually a failure: a test that doesn't pass on the first try, the agent reading the error, and the agent's second attempt. That sequence answers more questions about how agents work than any successful run ever could.
+-->
 
 ---
 
@@ -490,6 +552,12 @@ The agent doesn't give up on first failure:
 
 > Agents don't just **suggest**—they **act**.
 > You become the **reviewer**, not the **typist**.
+
+<!--
+The paradigm-shift framing is deliberately stark. In practice most teams operate in a blended mode — autocomplete for trivial edits, chat for explanation, agent for multi-file changes. The shift is real, but it is a redistribution of work across modes rather than a wholesale replacement of one with another.
+
+The phrase "reviewer, not typist" is also a hiring and skill-development signal: the skills that matter on an AI-augmented team are reading code quickly, writing good specifications, designing tests, and judging trade-offs — the things that used to be considered "senior" work. Junior developers entering this world need a deliberate path to those skills, because the typing apprenticeship that used to build them is gone.
+-->
 
 ---
 

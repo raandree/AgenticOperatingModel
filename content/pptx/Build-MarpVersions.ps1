@@ -419,7 +419,10 @@ if ($mergeNotes) {
                 [void]$commentBuf.Add($line)
                 if ($t -eq '-->') {
                     $blockText = ($commentBuf -join "`n")
-                    if ($blockText -match 'Speaker\s*notes' -and $currentTitle) {
+                    # Accept any multi-line HTML comment block that follows a
+                    # slide H1. Directive comments (_class:, _paginate:,
+                    # version:) are single-line and never reach here.
+                    if ($currentTitle) {
                         $key = Get-NormalizedTitle -Title $currentTitle
                         if ($notesMap.ContainsKey($key)) {
                             $notesMap[$key] = $notesMap[$key] + "`n" + $blockText

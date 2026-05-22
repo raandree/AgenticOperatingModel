@@ -33,6 +33,12 @@
 
 > These capabilities turn a smart coding assistant into **a full development workflow engine**.
 
+<!--
+Modules 1–5 covered the agentic loop in isolation — one agent, one repository, one task. Module 8 widens that out: the same loop, but with access to external systems (MCP), the ability to recover from missteps (checkpoints), the ability to operate across many files at once, and the ability to run somewhere other than the user's editor (background, cloud, third-party hosts).
+
+The scaling is non-trivial. An agent that can query a database, make API calls, and rewrite forty files in parallel is doing something qualitatively different from an agent that suggests a function. The supervision pattern (review the diff, trust the tests, keep the rollback path open) does not change, but the surface area it has to cover grows substantially.
+-->
+
 ---
 
 ## Slide 8.2: MCP - The Universal Connector
@@ -115,6 +121,12 @@ Speaker notes (for newcomers):
 - **Works across AI tools** — Copilot, Claude Code, Cursor, Cline all support MCP
 - **Growing ecosystem** — hundreds of MCP servers already available
 
+<!--
+The protocol Anthropic published in late 2024 caught on faster than anyone expected; by mid-2026 it had been moved to the Linux Foundation and adopted by every major AI coding tool. The reason is structural: before MCP, every AI host had to write its own integration for every tool, and every tool vendor had to maintain N adapters. MCP turned an N×M problem into an N+M problem.
+
+The "USB for AI tools" framing is more than analogy. MCP defines transport (stdio, HTTP), discovery (`list_tools`), invocation (`call_tool`), and a typed schema language. A server exposes capabilities; the agent discovers and uses them without bespoke wiring. The economic effect mirrors what USB did for peripherals: once the protocol stabilises, the ecosystem can scale independently of any single vendor.
+-->
+
 ---
 
 ## Slide 8.4: MCP in VS Code
@@ -154,6 +166,12 @@ Speaker notes (for newcomers):
 3. Agent can call those tools during any task
 4. Tool calls require user approval (by default)
 
+<!--
+The `mcp.json` configuration is the same pattern as `launch.json` or `tasks.json` — a small JSON file that wires the editor to an external process. The `command`/`args` shape means almost any executable can be an MCP server; the only contract is that it speaks the protocol on stdin/stdout.
+
+The `${input:...}` interpolation is the right way to handle secrets — it prompts the user once and stores the value in the OS credential store, not in the JSON file. Hard-coded tokens in `mcp.json` are the single most common security mistake when teams first adopt MCP, because the file is committed to Git by default.
+-->
+
 ---
 
 ## Slide 8.5: MCP Use Cases
@@ -184,6 +202,12 @@ Agent (using SQLite MCP):
 ```
 
 > MCP turns your agent from "code assistant" into **"operations assistant."**
+
+<!--
+The CMDB example is the kind of workflow that resists conventional automation: it requires reading a database, applying domain logic, generating configuration, and validating the result. Before MCP, every step would have been a separate script with its own glue. With MCP, the agent treats database query, code generation, and test execution as a single planning surface.
+
+The operational implication is that "AI in operations" stops being a slogan and becomes a concrete capability. A PowerShell-focused team can wire MCP servers to Active Directory, Exchange, SCCM, Azure, and SQL Server, and end up with an agent that can answer questions like "which servers haven't reported a successful backup in 48 hours?" by walking the same systems a human operator would walk — only faster, and with the query inspectable in the diff.
+-->
 
 ---
 
@@ -228,6 +252,12 @@ Agent (using SQLite MCP):
 See the [AD Troubleshooting Lab](../demos/ad-troubleshooting-lab/) for a
 hands-on example of this principle with 5 real Active Directory scenarios.
 
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+
 ---
 
 ## Slide 8.5b: Scaling the Backlog — When to Reach for Beads
@@ -253,6 +283,12 @@ backlogs in the tens**.
 
 > **Judgment, not tooling.** The agentic operating model is the discipline.
 > The tracker is an implementation detail you upgrade when the seams show.
+
+<!--
+Beads (`bd`) is one of several agent-native trackers that appeared in 2025–26 in response to a real problem: GitHub Issues and similar trackers were designed for human teams writing issues one at a time, and they degrade when multiple agents attempt to claim, update, and link issues concurrently. The Dolt backend underneath Beads provides cell-level merge semantics that file-based trackers cannot offer.
+
+The slide's discipline is to resist adopting the tool prematurely. A two-person team with one agent and twenty open issues will not benefit from Beads; they will benefit from the friction-cost of learning it. The threshold for adoption is structural — multiple agents writing in parallel, hundreds of issues with real dependencies, sessions distributed across machines and contributors. Below that threshold, GitHub Issues plus a Memory Bank plus `ai/<slug>` branches is the right answer.
+-->
 
 ---
 
@@ -293,6 +329,12 @@ backlogs in the tens**.
 
 > **Golden rule**: Give MCP servers the **minimum permissions** needed.
 
+<!--
+The security model deserves the same scrutiny as any other extension mechanism. An MCP server is arbitrary code running in the user's process with whatever credentials the user provides. The "open source" safeguard on this slide is only as good as the actual reading of the server's source — in practice teams pin specific versions and treat MCP-server updates with the same caution as npm-package updates.
+
+The least-privilege principle is more important here than in most software contexts because the agent will *use* whatever capabilities you grant it, and will sometimes use them in combinations the human did not anticipate. A read-only database token plus a public-internet HTTP tool is not the same risk surface as their union — the agent can join the two into queries that exfiltrate data the human would not have asked for. The safe default is the smallest tool set that lets the agent finish the actual task at hand.
+-->
+
 ---
 
 ## Slide 8.7: Checkpoints & Rollback
@@ -329,6 +371,12 @@ backlogs in the tens**.
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
 
 ---
 
@@ -421,6 +469,12 @@ Speaker notes (for newcomers):
 - Agent uses **search** to find all references
 - Agent runs **tests** to verify nothing is broken
 - You review **one diff** instead of hunting for references
+
+<!--
+Multi-file refactoring is one of the operations where the agent's behaviour most clearly exceeds what autocomplete or chat could do. Modern IDEs already had "rename symbol" features, but those break down once the rename has to cross file types (source, tests, documentation, manifest files) or follow a less mechanical pattern (rename a concept, not a token).
+
+The agent's advantage here is that it uses the same tools a human would use — grep, semantic search, the test runner — in sequence, with the test suite as the convergence check. The trade-off is that the operation is opaque while in progress: the agent might touch fifty files before showing the result. This is the canonical case for letting the agent run, then reviewing the consolidated diff rather than each step.
+-->
 
 ---
 
@@ -524,6 +578,12 @@ Speaker notes (for newcomers):
 - Results go through normal PR review
 - Works while you focus on architecture and design
 
+<!--
+The cloud-agent pattern compresses a workflow that previously required a junior developer, a senior reviewer, and a CI pipeline into something resembling a delegation primitive. The interesting design choice is that the output is a Pull Request, not a merged change — the existing review machinery (code owners, required reviewers, branch protection rules) all still apply, unchanged.
+
+Where this pattern works well: well-scoped, low-ambiguity changes against codebases with strong tests and clear conventions — dependency bumps, lint fixes, documented bug reports with reproduction steps. Where it works poorly: anything ambiguous, anything cross-cutting, anything that requires reading a human's intent rather than a written specification. Teams that adopt cloud agents successfully spend most of the work writing better issues, not configuring the agent.
+-->
+
 ---
 
 ## Slide 8.12: The Horizon
@@ -556,6 +616,12 @@ Autocomplete    Agent Mode         Cloud Agents       Autonomous
 > - **You** are responsible for the outcome
 > - **Git** provides traceability
 > - **Tests** provide verification
+
+<!--
+Forecasting in this space ages fast — the slide deliberately separates capabilities that are *available now*, *in technical preview*, and *emerging*. The trajectory worth holding onto is that the unit of delegation keeps growing: from a line to a function to a file to a feature to a task to a sprint. Each step expands the agent's autonomy and correspondingly raises the cost of weak supervision.
+
+The "what stays the same" list is the more important half of the slide. Every capability listed above amplifies whatever discipline the team already has — strong tests, clean Git history, good instructions — and amplifies the absence of that discipline just as effectively. The operating model the curriculum teaches is the thing that holds value across each generation of capability; the specific features will be obsolete within eighteen months.
+-->
 
 ---
 
@@ -611,6 +677,12 @@ Autocomplete    Agent Mode         Cloud Agents       Autonomous
 > **Observe → Plan → Act → Verify → Iterate** — but at more scale,
 > across more systems, with more enterprise guardrails.
 
+<!--
+This slide is a snapshot — by the time the deck is delivered some of these will be GA, others superseded, others quietly retired. The point is not the specific features but the pattern of what is shipping: better models, broader provider choice (BYOK), programmable extension surfaces (SDK), more autonomous cloud execution, and enterprise controls (signed commits, data residency, custom properties).
+
+The enterprise-control thread is the most underappreciated one. Signed commits, org-level instructions, data residency, and FedRAMP compliance are what move agentic tooling from "available" to "deployable in regulated environments." Teams in finance, healthcare, defence, and public sector have been waiting for these controls; their adoption curve is now beginning, several quarters behind the consumer / startup curve.
+-->
+
 ---
 
 ## Slide 8.14: Key Takeaway
@@ -645,6 +717,12 @@ Autocomplete    Agent Mode         Cloud Agents       Autonomous
 
 > These capabilities move agentic coding from
 > **"smart assistant"** to **"development workflow engine."**
+
+<!--
+The summary collapses Module 8 into four capabilities that change the shape of what an agent can do: external reach (MCP), reversibility (checkpoints), coordinated change (multi-file ops), and deployment flexibility (local / background / cloud). Each one expands a different dimension of the basic agentic loop; together they constitute the difference between an editor feature and an operations platform.
+
+The progression to Module 9 is deliberate. Module 8 shows what agents *can* do; Module 9 turns to what they *should* do. The expanded capability surface makes the discrimination harder — a task that was obviously out of scope for autocomplete is no longer obviously out of scope for a cloud agent with database access and rollback. The decision framework moves from technical (can the tool handle this?) to organisational (do we want the tool handling this?).
+-->
 
 ---
 

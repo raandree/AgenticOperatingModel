@@ -42,6 +42,12 @@
 
 > **Give it full autonomy — in a place where nothing matters.**
 
+<!--
+The four examples in the bullet list are not hypothetical — each one has happened in field reports during 2025–26. The reboot of a domain controller at 14:07 on a Tuesday is paraphrased from a real Reddit thread. The mass-change of `msDS-SupportedEncryptionTypes` is the kind of thing the Kerberos RC4 deprecation timeline produced as agents misread Microsoft's guidance. The recursive OU delete is a periodic Microsoft 365 incident.
+
+The dilemma framing matters because it cuts through the binary discourse common in operations contexts. "Just don't use AI agents on infrastructure" is one answer, and it leaves the productivity gains on the table; "trust the agent because the demos look great" is the opposite answer, and it produces the incidents above. The sandbox pattern is the middle path: give the agent full autonomy in a structurally safe place, then promote only the verified change to production through normal change-management channels.
+-->
+
 ---
 
 ## Slide 12.2: The Four Properties of a Good Agent Sandbox
@@ -64,7 +70,11 @@
 | Terraform + sandbox cloud account | ★★★★☆ — great for cloud, cost/cleanup discipline required |
 | Kind / Minikube | ★★★★☆ — for container orchestration only |
 | Bare-metal test lab | ★★☆☆☆ — not reproducible enough for iteration |
+<!--
+The four properties — reversibility, reproducibility, observability, isolation — are the minimum set for an environment that an agent can operate in safely and usefully. Take any one of them away and either the agent becomes unsafe (no isolation, no reversibility) or it stops being useful (no reproducibility means each iteration starts from a different baseline; no observability means the agent cannot close its verification loop).
 
+The scoring table is a frank assessment, not a marketing claim. AutomatedLab scores well for Windows infrastructure work because every property maps to a native PowerShell cmdlet (`Restore-LabVMSnapshot`, `Install-Lab`, `Invoke-LabCommand`, Hyper-V isolation). Dev containers score lower on observability because Windows event logs and registry state are not first-class inside a Linux container. Cloud sandboxes score well *if* cost discipline holds; teams that forget the teardown script discover that an "isolated" agent can run up a four-figure cloud bill over a weekend.
+-->
 ---
 
 ## Slide 12.3: AutomatedLab in 60 Seconds
@@ -125,6 +135,12 @@ Install-Lab
 
 > **Twelve lines of PowerShell → a fully functioning AD domain the agent can experiment on.**
 
+<!--
+The sample script on this slide is a complete working lab definition; nothing has been elided for the slide. The `Install-Lab` call at the bottom triggers AutomatedLab to download (or use locally cached) Windows Server ISOs, provision two Hyper-V VMs, promote the first to a domain controller, join the second to the new domain, and configure the virtual network. The whole sequence takes roughly twenty to forty minutes depending on the host and whether the ISOs are cached.
+
+The brevity is deliberate evidence of the broader claim: infrastructure-as-code is mature enough that a non-trivial environment fits in a twelve-line script. That brevity is what makes the lab a credible sandbox for agents — if rebuilding the environment cost an afternoon, no one would let the agent break it. Because rebuilding takes one command and the agent can drive it, the cost of letting the agent be wrong is essentially the wall-clock time of the next `Install-Lab` invocation.
+-->
+
 ---
 
 ## Slide 12.5: The Agent's Feedback Loop on Infrastructure
@@ -162,7 +178,11 @@ Install-Lab
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
+<!--
+The diagram is the most explicit mapping in the curriculum between the abstract agentic loop and a concrete infrastructure workflow. Each phase has a literal PowerShell cmdlet behind it — `Get-LabVM` for observe, `Checkpoint-LabVM` and `Invoke-LabCommand` for act, `Get-WinEvent` for verify, `Restore-LabVMSnapshot` for the iteration fallback. None of these were designed with AI agents in mind; they were designed for human operators, and they happen to give the agent the same affordances.
 
+The verify step is the one most often misunderstood. "Did event 205 appear?" is a binary check the agent can run by reading the system event log; it succeeds or fails in a way the agent can act on. By contrast, "is the domain healthy?" is a check no agent can perform reliably because it is not operationalised. The discipline of designing verification steps as concrete log entries or registry values is what makes the loop closable; vague verification criteria collapse the loop back into the cheating-agent trap from Module 5.
+-->
 ---
 
 ## Slide 12.6: Live Example — The Kerberos RC4 Lab
@@ -185,6 +205,12 @@ Install-Lab
 8. **Commits** script + runbook changes together.
 
 > **Output: one git commit, reviewable by a human operator, that captures both the change and the evidence it worked.**
+
+<!--
+The Kerberos RC4 deprecation is the textbook example for this module because it combines all the difficulty modes at once: production-critical (every domain logon depends on it), poorly documented (Microsoft's published guidance has moved several times), incremental (the change happens in named phases with specific event signatures), and irreversible-feeling (operators are afraid to test it because failure cascades across the directory). A lab where the entire environment can be reverted in seconds turns that fear into a routine test.
+
+The eight-step session is the canonical agentic-operations workflow in eight bullets. The output — one commit that includes both the change script and the verified runbook — is what makes the work transferable. A human operator on the production change ticket can read the runbook, see the events that prove the script worked in the lab, and decide whether the same change is safe to roll out. The agent did not change production; the agent produced a reviewable artefact that lets a human change production with confidence.
+-->
 
 ---
 
@@ -213,6 +239,12 @@ Restore-LabVMSnapshot -ComputerName DC1, DC2 -SnapshotName 'pre-phase-2'
 
 > **Every experiment is cheap. Every mistake is a restore away from undone.**
 > This is what turns an LLM into a trustworthy operator.
+
+<!--
+The snapshot-checkpoint-rollback sequence is the operational equivalent of the Git-based reversibility the curriculum has been arguing for since Module 3. Just as `git revert` makes code changes structurally reversible, `Checkpoint-LabVM` and `Restore-LabVMSnapshot` make infrastructure changes structurally reversible. The agent is allowed to be wrong because the cost of being wrong has been engineered down to seconds.
+
+The rule embedded in the example — take a snapshot before any destructive change, automatically — should be a hard rule in the agent's instruction file for infrastructure work. It costs nothing on success (the snapshot is discarded with the lab teardown) and saves the entire investigation on failure (a single restore call returns to a known-good state). Teams that internalise this rule report dramatically more willingness to let the agent try novel sequences, because the downside has been removed.
+-->
 
 ---
 
@@ -267,6 +299,12 @@ Speaker notes (for newcomers):
 
 > **Pick the smallest sandbox that still contains the risk you are trying to de-risk.**
 
+<!--
+The table is intentionally specific about which sandbox suits which workload. There is no general-purpose answer; the right choice depends on what the agent is going to interact with. Windows-stack work (AD, GPO, Kerberos, DSC, SCCM) has essentially one defensible answer (AutomatedLab on Hyper-V); cloud-stack work has a different one (Terraform against an isolated subscription); cross-platform application code has yet another (dev containers).
+
+The closing rule — pick the smallest sandbox that still contains the risk — is the parsimony principle for sandbox selection. A multi-forest AutomatedLab with PKI and SCCM is overkill for testing a single DSC composite resource; a dev container is insufficient for rehearsing a domain-wide Kerberos change. Matching the sandbox to the risk surface keeps the iteration cycle fast enough to be useful and complete enough to be trustworthy.
+-->
+
 ---
 
 ## Slide 12.10: What You Can Actually Test Safely
@@ -282,6 +320,12 @@ Speaker notes (for newcomers):
 | Test a monitoring rule | Beg for dev access | Generate the exact event pattern in the lab |
 
 > **The lab is not a toy. It is the place where risk goes to get rehearsed.**
+
+<!--
+The before/after comparison on this slide compresses what is often a multi-week procedural difference into a single table. The three-week CAB process for a mass attribute change is not paranoia — it is the rational response to a change that touches authentication for every account in the forest. The lab variant does not skip the rigour; it relocates it. The script is still reviewed, the change is still rehearsed, the verification is still required. What changes is that all of that happens in a place where mistakes cost minutes rather than incidents.
+
+The closing line is the operational claim of the entire module. The lab is where risk is rehearsed *before* it touches production, not a place where risk is ignored. A team that uses agents in a lab to rehearse changes ends up with better change tickets — specific scripts, observed event sequences, documented side effects — not lower-quality ones. The CAB review on the production change is still required; it is now able to read a runbook that says "we did this in the lab, here is the event log proving it worked, here is the rollback snapshot reference."
+-->
 
 ---
 
@@ -301,6 +345,12 @@ Speaker notes (for newcomers):
 
 > **One cohesive workflow. No tab-switching between PowerShell ISE, a Word runbook, and a change ticket.**
 
+<!--
+The demo's most instructive moment is step 5 — the first verification failure. In a successful demo the agent reads the event log, sees that the expected event 205 did not appear, looks at related events to diagnose, and proposes a different script. The audience sees the agentic loop working at infrastructure speed: minutes per cycle rather than days, with a full rollback path available at every step.
+
+The "no tab-switching" closing line is a quietly important productivity claim. The traditional Windows operations workflow involves PowerShell ISE for scripting, a Word document for the runbook, a browser tab for the change ticket, and probably Outlook for the email thread tracking the conversation. The agentic operating model collapses all of these into one editor with one repository, one diff history, and one chat. The integration is the productivity gain; the individual tools were already mature.
+-->
+
 ---
 
 ## Slide 12.12: Key Takeaway
@@ -314,3 +364,8 @@ Speaker notes (for newcomers):
 5. **A verified change + a diffed runbook + a git commit** is the system engineer's equivalent of green tests.
 
 > **You have just seen the full model: the agent writes code, runs it in a lab, verifies with events, documents the result, and commits. This is agentic operations.**
+<!--
+The takeaway compresses the entire operations track to five rules. The first three are about structure (sandbox selection, AutomatedLab as the Windows answer, Invoke-LabCommand as the verification primitive); the fourth is the discipline (snapshot before destruction); the fifth is the deliverable framing (a verified change plus a diffed runbook plus a git commit equals green tests for the infrastructure operator).
+
+The closing claim ('this is agentic operations') is the synthesis the curriculum has been building toward since Module 11. The agentic loop, applied to infrastructure through a properly designed lab, produces something the operations community has wanted for a decade and never quite had: changes that arrive at the production change board with their own rehearsal evidence attached. The agent is not bypassing the operational discipline; it is producing the artefacts that operational discipline has always required, at a speed that makes the discipline practical to follow.
+-->

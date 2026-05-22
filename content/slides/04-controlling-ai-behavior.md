@@ -58,6 +58,12 @@ Function Validate-Input {
 - ❌ Missing tests
 - ❌ You have to repeat instructions
 
+<!--
+The inconsistency on this slide is genuine and reproducible — the same prompt to the same model on different days produces different code, because the model has nothing to anchor on beyond its training-data priors. Temperature, recent context, even time-of-day sampling variance all contribute.
+
+The practical cost is hidden until a team scales. One developer alternating between two styles is annoying; ten developers each getting two random styles produces a codebase no reviewer can pattern-match against. The fix is not "better prompting" — it is removing the question from the prompt entirely by writing it down once, in a file the agent reads automatically.
+-->
+
 ---
 
 ## Slide 4.2: The Solution
@@ -89,6 +95,12 @@ Function Validate-Input {
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+Instruction files implement a pattern called "prompt prefixing": the host application silently prepends the file's contents to every system prompt the model sees. From the model's perspective there is no difference between rules you typed five seconds ago and rules you wrote six months ago — they all arrive together.
+
+The leverage is asymmetric. Writing one rule once costs a minute; the rule then applies to every subsequent task for every developer on the team, indefinitely. This is the single highest-ROI configuration most teams make to their AI tooling, and it is also the one most likely to be skipped because it does not look like "work."
+-->
 
 ---
 
@@ -170,6 +182,12 @@ Speaker notes (for newcomers):
 - Never commit secrets or credentials
 ```
 
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
 ---
 
 ## Slide 4.5: Rule Categories
@@ -189,6 +207,12 @@ Speaker notes (for newcomers):
 
 ### Key insight:
 > Write rules for the things you find yourself **repeating** to AI.
+
+<!--
+The "things you find yourself repeating" heuristic is the right discovery mechanism for instruction-file content. If a developer corrects the agent three times in a week about how to format errors, that correction belongs in the instruction file, not in the next chat.
+
+What does *not* belong in the instruction file: anything project-specific to a single task (use a prompt file), anything domain-specific that only matters for certain code (use a pattern-matched `.instructions.md`), or anything that is really just a personal preference (use user-level settings). Treating the always-on file as a dumping ground is the most common failure mode — it bloats fast and starts contradicting itself.
+-->
 
 ---
 
@@ -244,6 +268,12 @@ function Test-Config {
 
 **Plus**: Tests created automatically!
 
+<!--
+The two code samples are not exaggerated for the slide — this is roughly what "no instructions" versus "twenty-line instruction file" produces on the same prompt. The difference is not the model's capability; it is whether the model has been told the team cares about parameter validation, comment-based help, error handling, and tests.
+
+The meta-observation worth holding onto: the instructed version is what a senior developer on that team would have written. The uninstructed version is what a confident newcomer would have produced. Instruction files transfer team-level standards into the agent's defaults; they do not make the model smarter, they make it conform.
+-->
+
 ---
 
 ## Slide 4.7: Hierarchy of Instructions
@@ -282,6 +312,12 @@ function Test-Config {
 - You keep personal preferences in user-level settings
 - Organizations enforce company-wide policies
 - Pattern-matched files apply only to relevant code
+
+<!--
+The hierarchy mirrors how human teams already work: personal habits, team norms, company policy — each level overrides the more general one only where it has something specific to say. The agent applies all layers simultaneously, with conflicts resolved by specificity (the more local rule wins).
+
+The most useful layer for most teams is the middle one: repository instructions in Git. Personal-level settings drift between developers; org-level policies are usually too coarse to be operational. The Git-committed instruction file is the only layer where "the team agreed to this" and "the agent enforces this" become the same statement.
+-->
 
 ---
 
@@ -404,7 +440,11 @@ handoffs:
 4. Run all tests and fix failures
 5. Hand off to security-reviewer when ready
 ```
+<!--
+A custom agent is a named bundle of three things: a system prompt (the persona), a tool allowlist (what the agent can actually do), and optional handoffs (which other agents it can call). The same underlying model powers all of them; the difference is configuration, not capability.
 
+The tool allowlist matters more than the persona. A "refactor agent" without `runTests` cannot actually verify its refactors; a "security reviewer" with `editFiles` is no longer a reviewer. Choosing the minimal tool set for each agent is what turns the agent definition from cosplay into an actual constraint.
+-->
 ---
 
 ## Slide 4.9: Custom Agent Examples
@@ -458,6 +498,12 @@ Software Engineer ──▶ Security Reviewer ──▶ Production
        ◀────── Fix Issues ──────┘
 ```
 > Agents can reference each other and create **automated review pipelines**.
+
+<!--
+The two examples illustrate the natural division of labour: the engineer agent has broad write access and broad responsibility; the reviewer agent has read access and narrow responsibility. The handoff chain becomes a workflow contract — the engineer cannot mark a task complete until the reviewer approves, and the reviewer cannot edit, only report and route back.
+
+This pattern compresses an organisational practice (separation of duties between authors and reviewers) into agent configuration. It does not replace human review for sensitive code, but it does mean the AI-authored code that reaches a human reviewer has already cleared an automated security pass — reducing the volume of trivial findings the human has to triage.
+-->
 
 ---
 
@@ -656,6 +702,12 @@ Speaker notes (for newcomers):
     └── 📄 CodeReview.prompt.md
 ```
 
+<!--
+The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.
+
+Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
+-->
+
 ---
 
 ## Slide 4.14: Demo - Before/After
@@ -675,6 +727,12 @@ Speaker notes (for newcomers):
 
 ### Key observation:
 > Same request. Dramatically different results.
+
+<!--
+The demo's value is in the *sameness* of the prompt. If the audience sees you typing different words on the second run, the demo proves nothing. The instruction file is what changed; the request is identical to the character.
+
+A good follow-up question to surface in the audience: "how do you know the agent actually read the instructions?" The honest answer is that you do not know with certainty — you infer it from the output conforming to the rules. This is one reason teams keep the instruction file short: a shorter file is more likely to be honoured in full, and easier to debug when it is not.
+-->
 
 ---
 
@@ -698,6 +756,12 @@ Speaker notes (for newcomers):
 - Code should work
 ```
 *Vague, unmeasurable, no guidance*
+
+<!--
+Vague rules degrade silently. "Make sure to test stuff" survives review because no one can claim it is wrong, but the agent has no way to operationalise it — there is no observable difference between honouring the rule and ignoring it. Specific rules ("create a Pester test file for every new public function, covering at least one success path and one failure path") are testable and therefore enforceable.
+
+The rule-writing skill is closer to writing technical documentation than to writing prompts. Each rule should answer: what should happen, when, and how would I know it happened? Rules that fail that test are usually wishes, not instructions.
+-->
 
 ---
 
@@ -741,6 +805,12 @@ Speaker notes (for newcomers):
 
 > Use `/init` in Copilot Chat to auto-generate instructions from your codebase!
 
+<!--
+The template is deliberately a skeleton, not a recipe. Copy-pasting it verbatim produces a generic file that performs only marginally better than no file at all. The work is in filling in the bracketed sections with the team's actual conventions — which is exactly the conversation that exposes how much convention the team has actually agreed on.
+
+The `/init` command shortcut is a reasonable starting point but not an endpoint. It scans the repository, infers conventions, and proposes a draft. Treat the output as a first-pass strawman to edit, not as the finished file — it captures what is already in the codebase, including the inconsistencies you wanted to fix.
+-->
+
 ---
 
 ## Slide 4.17: Team Consistency
@@ -776,6 +846,12 @@ Speaker notes (for newcomers):
 > Commit `.github/copilot-instructions.md` to Git. Everyone gets the same AI behavior.
 > Organizations can also enforce company-wide policies.
 
+<!--
+The team-consistency argument is structurally the same as the case for shared lint configs or `.editorconfig` files: heterogeneous outputs across developers create review churn that scales superlinearly with team size. Centralising the rules in Git makes the rules part of the codebase, which is the only artefact every developer reliably reads.
+
+The organisational variant — policies enforced at the GitHub org level — is the right layer for things like "never commit secrets" or "never invoke shell with untrusted input." Project-level files should focus on conventions that are specific to the project; cross-cutting safety rules belong higher up where they cannot be silently overridden by a project that forgot to inherit them.
+-->
+
 ---
 
 ## Slide 4.18: Key Takeaway
@@ -801,6 +877,12 @@ Speaker notes (for newcomers):
 
 > **Instruction files, agents, skills, and prompts are how you train AI to work YOUR way.**
 > Write your rules once. Get consistent results forever.
+
+<!--
+The word "training" on this slide is deliberate but slightly metaphorical. None of these mechanisms modify model weights; they are all forms of context engineering — supplying the right information at the right moment so the model's outputs conform to local expectations. The effect resembles training; the mechanism does not.
+
+The deeper point: the model is fixed (whatever frontier model you happen to be using), but the *system around the model* is entirely under team control. Instruction files, agents, skills, prompts, repository structure, conventions, glossary — these are the levers that determine output quality. Investing in the model is buying a faster horse; investing in this configuration layer is building rails.
+-->
 
 ---
 
@@ -830,6 +912,12 @@ Prompt Quality ↑  →  Context Utilization ↑  →  Output Quality ↑
 > getting a function and getting a production-ready module.
 
 > **Demo**: See the [Prompt Evolution demo script](../demos/demo-prompt-evolution.md) for a live walkthrough of all six levels.
+
+<!--
+The six-level ladder shows the same model producing six different artefacts for the same task, depending on how much of the configuration layer the prompt activates. Level 1 is the model in isolation; Level 6 is the model with full access to the team's instructions, skills, and conventions.
+
+The insight worth emphasising is that Levels 4–6 are not better *prompts* — they are better *invocations* of pre-existing context. A team that has invested in instruction files and skills gets Level 6 output from a Level 1 prompt, because the context is already loaded. A team that has not invested has to type the whole context into every prompt and still get worse results, because ad-hoc prompting is less precise than reviewed configuration. The ladder is, in effect, a measure of how much configuration work the team has banked.
+-->
 
 ---
 
