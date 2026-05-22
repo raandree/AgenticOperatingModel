@@ -43,7 +43,7 @@
     'Specialized Agent Behaviors'                                   = 'Custom Agents — Specialized Behaviors'
     'Teach AI When to Use What'                                     = 'Skills — Domain Knowledge on Demand'
     'Tests as Specifications'                                       = 'Test-First — In Practice'
-    'The New Layer of Work — and Its Failure Modes'                 = 'The Vigilance Trap'
+    'The New Layer of Work — and Its Failure Modes'                 = 'The Bottleneck Has Moved'
     'What Goes Inside'                                              = 'What Goes Inside copilot-instructions.md'
     'What the Agent Sees'                                           = 'Repository as Knowledge Base'
     'When the Guardrails All Fail at Once'                          = 'Real Incident — 9 Seconds, One Database'

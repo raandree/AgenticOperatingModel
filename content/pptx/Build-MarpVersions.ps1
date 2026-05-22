@@ -505,6 +505,30 @@ if ($mergeNotes) {
     }
 
     # --- Inject per-module appendices into the module's section-divider slide ---
+    # The monolith uses a 9-module structure (1..9) while split files use the
+    # original 12-module pedagogical numbering (01..05, 08..12). Map the split
+    # appendix numbers onto the monolith divider numbers so the right module
+    # narrative reaches the right divider. Multiple splits per monolith module
+    # are concatenated.
+    $monolithFromSplit = @{
+        '1' = '1'; '2' = '2'; '3' = '3'; '4' = '4'; '5' = '5'
+        '8' = '6'; '9' = '6'   # Advanced Capabilities + When-to-Use both land under M6
+        '10' = '7'             # Your Agentic Future -> M7
+        '11' = '8'             # Beyond Code -> M8
+        '12' = '9'             # Lab as Sandbox -> M9
+    }
+    $remappedAppendix = @{}
+    foreach ($pair in $appendixMap.GetEnumerator()) {
+        $target = if ($monolithFromSplit.ContainsKey($pair.Key)) { $monolithFromSplit[$pair.Key] } else { $pair.Key }
+        if ($remappedAppendix.ContainsKey($target)) {
+            $remappedAppendix[$target] = $remappedAppendix[$target] + "`n`n" + $pair.Value
+        }
+        else {
+            $remappedAppendix[$target] = $pair.Value
+        }
+    }
+    $appendixMap = $remappedAppendix
+
     if ($appendixMap.Count -gt 0) {
         $dividerInjected = 0
         foreach ($slide in $parsed.Slides) {

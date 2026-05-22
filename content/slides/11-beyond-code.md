@@ -331,3 +331,12 @@ The takeaways collapse Module 11 to five sentences that travel back to non-devel
 
 The transition to Module 12 is deliberate. Module 11 widens the operating model to non-code domains; Module 12 narrows back to one specific extension — using a lab as the safe sandbox for agentic work on real infrastructure. That sequence puts the broadest claim first and the most concrete application of it second, so that the lab patterns in M12 land as a worked example of the universal model from M11 rather than as a separate topic.
 -->
+
+
+## Speaker Notes - Module 11
+
+### Timing: 15-20 minutes (2h cut) / 25 minutes (4h cut)
+
+Module 11 widens the agentic operating model beyond code. The pedagogical move is to defuse the assumption that this curriculum is a developers-only practice; the structural claim is that runbooks, legal correspondence, research synthesis, and operational reports all submit to the same loop when the verification step can be made concrete.
+
+When presenting to a mixed audience, this is the module that earns the non-developer attendees' attention. The three-project table (Kerberos rollout, multi-year legal dispute, German tenancy case) is the empirical anchor; the data-governance slide is the gatekeeper that keeps the talk credible in regulated contexts. The transition to Module 12 narrows back to one concrete extension — the lab as the agent's sandbox for infrastructure work.

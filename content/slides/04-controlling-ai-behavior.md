@@ -276,6 +276,34 @@ The meta-observation worth holding onto: the instructed version is what a senior
 
 ---
 
+## Slide 4.6a: Before — Without Instruction Files
+
+# Before — Without Instruction Files
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+The "before" half of the comparison shows the agent's default behaviour when no project rules are in scope. The output is syntactically correct, idiomatically generic, and visibly out of place in a team codebase: no `[CmdletBinding()]`, no parameter validation, no comment-based help, no error handling. The model is doing exactly what it was asked — produce a function that validates a config — at the lowest defensible level of effort, because nothing in the prompt told it the team cared about anything more.
+
+This baseline matters as a calibration point: it is the level the agent reaches when the instruction file is missing, empty, or ignored. Teams that adopt agentic tooling and then complain about output quality are usually looking at this level of output and assuming the model is the bottleneck. The next slide shows the same prompt against the same model with a twenty-line rulebook in scope.
+-->
+
+---
+
+## Slide 4.6b: After — With Instruction Files
+
+# After — With Instruction Files
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+The "after" half is the same prompt against the same model — the only thing that changed is the presence of `copilot-instructions.md` with rules about cmdlet binding, parameter validation, comment-based help, error handling, and tests. The output now matches what a senior on the team would have written, because the instruction file transferred the team's standards into the agent's defaults.
+
+The delta is intentionally dramatic, but it is also genuinely representative. The instruction file is not a clever prompt-engineering trick; it is a configuration document that arrives with every request. The same effect compounds across every task for every developer on the team, indefinitely. This is the single highest-ROI configuration change most teams make to their AI tooling, and it is also the one most likely to be skipped because writing a rulebook does not look like "real" engineering work.
+-->
+
+---
+
 ## Slide 4.7: Hierarchy of Instructions
 
 # Priority Order
@@ -706,6 +734,20 @@ Speaker notes (for newcomers):
 The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.
 
 Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
+-->
+
+---
+
+## Slide 4.13a: Your Atelier — Customization as Code
+
+# Your Atelier — Customization as Code
+
+<!-- Stub: notes-only entry; rendered slide lives in marp-presentation.md -->
+
+<!--
+"Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
+
+The "as code" framing is the load-bearing claim. The atelier is not a collection of saved chat snippets or browser bookmarks; it is a Git-tracked directory tree with diffable history, peer review, and rollback. The same engineering discipline the curriculum applies to project code applies to the developer's personal AI configuration. Mature practitioners maintain their atelier with the same care they give to their dotfiles or their PowerShell profile — and for the same reason: small daily investments compound into a permanent productivity advantage.
 -->
 
 ---

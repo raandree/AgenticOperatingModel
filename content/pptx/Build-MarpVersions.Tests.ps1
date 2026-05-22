@@ -18,7 +18,7 @@ Describe 'Build-MarpVersions speaker-note merging' {
             ''
             '<!-- _class: section-divider -->'
             ''
-            '# Module 9'
+            '# Module 1'
             '## Sample Module'
             ''
             '---'
@@ -47,7 +47,7 @@ Describe 'Build-MarpVersions speaker-note merging' {
         # Split file with nested-fence pattern from slide 3.5 + notes on later slides.
         $tick3 = [string]([char]0x60) * 3
         $split = @(
-            '# Module 9: Sample Module'
+            '# Module 1: Sample Module'
             ''
             '## Version Guide'
             ''
@@ -109,13 +109,13 @@ Describe 'Build-MarpVersions speaker-note merging' {
             'Second note: deep-dive framing for the same Traceability slide.'
             '-->'
             ''
-            '## Speaker Notes - Module 9'
+            '## Speaker Notes - Module 1'
             ''
             '### Timing: 10 min'
             ''
             'Module-level appendix content.'
         ) -join "`n"
-        Set-Content -Path (Join-Path $script:slidesDir '09-sample.md') -Value $split -Encoding UTF8 -NoNewline
+        Set-Content -Path (Join-Path $script:slidesDir '01-sample.md') -Value $split -Encoding UTF8 -NoNewline
 
         & $script:scriptPath -Version 4h `
             -SourcePath (Join-Path $script:slidesDir 'marp-presentation.md') `
@@ -153,8 +153,8 @@ Describe 'Build-MarpVersions speaker-note merging' {
     }
 
     It 'attaches the module appendix to the section-divider slide' {
-        $segment = [regex]::Match($script:output, '(?s)# Module 9\n.*?(?=\n---\n|\z)').Value
-        $segment | Should -Match 'Module 9 appendix'
+        $segment = [regex]::Match($script:output, '(?s)# Module 1\n.*?(?=\n---\n|\z)').Value
+        $segment | Should -Match 'Module 1 appendix'
         $segment | Should -Match 'Module-level appendix content'
     }
 }

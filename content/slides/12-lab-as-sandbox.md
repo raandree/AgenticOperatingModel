@@ -369,3 +369,12 @@ The takeaway compresses the entire operations track to five rules. The first thr
 
 The closing claim ('this is agentic operations') is the synthesis the curriculum has been building toward since Module 11. The agentic loop, applied to infrastructure through a properly designed lab, produces something the operations community has wanted for a decade and never quite had: changes that arrive at the production change board with their own rehearsal evidence attached. The agent is not bypassing the operational discipline; it is producing the artefacts that operational discipline has always required, at a speed that makes the discipline practical to follow.
 -->
+
+
+## Speaker Notes - Module 12
+
+### Timing: 20-25 minutes (4h cut only)
+
+Module 12 is the operations-track closer. The argument structure is: agents acting on production infrastructure are unsafe by default; a properly designed lab (reversible, reproducible, observable, isolated) makes the agentic loop safe to run; AutomatedLab on Hyper-V is the Hyper-V-native answer for Windows-stack work; Invoke-LabCommand closes the verification loop the way Invoke-Pester does for code.
+
+The Kerberos RC4 example is deliberately chosen because it combines every difficulty mode at once — production-critical, poorly documented, incremental, irreversible-feeling. A lab that rebuilds in twenty minutes turns that fear into a routine test. The operational claim worth landing: the agent does not change production; the agent produces a reviewable artefact (script + runbook + event-log evidence) that lets a human change production with confidence. That is what 'agentic operations' actually means in practice.

@@ -1234,6 +1234,11 @@ function Test-Config {
 
 > What if AI **always** followed your standards?
 
+<!--
+The "before" half of the comparison shows the agent's default behaviour when no project rules are in scope. The output is syntactically correct, idiomatically generic, and visibly out of place in a team codebase: no `[CmdletBinding()]`, no parameter validation, no comment-based help, no error handling. The model is doing exactly what it was asked — produce a function that validates a config — at the lowest defensible level of effort, because nothing in the prompt told it the team cared about anything more.
+
+This baseline matters as a calibration point: it is the level the agent reaches when the instruction file is missing, empty, or ignored. Teams that adopt agentic tooling and then complain about output quality are usually looking at this level of output and assuming the model is the bottleneck. The next slide shows the same prompt against the same model with a twenty-line rulebook in scope.
+-->
 ---
 
 <!-- _class: dense -->
@@ -1266,6 +1271,11 @@ function Test-Config {
 ```
 **Plus**: Tests created automatically!
 
+<!--
+The "after" half is the same prompt against the same model — the only thing that changed is the presence of `copilot-instructions.md` with rules about cmdlet binding, parameter validation, comment-based help, error handling, and tests. The output now matches what a senior on the team would have written, because the instruction file transferred the team's standards into the agent's defaults.
+
+The delta is intentionally dramatic, but it is also genuinely representative. The instruction file is not a clever prompt-engineering trick; it is a configuration document that arrives with every request. The same effect compounds across every task for every developer on the team, indefinitely. This is the single highest-ROI configuration change most teams make to their AI tooling, and it is also the one most likely to be skipped because writing a rulebook does not look like "real" engineering work.
+-->
 ---
 
 # What You Can Control
@@ -1572,6 +1582,11 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 
 > **Write an agent once, use it everywhere.** Your personal agent config travels with you like your dotfiles.
 
+<!--
+"Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
+
+The "as code" framing is the load-bearing claim. The atelier is not a collection of saved chat snippets or browser bookmarks; it is a Git-tracked directory tree with diffable history, peer review, and rollback. The same engineering discipline the curriculum applies to project code applies to the developer's personal AI configuration. Mature practitioners maintain their atelier with the same care they give to their dotfiles or their PowerShell profile — and for the same reason: small daily investments compound into a permanent productivity advantage.
+-->
 ---
 
 <!-- _class: compact -->
@@ -2357,6 +2372,86 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > *"Science is organized knowledge. Wisdom is organized life."*
 > — **Immanuel Kant**
 
+<!--
+Speaker notes — Module 8 appendix
+
+### Timing: 25 minutes (Extended agenda only)
+
+### Slide Timing Breakdown:
+- Slides 8.1-8.6: MCP (10 min)
+- Slides 8.7-8.8: Checkpoints (5 min)
+- Slides 8.9: Multi-file operations (5 min)
+- Slides 8.10-8.12: Agent types and future (5 min)
+- Slides 8.13-8.14: 2026 Q2 capabilities + takeaway (5 min)
+
+### Key Points to Emphasize:
+1. MCP is the "USB for AI tools" — one standard that works everywhere
+2. Checkpoints remove fear — let agents take bigger steps
+3. Multi-file operations are where agentic coding truly shines
+4. Cloud agents represent the next phase — Issues become PRs automatically
+5. Despite all the power, human review remains the constant
+
+### Demo Suggestions:
+- **MCP demo**: Show configuring a GitHub MCP server, then ask the
+  agent to "list my open issues" — demonstrates tool discovery
+- **Checkpoint demo**: Have the agent make several changes, then
+  click "Undo" to roll back to an earlier state
+- **Multi-file demo**: Ask the agent to rename a function and watch
+  it update all references across files, then run tests
+
+### Common Questions:
+- "Is MCP safe?" → Tool approval prompts, scoped credentials,
+  open source servers. Start with read-only access.
+- "Can the cloud agent access private repos?" → Yes, with proper
+  GitHub App permissions configured.
+- "How long can a cloud agent run?" → Several minutes per task;
+  it creates a PR when done.
+- "What happens if the agent breaks something?" → Checkpoints
+  let you roll back. Tests catch regressions.
+- "Can I build my own MCP server?" → Yes, MCP has SDKs for
+  TypeScript, Python, and other languages.
+
+### Tone:
+- Exciting but grounded
+- Show the possibilities, but remind that fundamentals
+  (instructions, tests, review) still apply
+- These are power tools for people who already understand the basics
+
+### Transition to Module 9:
+"Now that you've seen what agentic coding can do at its most
+advanced, let's talk about an equally important topic: knowing
+when to use these capabilities and when to exercise caution..."
+-->
+
+<!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+-->
 ---
 
 <!-- _class: dense -->
@@ -2686,6 +2781,13 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
+<!--
+Speaker notes (for newcomers):
+- **Comprehension debt** is the key term on this slide. Coin it for your team.
+- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
+- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
+- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
 ---
 
 <!-- _class: dense -->
@@ -2791,14 +2893,6 @@ LLMs left to their own devices tend to produce shallow modules, because shallow 
 > Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30)
 
 <!--
-Speaker notes (for newcomers):
-- **Comprehension debt** is the key term on this slide. Coin it for your team.
-- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
-- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
-- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
--->
-
-<!--
 Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
 
 The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
@@ -2836,6 +2930,35 @@ The distinction worth holding onto is between work that is *augmented* and work 
 
 > *"The journey of a thousand miles begins with a single step."* — **Lao Tzu**
 
+<!--
+Speaker notes — Module 10 appendix
+
+### Timing: 10-15 minutes (including Q&A)
+
+### Key Points:
+1. Recap the core concepts (now including skills, prompts, handoffs)
+2. Give actionable next steps (including VS Code settings)
+3. Show cross-machine sync as an advanced pattern
+4. Provide resources
+5. Inspire action, not intimidation
+
+### Q&A Tips:
+- Common questions and answers prepared
+- If stumped: "Great question, let me follow up with you"
+- Time-box Q&A to stay on schedule
+
+### Closing:
+- End on empowerment, not complexity
+- "Start small" message
+- Thank them for their time
+- Share contact info
+
+### Post-Session:
+- Share slides immediately
+- Follow up on unanswered questions
+- Send feedback survey
+- Offer office hours if appropriate
+-->
 ---
 
 # What We've Learned
@@ -3105,54 +3228,13 @@ The with/from distinction on this slide is the single most important sentence in
 > — attributed to **Leo Cherne**
 
 <!--
-Speaker notes — Module 8 appendix
+Speaker notes — Module 11 appendix
 
-### Timing: 25 minutes (Extended agenda only)
+### Timing: 15-20 minutes (2h cut) / 25 minutes (4h cut)
 
-### Slide Timing Breakdown:
-- Slides 8.1-8.6: MCP (10 min)
-- Slides 8.7-8.8: Checkpoints (5 min)
-- Slides 8.9: Multi-file operations (5 min)
-- Slides 8.10-8.12: Agent types and future (5 min)
-- Slides 8.13-8.14: 2026 Q2 capabilities + takeaway (5 min)
+Module 11 widens the agentic operating model beyond code. The pedagogical move is to defuse the assumption that this curriculum is a developers-only practice; the structural claim is that runbooks, legal correspondence, research synthesis, and operational reports all submit to the same loop when the verification step can be made concrete.
 
-### Key Points to Emphasize:
-1. MCP is the "USB for AI tools" — one standard that works everywhere
-2. Checkpoints remove fear — let agents take bigger steps
-3. Multi-file operations are where agentic coding truly shines
-4. Cloud agents represent the next phase — Issues become PRs automatically
-5. Despite all the power, human review remains the constant
-
-### Demo Suggestions:
-- **MCP demo**: Show configuring a GitHub MCP server, then ask the
-  agent to "list my open issues" — demonstrates tool discovery
-- **Checkpoint demo**: Have the agent make several changes, then
-  click "Undo" to roll back to an earlier state
-- **Multi-file demo**: Ask the agent to rename a function and watch
-  it update all references across files, then run tests
-
-### Common Questions:
-- "Is MCP safe?" → Tool approval prompts, scoped credentials,
-  open source servers. Start with read-only access.
-- "Can the cloud agent access private repos?" → Yes, with proper
-  GitHub App permissions configured.
-- "How long can a cloud agent run?" → Several minutes per task;
-  it creates a PR when done.
-- "What happens if the agent breaks something?" → Checkpoints
-  let you roll back. Tests catch regressions.
-- "Can I build my own MCP server?" → Yes, MCP has SDKs for
-  TypeScript, Python, and other languages.
-
-### Tone:
-- Exciting but grounded
-- Show the possibilities, but remind that fundamentals
-  (instructions, tests, review) still apply
-- These are power tools for people who already understand the basics
-
-### Transition to Module 9:
-"Now that you've seen what agentic coding can do at its most
-advanced, let's talk about an equally important topic: knowing
-when to use these capabilities and when to exercise caution..."
+When presenting to a mixed audience, this is the module that earns the non-developer attendees' attention. The three-project table (Kerberos rollout, multi-year legal dispute, German tenancy case) is the empirical anchor; the data-governance slide is the gatekeeper that keeps the talk credible in regulated contexts. The transition to Module 12 narrows back to one concrete extension — the lab as the agent's sandbox for infrastructure work.
 -->
 ---
 
@@ -3452,33 +3534,13 @@ The progression to Module 9 is deliberate. Module 8 shows what agents *can* do; 
 > — attributed to **Jan L. A. van de Snepscheut**
 
 <!--
-Speaker notes — Module 9 appendix
+Speaker notes — Module 12 appendix
 
-### Timing: 15-20 minutes
+### Timing: 20-25 minutes (4h cut only)
 
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
+Module 12 is the operations-track closer. The argument structure is: agents acting on production infrastructure are unsafe by default; a properly designed lab (reversible, reproducible, observable, isolated) makes the agentic loop safe to run; AutomatedLab on Hyper-V is the Hyper-V-native answer for Windows-stack work; Invoke-LabCommand closes the verification loop the way Invoke-Pester does for code.
 
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+The Kerberos RC4 example is deliberately chosen because it combines every difficulty mode at once — production-critical, poorly documented, incremental, irreversible-feeling. A lab that rebuilds in twenty minutes turns that fear into a routine test. The operational claim worth landing: the agent does not change production; the agent produces a reviewable artefact (script + runbook + event-log evidence) that lets a human change production with confidence. That is what 'agentic operations' actually means in practice.
 -->
 ---
 
