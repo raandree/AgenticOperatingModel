@@ -84,6 +84,15 @@
 - **Cloud agents** running autonomously (Copilot Coding Agent, Cursor Cloud Agents)
 - **Agentic Workflows** in CI/CD (GitHub Agentic Workflows, GA April 2026)
 
+<!--
+Speaker notes (for newcomers):
+- **LLM** = Large Language Model. The "brain" behind the assistant (Claude, GPT, Gemini).
+- **Context window** = how much text (your code + chat + docs) the model can read at once.
+- **Tool use** = the model can call functions like "read file", "run command", not just generate text.
+- **MCP** = a USB-like standard that lets any AI tool talk to any data source. Covered in Module 8.
+- The point of this slide: the *capability* existed for a while, but only NOW are price, context size, and tooling good enough for autonomous loops.
+-->
+
 ---
 
 ## Slide 1.4a: Tokens, Context Windows & Cost
@@ -115,6 +124,14 @@
 - API-based tools: Token counts returned in API responses
 
 > **Hands-on idea**: Track how many tokens a real agentic task consumes from start to finish.
+
+<!--
+Speaker notes (for newcomers):
+- Think of tokens like minutes on a prepaid phone: every message you send and every reply you get "costs" some.
+- One agentic task = many small back-and-forth calls (read file, plan, write, run tests, read error, fix). Each call eats tokens.
+- That is why even a "cheap" model can produce a noticeable bill when run on autopilot for hours.
+- Concrete rule of thumb: 1 page of English text ≈ 500 tokens; a medium PowerShell file ≈ 1000–3000 tokens.
+-->
 
 ---
 

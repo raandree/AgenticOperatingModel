@@ -80,6 +80,14 @@
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+Speaker notes (for newcomers):
+- **Git** = the version-control system. Think of it as "track changes" for an entire project, with full history.
+- **Repository** ("repo") = one project's folder + its history. Usually hosted on GitHub or Azure DevOps.
+- Why does Git matter here? Because the AI reads your repo to learn HOW your team writes code, not just WHAT they wrote.
+- If you've never used Git: GitHub Desktop is the easiest GUI. The agentic operating model assumes a Git repo — if you skip Git, you skip most of the value.
+-->
+
 ---
 
 ## Slide 3.3: What the Agent Observes
@@ -246,6 +254,14 @@ This is **critical** for trust:
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+<!--
+Speaker notes (for newcomers):
+- **Diff** = the literal list of "what changed". Removed lines shown in red, added lines in green.
+- This is the single most important safety net: you never have to wonder "what did the AI silently touch?" — the diff shows you, every time.
+- VS Code shows diffs visually in the Source Control panel (the branch icon on the left). No command line required.
+- Rule of thumb: never accept agent work without reading the diff. Module 9 returns to why this matters.
+-->
+
 ---
 
 ## Slide 3.8: Demo - Git Diff
@@ -341,6 +357,14 @@ git log --follow --format='%aN' -- src/Public/Deploy-Application.ps1 \
 ```
 
 You're never stuck. You can always go back.
+
+<!--
+Speaker notes (for newcomers):
+- **Checkpoint** = a saved snapshot of all files at one moment. Like "save game" in a video game.
+- VS Code automatically creates checkpoints after each agent turn — you didn't have to do anything.
+- This is *separate* from Git commits. Checkpoints are short-term, in-editor. Commits are the permanent, shareable history.
+- The combination is powerful: small, free undos via checkpoints; big, durable history via Git.
+-->
 
 ---
 

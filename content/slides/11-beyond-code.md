@@ -134,6 +134,13 @@ All three use the **same six building blocks**:
 
 > **A Word document is a destination. Markdown is a working medium.**
 
+<!--
+Speaker notes (for newcomers):
+- **Markdown** = plain text with a few simple symbols for headings (`#`), lists (`-`), bold (`**`), tables (`|`). That's it.
+- Why use it instead of Word? Because plain text shows up perfectly in a `git diff` — you can SEE what changed, line by line. Word's tracked changes can't compete.
+- Convert to Word/PDF at the END, only when you have to hand the document to someone outside your workflow. Tools like pandoc do this in one command.
+-->
+
 ---
 
 ## Slide 11.6: Git Is Not Just for Code
@@ -183,6 +190,14 @@ The same six or seven files appear in every serious GHCP project:
 - Cline: `memory-bank/` natively
 
 > **A reusable template ships with this training.** See `content/materials/memory-bank-template/`.
+
+<!--
+Speaker notes (for newcomers):
+- **Memory Bank** = a small set of Markdown files that act as the project's long-term memory between AI chat sessions.
+- Why needed? Because each new chat starts fresh — the AI doesn't remember yesterday. The Memory Bank is the briefing you hand it on day 1.
+- Don't overthink it: start with `projectbrief.md` ("what is this project") and `activeContext.md` ("what are we working on right now"). Add the rest only when you feel the pain.
+- The template in `content/materials/` is ready to copy into any new project.
+-->
 
 ---
 

@@ -85,6 +85,14 @@
 
 > **Everything is scriptable. Everything the agent needs to know is discoverable via PowerShell.**
 
+<!--
+Speaker notes (for newcomers):
+- **AutomatedLab** = open-source PowerShell module that builds entire Windows lab environments (DCs, member servers, SQL, etc.) from a script.
+- **Hyper-V** = Microsoft's built-in virtualisation in Windows Pro/Enterprise/Server. Free, already installed in most enterprise setups.
+- Why does the AI need this? Because it needs a place where rebooting a domain controller costs nothing. AutomatedLab gives that place.
+- Alternatives exist (Vagrant, Terraform + Azure) but none are as Windows-native or as PowerShell-first.
+-->
+
 ---
 
 ## Slide 12.4: A Minimal Lab Definition
@@ -234,6 +242,13 @@ Invoke-LabCommand -ComputerName DC1 -ScriptBlock {
 - The agent can *reason over* the output — count, filter, correlate.
 
 > **`Invoke-LabCommand` is to infrastructure what `Invoke-Pester` is to code.**
+
+<!--
+Speaker notes (for newcomers):
+- One cmdlet to remember: **`Invoke-LabCommand`**. It runs PowerShell *inside* a lab VM and gives you the results back as real objects.
+- This is what closes the agentic loop for infrastructure: the agent acts on a VM, then reads back what happened, then decides what to do next.
+- Without something like this, the agent is just "typing scripts and hoping" — no feedback, no verification, no iteration.
+-->
 
 ---
 

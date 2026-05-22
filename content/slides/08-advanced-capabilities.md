@@ -66,6 +66,15 @@
 > **MCP (Model Context Protocol)** gives agents a standardized way
 > to connect to external tools, data sources, and services.
 
+<!--
+Speaker notes (for newcomers):
+- **MCP** = Model Context Protocol. Think of it as "USB for AI tools."
+- Before MCP: every AI tool needed a custom integration for every data source. Painful.
+- After MCP: one plug fits everything. Write an MCP server once, every AI tool (Copilot, Claude, Cursor…) can use it.
+- Standardized by the Linux Foundation — so it's not a Microsoft- or Anthropic-only thing.
+- You don't need to build MCP servers to benefit; hundreds already exist for GitHub, Azure, databases, browsers, etc.
+-->
+
 ---
 
 ## Slide 8.3: How MCP Works
@@ -356,6 +365,13 @@ backlogs in the tens**.
 > Checkpoints give you the confidence to let agents take **bigger steps**.
 > You can always go back.
 
+<!--
+Speaker notes (for newcomers):
+- VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
+- Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
+- Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
+-->
+
 ---
 
 ## Slide 8.9: Multi-File Operations
@@ -455,6 +471,14 @@ Copilot supports multiple agent types for different workflows:
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+Speaker notes (for newcomers):
+- Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
+- Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
+- Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
+- **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
+-->
 
 ---
 

@@ -122,6 +122,17 @@ GitHub Copilot supports **five types** of instruction files:
 └── tests/
 ```
 
+<!--
+Speaker notes (for newcomers):
+- Don't panic at five file types — 90% of teams only use the first one (`copilot-instructions.md`).
+- Quick mental model:
+  - `copilot-instructions.md` = the rulebook that always applies.
+  - `*.instructions.md` files = rules that only apply to certain file types (e.g. only `*.ps1`).
+  - `AGENTS.md` / `CLAUDE.md` = same idea but readable by *other* AI tools too (Claude Code, etc.).
+  - `.agent.md` = a named specialist (e.g. "security-reviewer") you can summon on demand.
+- Start with one file. Add more only when you catch yourself repeating an instruction.
+-->
+
 ---
 
 ## Slide 4.4: Anatomy of copilot-instructions.md
@@ -338,6 +349,15 @@ Running the compiler from the spec **without reading the generated code** produc
 
 > See: [GitHub Spec Kit](https://github.com/github/spec-kit) · the agentic-operating-model take is *instruction files for the codebase, specs for the change, constitution for the line nobody crosses*.
 
+<!--
+Speaker notes (for newcomers):
+- **Spec** = a short written description of WHAT you want and WHY — written *before* any code.
+- Think of it like a one-page work order: "Build me X, it must handle Y, must NOT do Z."
+- Why bother? Because if the agent goes off-track, the spec is the cheap thing to fix (1 page) vs. re-reading 600 lines of generated code.
+- **Constitution** = the project's permanent ground rules (e.g. "all public functions get tests"). One per project, rarely changes.
+- Spec = per task. Constitution = forever. Instructions (slide 4.3) = forever, like the constitution.
+-->
+
 ---
 
 ## Slide 4.8: Custom Agents
@@ -481,6 +501,14 @@ description: >-
 > **Instructions** = rules applied to every request  
 > **Skills** = knowledge loaded **only when relevant** (triggered by description keywords)
 
+<!--
+Speaker notes (for newcomers):
+- Why not just put everything in instructions? Because instructions are loaded on *every* request — burning tokens (= money) even when irrelevant.
+- A **skill** is like a reference book on a shelf: the agent grabs it only when the task title matches its description.
+- Example: a "debug failing Pester tests" skill is useless 95% of the time. As a skill, it costs zero tokens until you actually have a failing test.
+- Key field: the `description:` in the skill's frontmatter is what triggers it. Write it like a search query — keywords matter.
+-->
+
 ---
 
 ## Slide 4.11: Prompt Files — Reusable Templates
@@ -529,6 +557,13 @@ Type `/CodeReview` in Copilot Chat → the template runs with your context.
 ### Key difference from Agents:
 > **Agents** = persistent personas with tools and behaviors  
 > **Prompts** = single-use task templates invoked on demand
+
+<!--
+Speaker notes (for newcomers):
+- A prompt file is just a saved message you re-use. Type `/CodeReview` instead of pasting the same paragraph for the hundredth time.
+- Easy way to start: every time you re-type the same paragraph, save it as a `.prompt.md`. After a month you'll have your own toolkit.
+- Difference from a skill: a skill is loaded *automatically* when relevant. A prompt is loaded *manually* when you type the slash command.
+-->
 
 ---
 
@@ -579,6 +614,13 @@ handoffs:
 ```
 
 > **Handoffs** let you build a full software release pipeline with AI agents.
+
+<!--
+Speaker notes (for newcomers):
+- **Handoff** = one agent finishing its job and passing the result to a different agent with a different specialty.
+- Real-world analogy: developer commits → hands to QA → hands to security → hands to release engineer. Same idea, fully automated.
+- Don't build a 5-agent pipeline on day one. Start with a single agent. Add a second only when you keep doing the same review by hand.
+-->
 
 ---
 

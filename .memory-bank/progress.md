@@ -1,5 +1,9 @@
 # Progress — The Agentic Operating Model
 
+## Recent
+
+- 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Not committed yet.
+
 ## Current Status
 
 **Phase**: Operator-Sustainability Integration Complete (Job Hollowing / Heteromation / Vigilance Trap + With-AI-Not-From-AI counter-pattern)

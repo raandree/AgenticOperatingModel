@@ -335,6 +335,19 @@ style: |
 | **Context Window** | Maximum tokens a model can consider at once |
 | **MCP** | Model Context Protocol — standard for connecting agents to external tools |
 
+<!--
+Speaker notes (for newcomers):
+- Don't memorize this slide — we'll revisit each term as it comes up.
+- Easy mental model:
+  - **Model** = the engine (the LLM itself).
+  - **Agent** = the driver (uses the engine + tools to reach a goal).
+  - **Tool** = a hand (file read, shell, web fetch).
+  - **Instruction** = a standing order the driver must always follow.
+  - **Skill** = a specialist manual the driver opens only when needed.
+  - **Prompt** = what you tell the driver right now.
+  - **Memory Bank** = the driver's logbook between trips.
+- This vocabulary is shared across Copilot, Claude Code, Cursor — it's not Microsoft-specific.
+-->
 ---
 
 # What IS an Agent?
@@ -368,6 +381,12 @@ style: |
 
 > Works the same whether your "score" is a codebase, a data center, or a legal brief.
 
+<!--
+Speaker notes (for newcomers):
+- The analogy answers the most common fear: "Do I need to know less now that AI codes for me?" — No, you need to know *more*, just differently.
+- A conductor doesn't play the violin — but they hear when the violin is wrong. That's exactly your new job: hear when the AI is wrong.
+- "Multi-agent" sounds futuristic but in practice means: one agent writes, a second reviews security, a third writes docs. We'll see how in Module 4.
+-->
 ---
 
 <!-- _class: dense -->
@@ -438,6 +457,13 @@ style: |
 | **Commit History** | "This is what's been worked on recently" |
 | **README** | "This is the project's purpose" |
 
+<!--
+Speaker notes (for newcomers):
+- **Git** = the version-control system. Think of it as "track changes" for an entire project, with full history.
+- **Repository** ("repo") = one project's folder + its history. Usually hosted on GitHub or Azure DevOps.
+- Why does Git matter here? Because the AI reads your repo to learn HOW your team writes code, not just WHAT they wrote.
+- If you've never used Git: GitHub Desktop is the easiest GUI. The agentic operating model assumes a Git repo — if you skip Git, you skip most of the value.
+-->
 ---
 
 # Repository as Knowledge Base
@@ -618,6 +644,12 @@ But also:
 
 > **Automated tests let AI verify its own work.**
 
+<!--
+Speaker notes (for newcomers):
+- **Automated test** = a small piece of code that checks another piece of code does what it should. Either passes or fails — no opinion involved.
+- In PowerShell the test framework is called **Pester**. In Python it's pytest, in JavaScript it's Jest. Same idea everywhere.
+- Why this matters for AI: tests are the only objective signal the agent has that its work is right. Without tests, "done" means "I think so."
+-->
 ---
 
 <!-- _class: dense -->

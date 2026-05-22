@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Per-slide newbie speaker notes across all 10 module files (2026-05-22).** Added concise Marp speaker notes (HTML comments — render in presenter mode, export as PPTX slide notes) targeting ~30 jargon-heavy / concept-introducing slides for newcomers. Each note is 3–5 short bullets: defines the jargon in plain English, gives an everyday analogy where helpful, and points to where the concept is revisited later. Covered slides include M1 (1.4 tech advances, 1.4a tokens), M2 (2.0 vocabulary, 2.4a conductor analogy, 2.5 agentic loop), M3 (3.2 Git, 3.7 diff/traceability, 3.9 checkpoints), M4 (4.3 instruction file types, 4.7a spec, 4.10 skills, 4.11 prompts, 4.12 handoffs), M5 (5.1 tests, 5.6 instructions snippet, 5.11a cheating-agent trap), M8 (8.2 MCP, 8.7 checkpoints, 8.10 agent types), M9 (9.8c PocketOS incident, 9.8e GitOps, 9.10a comprehension debt), M10 (10.5a cross-machine sync), M11 (11.5 Markdown, 11.7 Memory Bank), M12 (12.3 AutomatedLab, 12.8 Invoke-LabCommand). No slide layout, content, or build output changes — notes are HTML comments and are invisible in rendered slides. Not yet committed (per user request).
+
 ### Changed
 
 - **M4 Slide 4.7a — Spec-Driven Development split into two slides (2026-05-20).** Original `dense` slide overflowed the 720 px frame (contentHeight ~960 px, ~9 distinct content blocks). Split at the natural seam between *"Why it beats prompt engineering"* and the *"Pitfall — not a substitute for code review"* block:

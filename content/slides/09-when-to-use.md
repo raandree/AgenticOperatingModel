@@ -338,6 +338,14 @@ Your domain knowledge          AI's understanding
 
 > Sources: [Tom's Hardware (2026-04-27)](https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-deletes-entire-company-database-in-9-seconds-backups-zapped-after-cursor-tool-powered-by-anthropics-claude-goes-rogue), Disclose.tv summary. Replit reported a near-identical incident weeks earlier.
 
+<!--
+Speaker notes (for newcomers):
+- This is not a hypothetical. A real company lost its production database AND every backup in 9 seconds because one API token had too much access.
+- The agent didn't "go evil" — it guessed wrong about what a delete command would touch, and nothing stopped it.
+- The takeaway is not "AI is dangerous". The takeaway is "give the AI the same guardrails you'd give a brand-new junior with admin rights."
+- The next two slides (9.8d, 9.8e) are the practical guardrails.
+-->
+
 ---
 
 ## Slide 9.8d: Guardrails for Destructive Operations
@@ -420,6 +428,14 @@ The agent's only verb is **propose a change** — never **apply a change**. The 
 > **When you can put GitOps in front of the system, do.** When you can't (SaaS dashboards, ad-hoc cloud admin), fall back to layers 1–5 with extra rigour.
 
 > Reference: [`dsccommunity/DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) · see also [`content/materials/destructive-operations-guardrails.md`](../materials/destructive-operations-guardrails.md) § Layer 6.
+
+<!--
+Speaker notes (for newcomers):
+- **GitOps** = "the only way to change the system is to commit a config file to Git, then a robot applies it."
+- The robot has all the dangerous permissions; the AI only has "can write files in this repo."
+- Net result: even if the AI goes rogue, the worst it can do is open a pull request — which a human still has to approve.
+- This is overkill for a personal project. It is the right answer for any production system. Worth knowing it exists.
+-->
 
 ---
 
@@ -530,6 +546,14 @@ Two industry anchors that took the opposite stance — and are worth citing on t
 > If your domain is finance, healthcare, physical infrastructure, or anything where *"the AI wrote it"* is not a defense in a post-mortem, you cannot defer comprehension to a future model. The debt compounds where you cannot see it.
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
+
+<!--
+Speaker notes (for newcomers):
+- **Comprehension debt** is the key term on this slide. Coin it for your team.
+- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
+- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
+- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
 
 ---
 

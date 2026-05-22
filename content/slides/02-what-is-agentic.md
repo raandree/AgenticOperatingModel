@@ -43,6 +43,20 @@ Before diving into agentic coding, let's align on the key terms:
 ### Why this matters:
 > Every tool and article in this space uses these terms. Understanding them is the foundation for everything that follows.
 
+<!--
+Speaker notes (for newcomers):
+- Don't memorize this slide — we'll revisit each term as it comes up.
+- Easy mental model:
+  - **Model** = the engine (the LLM itself).
+  - **Agent** = the driver (uses the engine + tools to reach a goal).
+  - **Tool** = a hand (file read, shell, web fetch).
+  - **Instruction** = a standing order the driver must always follow.
+  - **Skill** = a specialist manual the driver opens only when needed.
+  - **Prompt** = what you tell the driver right now.
+  - **Memory Bank** = the driver's logbook between trips.
+- This vocabulary is shared across Copilot, Claude Code, Cursor — it's not Microsoft-specific.
+-->
+
 ---
 
 ## Slide 2.1: Defining "Agent"
@@ -219,6 +233,13 @@ An **agent** is software that:
 - **Expertise matters more, not less**: A great conductor makes a good orchestra exceptional. Your domain knowledge and judgment make AI agents dramatically more effective
 - **The result exceeds individual parts**: No single musician creates a symphony — and no single agent delivers a complete solution without orchestration
 
+<!--
+Speaker notes (for newcomers):
+- The analogy answers the most common fear: "Do I need to know less now that AI codes for me?" — No, you need to know *more*, just differently.
+- A conductor doesn't play the violin — but they hear when the violin is wrong. That's exactly your new job: hear when the AI is wrong.
+- "Multi-agent" sounds futuristic but in practice means: one agent writes, a second reviews security, a third writes docs. We'll see how in Module 4.
+-->
+
 ---
 
 ## Slide 2.5: The Agentic Loop
@@ -269,6 +290,14 @@ An **agent** is software that:
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+<!--
+Speaker notes (for newcomers):
+- This 5-step loop is the single most important concept in the whole training. Everything else is detail.
+- Compare to how YOU code: you read the file, decide what to change, change it, run it, fix the error. Same loop — the agent just does it faster and without coffee breaks.
+- The loop is what makes "agentic" different from "autocomplete": autocomplete stops after step 3 (Act). An agent keeps going until VERIFY says PASS.
+- Iteration is automatic. You don't approve every cycle — you approve the final result.
+-->
 
 ---
 

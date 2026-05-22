@@ -218,6 +218,14 @@ Write-Host "Restart VS Code to apply changes."
 - OneDrive syncs your Instructions, Agents, Skills, and Prompts automatically
 - Works alongside per-project `.github/` customizations
 
+<!--
+Speaker notes (for newcomers):
+- Two layers of customisation: **per-project** (lives in `.github/` inside the repo) and **personal** (lives in your user profile, follows you everywhere).
+- This slide is the personal layer. Use OneDrive / Dropbox / iCloud — doesn't matter which.
+- The script looks scary but only does one thing: tell VS Code "look in this synced folder for my instructions."
+- Always back up `settings.json` before running configuration scripts — the script does this automatically.
+-->
+
 ---
 
 ## Slide 10.6: Resources

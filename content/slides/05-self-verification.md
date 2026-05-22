@@ -41,6 +41,13 @@
 ### The solution:
 > **Automated tests let AI verify its own work.**
 
+<!--
+Speaker notes (for newcomers):
+- **Automated test** = a small piece of code that checks another piece of code does what it should. Either passes or fails — no opinion involved.
+- In PowerShell the test framework is called **Pester**. In Python it's pytest, in JavaScript it's Jest. Same idea everywhere.
+- Why this matters for AI: tests are the only objective signal the agent has that its work is right. Without tests, "done" means "I think so."
+-->
+
 ---
 
 ## Slide 5.2: The Verification Loop
@@ -212,6 +219,13 @@ A fast, deterministic test loop is **not** an optional discipline for agents —
 - If tests fail, fix code and re-run
 - Report final test results to user
 ```
+
+<!--
+Speaker notes (for newcomers):
+- This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
+- The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
+- **Invoke-Pester** is the command that runs all the tests in your project.
+-->
 
 ---
 
@@ -407,6 +421,13 @@ Bad symbiosis:
 ```
 
 > Assertions are evidence. **Evidence requires an independent witness.**
+
+<!--
+Speaker notes (for newcomers):
+- The trap in one sentence: if the same brain writes the bug AND the test, it writes a test that approves the bug.
+- Easiest mitigation for beginners: write (or sketch) the tests yourself BEFORE asking the agent to implement the function. Now tests are independent.
+- Or: ask a *different* agent (a "reviewer" agent from Module 4) to write the tests. Two brains, one truth.
+-->
 
 ---
 

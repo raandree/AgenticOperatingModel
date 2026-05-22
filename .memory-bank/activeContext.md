@@ -6,9 +6,16 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-05-20
+**Last Updated**: 2026-05-22
 
 ## Recent Changes
+
+### 2026-05-22: Newbie-friendly speaker notes across all slide modules
+- Added concise Marp speaker notes (`<!-- ... -->` HTML comments — render in presenter mode, export as PPTX notes) to ~30 jargon-heavy / concept-introducing slides spanning M1, M2, M3, M4, M5, M8, M9, M10, M11, M12.
+- Each note is 3–5 short bullets in plain English: defines jargon (LLM, context window, MCP, GitOps, Memory Bank, Pester, checkpoint, diff, comprehension debt…), gives an everyday analogy, and cross-references where the concept is revisited.
+- No structural / layout / build-output changes. Notes are HTML comments; rendered slides are byte-identical visually.
+- **Not yet committed** per explicit user instruction ("please don't commit yet").
+- Next step: user reviews notes in presenter mode (or PPTX export) and signals whether to commit / adjust tone / add more.
 
 ### 2026-05-20: Spec-Driven slide split (M4 4.7a → 4.7a + 4.7b)
 - Original `dense` slide overflowed 4h render by ~240 px (contentHeight ~960 / 720). Split at the natural seam between *"Why it beats prompt engineering"* and the Pitfall block.

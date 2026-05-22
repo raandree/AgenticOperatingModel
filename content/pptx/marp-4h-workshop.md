@@ -296,6 +296,14 @@ style: |
 - **Cloud agents** running autonomously (Copilot Coding Agent)
 - **Agentic Workflows** in CI/CD (GitHub, GA April 2026)
 
+<!--
+Speaker notes (for newcomers):
+- **LLM** = Large Language Model. The "brain" behind the assistant (Claude, GPT, Gemini).
+- **Context window** = how much text (your code + chat + docs) the model can read at once.
+- **Tool use** = the model can call functions like "read file", "run command", not just generate text.
+- **MCP** = a USB-like standard that lets any AI tool talk to any data source. Covered in Module 8.
+- The point of this slide: the *capability* existed for a while, but only NOW are price, context size, and tooling good enough for autonomous loops.
+-->
 ---
 
 # Understanding the Economics
@@ -314,6 +322,13 @@ style: |
 - Cloud agents run autonomously — costs accumulate
 - Monitor usage via GitHub settings or Copilot output panel
 
+<!--
+Speaker notes (for newcomers):
+- Think of tokens like minutes on a prepaid phone: every message you send and every reply you get "costs" some.
+- One agentic task = many small back-and-forth calls (read file, plan, write, run tests, read error, fix). Each call eats tokens.
+- That is why even a "cheap" model can produce a noticeable bill when run on autopilot for hours.
+- Concrete rule of thumb: 1 page of English text ≈ 500 tokens; a medium PowerShell file ≈ 1000–3000 tokens.
+-->
 ---
 
 # Real-World Impact
@@ -414,6 +429,19 @@ These practices make the agentic model **even more effective** for you — and t
 | **Context Window** | Maximum tokens a model can consider at once |
 | **MCP** | Model Context Protocol — standard for connecting agents to external tools |
 
+<!--
+Speaker notes (for newcomers):
+- Don't memorize this slide — we'll revisit each term as it comes up.
+- Easy mental model:
+  - **Model** = the engine (the LLM itself).
+  - **Agent** = the driver (uses the engine + tools to reach a goal).
+  - **Tool** = a hand (file read, shell, web fetch).
+  - **Instruction** = a standing order the driver must always follow.
+  - **Skill** = a specialist manual the driver opens only when needed.
+  - **Prompt** = what you tell the driver right now.
+  - **Memory Bank** = the driver's logbook between trips.
+- This vocabulary is shared across Copilot, Claude Code, Cursor — it's not Microsoft-specific.
+-->
 ---
 
 # What IS an Agent?
@@ -486,6 +514,12 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 
 > Works the same whether your "score" is a codebase, a data center, or a legal brief.
 
+<!--
+Speaker notes (for newcomers):
+- The analogy answers the most common fear: "Do I need to know less now that AI codes for me?" — No, you need to know *more*, just differently.
+- A conductor doesn't play the violin — but they hear when the violin is wrong. That's exactly your new job: hear when the AI is wrong.
+- "Multi-agent" sounds futuristic but in practice means: one agent writes, a second reviews security, a third writes docs. We'll see how in Module 4.
+-->
 ---
 
 <!-- _class: dense -->
@@ -556,6 +590,13 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 | **Commit History** | "This is what's been worked on recently" |
 | **README** | "This is the project's purpose" |
 
+<!--
+Speaker notes (for newcomers):
+- **Git** = the version-control system. Think of it as "track changes" for an entire project, with full history.
+- **Repository** ("repo") = one project's folder + its history. Usually hosted on GitHub or Azure DevOps.
+- Why does Git matter here? Because the AI reads your repo to learn HOW your team writes code, not just WHAT they wrote.
+- If you've never used Git: GitHub Desktop is the easiest GUI. The agentic operating model assumes a Git repo — if you skip Git, you skip most of the value.
+-->
 ---
 
 # Repository as Knowledge Base
@@ -1284,6 +1325,12 @@ But also:
 
 > **Automated tests let AI verify its own work.**
 
+<!--
+Speaker notes (for newcomers):
+- **Automated test** = a small piece of code that checks another piece of code does what it should. Either passes or fails — no opinion involved.
+- In PowerShell the test framework is called **Pester**. In Python it's pytest, in JavaScript it's Jest. Same idea everywhere.
+- Why this matters for AI: tests are the only objective signal the agent has that its work is right. Without tests, "done" means "I think so."
+-->
 ---
 
 <!-- _class: dense -->
