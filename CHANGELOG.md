@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Decision-maker value document + README promotion (2026-06-07).** Added
+  [docs/for-decision-makers.md](docs/for-decision-makers.md) — a jargon-free
+  value summary aimed at engineering leaders, IT/platform directors, and
+  research/legal/business managers. It covers what the operating model is, the
+  under-using vs. over-trusting problem it solves, where the value compounds
+  across departments (one model, learned once, amortised many times), the
+  business case (speed *with* traceability, self-verification, durable memory),
+  the risk-and-governance story (six-layer destructive-ops guardrails,
+  comprehension debt, operator sustainability, team dynamics), and a 30-minute
+  evaluation path. Added an emphasized `> [!IMPORTANT]` "why this is worth your
+  time" callout near the top of [README.md](README.md) linking to it, and
+  surfaced the `docs/` folder in the project-structure listing. No slide or
+  build-output changes.
 - **Skill updates extracted from this branch (2026-05-22, personal skills, outside repo).** Folded the lessons from the speaker-note work into two existing skills under `~/.copilot/skills/`:
   - `marp-slide-overflow` — new *Recipe 5: Speaker-Note Coverage — Gotchas and a Pester Guard*. Covers the `---`-inside-a-` ```markdown ` fence trap (code-fence-aware separator counting), the Marp-directive-vs-real-note distinction (blocklist + >40-char threshold), section-divider slides as a separate category, a drop-in Pester guard (`Get-MarpSlide` + `Test-SlideHasNote` in `BeforeAll`), the title-drift / `notes-title-map.psd1` alias pattern for multi-file decks, and an explainer for the editorial `<!-- _split_ -->` marker.
   - `pester-patterns` — new *Pattern 14: Helpers Used Inside `It` Must Live in `BeforeAll`*. Documents the Pester 5 runspace-isolation symptom (`CommandNotFoundException` on a helper plainly defined right above the failing `It`), the broken pattern, the fix, and related gotchas (`$script:` scope for variables, `BeforeDiscovery` for `-ForEach` data).

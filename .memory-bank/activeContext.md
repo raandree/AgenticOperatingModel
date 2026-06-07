@@ -6,9 +6,16 @@
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-05-22
+**Last Updated**: 2026-06-07
 
 ## Recent Changes
+
+### 2026-06-07: Repo promotion — decision-maker value doc + README callout
+- User-reported gap: people looking at the repo did not grasp what it is, who the target audience is, or why investing time is worth it.
+- Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers. Sections: one-sentence definition; the under-using vs. over-trusting problem; what makes it an *operating model* (not a tool); where the value compounds across departments (four-profile table reframed as "where this pays off"); the business case (speed *with* traceability, self-verification, durable Memory Bank, bounded risk); risk-and-governance as the de-risking signal (six-layer guardrails, comprehension debt, operator sustainability, team dynamics); why it is worth the time; what you get; a 30-minute evaluation path. Links only to in-repo artefacts so claims are verifiable.
+- Added an emphasized `> [!IMPORTANT]` callout near the top of `README.md` (between the intro lines and `## Overview`) leading with **"New here? Start with *Why this is worth your time*"** and linking to the new doc; surfaced the `docs/` folder (with the new file) in the project-structure listing.
+- Docs-only change: no slide content, MARP master, or build-output (`marp-*.md` / PPTX) edits. No deck rebuild required.
+- CHANGELOG `[Unreleased]` → Added entry recorded. Not yet committed pending the standard topic-branch commit.
 
 ### 2026-05-22: Speaker-note coverage — inline gap-fill + Pester guard
 - User-reported gap: 12 slides in the built 4h deck still had no speaker notes despite the earlier split-file note pass. Root cause split three ways: (a) monolith-only slides with no split-file equivalent (8 of 12), (b) title drift between split H1 and monolith H1 not yet captured in `notes-title-map.psd1` (3 of 12), (c) one orphan from earlier oversight (4.7b).

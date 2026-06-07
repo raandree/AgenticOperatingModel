@@ -3,6 +3,10 @@
 A presentation/workshop on **agentic knowledge work** — for developers, DevOps engineers, system engineers, and research/analyst-style knowledge workers.
 Available in three versions: **1-hour keynote**, **2-hour standard**, and **4-hour workshop** — all sharing the same module content.
 
+> [!IMPORTANT]
+> **New here? Start with [*Why this is worth your time*](docs/for-decision-makers.md).**
+> This repository is a **ready-to-deliver training** that teaches a new *operating model* for working with AI agents — not a tool demo and not a coding course. If your team uses AI as glorified autocomplete (capturing a fraction of the value) or lets it act without guardrails (creating new risk), this gives them an **auditable, governed method** that works the same way for **code, operations, research, and correspondence**. One model, learned once, pays off across every team that does knowledge work.
+
 ## Overview
 
 Learn how AI agents go beyond code suggestions to autonomously write, test, and iterate on artefacts — and how the **same operating model** applies to infrastructure runbooks, incident analyses, research synthesis, and legal/business correspondence.
@@ -79,7 +83,9 @@ All four share the same core modules (M01–M10). The system-engineer and knowle
 │       ├── marp-1h-keynote.md      # Generated — do not edit
 │       ├── marp-2h-standard.md     # Generated — do not edit
 │       └── marp-4h-workshop.md     # Generated — do not edit
-├── docs/research/        # Background research (e.g., toolset assessment)
+├── docs/                 # Audience-facing docs + background research
+│   ├── for-decision-makers.md  # Why this is worth your team's time
+│   └── research/         # Background research (e.g., toolset assessment)
 ├── .memory-bank/         # Project context files
 └── .vscode/              # Workspace settings
 ```
