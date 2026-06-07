@@ -2,6 +2,7 @@
 
 ## Recent
 
+- 2026-06-07: Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers (what the model is, under-using vs. over-trusting, cross-department value, business case, risk-and-governance, 30-minute evaluation path). Added an emphasized `> [!IMPORTANT]` "why this is worth your time" callout near the top of `README.md` linking to it and surfaced the `docs/` folder in the project-structure listing. Motivated by feedback that repo visitors did not grasp what it is, who it is for, or why it is worth the time. Docs-only; no slide or build-output changes.
 - 2026-05-22: Added inline speaker notes in `marp-presentation.md` for the 12 slides that the split-file merge couldn't reach (orphaned monolith-only slides + title drift). Added 6 new Pester tests (in `content/pptx/Build-MarpVersions.Tests.ps1`) that enforce "every built slide has a speaker-note HTML comment" and "every section-divider carries its module appendix" across all three versions (1h/2h/4h). Code-fence-aware parser — won't be fooled by `---` inside ```\`\`\`markdown``` fences. All 11 tests green.
 - 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Not committed yet.
 
