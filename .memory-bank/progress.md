@@ -2,17 +2,21 @@
 
 ## Recent
 
+- 2026-06-07: Release-prep cleanup for v1.1.0 — curated the Memory Bank (de-leaked a personal path, corrected stale "not committed" notes, trimmed `activeContext` ~100 lines), refreshed `content/README.md` (M11/M12 + newer demos), relabeled the closing-slide presenter placeholders, cut `CHANGELOG` `[Unreleased]` → `[1.1.0]` (SemVer + compare links), and rebuilt the three Marp decks + PPTX (11/11 build tests green). Committed on `ai/release-prep-1-1-0` (not pushed); next is tagging `v1.1.0` from `main`.
 - 2026-06-07: Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers (what the model is, under-using vs. over-trusting, cross-department value, business case, risk-and-governance, 30-minute evaluation path). Added an emphasized `> [!IMPORTANT]` "why this is worth your time" callout near the top of `README.md` linking to it and surfaced the `docs/` folder in the project-structure listing. Motivated by feedback that repo visitors did not grasp what it is, who it is for, or why it is worth the time. Docs-only; no slide or build-output changes.
 - 2026-05-22: Added inline speaker notes in `marp-presentation.md` for the 12 slides that the split-file merge couldn't reach (orphaned monolith-only slides + title drift). Added 6 new Pester tests (in `content/pptx/Build-MarpVersions.Tests.ps1`) that enforce "every built slide has a speaker-note HTML comment" and "every section-divider carries its module appendix" across all three versions (1h/2h/4h). Code-fence-aware parser — won't be fooled by `---` inside ```\`\`\`markdown``` fences. All 11 tests green.
-- 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Not committed yet.
+- 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Merged to `main` via PR #11.
 
 ## Current Status
 
-**Phase**: Operator-Sustainability Integration Complete (Job Hollowing / Heteromation / Vigilance Trap + With-AI-Not-From-AI counter-pattern)
+**Phase**: Release readiness — preparing the public **v1.1.0** announcement
 **Started**: 2026-02-02
-**Last Updated**: 2026-05-20
+**Last Updated**: 2026-06-07
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with April 2026 Copilot landscape, CopilotAtelier integration, 2026-04-29 destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6 integration, 2026-05-06 Mössner / *KI Burnout ist real* operator-sustainability integration, 2026-05-16 demo MCP server, and 2026-05-20 PowerShell edition of the demo MCP server
+
+> **Release status (2026-06-07):** all work listed below is **merged to `main` and pushed to origin** (PRs #9–#12); the working tree is clean and `v1.0.0` is already tagged. Entries that read "not committed", "local only", or name a feature branch are historical provenance, **superseded by this line**. Next step: cut the `v1.1.0` tag/release from `main`.
+
+**Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with the April 2026 Copilot landscape, CopilotAtelier integration, destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6, Mössner *KI Burnout ist real* operator-sustainability, the Node + PowerShell demo MCP servers, the M11 Beyond-Code and M12 Lab-as-Sandbox tracks, and the decision-maker value document
 
 ## Completed
 
@@ -29,10 +33,10 @@
 - [x] `probe.ps1` mirrors `probe.cjs`; verified end-to-end on pwsh 7.5.5 / Win11
 - [x] `mcp.example.json` (VS Code wiring via `pwsh -NoProfile -NonInteractive -File`), `README.md` (what to show on stage), demo-script callout in `demo-mcp-server.md`
 - [x] CHANGELOG.md `[Unreleased]` entry added
-- [x] Branch: `feature/mcp-demo-server` (local only, not pushed)
+- [x] Branch: `feature/mcp-demo-server` → merged to `main`
 
 ### Operator-Sustainability Integration ✅ (2026-05-06)
-- [x] Source: Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Transcript captured via user paste; saved as cite-anchor map at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed)
+- [x] Source: Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Transcript captured via user paste and kept **outside the repository** (not committed)
 - [x] Identified the curriculum gap: existing failure-mode coverage had team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e) but was missing the human-experience / operator-sustainability angle
 - [x] Module 9: new slide **9.10b "Job Hollowing & Heteromation"** — defines both terms with M-quotes, BCG/HBR *AI Brainfry* numbers (14% / +33% / +39% / +39%), Brynjolfsson/Stanford new-grad data (−20% peak hiring, bigtech 15%→7%), three-industries table (software / lab medicine / creative writing). Anchored to transcript timestamps
 - [x] Module 9: new slide **9.10c "The Vigilance Trap"** — Mackworth 1948 + Parasuraman & Manzey 2010 + Waymo 2015–17 with Krafcik quote; cognitive-load mismatch table (ATC 2h / pilot autopilot-off practice / knowledge worker 8h); maps each trap to existing curriculum surfaces (M5, S9.8e, S9.10a)
@@ -43,7 +47,7 @@
 - [x] `content/materials/cheat-sheet.md`: new **"Job Hollowing & Heteromation — The Vocabulary"** section with four-row table (Job Hollowing / Heteromation / AI Brainfry / Vigilance Trap)
 - [x] `content/materials/destructive-operations-guardrails.md`: See-also gains the Mössner 2026 citation as the third leg of the failure-mode stool
 - [x] CHANGELOG.md `[Unreleased]` entry added
-- [x] Branch: `ai/job-hollowing` (local only, not pushed)
+- [x] Branch: `ai/job-hollowing` → merged to `main`
 
 ### Failure-Mode Integration ✅ (2026-04-29)
 - [x] Researched PocketOS / Cursor + Claude Opus 4.6 / Railway incident via Disclose.tv and Tom's Hardware (incident date late April 2026; published 2026-04-27)
@@ -266,12 +270,13 @@ These are optional additions if time permits:
 
 ## File Summary
 
-| Category | Files | Total Est. Words |
-|----------|-------|------------------|
-| Memory Bank | 6 files | ~3,000 |
-| Agenda | 1 file | ~2,500 |
-| Slides | 8 modules | ~9,500 |
-| Demo Script | 1 file | ~1,500 |
-| Materials | 9 files | ~2,500 |
-| **Total** | **25 files** | **~19,000 words** |
-- 2026-05-16: Added demo MCP server (content/demos/mcp-demo-server/) + 12-min workshop script. Seven tools (notes_* persistence + system_* host reach) on @modelcontextprotocol/sdk stdio. Verified end-to-end via probe.cjs.
+The curriculum has grown well beyond the original estimate, so the precise
+file/word counts that used to live here were removed to avoid drift. For the
+current, authoritative inventory see [README.md](../README.md) and
+[content/README.md](../content/README.md). At a glance: 10 core modules
+(M01–M05, M08–M10) plus two optional tracks (M11 Beyond Code, M12 Lab as
+Sandbox); the three generated Marp decks + exported PPTX; several demo scripts
+(main, prompt-evolution, corpus-analysis, tax-case-study, MCP server in Node and
+PowerShell, Kerberos lab); and the take-home materials (cheat sheet,
+destructive-operations guardrails, knowledge-work patterns, memory-bank
+template, sample instruction files).

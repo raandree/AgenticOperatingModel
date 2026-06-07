@@ -3159,6 +3159,5 @@ Speaker notes (for newcomers):
 
 # Questions?
 
-*[Your Contact Info]*
-*[Your Email]*
-*[Materials Download Link]*
+*Presenter: add your contact details*
+*github.com/raandree/AgenticOperatingModel*

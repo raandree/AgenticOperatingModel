@@ -1013,9 +1013,8 @@ The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles 
 
 # Questions?
 
-*[Your Contact Info]*
-*[Your Email]*
-*[Materials Download Link]*
+*Presenter: add your contact details*
+*github.com/raandree/AgenticOperatingModel*
 
 <!--
 The Q&A is usually where the most useful conversation of the training happens, because the questions surface what the audience has internalised versus what slid past. The five common topics listed on the slide are reliable starters when no one raises a hand first; in practice the room usually has its own opening question.
