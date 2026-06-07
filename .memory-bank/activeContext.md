@@ -2,21 +2,21 @@
 
 ## Current Focus
 
-**Task**: Release readiness — preparing the public **v1.1.0** announcement
+**Task**: **v1.1.0 released** (2026-06-07) — repo ready to announce
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
 **Last Updated**: 2026-06-07
 
-> **Release status (2026-06-07):** everything described below is **merged to `main` and pushed to origin** (PRs #9–#12); the working tree is clean and `v1.0.0` is already tagged. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line** — there is no uncommitted work. Next step: cut the `v1.1.0` tag/release from `main`.
+> **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
 
-### 2026-06-07: Release-prep cleanup for the v1.1.0 announcement
-- Curated this Memory Bank: removed a personal-path reference, corrected stale "not committed / local only" notes (everything is merged to `main`), and trimmed `activeContext.md` by ~100 lines of duplicated/obsolete scaffold.
-- Refreshed `content/README.md` (M06/M07 reserved, M11/M12 tracks added, newer demos + memory-bank template listed); relabeled the closing-slide contact placeholders as presenter fields.
-- Cut `CHANGELOG.md` `[Unreleased]` → `[1.1.0] - 2026-06-07` (SemVer declared, compare links added); rebuilt the three Marp decks and re-exported the tracked PPTX (11/11 build Pester tests green).
-- Committed on `ai/release-prep-1-1-0` (local only, not pushed). Remaining: publish the `v1.1.0` tag + GitHub Release from `main`.
+### 2026-06-07: v1.1.0 released
+- Squash-merged PR #13 (`ai/release-prep-1-1-0` → `main`, now `f1f7daf`); local + remote branch deleted.
+- Tagged `v1.1.0` on the merged commit and pushed the tag; created the GitHub Release ([releases/tag/v1.1.0](https://github.com/raandree/AgenticOperatingModel/releases/tag/v1.1.0)) from the `CHANGELOG` `[1.1.0]` section, marked Latest.
+- Preceding release-prep (same day): curated this Memory Bank (removed a personal-path reference, corrected stale "not committed" notes, trimmed `activeContext.md` ~100 lines); refreshed `content/README.md` (M06/M07 reserved, M11/M12 tracks added, newer demos + memory-bank template); relabeled closing-slide contact placeholders as presenter fields; cut `CHANGELOG.md` `[Unreleased]` → `[1.1.0] - 2026-06-07` (SemVer + compare links); rebuilt the three Marp decks and re-exported the tracked PPTX (11/11 build Pester tests green).
+- Open follow-up: `v1.0.0` tag exists but has **no GitHub Release**.
 
 ### 2026-06-07: Repo promotion — decision-maker value doc + README callout
 - User-reported gap: people looking at the repo did not grasp what it is, who the target audience is, or why investing time is worth it.
@@ -199,4 +199,4 @@ Previously in `.github/` (removed). Now loaded via CopilotAtelier OneDrive sync 
 ## Open Decisions
 
 - **Contact details** on the closing slides are kept as labelled presenter placeholders so the deck stays reusable by anyone who forks it. A presenter fills these in before delivery.
-- **GitHub Release** for `v1.1.0` still needs to be published from `main` (tag + release notes from the `CHANGELOG.md` `[1.1.0]` section).
+- **`v1.0.0` GitHub Release** is not published (the tag exists from 2026-04-26 but has no Release page). Backfill it from the `CHANGELOG.md` `[1.0.0]` section if the announcement needs a complete releases history; otherwise the existing `v1.1.0` Latest release is sufficient.

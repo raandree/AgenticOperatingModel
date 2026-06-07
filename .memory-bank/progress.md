@@ -2,19 +2,19 @@
 
 ## Recent
 
-- 2026-06-07: Release-prep cleanup for v1.1.0 — curated the Memory Bank (de-leaked a personal path, corrected stale "not committed" notes, trimmed `activeContext` ~100 lines), refreshed `content/README.md` (M11/M12 + newer demos), relabeled the closing-slide presenter placeholders, cut `CHANGELOG` `[Unreleased]` → `[1.1.0]` (SemVer + compare links), and rebuilt the three Marp decks + PPTX (11/11 build tests green). Committed on `ai/release-prep-1-1-0` (not pushed); next is tagging `v1.1.0` from `main`.
+- 2026-06-07: **Released v1.1.0.** Squash-merged PR #13 (`ai/release-prep-1-1-0` → `main`, `f1f7daf`), pushed the `v1.1.0` tag, and published the GitHub Release (Latest) from the `CHANGELOG` `[1.1.0]` section. Branch deleted (local + remote). Preceding release-prep the same day: curated the Memory Bank, refreshed `content/README.md` (M11/M12 + newer demos), relabeled closing-slide presenter placeholders, cut `CHANGELOG` `[Unreleased]` → `[1.1.0]` (SemVer + compare links), rebuilt the three Marp decks + PPTX (11/11 build tests green). Open follow-up: `v1.0.0` has a tag but no GitHub Release.
 - 2026-06-07: Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers (what the model is, under-using vs. over-trusting, cross-department value, business case, risk-and-governance, 30-minute evaluation path). Added an emphasized `> [!IMPORTANT]` "why this is worth your time" callout near the top of `README.md` linking to it and surfaced the `docs/` folder in the project-structure listing. Motivated by feedback that repo visitors did not grasp what it is, who it is for, or why it is worth the time. Docs-only; no slide or build-output changes.
 - 2026-05-22: Added inline speaker notes in `marp-presentation.md` for the 12 slides that the split-file merge couldn't reach (orphaned monolith-only slides + title drift). Added 6 new Pester tests (in `content/pptx/Build-MarpVersions.Tests.ps1`) that enforce "every built slide has a speaker-note HTML comment" and "every section-divider carries its module appendix" across all three versions (1h/2h/4h). Code-fence-aware parser — won't be fooled by `---` inside ```\`\`\`markdown``` fences. All 11 tests green.
 - 2026-05-22: Added Marp speaker notes (HTML comments) to ~30 concept-introducing slides across all 10 module files for newcomer accessibility. Merged to `main` via PR #11.
 
 ## Current Status
 
-**Phase**: Release readiness — preparing the public **v1.1.0** announcement
+**Phase**: **v1.1.0 released** (2026-06-07) — repo ready to announce
 **Started**: 2026-02-02
 **Last Updated**: 2026-06-07
 **GitHub Repository**: raandree/AgenticOperatingModel
 
-> **Release status (2026-06-07):** all work listed below is **merged to `main` and pushed to origin** (PRs #9–#12); the working tree is clean and `v1.0.0` is already tagged. Entries that read "not committed", "local only", or name a feature branch are historical provenance, **superseded by this line**. Next step: cut the `v1.1.0` tag/release from `main`.
+> **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag pushed, GitHub Release created and marked Latest; `CHANGELOG` `[Unreleased]` is empty. Entries below that read "not committed", "local only", or name a feature branch are historical provenance, **superseded by this line**. Open follow-up: `v1.0.0` has a tag but no GitHub Release.
 
 **Status**: Three-version architecture (1h · 2h · 4h) maintained; content refreshed with the April 2026 Copilot landscape, CopilotAtelier integration, destructive-ops guardrails / cheating-agent / bottleneck-has-moved / GitOps-Layer-6, Mössner *KI Burnout ist real* operator-sustainability, the Node + PowerShell demo MCP servers, the M11 Beyond-Code and M12 Lab-as-Sandbox tracks, and the decision-maker value document
 
