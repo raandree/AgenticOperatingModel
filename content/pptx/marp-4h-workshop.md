@@ -2195,17 +2195,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
--->
-
-<!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 
@@ -2413,6 +2413,36 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+-->
+
+<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2461,36 +2491,6 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
--->
-
-<!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 
@@ -3961,9 +3961,8 @@ The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles 
 
 # Questions?
 
-*[Your Contact Info]*
-*[Your Email]*
-*[Materials Download Link]*
+*Presenter: add your contact details*
+*github.com/raandree/AgenticOperatingModel*
 
 <!--
 The Q&A is usually where the most useful conversation of the training happens, because the questions surface what the audience has internalised versus what slid past. The five common topics listed on the slide are reliable starters when no one raises a hand first; in practice the room usually has its own opening question.

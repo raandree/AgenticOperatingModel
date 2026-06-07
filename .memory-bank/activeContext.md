@@ -2,20 +2,28 @@
 
 ## Current Focus
 
-**Task**: Maintain and update The Agentic Operating Model training — three-version architecture (1h · 2h · 4h)
+**Task**: Release readiness — preparing the public **v1.1.0** announcement
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
 **Last Updated**: 2026-06-07
 
+> **Release status (2026-06-07):** everything described below is **merged to `main` and pushed to origin** (PRs #9–#12); the working tree is clean and `v1.0.0` is already tagged. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line** — there is no uncommitted work. Next step: cut the `v1.1.0` tag/release from `main`.
+
 ## Recent Changes
+
+### 2026-06-07: Release-prep cleanup for the v1.1.0 announcement
+- Curated this Memory Bank: removed a personal-path reference, corrected stale "not committed / local only" notes (everything is merged to `main`), and trimmed `activeContext.md` by ~100 lines of duplicated/obsolete scaffold.
+- Refreshed `content/README.md` (M06/M07 reserved, M11/M12 tracks added, newer demos + memory-bank template listed); relabeled the closing-slide contact placeholders as presenter fields.
+- Cut `CHANGELOG.md` `[Unreleased]` → `[1.1.0] - 2026-06-07` (SemVer declared, compare links added); rebuilt the three Marp decks and re-exported the tracked PPTX (11/11 build Pester tests green).
+- Committed on `ai/release-prep-1-1-0` (local only, not pushed). Remaining: publish the `v1.1.0` tag + GitHub Release from `main`.
 
 ### 2026-06-07: Repo promotion — decision-maker value doc + README callout
 - User-reported gap: people looking at the repo did not grasp what it is, who the target audience is, or why investing time is worth it.
 - Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers. Sections: one-sentence definition; the under-using vs. over-trusting problem; what makes it an *operating model* (not a tool); where the value compounds across departments (four-profile table reframed as "where this pays off"); the business case (speed *with* traceability, self-verification, durable Memory Bank, bounded risk); risk-and-governance as the de-risking signal (six-layer guardrails, comprehension debt, operator sustainability, team dynamics); why it is worth the time; what you get; a 30-minute evaluation path. Links only to in-repo artefacts so claims are verifiable.
 - Added an emphasized `> [!IMPORTANT]` callout near the top of `README.md` (between the intro lines and `## Overview`) leading with **"New here? Start with *Why this is worth your time*"** and linking to the new doc; surfaced the `docs/` folder (with the new file) in the project-structure listing.
 - Docs-only change: no slide content, MARP master, or build-output (`marp-*.md` / PPTX) edits. No deck rebuild required.
-- CHANGELOG `[Unreleased]` → Added entry recorded. Not yet committed pending the standard topic-branch commit.
+- Merged to `main` via PR #12; recorded under CHANGELOG `[1.1.0]`.
 
 ### 2026-05-22: Speaker-note coverage — inline gap-fill + Pester guard
 - User-reported gap: 12 slides in the built 4h deck still had no speaker notes despite the earlier split-file note pass. Root cause split three ways: (a) monolith-only slides with no split-file equivalent (8 of 12), (b) title drift between split H1 and monolith H1 not yet captured in `notes-title-map.psd1` (3 of 12), (c) one orphan from earlier oversight (4.7b).
@@ -65,7 +73,7 @@
 
 ### 2026-05-06: Operator-Sustainability Integration — Mössner / *KI Burnout ist real*
 - Integrated Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Closes the third leg of the failure-mode stool: alongside team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e), this is the **operator-sustainability / human-experience** angle the curriculum was missing
-- Transcript captured via user paste; cite-anchor map saved at `%LOCALAPPDATA%\CareerAuthBrowser\extracted\youtube-SHKBrkpYssM-transcript.md` (outside repo, not committed). YouTube auto-caption fetch was blocked by PO-token gate — user pasted from the signed-in transcript pane
+- Transcript captured via user paste and kept **outside the repository** (not committed). The YouTube auto-caption fetch was blocked by a PO-token gate, so the user pasted from the signed-in transcript pane
 - Three new slides added (all 4h-only):
   - **M9.10b "Job Hollowing & Heteromation"** — defines both terms with M-quotes (*"quality control for a machine I don't trust"*, @0:32; Heteromation @21:50). BCG/HBR *AI Brainfry* survey numbers (14% report it; +33% decision fatigue; +39% serious errors; +39% want to quit, March 2026, @13:22). Brynjolfsson / Stanford (@11:20): hiring of 22–25 yr-olds in AI-exposed jobs −20% from peak; bigtech new-grad share 15%→7%. Same-mechanism-three-industries table (software @0:00, lab medicine @18:39, creative writing @19:38) prevents framing as developer-only
   - **M9.10c "The Vigilance Trap"** — frames the problem as 78 years old, not novel. Mackworth (1948) RAF radar — vigilance breaks after 15–30 min, untrainable. Parasuraman & Manzey (2010) Automation Complacency — equally bad in novices and experts. Google self-driving 2015–17 — drivers fell asleep, did makeup; Krafcik *"hard to take over because they have lost contextual awareness"*; Waymo's response was Level 4 not Level 3 (remove the steering wheel). Cognitive-load mismatch table: ATC 2h max + 30-min break / FAA pilot autopilot-off practice / knowledge worker 8h with no break. Closes by mapping each trap to existing curriculum surfaces (M5, S9.8e, S9.10a)
@@ -166,69 +174,7 @@
 
 Previously in `.github/` (removed). Now loaded via CopilotAtelier OneDrive sync and VS Code `chat.*FilesLocations` settings. Project-specific samples remain in `content/materials/sample-copilot-instructions/`.
 
-## Recent Changes
-
-### 2026-03-19: Three-Version Architecture (1h · 2h · 4h)
-- Restructured `agenda/presentation-agenda.md` with DRY three-version architecture
-- Added Version Summary, Module Inclusion Matrix, Slide Inclusion Guide
-- Three version-specific agenda sections with timing tables and facilitator notes
-- Added Version Guide tables to all 8 slide files (01–05, 08–10)
-- Module descriptions updated with per-version duration badges
-- Added `<!-- version: -->` tags to all 81 MARP slides in `marp-presentation.md`
-- Created `content/pptx/Build-MarpVersions.ps1` generating three output MARP files
-- Generated: `marp-1h-keynote.md` (~25 slides), `marp-2h-standard.md` (~45), `marp-4h-workshop.md` (81)
-- Updated all README/docs files for build workflow
-- Content is maintained once — versions differ only in slide selection and timing
-
-### 2026-03-14: MARP slide deck — Git forensics + commit strategy slides
-- Added new slide "AI Does the Git Forensics for You" to Module 2 in `marp-presentation.md`
-- Added new slide "Commit Strategies — Explained" to Module 2 in `marp-presentation.md`
-
-### 2026-03-14: Famous quotes added across all MARP modules
-- 13 curated quotes from European/German thinkers (Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle)
-- Bilingual format (German + English) where applicable
-
-### 2026-03-14: AI commit strategy added to sample + personal files
-- Added Git & Commit Strategy section to `content/materials/sample-copilot-instructions/copilot-instructions.md`
-- Added AI-Assisted Commit Strategy section to CopilotAtelier `git.instructions.md`
-- Added AI attribution rules to CopilotAtelier Software Engineer Agent
-
-### 2026-03-14: Prompt Evolution demo + slide + cross-references
-- Created `content/demos/demo-prompt-evolution.md` — 6-level prompt progression demo script
-- Added Slide 4.19 (Prompt Evolution) to Module 4 with summary table + cross-reference
-- Updated main demo script with cross-reference to prompt evolution demo
-- Updated content README with demo listing
-- Updated cheat sheet with Prompt Evolution Pattern quick-reference table
-- Updated agenda with optional Prompt Evolution demo in Module 4 extended version
-
-### 2026-03-09: Module 8 + sample templates + MARP update
-- Module 8: Advanced Capabilities slides created (13 slides + speaker notes)
-  - MCP architecture and configuration (slides 8.1-8.6)
-  - Checkpoints and rollback (slides 8.7-8.8)
-  - Multi-file operations (slide 8.9)
-  - Agent types: local, background, cloud, third-party (slides 8.10-8.11)
-  - Future trajectory (slide 8.12)
-- Sample templates added (7 files):
-  - 3x .instructions.md (testing, documentation, refactoring)
-  - 3x .agent.md (code-reviewer, iac-engineer, security-reviewer)
-  - 1x SKILL.md (sampler-build-debug)
-- MARP presentation updated with 3 new Module 8 slides (22 → 25 slides)
-- Technical-writer mode, CopilotAtelier instruction files, skills ecosystem documented
-
-### 2026-03-07: Brainstorming notes integration
-- Foundational vocabulary (Slide 2.0), token usage & cost (Slide 1.4a), agent security (Slide 9.8a), guiding principle (Slide 9.8b) added
-- Cheat sheet expanded with Token/Cost, Security, Guiding Principle sections
-- Agenda rebalanced for Module 2 and Module 9
-
-### 2026-02-25: CopilotAtelier integration
-- Skills, Prompts, Agent Handoffs slides added (4.10-4.12)
-- Chat shortcuts, feature flags, OneDrive sync pattern added to cheat sheet and demos
-- Richer agent examples with production-grade patterns
-
-### 2026-02-24: Copilot pivot & landscape research
-- Refocused from Cline to GitHub Copilot Agent Mode as primary demo tool
-- Updated landscape: Cursor v2.5, Windsurf, Claude Code, MCP under Linux Foundation
-- All 7 slide modules, demo script, cheat sheet refocused for Copilot
+> Older completed work (three-version architecture, quotes, Module 8, prompt-evolution demo, CopilotAtelier integration, the Copilot pivot, etc.) lives in [progress.md](progress.md). This file keeps only the current focus and the most recent changes.
 
 ## Presenter Preparation (Next Steps)
 
@@ -250,30 +196,7 @@ Previously in `.github/` (removed). Now loaded via CopilotAtelier OneDrive sync 
 - Consider DevContainer option
 - Demo-first, follow-along optional
 
-## Questions for User
+## Open Decisions
 
-Before finalizing agenda:
-1. Confirmed duration (2 hours strict, or flexible to 4)?
-2. In-person, virtual, or hybrid format?
-3. Attendee hands-on exercises required or optional?
-4. Should attendees have GitHub Copilot subscription?
-5. Any specific PowerShell modules/scenarios to feature?
-6. Recording planned?
-
-## Session Context
-
-### Current Task
-Creating the agenda document based on Memory Bank content
-
-### Key Constraints
-- Must be practical and demo-heavy
-- Must emphasize Git integration
-- Must include automated testing
-- Must be PowerShell/DevOps relevant
-- Duration: 2-4 hours (flexible)
-
-### Outputs Expected
-1. Detailed agenda markdown file
-2. Timing breakdown for each section
-3. Demo descriptions per section
-4. Break schedule
+- **Contact details** on the closing slides are kept as labelled presenter placeholders so the deck stays reusable by anyone who forks it. A presenter fills these in before delivery.
+- **GitHub Release** for `v1.1.0` still needs to be published from `main` (tag + release notes from the `CHANGELOG.md` `[1.1.0]` section).

@@ -290,9 +290,9 @@ Speaker notes (for newcomers):
 - PowerShell.org forums
 
 ### This Presentation
-- Slides and materials: [Your URL]
-- Sample instruction files: [Your URL]
-- Demo projects: [Your URL]
+- Repository (slides, demos, materials): <https://github.com/raandree/AgenticOperatingModel>
+- Sample instruction files: [content/materials/sample-copilot-instructions/](../materials/sample-copilot-instructions/)
+- *Presenting your own fork? Swap in your fork's URLs here.*
 
 ---
 
@@ -517,12 +517,13 @@ The sergeant/commander metaphor from Matt Pocock is the operational version of t
 - Security concerns
 
 ### Contact:
-- [Your Email]
-- [Your Twitter/LinkedIn]
-- [Your Website]
+*(Presenter: add your own contact details before delivering.)*
+- Email: _your email_
+- Social: _your LinkedIn / X / Mastodon_
+- Website: _your site_
 
 ### Materials:
-- [Download link for slides]
+- Repository: <https://github.com/raandree/AgenticOperatingModel>
 - [Download link for samples]
 
 <!--

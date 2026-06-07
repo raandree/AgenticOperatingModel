@@ -2,9 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.0] - 2026-06-07
+
+Second feature release. Broadens the curriculum beyond code with two optional
+tracks — **M11 Beyond Code** and **M12 The Lab as the Agent's Sandbox** — adds two
+protocol-identical demo MCP servers (Node and PowerShell), a six-layer
+destructive-operations guardrail model, operator-sustainability material (job
+hollowing, the vigilance trap, "with AI, not from AI"), comprehension-debt and
+spec-driven-development slides, newcomer speaker notes across every module, and a
+decision-maker value document. All three deck versions (1h / 2h / 4h) regenerate
+from the single Marp source.
 
 ### Added
 
@@ -305,5 +317,7 @@ Initial public release of **The Agentic Operating Model** — a presentation/wor
 - Memory bank structure
 - Basic agenda outline
 
-[1.0.0]: https://github.com/raandree/AgenticOperatingModel/releases/tag/v1.0.0
+[Unreleased]: https://github.com/raandree/AgenticOperatingModel/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/raandree/AgenticOperatingModel/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/raandree/AgenticOperatingModel/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/raandree/AgenticOperatingModel/releases/tag/v0.1.0
