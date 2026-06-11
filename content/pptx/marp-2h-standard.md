@@ -1037,16 +1037,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
--->
-
-<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
+-->
+
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1307,12 +1307,14 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 "chat.promptFilesLocations":       { "~/OneDrive/CopilotAtelier/Prompts": true }
 ```
 
-> **Write an agent once, use it everywhere.** Your personal agent config travels with you like your dotfiles.
+> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)).
 
 <!--
 "Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
 
 The "as code" framing is the load-bearing claim. The atelier is not a collection of saved chat snippets or browser bookmarks; it is a Git-tracked directory tree with diffable history, peer review, and rollback. The same engineering discipline the curriculum applies to project code applies to the developer's personal AI configuration. Mature practitioners maintain their atelier with the same care they give to their dotfiles or their PowerShell profile — and for the same reason: small daily investments compound into a permanent productivity advantage.
+
+The portability claim is now literal rather than aspirational: ShellPilot (github.com/raandree/ShellPilot) loads the same instruction files and Agent Skills from the PowerShell terminal, and DeskPilot (github.com/raandree/DeskPilot), built on the ShellPilot engine, does the same from a desktop chat app. "Use it everywhere" comes to mean the editor, the shell, and a GUI — the Atelier is the durable asset; the surface is interchangeable.
 -->
 ---
 

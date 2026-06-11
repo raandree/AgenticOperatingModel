@@ -81,6 +81,24 @@ A team that adopts it for code can apply the identical method to runbooks,
 research files, and correspondence — so the return on the training is not
 confined to one department.
 
+## Putting It in Non-Technical Hands
+
+A fair question from any leader: *the demos use VS Code — how would my analysts,
+operators, or legal team actually use this?* Two companion tools answer it on the
+same foundation the training teaches, so you invest in one model and meet people
+where they already work:
+
+- **[ShellPilot](https://github.com/raandree/ShellPilot)** brings the agent to the
+  PowerShell terminal and to scripts — useful where your automation already lives.
+- **[DeskPilot](https://github.com/raandree/DeskPilot)** is a calm desktop chat
+  window that hands a **non-technical** colleague the same agent — no terminal, no
+  IDE — with permissions shown as switches, an activity log of everything the agent
+  did, and the cost of every turn in plain sight.
+
+The point for adoption: the *operating model* is what you invest in; the surface —
+editor, terminal, or desktop app — is a detail you choose per person. The same
+instruction files, skills, and governance carry across all three.
+
 ## The Business Case
 
 - **Speed *with* traceability.** Every change is a reviewable diff in version
@@ -166,3 +184,5 @@ the damage when they do.
 - [Repository overview](../README.md)
 - [Presentation agenda](../agenda/presentation-agenda.md)
 - [Content guide](../content/README.md)
+- [ShellPilot](https://github.com/raandree/ShellPilot) — GitHub Copilot in your PowerShell terminal
+- [DeskPilot](https://github.com/raandree/DeskPilot) — a desktop chat front end for non-technical users

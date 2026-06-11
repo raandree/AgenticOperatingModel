@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Companion-tool references — ShellPilot & DeskPilot (2026-06-11).** Referenced
+  the two companion projects that operationalize this operating model wherever
+  they fit (both already link back here, so this reciprocates).
+  [ShellPilot](https://github.com/raandree/ShellPilot) is GitHub Copilot in the
+  PowerShell terminal — the `Invoke-Shp` engine that reuses the same instruction
+  files and Agent Skills as VS Code and returns structured token-usage/cost
+  objects; [DeskPilot](https://github.com/raandree/DeskPilot) is a calm desktop
+  chat front door on the ShellPilot engine for the non-technical knowledge
+  workers in the Module 11 audience. Placements: a **Related projects** section
+  in [README.md](README.md); a *Putting It in Non-Technical Hands* subsection +
+  two See-Also links in
+  [docs/for-decision-makers.md](docs/for-decision-makers.md); two **Resources**
+  entries in [content/materials/cheat-sheet.md](content/materials/cheat-sheet.md);
+  a new 4h slide **11.10a “Tools Built on This Model — ShellPilot & DeskPilot”**
+  in the Marp master + [content/slides/11-beyond-code.md](content/slides/11-beyond-code.md)
+  (with Version Guide row); a ShellPilot/DeskPilot proof line on the M4 *Your
+  Atelier — Customization as Code* slide (2h + 4h) and its speaker note; and a
+  pointer in the M8 *A Mature Personal Atelier* speaker note. All three Marp
+  decks were regenerated and the PPTX re-exported (4h 130 → 131 slides; 1h 29 /
+  2h 68 unchanged in count); 11/11 build Pester tests pass; the overflow check
+  shows no new overflow (the four pre-existing dense-slide overflows are
+  unrelated). `content/README.md`, `agenda/README.md`, and the demo scripts were
+  deliberately left untouched — external tool links do not belong in folder
+  indexes, and the demos were out of scope for a light reference pass.
 - **Brand identity in the documentation (2026-06-11).** Added an `assets/`
   folder with the project's AOM brand artwork. The root [README.md](README.md)
   header is a centered, theme-aware logo **lockup** — the full mark

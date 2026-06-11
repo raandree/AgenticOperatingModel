@@ -14,6 +14,7 @@
 | 11.8 | PowerShell as the "Fingers" | — | — | ✅ |
 | 11.9 | Data Governance & Confidentiality | — | ✅ | ✅ |
 | 11.10 | Audience Extensions | — | — | ✅ |
+| 11.10a | Tools Built on This Model — ShellPilot & DeskPilot | — | — | ✅ |
 | 11.11 | Key Takeaway | — | ✅ | ✅ |
 
 > **This module extends the training to system engineers, researchers, and knowledge workers.**
@@ -310,6 +311,34 @@ The distinction between Copilot Individual, Business, and Enterprise tiers is th
 The four-profile matrix is what allows this training to address mixed audiences. The slides do not change between profiles — the principles, the operating model, the tools, the governance considerations are identical. What changes is the demonstration: a code-focused demo for developers, a runbook-focused demo for system engineers, a case-file demo for analysts and lawyers. The substrate underneath each demo is the same.
 
 The "special case" framing in the closing line is the inversion of how the field usually presents itself. Agentic AI is typically marketed to developers first and extended outward; the training argues the reverse direction is more accurate — reasoning over structured corpora is the general capability, and writing code is one instance of it. That reframing matters because it changes who the audience can include: a sysadmin running PowerShell against Active Directory and a lawyer drafting Schriftsatz against the BGB are doing structurally identical work, even though the field rarely says so out loud.
+-->
+
+---
+
+## Slide 11.10a: Tools Built on This Model — ShellPilot & DeskPilot
+
+# Tools Built on This Model — ShellPilot & DeskPilot
+
+The operating model is deliberately tool-agnostic. But you do not have to assemble it by hand: two companion projects run it on the **exact primitives** taught in this training — instruction files, Agent Skills, a memory bank, and Git underneath.
+
+| Tool | Surface | For whom | What it is |
+|---|---|---|---|
+| **[ShellPilot](https://github.com/raandree/ShellPilot)** | PowerShell terminal / scriptable | Engineers, ops, automation | `Invoke-Shp` drives a Copilot agent from the shell — reuses your `-InstructionRoot` and `-SkillPath`, calls tools, reads/writes files, runs commands, and returns structured objects with token **usage** and estimated **cost** |
+| **[DeskPilot](https://github.com/raandree/DeskPilot)** | Local desktop chat (no terminal, no IDE) | Analysts, operators, lawyers, researchers | A calm web UI on the ShellPilot engine — five permission switches you control (Terminal off by default), an activity panel of what it read / wrote / ran, and honest per-turn cost |
+
+### Why they belong in this module:
+- **ShellPilot is "PowerShell as the fingers" (11.8) made literal** — the agent lives in the shell where your automation already runs.
+- **DeskPilot is the front door for the non-coding profiles (11.10)** — it hands the same agent to people who will never open a terminal.
+- **Same Atelier, new surfaces** — both discover the same Skills / Instructions folders VS Code Copilot uses, so customization-as-code travels across the editor, the terminal, and a desktop app.
+
+> **Status check:** both are experimental pre-releases that ride internal Copilot endpoints intended for first-party editors — preview tooling, not supported products. Run them on a single-user machine and point the workspace at a version-controlled folder.
+
+<!--
+This slide answers the question the previous slides provoke: "the demos are in VS Code — how does a non-developer actually do this?" The training is intentionally tool-agnostic, so the answer is not "buy this product" but "here are two reference implementations built on the same primitives you have just learned."
+
+ShellPilot is the engine. It is a Sampler-built PowerShell module whose entry point, Invoke-Shp, drives a Copilot agent from the terminal and from scripts; crucially it reuses the very same instruction files and Agent Skills as VS Code (via -InstructionRoot and -SkillPath), and every call returns a rich object with token usage and an estimated cost, which makes the governance and cost-awareness themes of this module concrete. DeskPilot sits on top of that engine and is aimed squarely at the non-coding profiles from slide 11.10: a local single-page chat app with permission toggles, an activity log, and per-turn cost, so an analyst or lawyer gets the agent without the tool stack.
+
+Be honest on stage about maturity: both are experimental and use internal Copilot endpoints meant for first-party editors, so they can change without notice. Present them as proof that the operating model is buildable and portable, not as turnkey production software.
 -->
 
 ---
