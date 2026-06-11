@@ -1,21 +1,16 @@
 <!-- markdownlint-disable MD033 MD041 -->
-<!-- Logo floated left; two transparent variants switch by theme via <picture>.
-     Judge on github.com — some in-editor previews mis-resolve prefers-color-scheme. -->
-<picture>
-  <source media="(prefers-color-scheme: dark)"
-          srcset="assets/AOM-logo-on-dark.png">
-  <img align="left" width="300" alt="The Agentic Operating Model logo"
-       src="assets/AOM-logo-on-light.png">
-</picture>
-<!-- markdownlint-enable MD033 -->
-
+<!-- Colour hero banner: the splash lockup on its dark navy card. Self-contained —
+     a banner on light themes, blends into dark themes. The AOM-hero.png filename
+     intentionally differs from the previous asset so GitHub's image cache (Camo)
+     serves it fresh instead of the stale logo. Judge on github.com. -->
+<p align="center">
+  <img src="assets/AOM-hero.png" width="520"
+       alt="The Agentic Operating Model — Orchestrate. Align. Scale.">
+</p>
+<!-- markdownlint-enable MD033 MD041 -->
 
 **A presentation/workshop on agentic knowledge work** — for developers, DevOps engineers, system engineers, and research/analyst-style knowledge workers.
 Available in three versions: **1-hour keynote**, **2-hour standard**, and **4-hour workshop** — all sharing the same module content.
-
-<!-- markdownlint-disable MD033 -->
-<br clear="left">
-<!-- markdownlint-enable MD033 -->
 
 > [!IMPORTANT]
 > **New here? Start with [*Why this is worth your time*](docs/for-decision-makers.md).**

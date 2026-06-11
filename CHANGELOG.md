@@ -9,18 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Theme-aware brand icons in the documentation (2026-06-11).** Added the
-  project's AOM logo and glyph to the READMEs. A new `assets/` folder ships
-  four transparent, auto-cropped PNGs (`Format32bppArgb`):
-  `AOM-logo-on-light.png` and `AOM-logo-on-dark.png` (navy wordmark + teal
-  accent; the dark-theme variant recolours the navy to near-white and keeps
-  the teal), plus `AOM-glyph-on-light.png` and `AOM-glyph-on-dark.png` (teal
-  corner glyph, two shades). The root [README.md](README.md) gains a floated,
-  theme-aware `<picture>` header that switches the logo by
-  `prefers-color-scheme`; [agenda/README.md](agenda/README.md) and
-  [content/README.md](content/README.md) get a compact theme-aware corner
-  glyph. The design-board exports were flattened on off-white, so an alpha
-  channel was added and the off-white veil keyed out before cropping.
+- **Brand identity in the documentation (2026-06-11).** Added an `assets/`
+  folder with the project's AOM brand artwork. The root [README.md](README.md)
+  header is a centered colour **hero banner** (`AOM-hero.png`) — the full logo
+  lockup (network-and-helm glyph, `AgenticOperatingModel` wordmark, the
+  *Orchestrate. Align. Scale.* tagline, and a compass divider) on the brand's
+  dark navy card, cropped from the design-board splash. It reads as a banner on
+  light themes and blends into dark themes, so one self-contained image serves
+  both. [agenda/README.md](agenda/README.md) and
+  [content/README.md](content/README.md) carry a compact, theme-aware corner
+  glyph (`AOM-glyph-on-light.png` / `AOM-glyph-on-dark.png`, switched by
+  `prefers-color-scheme`). All artwork was derived from off-white-flattened
+  design-board exports by adding an alpha channel and cropping to content.
   Docs/asset-only change; no slide content or deck build output affected.
 
 ## [1.1.0] - 2026-06-07

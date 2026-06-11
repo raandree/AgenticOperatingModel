@@ -13,3 +13,6 @@ content/pptx/build-pptx.log
 # Local working log — not published
 .memory-bank/promptHistory.md
 
+# Throwaway working area for one-off asset/script generation — never committed
+.work/
+

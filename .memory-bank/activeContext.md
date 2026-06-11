@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-**Task**: **Evaluating** a logo swap to the mono lockup (sources `AOM #9` teal-on-white / `#10` white-on-teal) on branch `ai/brand-icons` — working-tree change, **uncommitted, awaiting keep/revert decision**. Prior committed milestone on this branch: full-colour brand icons (`a0601c1`). Repo milestone: **v1.1.0 released** (2026-06-07).
+**Task**: Root README logo finalised as a **colour hero banner** (`assets/AOM-hero.png`, the splash lockup on its dark navy card) on branch `ai/brand-icons`. Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
@@ -11,6 +11,13 @@
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-06-11: Root logo → colour hero banner; GitHub cache fix
+- User reported github.com still showed the old logo and asked for the new logo in the original (colour) scheme. Root cause of the stale image: the branch is pushed and the new logo was committed (`c3221e2`), so it was **GitHub's Camo image cache** serving the old PNG at the unchanged path. Fix: ship under a **new filename** so the raw URL (and thus the camo key) changes — `AOM-hero.png`.
+- Source taxonomy lesson: the design-board **tile numbers do not match the export filename numbers** (export regrouped by type). Verified content by eye. The full colour lockup (glyph + wordmark + *Orchestrate. Align. Scale.* tagline + compass divider) lives in the file named `AOM #8 - Splash ... light mode.png` — actually a **dark-navy card** (`#0E1B1F`); its sibling `#7` is an app-icon tile, not a splash. Labels are unreliable; trust pixels.
+- Cropped the splash to its dark card (dropped the off-white flatten margin via a max-channel<160 bbox), saved opaque `assets/AOM-hero.png` (1347×905, ~1.5:1). Previewed centered on `#ffffff` + `#0d1117`: handsome banner on light; on dark the card sits just above page colour with a faint hairline edge (reads as an intentional border) and all content stays crisp — one image serves both themes, no `<picture>` switch needed.
+- README: replaced the floated `<picture>` logo with a centered `<p align="center"><img src="assets/AOM-hero.png" width="520">`; removed the now-pointless `<br clear="left">` and restored the blank line before the `[!IMPORTANT]` callout. Removed the orphaned `assets/AOM-logo-on-{light,dark}.png` (mono lockup) — the glyph assets stay for the sub-READMEs (left unchanged per user).
+- Repo hygiene: `c3221e2` had accidentally committed the throwaway `.work/mono.ps1`; removed it and added `.work/` to `.gitignore`. CHANGELOG `[Unreleased]` rewritten to the final hero-banner state.
 
 ### 2026-06-11: Mono-lockup logo swap (EVALUATING, uncommitted)
 - Tried sources `AOM #9` (mono teal-on-white) and `#10` (mono white-on-teal) per user request. Pixel inspection: #9 = teal ink `#107070` on off-white; #10 = white ink on dark-teal `#105050`. Both are the **full lockup** (document frame + wave + wordmark + tagline "Orchestrate. Align. Scale." + compass divider) — richer than the prior simple glyph+wordmark.
