@@ -2,6 +2,7 @@
 
 ## Recent
 
+- 2026-06-11: **Brand icons added to the docs** (branch `ai/brand-icons`, not pushed). New `assets/` with four transparent `Format32bppArgb` PNGs derived from the off-white-flattened design-board exports: `AOM-logo-on-{light,dark}.png` (navy wordmark + teal accent; dark variant recolours navy→near-white, keeps teal) and `AOM-glyph-on-{light,dark}.png` (teal corner glyph). Root `README.md` gets a floated theme-aware `<picture>` logo header; `agenda/README.md` + `content/README.md` get a compact theme-aware corner glyph. Verified corner alpha 0 + dark/light composites; deleted throwaway `.work/`; CHANGELOG `[Unreleased]` updated. Docs/asset-only.
 - 2026-06-07: **Released v1.1.0.** Squash-merged PR #13 (`ai/release-prep-1-1-0` → `main`, `f1f7daf`), pushed the `v1.1.0` tag, and published the GitHub Release (Latest) from the `CHANGELOG` `[1.1.0]` section. Branch deleted (local + remote). Preceding release-prep the same day: curated the Memory Bank, refreshed `content/README.md` (M11/M12 + newer demos), relabeled closing-slide presenter placeholders, cut `CHANGELOG` `[Unreleased]` → `[1.1.0]` (SemVer + compare links), rebuilt the three Marp decks + PPTX (11/11 build tests green). Open follow-up: `v1.0.0` has a tag but no GitHub Release.
 - 2026-06-07: Added `docs/for-decision-makers.md` — a jargon-free value summary for engineering leaders, IT/platform directors, and research/legal/business managers (what the model is, under-using vs. over-trusting, cross-department value, business case, risk-and-governance, 30-minute evaluation path). Added an emphasized `> [!IMPORTANT]` "why this is worth your time" callout near the top of `README.md` linking to it and surfaced the `docs/` folder in the project-structure listing. Motivated by feedback that repo visitors did not grasp what it is, who it is for, or why it is worth the time. Docs-only; no slide or build-output changes.
 - 2026-05-22: Added inline speaker notes in `marp-presentation.md` for the 12 slides that the split-file merge couldn't reach (orphaned monolith-only slides + title drift). Added 6 new Pester tests (in `content/pptx/Build-MarpVersions.Tests.ps1`) that enforce "every built slide has a speaker-note HTML comment" and "every section-divider carries its module appendix" across all three versions (1h/2h/4h). Code-fence-aware parser — won't be fooled by `---` inside ```\`\`\`markdown``` fences. All 11 tests green.
@@ -11,7 +12,7 @@
 
 **Phase**: **v1.1.0 released** (2026-06-07) — repo ready to announce
 **Started**: 2026-02-02
-**Last Updated**: 2026-06-07
+**Last Updated**: 2026-06-11
 **GitHub Repository**: raandree/AgenticOperatingModel
 
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag pushed, GitHub Release created and marked Latest; `CHANGELOG` `[Unreleased]` is empty. Entries below that read "not committed", "local only", or name a feature branch are historical provenance, **superseded by this line**. Open follow-up: `v1.0.0` has a tag but no GitHub Release.

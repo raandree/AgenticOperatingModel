@@ -2,15 +2,21 @@
 
 ## Current Focus
 
-**Task**: **v1.1.0 released** (2026-06-07) — repo ready to announce
+**Task**: Brand icons integrated into README + sub-READMEs (branch `ai/brand-icons`, **not pushed**). Prior milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-06-07
+**Last Updated**: 2026-06-11
 
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-06-11: Brand icons in README + sub-READMEs
+- Added the AOM brand glyph/logo to the docs on branch `ai/brand-icons` (**not pushed**). New `assets/` folder with four transparent, auto-cropped `Format32bppArgb` PNGs generated from the off-white-flattened design-board exports (`AOM #N` taxonomy): `AOM-logo-on-{light,dark}.png` (navy wordmark `#101030` + teal accent `#10B0B0`; the dark variant recolours navy→near-white `#EAF1F8` via the `darkInk` predicate while preserving the teal) and `AOM-glyph-on-{light,dark}.png` (teal corner glyph — darker shade for light bg, brighter for dark).
+- Root `README.md`: floated, theme-aware `<picture>` logo header (`align="left" width="300"`, `prefers-color-scheme` switch, `<br clear="left">` after the intro). `agenda/README.md` + `content/README.md`: compact theme-aware corner glyph (`align="right" width="96"`, no `<br clear>`). All HTML wrapped in `markdownlint-disable MD033 MD041`.
+- Verified: corner alpha = 0 programmatically on all four variants; composited each on `#0d1117` and `#ffffff` and inspected visually — wordmark opaque, off-white veil gone, and the theme switch confirmed necessary (navy nearly vanishes on dark, near-white nearly vanishes on light). Throwaway `.work/` (scripts, sources, composites) deleted; `git status` shows only the three READMEs + `assets/`. `.gitattributes` already marks `*.png binary`. Not a PowerShell module → no Gallery `IconUri` step.
+- CHANGELOG `[Unreleased]` entry added. Docs/asset-only; no slide content or deck build output changed.
 
 ### 2026-06-07: v1.1.0 released
 - Squash-merged PR #13 (`ai/release-prep-1-1-0` → `main`, now `f1f7daf`); local + remote branch deleted.

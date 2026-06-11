@@ -1,3 +1,13 @@
+<!-- markdownlint-disable MD033 MD041 -->
+<!-- Compact corner glyph; theme-aware via <picture>. Judge on github.com. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)"
+          srcset="../assets/AOM-glyph-on-dark.png">
+  <img align="right" width="96" alt="The Agentic Operating Model glyph"
+       src="../assets/AOM-glyph-on-light.png">
+</picture>
+<!-- markdownlint-enable MD033 -->
+
 # Content
 
 This folder contains all presentation content, demos, and supporting materials.
