@@ -115,6 +115,15 @@ cd content/pptx
 
 Requires Node.js + the Marp CLI (`npm install -g @marp-team/marp-cli`). See [content/pptx/README-how-to-create-pptx.md](content/pptx/README-how-to-create-pptx.md) for details and HTML/PDF export options.
 
+## Related projects
+
+Two companion tools put this operating model into practice on the very primitives the training teaches — your instruction files, Agent Skills, a memory bank, and Git:
+
+- **[ShellPilot](https://github.com/raandree/ShellPilot)** — GitHub Copilot in your PowerShell terminal. A PowerShell module (`Invoke-Shp`) that drives a Copilot agent from the shell: it reuses the same instruction files and Agent Skills as VS Code, calls tools, reads and writes files, runs commands, and returns structured objects carrying token usage and estimated cost. It is *"PowerShell as the fingers"* (Module 11) made literal.
+- **[DeskPilot](https://github.com/raandree/DeskPilot)** — a calm desktop chat window, built on the ShellPilot engine, that gives a **non-technical** user the full Copilot agent without a terminal or an IDE. Permission switches you control, an activity panel showing what was read / written / run, and honest per-turn cost — the friendly front door for the analysts, operators, lawyers, and researchers in the Module 11 audience.
+
+Both discover the same Skills and Instructions folders that VS Code Copilot uses, so a personal **Atelier** — see **[CopilotAtelier](https://github.com/raandree/CopilotAtelier)**, the cross-machine reference setup referenced throughout this training — works unchanged across the editor, the terminal, and the desktop app.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

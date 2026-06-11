@@ -245,6 +245,8 @@ style: |
 <!-- _class: lead -->
 <!-- _paginate: false -->
 
+![center w:130](../../assets/AOM-glyph-on-light.png)
+
 # The Agentic Operating Model
 
 ## Versioned, AI-Agent-Assisted Work for Code, Operations, Research & Correspondence
@@ -1268,7 +1270,7 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 "chat.promptFilesLocations":       { "~/OneDrive/CopilotAtelier/Prompts": true }
 ```
 
-> **Write an agent once, use it everywhere.** Your personal agent config travels with you like your dotfiles.
+> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)).
 
 ---
 <!-- version: 4h -->
@@ -2804,6 +2806,8 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 # A Mature Personal Atelier
 
+![center w:230 CopilotAtelier logo](../../assets/CopilotAtelier-logo-on-light.png)
+
 What does the pattern look like once you stop thinking of it as "AI for code"?
 
 ### [CopilotAtelier](https://github.com/raandree/CopilotAtelier) — one person's public skill library:
@@ -2827,6 +2831,34 @@ Speaker notes (for newcomers):
 - The point isn't to copy the skills (most won't apply to your work) — it's to see how *the same four file types* (Agents / Instructions / Skills / Prompts) cover wildly different domains.
 - You won't reach this level in week one. That's fine. Pick ONE skill area, build one skill, see if the agent uses it. Then add another.
 - The OneDrive sync trick (covered on slide 10.5a) is what makes a personal library practical — write once, every machine has it.
+- The very same Atelier now runs outside VS Code too — in the PowerShell terminal via ShellPilot and in a desktop chat app via DeskPilot — which is the subject of the next slide.
+-->
+
+---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# Tools Built on This Model — ShellPilot & DeskPilot
+
+![center w:470 ShellPilot and DeskPilot logos](../../assets/ShellPilot-DeskPilot-on-light.png)
+
+The operating model is tool-agnostic — but these two run on the **exact primitives** in this training: your instruction files, your Agent Skills, a memory bank, Git underneath.
+
+| Tool | What it is | For whom |
+|---|---|---|
+| **[ShellPilot](https://github.com/raandree/ShellPilot)** | GitHub Copilot in the **PowerShell terminal** — `Invoke-Shp`, scriptable, reuses your instructions + skills, returns usage + cost objects | Engineers, ops, automation |
+| **[DeskPilot](https://github.com/raandree/DeskPilot)** | A calm **desktop chat** on the ShellPilot engine — no terminal, no IDE; visible permissions, an activity log, honest cost | Analysts, operators, lawyers, researchers |
+
+> **Same Atelier, new surfaces.** Point both at the same Skills / Instructions folders VS Code Copilot uses — write an agent once; reach it from the editor, the terminal, *and* a desktop app.
+
+<!--
+Speaker notes — ShellPilot & DeskPilot:
+- This is the "where do I actually get this?" slide. The training teaches a model; these two tools are concrete implementations built on the same primitives (instruction files, Agent Skills, a memory bank, Git).
+- ShellPilot is the engine: a PowerShell module (Invoke-Shp) that drives a Copilot agent from the terminal and is fully scriptable. It reuses the SAME instruction and skill files as VS Code and returns structured token-usage + cost objects. It is "PowerShell as the fingers" turned into a product.
+- DeskPilot is the front door: a local web chat UI on top of ShellPilot for the non-coding audience from the previous slides — no terminal or IDE, permissions shown as switches (Terminal off by default), an activity panel, and per-turn cost.
+- Honest status: both are experimental pre-releases that talk to internal Copilot endpoints intended for first-party editors. Present them as preview tooling, not supported products; run on a single-user machine and point the workspace at a version-controlled folder.
+- Reinforces the Atelier message from Module 4: customization-as-code is portable — the same files run across the editor, the terminal, and a desktop app.
 -->
 
 ---
@@ -3156,6 +3188,8 @@ Speaker notes (for newcomers):
 <!-- version: 1h 2h 4h -->
 
 <!-- _class: lead -->
+
+![center w:150](../../assets/AOM-glyph-on-light.png)
 
 # Questions?
 

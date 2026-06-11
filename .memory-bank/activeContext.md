@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-**Task**: Root README logo finalised as a **centered, theme-aware lockup** (`assets/AOM-lockup-on-{light,dark}.png`) on branch `ai/brand-icons` — replaces the dark-card hero that looked heavy in light mode. Repo milestone: **v1.1.0 released** (2026-06-07).
+**Task**: Placed brand logos in the presentation decks — sourced from the four design-board sets in `C:\Users\install\Desktop\new` (AOM / ShellPilot / DeskPilot / CopilotAtelier). AOM glyph on the title + closing slides, the ShellPilot+DeskPilot pair on the M11 *Tools Built on This Model* slide, the CopilotAtelier logo on the M8 *Mature Personal Atelier* slide. Continues branch `ai/companion-tools-references` (not pushed). Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
@@ -11,6 +11,25 @@
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-06-11: Brand logos placed in the presentation decks
+- User supplied four design-board brand sets in `C:\Users\install\Desktop\new` (AOM / ShellPilot / DeskPilot / CopilotAtelier), each with the same 11-tile taxonomy (primary logo, glyph, app icon, splash, mono, full board) in light/dark. Asked to use them in the presentations where useful.
+- **Source reality (labels are unreliable — inspect pixels):** the `#2` primary logos are `Format24bppRgb` — **opaque, noisy near-white background, no alpha** (the viewer checkerboard was background texture, not transparency). So they needed keying. First attempt used a min-channel key → DeskPilot came out full-height (1394×1040) because its background has faint *colored* noise (low min-channel, high luma). Fixed by switching to **luma keying** (a=0 if luma≥235, 255 if ≤210, ramp between) + **despeckle** (a<64→0) + **bbox on strong ink only** (a≥128). All three product logos then cropped clean. `.work/make-logos.ps1` (throwaway, gitignored).
+- **Reused** the prior turn's already-transparent, tightly-cropped `assets/AOM-glyph-on-light.png` for the AOM crest (did not reprocess / overwrite README assets).
+- New assets: `assets/{ShellPilot,DeskPilot,CopilotAtelier}-logo-on-light.png` + composed pair `assets/ShellPilot-DeskPilot-on-light.png` (both product logos scaled to equal height, transparent gap).
+- **Deck mechanics learned:** the deck uses **no images and no body HTML** (`html:` unset → Marp Core strips `<img>`/`<div>`), so placements use Marp markdown image syntax `![center w:NNN](../../assets/…)`. `../../assets/` resolves identically from `content/slides/` (source) and `content/pptx/` (build output). Deck is light-themed (white bg even on dividers per the CSS note) → only dark-ink logos needed.
+- Placements in `content/slides/marp-presentation.md` (build source): AOM glyph w:130 on **title** (lead, 1h/2h/4h) + w:150 on closing **Questions?** (1h/2h/4h); SP+DP pair w:470 on 4h **M11 Tools Built**; CopilotAtelier w:230 on 4h **M8 Mature Atelier**.
+- **Verify:** rebuilt all three decks + PPTX; overflow check — no new overflow (same 4 pre-existing dense-slide overflows: Bottleneck/Deep Modules/Vigilance Trap/Stockfish); 11/11 build Pester tests green; visually confirmed title (slide 002 — note the pre-existing blank phantom slide 001 from frontmatter+`---`), M11 (115), M8 (114), Questions (132) from exported 4h PNGs — all clean, well-placed, transparent.
+- **Not done (offered as options):** AOM glyph on the ~9 section-divider slides (lots of empty space, would be a consistent brand touch but ~9 near-identical edits); a logo on the dense M4 *Your Atelier* slide (skipped to avoid overflow risk — it already has two code blocks).
+- Branch: **`ai/companion-tools-references`** (continued) — local only, not pushed.
+
+### 2026-06-11: Companion-tool references — ShellPilot & DeskPilot
+- User shipped two tools supporting the AOM and asked to reference them where it makes sense: **ShellPilot** (public — GitHub Copilot in the PowerShell terminal; the `Invoke-Shp` engine reusing the same instruction files + Agent Skills, returning usage/cost objects) and **DeskPilot** (private preview — a calm desktop chat UI on the ShellPilot engine for non-technical knowledge workers). User chose *“everywhere it fits + rebuild”* and *“link as-is, no private-preview note.”* Both repos already link back to AOM, so this reciprocates.
+- Docs: root `README.md` gains a **Related projects** section; `docs/for-decision-makers.md` gains a *Putting It in Non-Technical Hands* subsection + two See-Also links; `cheat-sheet.md` **Resources** gains two entries (after CopilotAtelier).
+- Slides (Marp master is the build source; splits donate notes): new 4h slide **11.10a “Tools Built on This Model — ShellPilot & DeskPilot”** inserted after *A Mature Personal Atelier* and before *M8 Key Takeaway*, with an inline `Speaker notes —` block so the note-merge **skip-guard** protects it from duplicate injection. Detailed twin + Version Guide row added to `11-beyond-code.md` (H1 aligned to the master to stay off the title-drift list). M4 4.13a *Your Atelier* closing line now cites ShellPilot/DeskPilot as literal proof of “use it everywhere” (2h + 4h); its split note (`04-controlling-ai-behavior.md`) and the M8 *Mature Atelier* note gained pointers.
+- Build/verify: `Build-MarpVersions.ps1 -Version all -ExportPptx` rebuilt all three decks + PPTX (4h 130 → 131; 1h 29, 2h 68). Overflow check (`Test-SlideOverflow.ps1 -Version 4h`): my slides fit; the 4 reported overflows (Bottleneck / Deep Modules / Vigilance Trap / Stockfish) are pre-existing and unrelated. 11/11 build Pester tests green.
+- Deliberately skipped: `content/README.md` and `agenda/README.md` (folder indexes) and the demo scripts (out of scope for a light reference pass).
+- Branch: **`ai/companion-tools-references`** — local only, not pushed.
 
 ### 2026-06-11: Light mode fix — dark-card hero → theme-aware transparent lockup
 - User: the dark-card hero banner "does not look good" in light mode (a heavy dark box on the white README page). Fix: drop the card and ship the **same rich lockup** (glyph + wordmark + *Orchestrate. Align. Scale.* tagline + compass) as a transparent, theme-aware pair so it sits directly on the page in both themes.

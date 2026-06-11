@@ -468,6 +468,8 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~2
 - **Complementary Tools**: Warp (warp.dev), GitHub Copilot CLI, Zed (zed.dev)
 - **MCP Standard**: https://modelcontextprotocol.io
 - **CopilotAtelier** (reference repo for cross-machine customization): https://github.com/raandree/CopilotAtelier
+- **ShellPilot** (GitHub Copilot in your PowerShell terminal — reuses your instructions + skills, returns usage/cost objects): https://github.com/raandree/ShellPilot
+- **DeskPilot** (desktop chat UI on the ShellPilot engine — the no-terminal front door for non-technical users): https://github.com/raandree/DeskPilot
 - **Beads / `bd`** (agent-native issue tracker — only when you outgrow Memory Bank + Issues): https://github.com/gastownhall/beads
 - **Obsidian + MCP server** (personal cross-project knowledge corpus — *complement* to the per-repo Memory Bank, not a replacement): https://obsidian.md · https://github.com/MarkusPfundstein/mcp-obsidian
 - **mattpocockuk/skills** (worked examples of grill-me, spec-driven, and review-oriented skills for Claude Code / Copilot; ~13k ★): https://github.com/mattpocockuk/skills

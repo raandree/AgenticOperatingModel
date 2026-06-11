@@ -748,6 +748,8 @@ Most teams reach for the wrong end of the spectrum first. The instinct is to put
 "Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
 
 The "as code" framing is the load-bearing claim. The atelier is not a collection of saved chat snippets or browser bookmarks; it is a Git-tracked directory tree with diffable history, peer review, and rollback. The same engineering discipline the curriculum applies to project code applies to the developer's personal AI configuration. Mature practitioners maintain their atelier with the same care they give to their dotfiles or their PowerShell profile — and for the same reason: small daily investments compound into a permanent productivity advantage.
+
+The portability claim is now literal rather than aspirational: ShellPilot (github.com/raandree/ShellPilot) loads the same instruction files and Agent Skills from the PowerShell terminal, and DeskPilot (github.com/raandree/DeskPilot), built on the ShellPilot engine, does the same from a desktop chat app. "Use it everywhere" comes to mean the editor, the shell, and a GUI — the Atelier is the durable asset; the surface is interchangeable.
 -->
 
 ---
