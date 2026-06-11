@@ -245,6 +245,8 @@ style: |
 <!-- _class: lead -->
 <!-- _paginate: false -->
 
+![center w:130](../../assets/AOM-glyph-on-light.png)
+
 # The Agentic Operating Model
 
 ## Versioned, AI-Agent-Assisted Work for Code, Operations, Research & Correspondence
@@ -2804,6 +2806,8 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 
 # A Mature Personal Atelier
 
+![center w:230 CopilotAtelier logo](../../assets/CopilotAtelier-logo-on-light.png)
+
 What does the pattern look like once you stop thinking of it as "AI for code"?
 
 ### [CopilotAtelier](https://github.com/raandree/CopilotAtelier) — one person's public skill library:
@@ -2836,6 +2840,8 @@ Speaker notes (for newcomers):
 <!-- _class: dense -->
 
 # Tools Built on This Model — ShellPilot & DeskPilot
+
+![center w:470 ShellPilot and DeskPilot logos](../../assets/ShellPilot-DeskPilot-on-light.png)
 
 The operating model is tool-agnostic — but these two run on the **exact primitives** in this training: your instruction files, your Agent Skills, a memory bank, Git underneath.
 
@@ -3182,6 +3188,8 @@ Speaker notes (for newcomers):
 <!-- version: 1h 2h 4h -->
 
 <!-- _class: lead -->
+
+![center w:150](../../assets/AOM-glyph-on-light.png)
 
 # Questions?
 

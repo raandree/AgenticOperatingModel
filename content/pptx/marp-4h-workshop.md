@@ -245,6 +245,8 @@ style: |
 <!-- _class: lead -->
 <!-- _paginate: false -->
 
+![center w:130](../../assets/AOM-glyph-on-light.png)
+
 # The Agentic Operating Model
 
 ## Versioned, AI-Agent-Assisted Work for Code, Operations, Research & Correspondence
@@ -3553,6 +3555,8 @@ The "special case" framing in the closing line is the inversion of how the field
 
 # A Mature Personal Atelier
 
+![center w:230 CopilotAtelier logo](../../assets/CopilotAtelier-logo-on-light.png)
+
 What does the pattern look like once you stop thinking of it as "AI for code"?
 
 ### [CopilotAtelier](https://github.com/raandree/CopilotAtelier) — one person's public skill library:
@@ -3584,6 +3588,8 @@ Speaker notes (for newcomers):
 <!-- _class: dense -->
 
 # Tools Built on This Model — ShellPilot & DeskPilot
+
+![center w:470 ShellPilot and DeskPilot logos](../../assets/ShellPilot-DeskPilot-on-light.png)
 
 The operating model is tool-agnostic — but these two run on the **exact primitives** in this training: your instruction files, your Agent Skills, a memory bank, Git underneath.
 
@@ -3985,6 +3991,8 @@ The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles 
 ---
 
 <!-- _class: lead -->
+
+![center w:150](../../assets/AOM-glyph-on-light.png)
 
 # Questions?
 

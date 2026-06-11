@@ -245,6 +245,8 @@ style: |
 <!-- _class: lead -->
 <!-- _paginate: false -->
 
+![center w:130](../../assets/AOM-glyph-on-light.png)
+
 # The Agentic Operating Model
 
 ## Versioned, AI-Agent-Assisted Work for Code, Operations, Research & Correspondence
@@ -2105,6 +2107,8 @@ The Lao Tzu epigraph at the top of the module ("the journey of a thousand miles 
 ---
 
 <!-- _class: lead -->
+
+![center w:150](../../assets/AOM-glyph-on-light.png)
 
 # Questions?
 

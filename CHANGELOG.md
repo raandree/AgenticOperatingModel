@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Brand logos in the presentation decks (2026-06-11).** Placed the project
+  and companion-tool brand marks on the slides where they add identity, sourced
+  from the four design-board sets (AOM / ShellPilot / DeskPilot / CopilotAtelier).
+  The new design-board exports are opaque 24-bit (noisy near-white background),
+  so each product logo was processed into a transparent, content-cropped PNG by
+  luma-keying the background, despeckling, and cropping on strong ink only
+  (`.work/make-logos.ps1`, throwaway). New assets:
+  `assets/ShellPilot-logo-on-light.png`, `assets/DeskPilot-logo-on-light.png`,
+  `assets/CopilotAtelier-logo-on-light.png`, and a composed side-by-side
+  `assets/ShellPilot-DeskPilot-on-light.png`. Placements in the Marp source
+  ([content/slides/marp-presentation.md](content/slides/marp-presentation.md)),
+  using Marp's `![center w:NNN](../../assets/…)` syntax (paths resolve from both
+  `content/slides/` and the generated `content/pptx/`): the existing
+  transparent `AOM-glyph-on-light.png` on the **title** and closing **Questions?**
+  slides (1h/2h/4h); the **ShellPilot + DeskPilot** pair on the 4h M11 *Tools
+  Built on This Model* slide; the **CopilotAtelier** logo on the 4h M8 *A Mature
+  Personal Atelier* slide. The deck is light-themed (white background even on
+  dividers), so only dark-ink (light-mode) logos are needed. All three decks
+  regenerated and PPTX re-exported; the overflow check shows **no new overflow**
+  (the four pre-existing dense-slide overflows are unrelated); 11/11 build Pester
+  tests pass; each placement was visually verified from the exported 4h PNGs.
 - **Companion-tool references — ShellPilot & DeskPilot (2026-06-11).** Referenced
   the two companion projects that operationalize this operating model wherever
   they fit (both already link back here, so this reciprocates).
