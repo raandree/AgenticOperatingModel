@@ -4,7 +4,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)"
           srcset="assets/AOM-logo-on-dark.png">
-  <img align="left" width="300" alt="The Agentic Operating Model logo"
+  <img align="left" width="600" alt="The Agentic Operating Model logo"
        src="assets/AOM-logo-on-light.png">
 </picture>
 <!-- markdownlint-enable MD033 -->
