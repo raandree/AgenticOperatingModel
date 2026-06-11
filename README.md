@@ -4,14 +4,13 @@
 <picture>
   <source media="(prefers-color-scheme: dark)"
           srcset="assets/AOM-logo-on-dark.png">
-  <img align="left" width="600" alt="The Agentic Operating Model logo"
+  <img align="left" width="300" alt="The Agentic Operating Model logo"
        src="assets/AOM-logo-on-light.png">
 </picture>
 <!-- markdownlint-enable MD033 -->
 
-# The Agentic Operating Model *(Code, Operations, Research, and Correspondence)*
 
-A presentation/workshop on **agentic knowledge work** — for developers, DevOps engineers, system engineers, and research/analyst-style knowledge workers.
+**A presentation/workshop on agentic knowledge work** — for developers, DevOps engineers, system engineers, and research/analyst-style knowledge workers.
 Available in three versions: **1-hour keynote**, **2-hour standard**, and **4-hour workshop** — all sharing the same module content.
 
 <!-- markdownlint-disable MD033 -->

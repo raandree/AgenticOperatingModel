@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-**Task**: Brand icons integrated into README + sub-READMEs (branch `ai/brand-icons`, **not pushed**). Prior milestone: **v1.1.0 released** (2026-06-07).
+**Task**: **Evaluating** a logo swap to the mono lockup (sources `AOM #9` teal-on-white / `#10` white-on-teal) on branch `ai/brand-icons` — working-tree change, **uncommitted, awaiting keep/revert decision**. Prior committed milestone on this branch: full-colour brand icons (`a0601c1`). Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
@@ -11,6 +11,12 @@
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-06-11: Mono-lockup logo swap (EVALUATING, uncommitted)
+- Tried sources `AOM #9` (mono teal-on-white) and `#10` (mono white-on-teal) per user request. Pixel inspection: #9 = teal ink `#107070` on off-white; #10 = white ink on dark-teal `#105050`. Both are the **full lockup** (document frame + wave + wordmark + tagline "Orchestrate. Align. Scale." + compass divider) — richer than the prior simple glyph+wordmark.
+- Keyed each background out (color-to-alpha vs white for #9 → teal transparent; a min-channel white-ink key for #10 → pure-white transparent). Composited on `#0d1117` + `#ffffff`: teal reads on light but is muddy on dark; white reads on dark but is invisible on light → they form a clean theme pair. Corner alpha 0, auto-cropped, `Format32bppArgb`.
+- Promoted into the logo slot (overwrote `assets/AOM-logo-on-{light,dark}.png`; README filenames unchanged). Also fixed a stray `"` in the README `<img>` tag (`align="left" "`). Glyph assets left as-is. Layout still floated-left `width=300`; the lockup is a **tall stacked hero** (~1.33:1) so a centered hero is the likely better fit — offered as an option.
+- **Uncommitted**, pending user keep / revert / re-layout decision. `.work/` throwaway deleted.
 
 ### 2026-06-11: Brand icons in README + sub-READMEs
 - Added the AOM brand glyph/logo to the docs on branch `ai/brand-icons` (**not pushed**). New `assets/` folder with four transparent, auto-cropped `Format32bppArgb` PNGs generated from the off-white-flattened design-board exports (`AOM #N` taxonomy): `AOM-logo-on-{light,dark}.png` (navy wordmark `#101030` + teal accent `#10B0B0`; the dark variant recolours navy→near-white `#EAF1F8` via the `darkInk` predicate while preserving the teal) and `AOM-glyph-on-{light,dark}.png` (teal corner glyph — darker shade for light bg, brighter for dark).
