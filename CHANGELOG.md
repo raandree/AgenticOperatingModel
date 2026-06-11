@@ -11,17 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Brand identity in the documentation (2026-06-11).** Added an `assets/`
   folder with the project's AOM brand artwork. The root [README.md](README.md)
-  header is a centered colour **hero banner** (`AOM-hero.png`) — the full logo
-  lockup (network-and-helm glyph, `AgenticOperatingModel` wordmark, the
-  *Orchestrate. Align. Scale.* tagline, and a compass divider) on the brand's
-  dark navy card, cropped from the design-board splash. It reads as a banner on
-  light themes and blends into dark themes, so one self-contained image serves
-  both. [agenda/README.md](agenda/README.md) and
-  [content/README.md](content/README.md) carry a compact, theme-aware corner
-  glyph (`AOM-glyph-on-light.png` / `AOM-glyph-on-dark.png`, switched by
-  `prefers-color-scheme`). All artwork was derived from off-white-flattened
-  design-board exports by adding an alpha channel and cropping to content.
-  Docs/asset-only change; no slide content or deck build output affected.
+  header is a centered, theme-aware logo **lockup** — the full mark
+  (network-and-helm glyph, `AgenticOperatingModel` wordmark, the
+  *Orchestrate. Align. Scale.* tagline, and a compass divider) with the dark
+  card keyed out so it sits transparently on the page. Two variants switch by
+  theme via `<picture>`: navy ink on light themes
+  (`AOM-lockup-on-light.png`), white ink on dark (`AOM-lockup-on-dark.png`).
+  [agenda/README.md](agenda/README.md) and [content/README.md](content/README.md)
+  carry a compact, theme-aware corner glyph (`AOM-glyph-on-light.png` /
+  `AOM-glyph-on-dark.png`). All artwork was derived from off-white-flattened
+  design-board exports by flood-keying the background to transparency,
+  recolouring the wordmark per theme, and cropping to content. Docs/asset-only
+  change; no slide content or deck build output affected.
 
 ## [1.1.0] - 2026-06-07
 

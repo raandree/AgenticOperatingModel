@@ -1,11 +1,15 @@
 <!-- markdownlint-disable MD033 MD041 -->
-<!-- Colour hero banner: the splash lockup on its dark navy card. Self-contained —
-     a banner on light themes, blends into dark themes. The AOM-hero.png filename
-     intentionally differs from the previous asset so GitHub's image cache (Camo)
-     serves it fresh instead of the stale logo. Judge on github.com. -->
+<!-- Centered, theme-aware logo lockup (glyph + wordmark + tagline + compass), the
+     dark card keyed out so it sits transparently on the page. Two variants switch
+     by theme via <picture>: navy ink on light themes, white ink on dark. New
+     filenames so GitHub's image cache (Camo) serves them fresh. Judge on github.com. -->
 <p align="center">
-  <img src="assets/AOM-hero.png" width="520"
-       alt="The Agentic Operating Model — Orchestrate. Align. Scale.">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"
+            srcset="assets/AOM-lockup-on-dark.png">
+    <img src="assets/AOM-lockup-on-light.png" width="380"
+         alt="The Agentic Operating Model — Orchestrate. Align. Scale.">
+  </picture>
 </p>
 <!-- markdownlint-enable MD033 MD041 -->
 

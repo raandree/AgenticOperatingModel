@@ -2,7 +2,7 @@
 
 ## Current Focus
 
-**Task**: Root README logo finalised as a **colour hero banner** (`assets/AOM-hero.png`, the splash lockup on its dark navy card) on branch `ai/brand-icons`. Repo milestone: **v1.1.0 released** (2026-06-07).
+**Task**: Root README logo finalised as a **centered, theme-aware lockup** (`assets/AOM-lockup-on-{light,dark}.png`) on branch `ai/brand-icons` — replaces the dark-card hero that looked heavy in light mode. Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
@@ -11,6 +11,12 @@
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-06-11: Light mode fix — dark-card hero → theme-aware transparent lockup
+- User: the dark-card hero banner "does not look good" in light mode (a heavy dark box on the white README page). Fix: drop the card and ship the **same rich lockup** (glyph + wordmark + *Orchestrate. Align. Scale.* tagline + compass) as a transparent, theme-aware pair so it sits directly on the page in both themes.
+- Process gotcha: the splash (`AOM #8`) is a rounded dark-navy card on an **off-white flatten margin**, so a plain luma key kept the off-white border and left white triangles in the rounded-corner gaps (cornerA 255). Fixed by flood-filling the off-white from the image border (kills margin + corner gaps; the enclosed ink is never reached), then luma-keying the navy card interior to transparent. Corner alpha 0 confirmed.
+- Two variants from the one splash: light = recolour near-white ink → brand navy `#101638`, keep teal; dark = keep white + teal. Verified on `#ffffff` + `#0d1117`: light reads cleanly on white (navy/teal, no box), dark crisp on dark.
+- README: replaced the `AOM-hero.png` `<img>` with a centered `<picture>` switching `AOM-lockup-on-{light,dark}.png` (width 380); removed `assets/AOM-hero.png`. New filenames keep GitHub's Camo cache fresh. Glyph assets + sub-READMEs unchanged. Note: `bc781bc` (the hero) was already pushed, so github.com showed the dark card correctly — it was a design issue, not a cache issue.
 
 ### 2026-06-11: Root logo → colour hero banner; GitHub cache fix
 - User reported github.com still showed the old logo and asked for the new logo in the original (colour) scheme. Root cause of the stale image: the branch is pushed and the new logo was committed (`c3221e2`), so it was **GitHub's Camo image cache** serving the old PNG at the unchanged path. Fix: ship under a **new filename** so the raw URL (and thus the camo key) changes — `AOM-hero.png`.
