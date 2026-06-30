@@ -521,6 +521,8 @@ Speaker notes (for newcomers):
 <!--
 The split between automated and human layers is not arbitrary — it tracks which questions have objective answers. "Does the code compile?", "do the tests pass?", "is the code free of lint warnings?" are decidable; an agent can answer them as well as a human. "Is the logic correct?", "is this the right abstraction?", "does this fit our architecture?" are judgement calls; an agent can offer an opinion but the decision lives with the human.
 
+That last item deserves a caveat. "Does this fit our architecture?" is only *partly* a judgement call — a large subset of architecture conformance (layering, dependency direction, naming, public/internal boundaries) is decidable and belongs in the automated column. Architecture-rule analysers (NDepend, the Roslyn analysers) enforce it in compiled languages; in PowerShell the equivalent is a handful of Pester *architecture tests* asserting module boundaries, help coverage, and manifest rules. Put those in the agent's loop and it self-corrects *structural* drift the way it self-corrects a failing unit test — keeping the distance between the built system and its intended architecture (call it *structural debt*, distinct from technical and comprehension debt) near zero. What stays a genuine judgement call is the deeper question — "is this the *right* abstraction?" — not the structural rules.
+
 The practical implication is that human review should focus on layers 4–5. Spending review cycles re-checking the agent's syntax and tests is wasted effort — the agent already checked them, and the human is not faster or more accurate at the same check. Time saved at the bottom of the hierarchy is time available to spend on the top, where human judgement is genuinely scarce.
 -->
 
