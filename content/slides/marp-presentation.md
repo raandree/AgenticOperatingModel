@@ -2344,6 +2344,13 @@ The guardrails above steer what the agent *chooses*. **Containment limits what i
 - **Yes-man agents** — every assumption agreed with, until the server is on fire
 - **Mid-level squeeze** — seniors drown in reviews, juniors thrive, mid-levels stuck retraining
 
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# The Bottleneck Has Moved — Counter-Patterns
+
 ### Counter-patterns:
 
 - **Architecture review BEFORE generation** (approve the *plan*, not just the diff)
@@ -2351,7 +2358,7 @@ The guardrails above steer what the agent *chooses*. **Containment limits what i
 - **`runbooks/incidents/` corpus** the agent reads on every outage
 - **Scheduled reading time** — block calendar time to read agent-written code
 - **Daily design investment** — *"Invest in the design of the system every day."* (**Kent Beck**)
-- **Gray-box delegation** — *design the interface, delegate the implementation*. **Not** hollowing (next slide): hollowing surrenders the *design*; gray-boxing keeps it and delegates only the *body*.
+- **Gray-box delegation** — *design the interface, delegate the implementation*. **Not** hollowing (Job Hollowing, ahead): hollowing surrenders the *design*; gray-boxing keeps it and delegates only the *body*.
 
 ### Anti-pattern: *"future AI will fix it"*
 
@@ -2378,36 +2385,14 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 | Term | Definition | Diagnostic |
 |------|-----------|------------|
 | **Job Hollowing** | Title, salary, desk stay. The *cognitive substance* — design, judgement, problem-solving — is extracted (@12:40) | End-of-day: *"What did I actually decide today?"* |
-
-<!-- _split_ -->
+| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
 
 ---
 <!-- version: 4h -->
 
 <!-- _class: dense -->
 
-# Deep Modules — A Codebase the Agent Can Navigate
-
-> *"The most important technique for managing complexity is to design deep modules."* — **John Ousterhout**, *A Philosophy of Software Design*
-
-| | Deep module | Shallow module |
-|---|-------------|----------------|
-| Interface | Small, stable | Wide, churn-prone |
-| Hidden behind it | Lots of capability | Almost nothing |
-| Cost to reader | Read signature, trust contract | Read every caller + callee |
-| Cost to agent | One symbol in context, bounded effects | Drag whole call graph into context |
-
-### Why it matters for agentic work
-
-- LLMs default to **shallow modules**: thin wrappers, premature abstractions, helpers of helpers.
-- Shallow code **degrades the agent's own future performance** on the same repo — each task drags more files into context, planning lengthens, edits get riskier.
-- Slow-acting form of *comprehension debt* (prev. slide): codebase becomes less navigable for **both** humans and agents.
-
-### Operating rule
-
-At architecture review (the *plan*, before generation), ask: **"Deep module, or another shallow wrapper?"** Push back **before** the agent writes it.
-
-| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
+# Job Hollowing & Heteromation — The Numbers
 
 ### The numbers behind the feeling — BCG/HBR (March 2026, @13:22)
 
@@ -2427,21 +2412,43 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
+
+# Deep Modules — A Codebase the Agent Can Navigate
+
+> *"The most important technique for managing complexity is to design deep modules."* — **John Ousterhout**, *A Philosophy of Software Design*
+
+| | Deep module | Shallow module |
+|---|-------------|----------------|
+| Interface | Small, stable | Wide, churn-prone |
+| Hidden behind it | Lots of capability | Almost nothing |
+| Cost to reader | Read signature, trust contract | Read every caller + callee |
+| Cost to agent | One symbol in context, bounded effects | Drag whole call graph into context |
+
+### Why it matters for agentic work
+
+- LLMs default to **shallow modules**: thin wrappers, premature abstractions, helpers of helpers.
+- Shallow code **degrades the agent's own future performance** on the same repo — each task drags more files into context, planning lengthens, edits get riskier.
+- Slow-acting form of *comprehension debt* (earlier): codebase becomes less navigable for **both** humans and agents.
+
+### Operating rule
+
+At architecture review (the *plan*, before generation), ask: **"Deep module, or another shallow wrapper?"** Push back **before** the agent writes it.
+
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
 
 # The Vigilance Trap
-
-> The dangerous middle path — *human supervises machine* — is what we're now building into all knowledge work. Aviation and automotive already proved it doesn't work.
 
 | Year | Study | Finding |
 |------|-------|---------|
 | **1948** | Mackworth, RAF radar operators | Detection breaks after **15–30 min** of passive monitoring. Wiring, not motivation. |
-| **2010** | Parasuraman & Manzey, *Automation Complacency* | Trust in automated systems exceeds self-trust. **Cannot be trained away.** |
-| **2015–17** | Google self-driving programme | Drivers told to stay alert: did makeup, used phones, **fell asleep on the highway**. |
+| **2010** | Parasuraman & Manzey, *Automation Complacency* | Trust in automation exceeds self-trust. **Cannot be trained away.** |
+| **2015–17** | Google self-driving programme | Drivers told to stay alert did makeup, used phones, **fell asleep**. Google's fix: **remove the wheel** — Level 4, not Level 3. |
 
-> *"What we found was pretty scary. It's hard to take over because they have lost contextual awareness."* — **John Krafcik**, then-CEO Waymo
-
-**Google's response:** remove the steering wheel. **Level 4, not Level 3.**
+> *"It's hard to take over because they have lost contextual awareness."* — **John Krafcik**, then-CEO Waymo
 
 ### The cognitive-load mismatch we ignore in software
 
@@ -2457,9 +2464,7 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 - Agent's only verb is *propose*, never *apply* — GitOps Layer 6 (Slide 9.8e)
 - Humans approve the *plan*, agent executes the chunk (Slide 9.10a)
 
-> The fix is not *try harder to stay alert*. The fix is *design the role so vigilance isn't required.*
-
-> Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30)
+> The fix is not *try harder to stay alert* — it's *design the role so vigilance isn't required.*
 
 ---
 <!-- version: 4h -->
@@ -2684,13 +2689,11 @@ Speaker notes (for newcomers):
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # With AI, Not From AI — The Stockfish Pattern
 
-> *"I'll still use AI — but* with *AI, not* from *AI."*
-> — Mössner's friend, after a week off Copilot
-> (Cedric Mössner, *KI Burnout ist real*, 2026, @33:37)
+> *"I'll still use AI — but* with *AI, not* from *AI."* — Mössner's friend, after a week off Copilot (@33:37)
 
 | Domain | After the machine surpassed humans … | What actually happened |
 |--------|--------------------------------------|------------------------|
@@ -2713,8 +2716,6 @@ Speaker notes (for newcomers):
 - GitOps Layer 6 (S9.8e) — operator approves intent in Git; system reconciles
 
 > Each surface moves the operator **upstream** — from prompter to *author of intent*. Same AI. Same speed. Completely different role.
-
-> *"Wenn man Menschen mit einer Passion die Möglichkeit gibt, kann etwas wirklich Besonderes dabei rauskommen. Genau dieses Kreative ist das, was eine KI bis heute nicht hat."* — Mössner (@34:50)
 
 ---
 <!-- version: 1h 2h 4h -->

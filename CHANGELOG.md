@@ -124,6 +124,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   export to PPTX (1h 4.7 MB / 2h 12.9 MB / 4h 25.5 MB) and the overflow check
   completes for all versions (the four pre-existing 4h dense-slide overflows
   are unchanged and unrelated).
+- **Four overflowing 4h slides now fit, and a slide-interleaving bug is fixed
+  (2026-07-01).** The overflow gate flagged four clipped 4h-only slides in
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md).
+  Root causes and fixes: (1) *Deep Modules* overflowed because the second half
+  of the **Job Hollowing & Heteromation** slide (the Heteromation definition
+  row, the BCG/HBR numbers, and the three-industries table) was stranded on it
+  — the *Deep Modules* slide had been inserted into the middle of that slide
+  and Marp ignores the `<!-- _split_ -->` marker. Reunited the two Job
+  Hollowing rows, split the evidence onto a new *Job Hollowing & Heteromation
+  — The Numbers* slide, and gave *Deep Modules* its own clean slide.
+  (2) *The Bottleneck Has Moved* (already `compact`, fill 1.61) was split at
+  its natural seam into the original slide plus a new *The Bottleneck Has Moved
+  — Counter-Patterns* slide. (3) *The Vigilance Trap* and (4) *The Stockfish
+  Pattern* were dropped to `compact` and lightly trimmed (framing/citation and
+  the German closing quote moved to the slides' merged speaker notes; Google's
+  "remove the wheel" folded into the studies table). No content was lost. The
+  4h deck grows 138 → 140 slides; the overflow check now reports **0 overflow**
+  across all three versions and each changed slide was visually verified from
+  its exported PNG. 1h and 2h decks are unchanged (all edits are 4h-only).
 
 ## [1.1.0] - 2026-06-07
 

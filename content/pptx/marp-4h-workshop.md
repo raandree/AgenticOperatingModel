@@ -2399,16 +2399,16 @@ Start   Created  Modified  Added   Deleted   Broke
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
 <!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
 - Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
 - Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
--->
-
-<!--
-Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
-
-The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
 -->
 ---
 
@@ -2523,36 +2523,6 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
--->
-
-<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2601,6 +2571,36 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
+-->
+
+<!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 
@@ -2956,6 +2956,19 @@ The framework is a thinking tool, not a checklist to fill in mechanically. The r
 - **Yes-man agents** — every assumption agreed with, until the server is on fire
 - **Mid-level squeeze** — seniors drown in reviews, juniors thrive, mid-levels stuck retraining
 
+<!--
+Speaker notes (for newcomers):
+- **Comprehension debt** is the key term on this slide. Coin it for your team.
+- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
+- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
+- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
+-->
+---
+
+<!-- _class: compact -->
+
+# The Bottleneck Has Moved — Counter-Patterns
+
 ### Counter-patterns:
 
 - **Architecture review BEFORE generation** (approve the *plan*, not just the diff)
@@ -2963,7 +2976,7 @@ The framework is a thinking tool, not a checklist to fill in mechanically. The r
 - **`runbooks/incidents/` corpus** the agent reads on every outage
 - **Scheduled reading time** — block calendar time to read agent-written code
 - **Daily design investment** — *"Invest in the design of the system every day."* (**Kent Beck**)
-- **Gray-box delegation** — *design the interface, delegate the implementation*. **Not** hollowing (next slide): hollowing surrenders the *design*; gray-boxing keeps it and delegates only the *body*.
+- **Gray-box delegation** — *design the interface, delegate the implementation*. **Not** hollowing (Job Hollowing, ahead): hollowing surrenders the *design*; gray-boxing keeps it and delegates only the *body*.
 
 ### Anti-pattern: *"future AI will fix it"*
 
@@ -2976,13 +2989,6 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
-<!--
-Speaker notes (for newcomers):
-- **Comprehension debt** is the key term on this slide. Coin it for your team.
-- Definition in plain English: "how much of our code can nobody on the team still explain anymore."
-- It grows silently because everything still compiles and ships. You only discover it at 2 a.m. during an incident.
-- Practical defense: schedule weekly reading time for AI-generated code that nobody has read yet. Treat it like reviewing a colleague's PR.
--->
 ---
 
 <!-- _class: dense -->
@@ -2996,8 +3002,7 @@ Speaker notes (for newcomers):
 | Term | Definition | Diagnostic |
 |------|-----------|------------|
 | **Job Hollowing** | Title, salary, desk stay. The *cognitive substance* — design, judgement, problem-solving — is extracted (@12:40) | End-of-day: *"What did I actually decide today?"* |
-
-<!-- _split_ -->
+| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
 
 <!--
 Moessner's two terms — *Job Hollowing* and *Heteromation* — are the most precise vocabulary available for the labour shift this slide describes. The terms matter because the phenomenon is real but easily mistaken for ordinary burnout. The diagnostic in the second column gives teams a way to test for it: ask, at end of day, what was actually decided. If the answer is "nothing, I approved things," the role has been hollowed regardless of how busy the day felt.
@@ -3008,28 +3013,7 @@ The industry-spread data is the part of the slide most likely to land with non-d
 
 <!-- _class: dense -->
 
-# Deep Modules — A Codebase the Agent Can Navigate
-
-> *"The most important technique for managing complexity is to design deep modules."* — **John Ousterhout**, *A Philosophy of Software Design*
-
-| | Deep module | Shallow module |
-|---|-------------|----------------|
-| Interface | Small, stable | Wide, churn-prone |
-| Hidden behind it | Lots of capability | Almost nothing |
-| Cost to reader | Read signature, trust contract | Read every caller + callee |
-| Cost to agent | One symbol in context, bounded effects | Drag whole call graph into context |
-
-### Why it matters for agentic work
-
-- LLMs default to **shallow modules**: thin wrappers, premature abstractions, helpers of helpers.
-- Shallow code **degrades the agent's own future performance** on the same repo — each task drags more files into context, planning lengthens, edits get riskier.
-- Slow-acting form of *comprehension debt* (prev. slide): codebase becomes less navigable for **both** humans and agents.
-
-### Operating rule
-
-At architecture review (the *plan*, before generation), ask: **"Deep module, or another shallow wrapper?"** Push back **before** the agent writes it.
-
-| **Heteromation** | *Automation* makes the machine your tool. *Heteromation* makes **you** the machine's tool — you validate, take responsibility, hold the bag (@21:50) | Where does the signal flow? Your accept/reject feeds the next training run |
+# Job Hollowing & Heteromation — The Numbers
 
 ### The numbers behind the feeling — BCG/HBR (March 2026, @13:22)
 
@@ -3046,6 +3030,31 @@ At architecture review (the *plan*, before generation), ask: **"Deep module, or 
 
 > The meaningful work moves to the machine; the supervisory residue stays with the human.
 
+---
+
+<!-- _class: compact -->
+
+# Deep Modules — A Codebase the Agent Can Navigate
+
+> *"The most important technique for managing complexity is to design deep modules."* — **John Ousterhout**, *A Philosophy of Software Design*
+
+| | Deep module | Shallow module |
+|---|-------------|----------------|
+| Interface | Small, stable | Wide, churn-prone |
+| Hidden behind it | Lots of capability | Almost nothing |
+| Cost to reader | Read signature, trust contract | Read every caller + callee |
+| Cost to agent | One symbol in context, bounded effects | Drag whole call graph into context |
+
+### Why it matters for agentic work
+
+- LLMs default to **shallow modules**: thin wrappers, premature abstractions, helpers of helpers.
+- Shallow code **degrades the agent's own future performance** on the same repo — each task drags more files into context, planning lengthens, edits get riskier.
+- Slow-acting form of *comprehension debt* (earlier): codebase becomes less navigable for **both** humans and agents.
+
+### Operating rule
+
+At architecture review (the *plan*, before generation), ask: **"Deep module, or another shallow wrapper?"** Push back **before** the agent writes it.
+
 <!--
 Ousterhout's deep-vs-shallow distinction (*A Philosophy of Software Design*, 2018) was already the most useful design heuristic in software architecture; in the agent era it becomes load-bearing. The agent's context window is finite; every additional file it has to drag into context to reason about a change is tax on the cognitive budget available for the actual problem. Deep modules are cheap to use; shallow modules compound the agent's working-memory cost on every interaction.
 
@@ -3053,21 +3062,17 @@ LLMs left to their own devices tend to produce shallow modules, because shallow 
 -->
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # The Vigilance Trap
-
-> The dangerous middle path — *human supervises machine* — is what we're now building into all knowledge work. Aviation and automotive already proved it doesn't work.
 
 | Year | Study | Finding |
 |------|-------|---------|
 | **1948** | Mackworth, RAF radar operators | Detection breaks after **15–30 min** of passive monitoring. Wiring, not motivation. |
-| **2010** | Parasuraman & Manzey, *Automation Complacency* | Trust in automated systems exceeds self-trust. **Cannot be trained away.** |
-| **2015–17** | Google self-driving programme | Drivers told to stay alert: did makeup, used phones, **fell asleep on the highway**. |
+| **2010** | Parasuraman & Manzey, *Automation Complacency* | Trust in automation exceeds self-trust. **Cannot be trained away.** |
+| **2015–17** | Google self-driving programme | Drivers told to stay alert did makeup, used phones, **fell asleep**. Google's fix: **remove the wheel** — Level 4, not Level 3. |
 
-> *"What we found was pretty scary. It's hard to take over because they have lost contextual awareness."* — **John Krafcik**, then-CEO Waymo
-
-**Google's response:** remove the steering wheel. **Level 4, not Level 3.**
+> *"It's hard to take over because they have lost contextual awareness."* — **John Krafcik**, then-CEO Waymo
 
 ### The cognitive-load mismatch we ignore in software
 
@@ -3083,9 +3088,7 @@ LLMs left to their own devices tend to produce shallow modules, because shallow 
 - Agent's only verb is *propose*, never *apply* — GitOps Layer 6 (Slide 9.8e)
 - Humans approve the *plan*, agent executes the chunk (Slide 9.10a)
 
-> The fix is not *try harder to stay alert*. The fix is *design the role so vigilance isn't required.*
-
-> Source: Cedric Mössner, *KI Burnout ist real*, 2026 (@15:25–18:30)
+> The fix is not *try harder to stay alert* — it's *design the role so vigilance isn't required.*
 
 <!--
 Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
@@ -3374,13 +3377,11 @@ Speaker notes (for newcomers):
 
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # With AI, Not From AI — The Stockfish Pattern
 
-> *"I'll still use AI — but* with *AI, not* from *AI."*
-> — Mössner's friend, after a week off Copilot
-> (Cedric Mössner, *KI Burnout ist real*, 2026, @33:37)
+> *"I'll still use AI — but* with *AI, not* from *AI."* — Mössner's friend, after a week off Copilot (@33:37)
 
 | Domain | After the machine surpassed humans … | What actually happened |
 |--------|--------------------------------------|------------------------|
@@ -3403,8 +3404,6 @@ Speaker notes (for newcomers):
 - GitOps Layer 6 (S9.8e) — operator approves intent in Git; system reconciles
 
 > Each surface moves the operator **upstream** — from prompter to *author of intent*. Same AI. Same speed. Completely different role.
-
-> *"Wenn man Menschen mit einer Passion die Möglichkeit gibt, kann etwas wirklich Besonderes dabei rauskommen. Genau dieses Kreative ist das, was eine KI bis heute nicht hat."* — Mössner (@34:50)
 
 <!--
 The Stockfish comparison is the strongest historical anchor available for the "AI does not replace the craft" claim. Computer chess engines have been superhuman since the late 1990s; the population of competitive human players is at an all-time high, the supporting industry (streaming, coaching, analysis) is the largest it has ever been, and the human game is qualitatively more interesting because the engine raised the floor on what counts as a good move. None of this was the prediction in 1997.
