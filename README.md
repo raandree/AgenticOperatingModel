@@ -78,6 +78,7 @@ All four share the same core modules (M01–M10). The system-engineer and knowle
 ├── README.md             # This file
 ├── LICENSE               # MIT
 ├── CHANGELOG.md          # Release history (Keep a Changelog format)
+├── build.ps1             # Root-level slide build (wraps content/pptx/Build-MarpVersions.ps1)
 ├── agenda/               # Session agenda, version matrix, timing
 ├── content/
 │   ├── slides/          # Source content (single source of truth)
@@ -109,11 +110,10 @@ The pre-built `.pptx` files above are regenerated whenever slide content changes
 
 ```powershell
 # Generate all three Marp source files and export PPTX in one go
-cd content/pptx
-.\Build-MarpVersions.ps1 -Version all -ExportPptx
+.\build.ps1 -Version all -ExportPptx
 ```
 
-Requires Node.js + the Marp CLI (`npm install -g @marp-team/marp-cli`). See [content/pptx/README-how-to-create-pptx.md](content/pptx/README-how-to-create-pptx.md) for details and HTML/PDF export options.
+[build.ps1](build.ps1) is a thin root-level wrapper around [content/pptx/Build-MarpVersions.ps1](content/pptx/Build-MarpVersions.ps1) — same parameters, no `cd` required. Requires Node.js + the Marp CLI (`npm install -g @marp-team/marp-cli`). See [content/pptx/README-how-to-create-pptx.md](content/pptx/README-how-to-create-pptx.md) for details and HTML/PDF export options.
 
 ## Related projects
 

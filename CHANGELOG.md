@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Root-level `build.ps1` slide-build entry point (2026-07-01).** Added
+  [build.ps1](build.ps1), a thin wrapper around
+  [content/pptx/Build-MarpVersions.ps1](content/pptx/Build-MarpVersions.ps1)
+  so the Marp deck build can be triggered from the repository root without
+  changing into `content/pptx/`. Forwards the delivery-workflow parameters
+  (`-Version`, `-ExportPptx`, `-ExportPng`, `-CheckOverflow`, `-Report`,
+  `-AddMissingTags`, `-AssembleFromSplits`, `-MergeNotesFromSplits`) via
+  `@PSBoundParameters`; advanced overrides (custom `SourcePath` /
+  `OutputDir`) still route through the deep script. Also updated the
+  [README](README.md) *Rebuilding the Decks* snippet to lead with
+  `.\build.ps1 -Version all -ExportPptx` and added `build.ps1` to the
+  project-structure listing.
 - **New landscape slides and currency refresh in the presentation (2026-07-01).**
   Executed the [gaps & trends dossier](docs/research/2026-06-30-agentic-gaps-and-trends.md):
   added seven slides to the Marp build source

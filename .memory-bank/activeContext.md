@@ -2,15 +2,24 @@
 
 ## Current Focus
 
-**Task**: Executed the mid-2026 gaps & trends integration plan in the deck. Added **7 new slides** to the Marp build source (`content/slides/marp-presentation.md`) — The Lethal Trifecta + Containment First (M6 security), Context Engineering (M2), Evals Are Not Unit Tests (M4), Beyond Handoffs / Orchestration Patterns + The Standardization Wave (M3), and The Autonomy Horizon (intro) — all `compact` with inline speaker notes and version tags. Refreshed model currency (Opus 4.7 → 4.8) in the deck + cheat-sheet, and added a "What's New to Teach (2026 H2)" cheat-sheet block. Rebuilt all three decks (1h 30 / 2h 73 / 4h 138); overflow check clean (only the 4 pre-existing dense overflows remain); 11/11 build Pester tests green. **PPTX re-export deferred.** Branch `ai/agentic-gaps-research` (not pushed). Repo milestone: **v1.1.0 released** (2026-06-07).
+**Task**: Added a root-level `build.ps1` slide-build entry point — a thin wrapper around `content/pptx/Build-MarpVersions.ps1` so the Marp deck build can be triggered from the repo root without `cd content/pptx`. Forwards the delivery-workflow parameters (`-Version`, `-ExportPptx`, `-ExportPng`, `-CheckOverflow`, `-Report`, `-AddMissingTags`, `-AssembleFromSplits`, `-MergeNotesFromSplits`) via `@PSBoundParameters`. Verified: AST parse clean; `pwsh -File .\build.ps1 -Version 1h` regenerates `marp-1h-keynote.md` (30 slides) with exit code 0. Updated README *Rebuilding the Decks* snippet and added `build.ps1` to the project-structure listing. Preceding turn (still in scope on this branch): executed the mid-2026 gaps & trends integration plan — 7 new slides in the Marp build source + model currency refresh (Opus 4.7 → 4.8) + cheat-sheet "What's New to Teach (2026 H2)" block; all three decks rebuilt (1h 30 / 2h 73 / 4h 138), overflow check clean, 11/11 build Pester tests green, PPTX re-export deferred. Branch `ai/agentic-gaps-research` (local only, not pushed). Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-06-30
+**Last Updated**: 2026-07-01
 
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-07-01: Root-level `build.ps1` slide-build entry point
+- User reported the missing convenience: no top-level trigger for the slide build — you had to `cd content/pptx` first. Terminal history showed an aborted `bui…` command at the repo root, confirming the ergonomics gap.
+- Added `build.ps1` at the repository root as a thin `[CmdletBinding()]` wrapper around `content/pptx/Build-MarpVersions.ps1`. Mirrors the inner script's delivery-workflow parameter surface — `-Version` (1h|2h|4h|all, default `all`), `-AddMissingTags`, `-ExportPptx`, `-ExportPng`, `-CheckOverflow`, `-Report`, `-AssembleFromSplits`, `-MergeNotesFromSplits` — and forwards via `@PSBoundParameters`. Deliberately does **not** expose `-SourcePath` / `-OutputDir`; those advanced overrides still route through the deep script.
+- Style matches the existing `Build-MarpVersions.ps1` (K&R braces, `[CmdletBinding()]`, comment-based help with `.SYNOPSIS` / `.DESCRIPTION` / per-parameter sections / three worked `.EXAMPLE`s, `$ErrorActionPreference = 'Stop'`). Locates the inner script via `Join-Path $PSScriptRoot 'content/pptx/Build-MarpVersions.ps1'` and throws early if the path is missing.
+- README *Rebuilding the Decks* snippet updated to lead with `.\build.ps1 -Version all -ExportPptx` (no `cd`) with a one-line note that it wraps the deep script; project-structure listing gained a `build.ps1` line.
+- Verify: AST parse clean (`[Parser]::ParseFile`); `Get-Command -Syntax` shows the expected parameter surface. Smoke-run via `pwsh -File .\build.ps1 -Version 1h` (detached, log to `$env:TEMP`) exits code 0 and regenerates `marp-1h-keynote.md` (30 slides). An earlier `pwsh -Command "… | Out-File"` invocation reported exit 1 — traced to a `pwsh -Command` + `Write-Host` `$?`-accounting quirk, not a wrapper defect (the parallel direct invocation of `Build-MarpVersions.ps1` under the same `-Command` harness exits 0 for that specific inner-script run; `pwsh -File` on the wrapper is the ground truth).
+- Not done (out of scope): a `.vscode/tasks.json` Marp-build task, PPTX re-export (deferred by the preceding gaps & trends turn), a Pester test for the wrapper itself.
+- Branch: **`ai/agentic-gaps-research`** — local only, not pushed.
 
 ### 2026-07-01: Executed the gaps & trends plan — 7 new slides + currency
 - Turned the research dossier into deck content. Added 7 compact slides to the monolith build source `content/slides/marp-presentation.md`:
