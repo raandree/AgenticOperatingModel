@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New landscape slides and currency refresh in the presentation (2026-07-01).**
+  Executed the [gaps & trends dossier](docs/research/2026-06-30-agentic-gaps-and-trends.md):
+  added seven slides to the Marp build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md) —
+  *The Lethal Trifecta* and *Containment First* (Module 6 security),
+  *Context Engineering* (Module 2), *Evals Are Not Unit Tests* (Module 4),
+  *Beyond Handoffs — Orchestration Patterns* and *The Standardization Wave*
+  (Module 3), and *The Autonomy Horizon* (intro). Refreshed the model currency
+  (Claude Opus 4.7 → 4.8) in the deck and the
+  [cheat sheet](content/materials/cheat-sheet.md), and added a *What's New to
+  Teach (2026 H2)* quick-reference block. Rebuilt all three decks (1h 30, 2h 73,
+  4h 138 slides); the overflow check shows no new overflow (the four pre-existing
+  dense-slide overflows are unrelated) and 11/11 build Pester tests pass. PPTX
+  re-export deferred.
+- **Research dossier — agentic gaps and trends, mid-2026 (2026-06-30).** Added
+  [docs/research/2026-06-30-agentic-gaps-and-trends.md](docs/research/2026-06-30-agentic-gaps-and-trends.md),
+  a companion to the April toolset assessment. A five-phase web-research pass
+  over 12 primary sources (Anthropic, OWASP GenAI, the GitHub and VS Code
+  changelogs, METR, the Agentic AI Foundation, agentskills.io, MCP, and Simon
+  Willison's agents index) identifying the principles and trends the curriculum
+  does not yet cover: seven primary gaps (prompt injection / the lethal trifecta;
+  containment-first sandboxing; context engineering; evals as distinct from unit
+  tests; sub-agent orchestration; the AAIF standardization wave; the METR
+  autonomy horizon), nine secondary gaps, a model and tooling currency refresh
+  (Opus 4.8 / VS Code 1.126), an evidence table with confidence grades, and a
+  gap-by-gap curriculum integration plan. Research only — no slide or material
+  edits in this change.
 - **Brand logos in the presentation decks (2026-06-11).** Placed the project
   and companion-tool brand marks on the slides where they add identity, sourced
   from the four design-board sets (AOM / ShellPilot / DeskPilot / CopilotAtelier).

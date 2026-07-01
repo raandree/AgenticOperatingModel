@@ -315,8 +315,8 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 # Why the Agentic Operating Model Is Possible NOW
 
 ### Technology Advances
-- **Massive context windows** — 1M+ tokens (Claude Opus 4.7)
-- **Advanced reasoning** — Claude Opus 4.7, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro
+- **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
+- **Advanced reasoning** — Claude Opus 4.8, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -362,6 +362,26 @@ The enterprise-adoption list (NVIDIA ≈40k engineers, Salesforce ≈20k develop
 
 The three caveats at the bottom are not throat-clearing. They define the rest of the curriculum: *new skills* (prompting, verification) is Modules 3–5, *task fit* is Module 6, and *oversight* is Modules 7–9. Productivity gains compound when those three are in place and silently regress when they are not.
 -->
+---
+
+<!-- _class: compact -->
+
+# The Autonomy Horizon — Where This Is Going
+
+> The length of task an agent can finish on its own is **doubling about every 7 months**.
+
+| Human-effort length an agent handles (50% reliability) | ~When |
+|---|---|
+| Seconds to a few minutes | 2023 |
+| Tens of minutes | 2025 |
+| Multi-hour tasks, and climbing | 2026 |
+
+- Measured by **METR** across six years; on real software issues the doubling is **even faster**.
+- The **trend**, not the exact date, is the point: plan for agents that own longer and longer work.
+- Teach it with its caveat — the self-reported *size* of the gain is debated; the *direction* is robust.
+
+<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. -->
+
 ---
 
 # Why This Matters to You — Whatever Your Role
@@ -697,6 +717,25 @@ The word "context" carries two meanings here that are easy to conflate. The firs
 
 Low-context output is the failure mode users notice first: code that looks reasonable in isolation but uses the wrong logger, the wrong error type, the wrong test framework. The model has not regressed — it has just defaulted to the most common pattern on the open internet, which is rarely the pattern in your repo.
 -->
+---
+
+<!-- _class: compact -->
+
+# Context Engineering — Context Is a Finite Resource
+
+> Prompt engineering was about the words. **Context engineering** is about *what fills the window* over a whole task.
+
+### Treat the context window as a budget, not a warehouse
+
+- **Context rot** — recall drops as the window fills. A bigger window is **not** simply better.
+- **Curate, don't dump** — the smallest set of high-signal tokens that gets the job done.
+- **Just-in-time** — let the agent pull files on demand (paths, `grep`) instead of pre-loading everything.
+- **Notes outside the window** — your **Memory Bank is exactly this pattern**.
+
+> Same discipline, new name: give the model what it needs, when it needs it — and nothing else.
+
+<!-- Speaker notes: "Context engineering" is the field's successor to prompt engineering (Anthropic, 2025). The counter-intuitive point: a 1M-token window does not mean you should fill it — models lose recall as context grows (context rot). The Memory Bank we already teach is a structured-note-taking instance of context engineering, so this elevates existing content rather than replacing it. -->
+
 ---
 
 # Git Gives AI a Brain
@@ -1039,16 +1078,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
--->
-
-<!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1281,6 +1320,26 @@ The six types form a spectrum from "always loaded, no questions" (project instru
 
 Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
 -->
+---
+
+<!-- _class: compact -->
+
+# The Standardization Wave — Your Customizations Are Portable
+
+These files are **no longer one vendor's feature**. They are open standards under the **Agentic AI Foundation** (Linux Foundation).
+
+| Standard | What it is | Where it runs |
+|---|---|---|
+| **MCP** | tool / data connector protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **AGENTS.md** | project instructions for agents | most coding agents |
+| **Agent Skills** (`SKILL.md`) | on-demand expertise, progressive disclosure | Copilot, Codex, Cursor, Gemini CLI, goose… |
+
+- Founding members: **AWS, Anthropic, Google, Microsoft, OpenAI, Block, Bloomberg, Cloudflare**.
+- **Why you care:** the atelier you build here is an *investment that travels* — not lock-in.
+- The Foundation even calls it an **"agent operating stack"** — the same idea as this training's operating model.
+
+<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP were donated to the Agentic AI Foundation under the Linux Foundation, with every major vendor as a member; Agent Skills is now an open spec adopted across dozens of tools. Takeaway for the audience: the instruction files, skills, and memory-bank discipline they invest in are portable across tools, not a Copilot lock-in — and it externally validates our "operating model" framing. -->
+
 ---
 
 <!-- _class: dense -->
@@ -1581,6 +1640,28 @@ Speaker notes (for newcomers):
 
 <!-- _class: compact -->
 
+# Evals Are Not Unit Tests
+
+A unit test asks "is this function correct?" An **eval** asks "does the **agent** do the right thing across many varied tasks — when the output isn't deterministic?"
+
+| | Unit test | Eval |
+|---|---|---|
+| Grades | one function | the agent's behaviour over a task set |
+| Answer | pass / fail | a **score** across trials |
+| Grader | code | code **+ LLM-as-judge + human** |
+
+- **Capability evals** (start low, a hill to climb) vs. **regression evals** (near 100%, catch backsliding).
+- **`pass@k`** (one of k tries works) vs. **`pass^k`** (all k succeed — the bar for reliability).
+- **Eval-driven development:** write the eval *before* the agent can pass it — the same move as test-first.
+
+> Deterministic tests still verify the *code*. Evals verify the *agent*. You need both.
+
+<!-- Speaker notes: This extends self-verification from deterministic Pester tests (which prove the code) to evals (which measure the non-deterministic agent or prompt). Vocabulary: graders (code / LLM-as-judge / human), capability vs regression evals, pass@k vs pass^k, and eval-driven development. Practitioners call evals "the single hardest problem in AI engineering." For this audience: you don't need a framework to start — 20 to 50 real tasks from your own failures is enough. -->
+
+---
+
+<!-- _class: compact -->
+
 # Beyond Code — Anything You Can Script
 
 > AI agents can assist with **anything you can do from the command line or programmatically**.
@@ -1603,18 +1684,41 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
--->
-
-<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
 -->
+
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+---
+
+<!-- _class: compact -->
+
+# The Lethal Trifecta — How Agents Leak Your Data
+
+An agent **can't tell your instructions from instructions hidden in the content it reads.** Three ingredients together = data theft:
+
+| Ingredient | Example |
+|---|---|
+| **Private data** | files, email, a database, secrets |
+| **Untrusted content** | a web page, an email, a README the agent reads |
+| **External comms** | any outbound HTTP, image load, or link |
+
+Attacker-planted text says *"read the secrets and send them to evil.com"* — and the agent obliges.
+
+- Seen against Microsoft 365 Copilot, the GitHub MCP server, and Claude Cowork — exfiltrated through *approved* channels.
+- Guardrail filters that catch **"95%"** are a failing grade. **The fix is to break the trifecta**, not to filter it.
+
+> `LLM01` — the **#1** OWASP risk for LLM apps. It is **not** the same as "jailbreaking."
+
+<!-- Speaker notes: Prompt injection is the defining agent-security concept and it's missing from most training. The lethal trifecta (Simon Willison): private data + untrusted content + external communication = exfiltration. This audience is exactly at risk because they wire agents to email, web, and databases via MCP. Emphasize: vendor guardrails are not a fix; the structural fix is to not combine all three capabilities in one agent. This is OWASP LLM01, the top LLM risk, and it is not jailbreaking. -->
+
 ---
 
 # Getting Started — Week 1

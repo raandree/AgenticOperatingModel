@@ -2,15 +2,36 @@
 
 ## Current Focus
 
-**Task**: Placed brand logos in the presentation decks — sourced from the four design-board sets in `C:\Users\install\Desktop\new` (AOM / ShellPilot / DeskPilot / CopilotAtelier). AOM glyph on the title + closing slides, the ShellPilot+DeskPilot pair on the M11 *Tools Built on This Model* slide, the CopilotAtelier logo on the M8 *Mature Personal Atelier* slide. Continues branch `ai/companion-tools-references` (not pushed). Repo milestone: **v1.1.0 released** (2026-06-07).
+**Task**: Executed the mid-2026 gaps & trends integration plan in the deck. Added **7 new slides** to the Marp build source (`content/slides/marp-presentation.md`) — The Lethal Trifecta + Containment First (M6 security), Context Engineering (M2), Evals Are Not Unit Tests (M4), Beyond Handoffs / Orchestration Patterns + The Standardization Wave (M3), and The Autonomy Horizon (intro) — all `compact` with inline speaker notes and version tags. Refreshed model currency (Opus 4.7 → 4.8) in the deck + cheat-sheet, and added a "What's New to Teach (2026 H2)" cheat-sheet block. Rebuilt all three decks (1h 30 / 2h 73 / 4h 138); overflow check clean (only the 4 pre-existing dense overflows remain); 11/11 build Pester tests green. **PPTX re-export deferred.** Branch `ai/agentic-gaps-research` (not pushed). Repo milestone: **v1.1.0 released** (2026-06-07).
 **Target Audience**: PowerShell Developers, DevOps Engineers, System Engineers, Research/Knowledge Workers
 **Primary Tool**: GitHub Copilot Agent Mode (VS Code)
 **GitHub Repository**: raandree/AgenticOperatingModel
-**Last Updated**: 2026-06-11
+**Last Updated**: 2026-06-30
 
 > **Release status (2026-06-07):** **`v1.1.0` is published** — PR #13 squash-merged to `main` (`f1f7daf`), tag `v1.1.0` pushed, and the GitHub Release created and marked Latest. The working tree is clean and `CHANGELOG.md` `[Unreleased]` is empty. Older entries that read "not yet committed", "local only", or name a feature branch are retained for provenance but are **superseded by this line**. Open follow-up: `v1.0.0` has a tag but **no GitHub Release** — backfill it if the announcement needs a complete releases page.
 
 ## Recent Changes
+
+### 2026-07-01: Executed the gaps & trends plan — 7 new slides + currency
+- Turned the research dossier into deck content. Added 7 compact slides to the monolith build source `content/slides/marp-presentation.md`:
+  - **M6 (When to Use / security):** *The Lethal Trifecta — How Agents Leak Your Data* (prompt injection / OWASP LLM01, after Agent Security & Boundaries) and *Containment First — Cap the Blast Radius* (environment-layer principle, after GitOps Layer 6).
+  - **M2 (Context):** *Context Engineering — Context Is a Finite Resource* (context rot; Memory Bank framed as an instance).
+  - **M4 (Trust but Verify):** *Evals Are Not Unit Tests* (after the Cheating-Agent Trap).
+  - **M3 (Controlling AI Behavior):** *Beyond Handoffs — Orchestration Patterns* (after Agent Handoff Chains) and *The Standardization Wave — Your Customizations Are Portable* (AAIF, after the Customization Ecosystem).
+  - **Intro:** *The Autonomy Horizon — Where This Is Going* (METR doubling, after Real-World Impact).
+- Version tags: A7 horizon `1h 2h 4h`; A1 trifecta, A3 context, A4 evals, A6 standards `2h 4h`; A2 containment, A5 orchestration `4h`. All `<!-- _class: compact -->` with inline `<!-- Speaker notes: … -->` (skip-guard-safe; new H1s don't collide with split notes).
+- Currency: Opus 4.7 → 4.8 in the deck (Possible-NOW + economics model table) and the cheat-sheet model table; added a cheat-sheet **"What's New to Teach (2026 H2)"** block (7 one-liners + slide refs).
+- Verify: `Build-MarpVersions.ps1 -Version all` → 138 slides (was 131); 1h 30, 2h 73, 4h 138. `-CheckOverflow` (Puppeteer): 135/139 fit; the 4 overflows are the pre-existing Bottleneck / Deep Modules / Vigilance Trap / Stockfish (unrelated). Pester `Build-MarpVersions.Tests.ps1`: **11/11 green** (every new slide has an inline note). **PPTX/PNG re-export deferred** (heavy binary; run `-ExportPptx` before delivery).
+- Not done (offered): split-file detailed twins (splits aren't the build source); a deep techContext.md currency pass; a dedicated `agent-security-prompt-injection.md` material (folded into the cheat-sheet instead). Minor B-nuances folded into notes/cheat-sheet rather than separate slides.
+- Branch: **`ai/agentic-gaps-research`** — local only, not pushed.
+
+### 2026-06-30: Agentic gaps & trends research (no deck edits yet)
+- User asked for a thorough web-research pass to find gaps, ideas, principles, and trends the curriculum hasn't covered. Last landscape refresh was 2026-04-23; May–June work was failure-modes / MCP demos / branding / companion tools, so the *landscape* layer was ~2 months stale.
+- Ran a five-phase research-analyst pass over 12 primary sources (Anthropic ×4, OWASP GenAI, GitHub Copilot changelog, VS Code 1.126, METR, AAIF, agentskills.io, MCP, Simon Willison). The fetched mid-2026 web is internally consistent with the repo timeline (VS Code 1.126; Claude Opus 4.8 in Copilot preview).
+- Persisted `docs/research/2026-06-30-agentic-gaps-and-trends.md` (431 lines): 7 primary gaps — A1 prompt injection / lethal trifecta, A2 containment-first sandboxing, A3 context engineering, A4 evals≠unit-tests, A5 sub-agents / orchestration, A6 AAIF standardization, A7 METR autonomy horizon — plus 9 secondary (B1–B9), a currency-refresh table, an evidence table with confidence grades, and a full gap-by-gap **integration plan** (module / version-tag / artifact / overflow / effort).
+- Biggest hole: A1+A2 (prompt injection + containment) — standards-backed (OWASP LLM01) and absent from the decks. A6 (AAIF "agent operating stack") externally validates the "operating model" thesis.
+- **No slide / material edits made** — research + plan only, per user. Next: execute the integration plan (all gaps in scope, no phasing) once the user greenlights deck edits.
+- Branch: **`ai/agentic-gaps-research`** — local only, not pushed.
 
 ### 2026-06-11: Brand logos placed in the presentation decks
 - User supplied four design-board brand sets in `C:\Users\install\Desktop\new` (AOM / ShellPilot / DeskPilot / CopilotAtelier), each with the same 11-tile taxonomy (primary logo, glyph, app icon, splash, mono, full board) in light/dark. Asked to use them in the presentations where useful.

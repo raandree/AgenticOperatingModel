@@ -287,6 +287,26 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 -->
 ---
 
+<!-- _class: compact -->
+
+# The Autonomy Horizon — Where This Is Going
+
+> The length of task an agent can finish on its own is **doubling about every 7 months**.
+
+| Human-effort length an agent handles (50% reliability) | ~When |
+|---|---|
+| Seconds to a few minutes | 2023 |
+| Tens of minutes | 2025 |
+| Multi-hour tasks, and climbing | 2026 |
+
+- Measured by **METR** across six years; on real software issues the doubling is **even faster**.
+- The **trend**, not the exact date, is the point: plan for agents that own longer and longer work.
+- Teach it with its caveat — the self-reported *size* of the gain is debated; the *direction* is robust.
+
+<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. -->
+
+---
+
 # Why This Matters to You — Whatever Your Role
 
 ### Four audiences, one operating model:

@@ -137,11 +137,31 @@ The same task improves dramatically with each added layer:
 
 ---
 
+## What's New to Teach (2026 H2)
+
+Seven ideas the field crystallized in 2026 — each now has a slide (full evidence
+in the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-trends.md)).
+
+| Idea | One line | Slide |
+|------|----------|-------|
+| **Lethal trifecta** | private data + untrusted content + external comms = data theft; break the trifecta, don't filter it (OWASP `LLM01`) | M6 |
+| **Containment first** | cap what the agent *can reach* (sandbox / VM / egress), not just what it's *told* — the deterministic boundary | M6 |
+| **Context engineering** | context is a finite budget; a bigger window ≠ better (context rot); the Memory Bank *is* this pattern | M2 |
+| **Evals ≠ unit tests** | tests verify the *code*; evals score the *agent* (graders, LLM-as-judge, pass@k vs pass^k) | M4 |
+| **Orchestration patterns** | beyond handoffs: routing, parallelization, orchestrator-workers, evaluator-optimizer, sub-agents | M3 |
+| **Open standards (AAIF)** | MCP · AGENTS.md · Agent Skills are Linux-Foundation standards — your atelier is portable, not lock-in | M3 |
+| **Autonomy horizon** | agent task length is doubling ~every 7 months (METR) — plan for longer-running work | Intro |
+
+> **Golden rule for the trifecta and destructive ops alike:** the agent will be
+> wrong eventually — the *system around it* must not be.
+
+---
+
 ## Token Usage & Cost Awareness
 
 | Model | Context Window | Notes |
 |-------|----------------|-------|
-| **Claude Opus 4.7** | Up to 1M tokens | GA in Copilot (Apr 2026) — default premium reasoning model |
+| **Claude Opus 4.8** | Up to 1M tokens | Current premium reasoning model (Copilot preview, Jun 2026); Opus 4.7 superseded |
 | GPT-5.4 / GPT-5.4-mini | 256K tokens | Current OpenAI generation (GPT-5.1 series retired Apr 2026) |
 | GPT-5.3-Codex | 256K tokens | Specialized coding variant |
 | Gemini 3.1 Pro | 2M tokens | Largest context window option |
