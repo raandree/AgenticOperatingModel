@@ -108,6 +108,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   recolouring the wordmark per theme, and cropping to content. Docs/asset-only
   change; no slide content or deck build output affected.
 
+### Fixed
+
+- **Marp PPTX/PNG export no longer fails with "Failed to launch the browser
+  process" (2026-07-01).** [content/pptx/Build-MarpVersions.ps1](content/pptx/Build-MarpVersions.ps1)
+  now resolves a Chromium-family browser for the Marp CLI before exporting.
+  Marp bundles no browser and reads the `CHROME_PATH` environment variable;
+  when it was unset (and no Chrome/Edge was on the default search path) the
+  `-ExportPptx` / `-ExportPng` step aborted for every version. The new
+  `Resolve-MarpBrowserPath` helper prefers an explicit `CHROME_PATH`, then the
+  Chromium the local `puppeteer` package already downloaded for the overflow
+  check (via `puppeteer.executablePath()`), then an installed Edge or Chrome;
+  the resolved path is exported as `CHROME_PATH` for the duration of the
+  export and restored afterwards. Verified end-to-end: all three decks now
+  export to PPTX (1h 4.7 MB / 2h 12.9 MB / 4h 25.5 MB) and the overflow check
+  completes for all versions (the four pre-existing 4h dense-slide overflows
+  are unchanged and unrelated).
+
 ## [1.1.0] - 2026-06-07
 
 Second feature release. Broadens the curriculum beyond code with two optional

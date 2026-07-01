@@ -692,6 +692,45 @@ foreach ($ver in $versions) {
 Write-Host "`nDone. Output files are in: $OutputDir" -ForegroundColor Cyan
 
 # --- Optional: export PPTX and/or PNG for each generated version ---
+
+# Resolves a Chromium-family browser executable for Marp CLI. Marp bundles no
+# browser and reads the CHROME_PATH environment variable; when it is unset the
+# export fails with "Failed to launch the browser process". Prefer the Chromium
+# the local puppeteer package already downloaded (the same one the overflow
+# check uses), then an installed Edge or Chrome. Returns $null if none is found.
+# Invoke with the working directory set to the folder that contains
+# node_modules/puppeteer (the pptx output folder).
+function Resolve-MarpBrowserPath {
+    [OutputType([string])]
+    param()
+
+    if (Get-Command node -ErrorAction SilentlyContinue) {
+        try {
+            $puppeteerPath = & node -e "process.stdout.write(require('puppeteer').executablePath())" 2>$null
+            if ($puppeteerPath -and (Test-Path -LiteralPath $puppeteerPath)) {
+                return $puppeteerPath
+            }
+        }
+        catch {
+            # puppeteer not installed or resolution failed — fall through to the disk probe
+        }
+    }
+
+    $candidates = @(
+        "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe",
+        "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
+        "$env:ProgramFiles\Google\Chrome\Application\chrome.exe",
+        "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe"
+    )
+    foreach ($candidate in $candidates) {
+        if ($candidate -and (Test-Path -LiteralPath $candidate)) {
+            return $candidate
+        }
+    }
+
+    return $null
+}
+
 function Invoke-MarpCli {
     param(
         [Parameter(Mandatory)][string]$InputFile,
@@ -725,8 +764,24 @@ if ($ExportPptx -or $ExportPng) {
         }
     }
 
+    $priorChromePath = $env:CHROME_PATH
     Push-Location $OutputDir
     try {
+        # Marp CLI bundles no browser; make sure CHROME_PATH points at a
+        # launchable Chromium (reusing the one the overflow check already
+        # downloaded) so the export does not fail with
+        # "Failed to launch the browser process".
+        if (-not ($env:CHROME_PATH -and (Test-Path -LiteralPath $env:CHROME_PATH))) {
+            $marpBrowser = Resolve-MarpBrowserPath
+            if ($marpBrowser) {
+                $env:CHROME_PATH = $marpBrowser
+                Write-Host "Using browser for Marp export: $marpBrowser" -ForegroundColor DarkGray
+            }
+            else {
+                Write-Warning "No Chromium/Edge/Chrome found for Marp export. If it fails with 'Failed to launch the browser process', set `$env:CHROME_PATH or run 'npm install' in the pptx folder to download Chromium."
+            }
+        }
+
         foreach ($t in $targets) {
             if ($ExportPptx) {
                 $pptx = "$($t.Base).pptx"
@@ -755,6 +810,12 @@ if ($ExportPptx -or $ExportPng) {
     }
     finally {
         Pop-Location
+        if ($null -eq $priorChromePath) {
+            Remove-Item Env:\CHROME_PATH -ErrorAction SilentlyContinue
+        }
+        else {
+            $env:CHROME_PATH = $priorChromePath
+        }
     }
 
     Write-Host "`nExport complete." -ForegroundColor Cyan
