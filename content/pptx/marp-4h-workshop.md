@@ -2399,16 +2399,16 @@ Start   Created  Modified  Added   Deleted   Broke
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
 <!--
-Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
-
-The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
--->
-
-<!--
 Speaker notes (for newcomers):
 - VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
 - Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
 - Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
+-->
+
+<!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
 -->
 ---
 
