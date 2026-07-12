@@ -338,7 +338,7 @@ Project instruction files have been moved from `.github/` to a personal **Copilo
 │   ├── azurepipelines.instructions.md # azure-pipelines*.yml
 │   ├── csharp.instructions.md        # *.cs, *.csx
 │   └── copilot-authoring.instructions.md # *.instructions.md, *.prompt.md, *.agent.md, SKILL.md
-├── Skills/                # Domain knowledge skills (SKILL.md files, ~22 skills)
+├── Skills/                # Domain knowledge skills (SKILL.md files, ~37 skills)
 │   ├── automatedlab-deployment/
 │   ├── datum-configuration/
 │   ├── dsc-troubleshooting/

@@ -471,7 +471,7 @@ Content starts here...
 | `github.copilot.chat.agent.thinkingTool: true` | Let agents use the thinking tool before acting |
 | `github.copilot.chat.search.semanticTextResults: true` | Semantic matching in agent-mode search |
 
-Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~20 skills across lab automation, DSC, documents, email, and knowledge work — a worked example of the four-surfaces pattern.
+Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~37 skills spanning lab automation, DSC, document/email knowledge work, research and verification, agent-building (`skill-creator`, `mcp-builder`, `agent-evals`, `agent-security-review`), and core engineering discipline (`test-driven-development`, `debugging-and-error-recovery`, `code-review-and-quality`) — a worked example of the four-surfaces pattern.
 
 ---
 

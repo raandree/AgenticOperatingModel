@@ -1121,7 +1121,7 @@ Speaker notes — Module 3 appendix
 -->
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # The Consistency Problem
 
@@ -1723,6 +1723,7 @@ Speaker notes (for newcomers):
 - Treat the description like a search query. Include the exact phrases users would say ("USE FOR: debug Pester, mock issues, ModuleBuilder error…").
 - The `DO NOT USE FOR:` line is just as important — it stops the skill firing on adjacent-but-wrong tasks.
 - If your skill won't load at all: 99% of the time the YAML frontmatter is malformed. Open the Agent Debug Logs panel — the error is there.
+- Worked example: CopilotAtelier's `skill-creator` skill is the meta-skill for this — the six-step authoring frame, the 1024-char description cap, and a Claude-A/Claude-B eval loop.
 -->
 
 ---
@@ -1998,6 +1999,8 @@ Speaker notes (for newcomers):
 
 > **Tests become the specification. The agent's job is to satisfy them.**
 
+*Codified as* CopilotAtelier's [`test-driven-development`](https://github.com/raandree/CopilotAtelier) skill — red-green-refactor, a failing Pester test before the code, and the test pyramid.
+
 <!--
 Test-first development with AI inverts the failure mode of the cheating-agent trap (slide 5.11a). When tests are written first and the code is written to pass them, the tests act as the specification the code must conform to — the agent cannot rewrite the spec to fit the bug, because the spec exists before the bug does.
 
@@ -2102,6 +2105,7 @@ A unit test asks "is this function correct?" An **eval** asks "does the **agent*
 - **Capability evals** (start low, a hill to climb) vs. **regression evals** (near 100%, catch backsliding).
 - **`pass@k`** (one of k tries works) vs. **`pass^k`** (all k succeed — the bar for reliability).
 - **Eval-driven development:** write the eval *before* the agent can pass it — the same move as test-first.
+- **In practice:** CopilotAtelier's [`agent-evals`](https://github.com/raandree/CopilotAtelier) skill ships a `run-evals.ps1` harness with `pass@k` / `pass^k` gating — start from 20–50 real failures.
 
 > Deterministic tests still verify the *code*. Evals verify the *agent*. You need both.
 
@@ -2305,17 +2309,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
--->
-
-<!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 
@@ -2523,6 +2527,36 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+-->
+
+<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2571,36 +2605,6 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
--->
-
-<!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 
@@ -2884,6 +2888,8 @@ The guardrails above steer what the agent *chooses*. **Containment limits what i
 
 > Approval fatigue is real — users approve **~93%** of prompts. Don't rely on clicks; rely on boundaries.
 
+*Review tool:* CopilotAtelier's [`agent-security-review`](https://github.com/raandree/CopilotAtelier) skill runs the lethal-trifecta test, the OWASP LLM Top 10, and this containment checklist against any agent or MCP-server wiring.
+
 <!-- Speaker notes: Anthropic's core 2026 lesson — "design for containment at the environment layer first, then steer behaviour at the model layer." Two of their worst incidents were data leaving through a permitted path, where the model layer had nothing anomalous to catch and only the environment (egress controls, filesystem boundaries) could stop it. Tie to GitOps Layer 6 (a capability-based control) and to operator oversight: match isolation strength to how well the user can actually judge what the agent is doing. -->
 
 ---
@@ -2989,6 +2995,8 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 
 > The work isn't disappearing — it's moving. Make sure your team moves with it.
 
+<!-- Speaker notes: The positive half of "the bottleneck has moved" — concrete counter-patterns that keep humans in the design loop: approve the plan before generation (not just the diff), an "angry agent" prompted to poke holes, an incident-runbook corpus the agent reads on every outage, scheduled time to read agent-written code, Kent Beck's daily design investment, and gray-box delegation (own the interface, delegate the body — the opposite of job hollowing). The anti-pattern is "future AI will fix it": a refactor needs human intent, and SQLite (accepts no AI-authored code) and NASA DO-178C Level A (MC/DC coverage) mark where accountability is absolute. -->
+
 ---
 
 <!-- _class: dense -->
@@ -3029,6 +3037,8 @@ The industry-spread data is the part of the slide most likely to land with non-d
 | Creative writing | LinkedIn AI long-form posts >50% of total, **−43% engagement** | @19:38 |
 
 > The meaningful work moves to the machine; the supervisory residue stays with the human.
+
+<!-- Speaker notes: The evidence behind the job-hollowing feeling. BCG/HBR (March 2026): 14% report "AI Brainfry," with sharp rises in decision fatigue, serious errors, and intent to quit. Stanford/Brynjolfsson: hiring of 22–25-year-olds in AI-exposed roles is down ~20% from peak. The same mechanism appears in software, lab medicine, and creative writing — the meaningful work moves to the machine and the supervisory residue stays with the human. Source: Cedric Mössner / The Morpheus, "KI Burnout ist real," 2026. -->
 
 ---
 

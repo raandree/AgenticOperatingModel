@@ -691,7 +691,7 @@ Speaker notes — Module 3 appendix
 -->
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # The Consistency Problem
 

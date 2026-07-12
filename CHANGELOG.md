@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **CopilotAtelier skills wired into the slides as concrete worked examples (2026-07-12).**
+  Following the skill-inventory sync, four CopilotAtelier skills are now referenced
+  on their natural-home slides in the Marp build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md):
+  `agent-evals` on *Evals Are Not Unit Tests* (M4), `test-driven-development` on
+  *Test-First with AI* (M5), `agent-security-review` on *Containment First* (M6,
+  covering the Lethal Trifecta pair), and `skill-creator` on *Skill-Authoring
+  Discipline* (M4 — delivered in the speaker notes, since that slide is already
+  full). All three decks rebuilt: overflow gate **0 across 1h/2h/4h** and the build
+  Pester suite **11/11**. Two pre-existing issues surfaced by the faithful rebuild
+  were fixed in passing (both independent of the skill edits — the note-merge
+  matches by title, and no titles changed): *The Consistency Problem* (M3) switched
+  `dense → compact` (a marginal slide the newer bundled Chromium tipped to fill
+  1.064; no content removed), and the 2026-07-01 split slides *The Bottleneck Has
+  Moved — Counter-Patterns* and *Job Hollowing & Heteromation — The Numbers* gained
+  deterministic inline speaker notes (their titles are unmatchable by the title-map
+  note-merge, so a clean rebuild drops their merged notes). Regenerated
+  `marp-{1h,2h,4h}-*.md` reflect all of the above; the three tracked PPTX decks
+  (`agentic-operating-model-{1h,2h,4h}.pptx`) were re-exported to match.
+
 - **Editable PPTX export via Pandoc (2026-07-02).** Added
   [content/pptx/Export-PandocToPptx.ps1](content/pptx/Export-PandocToPptx.ps1),
   which converts the version-specific Marp decks
@@ -123,6 +143,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   design-board exports by flood-keying the background to transparency,
   recolouring the wordmark per theme, and cropping to content. Docs/asset-only
   change; no slide content or deck build output affected.
+
+### Changed
+
+- **Synced the CopilotAtelier skill-inventory reference to 37 skills (2026-07-11).**
+  [content/materials/cheat-sheet.md](content/materials/cheat-sheet.md) previously
+  described [CopilotAtelier](https://github.com/raandree/CopilotAtelier) as shipping
+  "~20 skills across lab automation, DSC, documents, email, and knowledge work."
+  Refreshed to ~37 skills and broadened the category list to match the current
+  inventory — research and verification (`citation-integrity`,
+  `devils-advocate-review`, `social-signal-sweep`), agent-building
+  (`skill-creator`, `mcp-builder`, `agent-evals`, `agent-security-review`), and
+  core engineering discipline (`test-driven-development`,
+  `debugging-and-error-recovery`, `code-review-and-quality`). Cheat-sheet content
+  only; no slide or deck build output changed.
 
 ### Fixed
 
