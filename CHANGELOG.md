@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New M4 slide "You Can Verify the Output, Not the Reasoning" + German *Lanz & Precht* pull-quotes (2026-07-13).**
+  Added one 4h-only slide to the Trust-but-Verify module in the Marp build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md),
+  inserted after *Can You Trust AI-Generated Code?* as the epistemic *why* before
+  *The Self-Verification Loop*: a model's answer comes from statistical correlation,
+  not an auditable causal chain of reasons, so the operating model verifies the
+  deterministic **artefact** (tests, `git diff`, RSOP / `terraform plan`), the
+  **behaviour** (evals), and leans on Git **traceability** — never the reasoning.
+  Grounded in Richard David Precht's causality/automation-bias argument from the
+  *Lanz & Precht* podcast (ZDF, 2026). Also appended German Precht paraphrases to the
+  existing **Job Hollowing** (junior-hollowing / "working on our own abolition") and
+  **Vigilance Trap** (Precht naming *Automation bias* outright) speaker notes in the
+  split [content/slides/09-when-to-use.md](content/slides/09-when-to-use.md). All
+  German lines are marked *paraphrased from an auto-transcribed episode — verify
+  against the audio before quoting verbatim*.
+
 - **CopilotAtelier skills wired into the slides as concrete worked examples (2026-07-12).**
   Following the skill-inventory sync, four CopilotAtelier skills are now referenced
   on their natural-home slides in the Marp build source

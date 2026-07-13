@@ -668,6 +668,8 @@ BCG / Harvard Business Review study, ~1,500 people in AI-intensive roles (March 
 Moessner's two terms — *Job Hollowing* and *Heteromation* — are the most precise vocabulary available for the labour shift this slide describes. The terms matter because the phenomenon is real but easily mistaken for ordinary burnout. The diagnostic in the second column gives teams a way to test for it: ask, at end of day, what was actually decided. If the answer is "nothing, I approved things," the role has been hollowed regardless of how busy the day felt.
 
 The industry-spread data is the part of the slide most likely to land with non-developer audiences. The same pattern in lab medicine, in copywriting, in legal research: the interesting cases move to the AI; the routine residue stays with the human. The agentic operating model's response is not to slow down adoption — it is to design roles deliberately so the human keeps the cognitively substantive work and the machine takes the tedious work, not the other way around.
+
+A German-language echo for European rooms: in the *Lanz & Precht* podcast (ZDF, 2026), Richard David Precht makes the junior-hollowing point directly — the ordinary young lawyer who once did associate work in a firm is *no longer needed* — and relays his son's report of Silicon Valley programmers who say they are *working on their own abolition*, optimising the very model that removes their own rung of the ladder. Same mechanism as this slide, now reaching the credentialed professions that assumed they were exempt. The lines are paraphrased from an auto-transcribed episode — verify against the audio before quoting verbatim.
 -->
 
 ---
@@ -752,6 +754,8 @@ LLMs left to their own devices tend to produce shallow modules, because shallow 
 Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
 
 The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
+
+The concept has now surfaced in mainstream German discourse: in the *Lanz & Precht* podcast (ZDF, 2026), Richard David Precht names *Automation bias* outright — the reflex that a machine's answer is "more correct" than a person's, so people trust what the screen shows over their own experience. That is exactly the Parasuraman & Manzey (2010) automation-complacency row above, restated for a general audience — useful if a 1948 radar study feels too remote for your room. Paraphrased from an auto-transcribed episode; verify against the audio before quoting verbatim.
 -->
 
 ---

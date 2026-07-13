@@ -1245,16 +1245,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
--->
-
-<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
+-->
+
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1800,6 +1800,33 @@ Speaker notes (for newcomers):
 - In PowerShell the test framework is called **Pester**. In Python it's pytest, in JavaScript it's Jest. Same idea everywhere.
 - Why this matters for AI: tests are the only objective signal the agent has that its work is right. Without tests, "done" means "I think so."
 -->
+---
+
+<!-- _class: compact -->
+
+# You Can Verify the Output, Not the Reasoning
+
+> *Bei einer KI-Antwort gibt es keine kausale Kette von Gründen, der wir folgen können — nur statistische Korrelation. Und trotzdem vertrauen wir ihr mehr als einem Menschen.*
+> *A model's answer has no causal chain of reasons you can follow — only statistical correlation — yet we trust it more than a human's.*
+> — Richard David Precht, *Lanz & Precht* (ZDF), 2026 *(sinngemäß / paraphrased)*
+
+### The epistemic "why" beneath Module 4
+
+- A model does not *reason to* an answer along an auditable chain — it samples the most probable continuation. Ask *"why this and not that?"* and there is **no traceable justification**, only weights.
+- **Automation bias** makes us trust the confident machine answer *more* than a human's — precisely when we can least inspect it (see the Vigilance Trap, M9).
+
+### So the operating model verifies what it *can*
+
+| You cannot audit… | So you verify the… |
+|---|---|
+| The model's reasoning (a black box) | **Artefact** — tests pass, the `git diff`, an RSOP / `terraform plan` |
+| *Why* it chose an approach | **Behaviour** — evals across many tasks (a score, not a vibe) |
+| A trustworthy *"who said it"* | **Traceability** — Git attributes every change (M2) |
+
+> Don't verify the thought — you can't. Verify the **artefact** — you can. That is why self-verification and traceability are **non-negotiable**.
+
+<!-- Speaker notes: This slide is the epistemic "why" beneath all of Module 4. A model produces the statistically most probable output; it does not follow a causal chain of reasons a human can audit — Richard David Precht makes exactly this point in the Lanz & Precht podcast (ZDF, 2026), noting we nonetheless trust the machine more than a person (automation bias, which the Vigilance Trap slide in M9 grounds in Parasuraman & Manzey 2010). The AOM's whole answer follows: since you cannot inspect the reasoning, verify the deterministic artefact instead — tests, the git diff, an RSOP or terraform plan — measure the agent's behaviour with evals, and lean on Git traceability to replace the missing "whom do I trust" signal. The Precht line is paraphrased from an auto-transcribed episode; verify it against the audio before quoting verbatim on stage. -->
+
 ---
 
 <!-- _class: dense -->
@@ -2403,16 +2430,16 @@ Start   Created  Modified  Added   Deleted   Broke
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
 <!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
 - Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
 - Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
--->
-
-<!--
-Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
-
-The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
 -->
 ---
 
@@ -2527,36 +2554,6 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
--->
-
-<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2605,6 +2602,36 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
+-->
+
+<!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 
@@ -3016,6 +3043,8 @@ A refactor needs *intent*. If no human ever understood **why** the system was bu
 Moessner's two terms — *Job Hollowing* and *Heteromation* — are the most precise vocabulary available for the labour shift this slide describes. The terms matter because the phenomenon is real but easily mistaken for ordinary burnout. The diagnostic in the second column gives teams a way to test for it: ask, at end of day, what was actually decided. If the answer is "nothing, I approved things," the role has been hollowed regardless of how busy the day felt.
 
 The industry-spread data is the part of the slide most likely to land with non-developer audiences. The same pattern in lab medicine, in copywriting, in legal research: the interesting cases move to the AI; the routine residue stays with the human. The agentic operating model's response is not to slow down adoption — it is to design roles deliberately so the human keeps the cognitively substantive work and the machine takes the tedious work, not the other way around.
+
+A German-language echo for European rooms: in the *Lanz & Precht* podcast (ZDF, 2026), Richard David Precht makes the junior-hollowing point directly — the ordinary young lawyer who once did associate work in a firm is *no longer needed* — and relays his son's report of Silicon Valley programmers who say they are *working on their own abolition*, optimising the very model that removes their own rung of the ladder. Same mechanism as this slide, now reaching the credentialed professions that assumed they were exempt. The lines are paraphrased from an auto-transcribed episode — verify against the audio before quoting verbatim.
 -->
 ---
 
@@ -3104,6 +3133,8 @@ LLMs left to their own devices tend to produce shallow modules, because shallow 
 Mackworth's 1948 RAF radar study is the founding experiment in vigilance research — he demonstrated that human detection of rare signals breaks down measurably after fifteen to thirty minutes of passive monitoring. The finding has been replicated hundreds of times in nuclear control rooms, baggage screening, air-traffic control, and autonomous-vehicle test drivers. It is not a motivation problem; it is a wiring problem.
 
 The industrial response in aviation and nuclear was to engineer the role so vigilance is not the load-bearing safety mechanism — mandatory rotation, two-pilot crews, defence-in-depth instrumentation, and ultimately, where possible, removing the human from the vigilance loop entirely (Level 4 autonomous driving rather than Level 3). The software industry has spent the last two years asking knowledge workers to do exactly the task aviation discarded as unworkable: stay alert for eight hours, catch the rare bad agent action, take responsibility when you do not. The curriculum's response is to push the safety mechanism upstream into structural controls (tests, GitOps, plans-before-code) so the human's vigilance is a backup rather than the primary defence.
+
+The concept has now surfaced in mainstream German discourse: in the *Lanz & Precht* podcast (ZDF, 2026), Richard David Precht names *Automation bias* outright — the reflex that a machine's answer is "more correct" than a person's, so people trust what the screen shows over their own experience. That is exactly the Parasuraman & Manzey (2010) automation-complacency row above, restated for a general audience — useful if a 1948 radar study feels too remote for your room. Paraphrased from an auto-transcribed episode; verify against the audio before quoting verbatim.
 -->
 ---
 

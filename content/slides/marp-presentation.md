@@ -1439,6 +1439,34 @@ But also:
 > **Automated tests let AI verify its own work.**
 
 ---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# You Can Verify the Output, Not the Reasoning
+
+> *Bei einer KI-Antwort gibt es keine kausale Kette von Gründen, der wir folgen können — nur statistische Korrelation. Und trotzdem vertrauen wir ihr mehr als einem Menschen.*
+> *A model's answer has no causal chain of reasons you can follow — only statistical correlation — yet we trust it more than a human's.*
+> — Richard David Precht, *Lanz & Precht* (ZDF), 2026 *(sinngemäß / paraphrased)*
+
+### The epistemic "why" beneath Module 4
+
+- A model does not *reason to* an answer along an auditable chain — it samples the most probable continuation. Ask *"why this and not that?"* and there is **no traceable justification**, only weights.
+- **Automation bias** makes us trust the confident machine answer *more* than a human's — precisely when we can least inspect it (see the Vigilance Trap, M9).
+
+### So the operating model verifies what it *can*
+
+| You cannot audit… | So you verify the… |
+|---|---|
+| The model's reasoning (a black box) | **Artefact** — tests pass, the `git diff`, an RSOP / `terraform plan` |
+| *Why* it chose an approach | **Behaviour** — evals across many tasks (a score, not a vibe) |
+| A trustworthy *"who said it"* | **Traceability** — Git attributes every change (M2) |
+
+> Don't verify the thought — you can't. Verify the **artefact** — you can. That is why self-verification and traceability are **non-negotiable**.
+
+<!-- Speaker notes: This slide is the epistemic "why" beneath all of Module 4. A model produces the statistically most probable output; it does not follow a causal chain of reasons a human can audit — Richard David Precht makes exactly this point in the Lanz & Precht podcast (ZDF, 2026), noting we nonetheless trust the machine more than a person (automation bias, which the Vigilance Trap slide in M9 grounds in Parasuraman & Manzey 2010). The AOM's whole answer follows: since you cannot inspect the reasoning, verify the deterministic artefact instead — tests, the git diff, an RSOP or terraform plan — measure the agent's behaviour with evals, and lean on Git traceability to replace the missing "whom do I trust" signal. The Precht line is paraphrased from an auto-transcribed episode; verify it against the audio before quoting verbatim on stage. -->
+
+---
 <!-- version: 1h 2h 4h -->
 
 <!-- _class: dense -->
