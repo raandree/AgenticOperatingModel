@@ -49,6 +49,7 @@ a new row rather than inventing a synonym.
 | Context engineering | Treating the context window as a finite budget and curating what fills it (guards against context rot). | prompt engineering |
 | Token | The smallest unit of text the model processes (~4 characters in English). | word, character |
 | Memory Bank | The versioned, per-repository knowledge base under `.memory-bank/` that persists understanding across sessions. | cache, notes, the AI's memory, context window |
+| Memory Bank integrity | Protecting trusted project state through explicit write ownership, review, source labeling, version history, and recovery outside the Agent's authority. | memory poisoning (that is one mechanism) |
 
 ## Verification and the loop
 
@@ -57,6 +58,9 @@ a new row rather than inventing a synonym.
 | The Agentic Loop | The core cycle OBSERVE → PLAN → ACT → VERIFY → ITERATE that an agent runs autonomously. | the agent workflow, the AI pipeline; EXECUTE as the third-phase name (canonical is ACT) |
 | Self-verification | The agent proving its own work by running tests, linters, or checking deterministic artefacts. | QA, generic "testing" |
 | Traceability | Using Git history to track and attribute every AI-made change. | audit log |
+| Evidence plane | One of three complementary forms of proof: Traceability, Agent observability, or claim provenance. | audit layer |
+| Agent observability | Recording an Agent's execution path — Model calls, Tool calls, hooks, subagents, errors, cost, and outcomes — through traces, metrics, and events. | Traceability, target-system observability |
+| Claim provenance | Linking a factual claim to the exact source passage and stable identifier that supports it. | citation alone |
 
 ## Protocol and control
 
@@ -64,7 +68,9 @@ a new row rather than inventing a synonym.
 | --- | --- | --- |
 | MCP | Model Context Protocol — the open standard for connecting agents to external tools and data sources. | the protocol, plugin API |
 | MCP server | A process that exposes tools and data to an agent over MCP. | plugin, integration, connector |
+| A2A | Agent2Agent Protocol — the open standard for discovery, delegation, and result exchange between independent Agents. | MCP (Agent-to-Tool), Agent handoff (in-process delegation) |
 | Checkpoint | A restorable point that lets the operator undo an agent's actions. | snapshot, save |
+| Host trust handoff | The point where Agent-controlled output becomes input to a more privileged host component such as a hook, extension, task runner, or local daemon. | sandbox escape (that is one possible outcome) |
 
 ## Governance, risk, and the human role
 
@@ -72,6 +78,7 @@ a new row rather than inventing a synonym.
 | --- | --- | --- |
 | Operator | The human who directs, reviews, approves, and can roll back the agent's work. | prompter |
 | Human oversight | Review, approval, and rollback of agent work by the operator. | hand-holding, babysitting |
+| Agent identity | The digital identity whose credentials, permissions, lifecycle, and records govern an Agent's actions. | the Operator's identity, API key |
 | Comprehension debt | The gap between code that exists in the system and code any human can still explain. | technical debt, tech debt |
 | GitOps guardrail (Layer 6) | The architectural control where the agent may only *propose* a change (commit + PR) and a gated pipeline reconciles it. | the agent deploys, the agent applies |
 | Lethal trifecta | The dangerous combination of private data + untrusted content + external communication that enables data exfiltration (OWASP `LLM01`). | prompt injection (that is the mechanism) |

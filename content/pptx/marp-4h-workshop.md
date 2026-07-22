@@ -316,7 +316,7 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 
 ### Technology Advances
 - **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
-- **Advanced reasoning** — Claude Opus 4.8, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro
+- **Advanced reasoning** — Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -341,16 +341,18 @@ Speaker notes (for newcomers):
 ### What are tokens?
 - ~4 characters or ~¾ of a word — both input and output consume them
 
-| Model | Context Window |
-|-------|----------------|
-| Claude Opus 4.8 | Up to **1M tokens** |
-| GPT-5.4 / GPT-5.4-mini | **256K tokens** |
-| Gemini 3.1 Pro | **2M tokens** |
+| Model | Copilot status (22 Jul 2026) | Best fit |
+|---|---|---|
+| Claude Opus 4.8 | preview since Jun 29; up to 1M context | premium reasoning |
+| GPT-5.6 Sol / Terra / Luna | gradual rollout since Jul 9 | highest / balanced / fast |
+| Gemini 3.6 Flash | preview rollout since Jul 21 | web, app, longer-horizon work |
+| Kimi K2.7 Code | GA; Business/Enterprise since Jul 7 | open-weight, lower-cost coding |
 
 ### Why cost matters in agentic workflows
 - Each iteration (observe → plan → act → verify) adds token usage
 - Cloud agents run autonomously — costs accumulate
-- Monitor usage via GitHub settings or Copilot output panel
+- Some models use provider list pricing under usage-based billing
+- Monitor usage via GitHub settings, per-session cost, or OpenTelemetry
 
 <!--
 Speaker notes (for newcomers):
@@ -917,6 +919,45 @@ Speaker notes (for newcomers):
 
 <!-- _class: compact -->
 
+# Three Evidence Planes — Git Is Necessary, Not Sufficient
+
+| Evidence plane | Question it answers | Durable evidence |
+|---|---|---|
+| **Traceability** | What artefact changed? | Git diff, commit, pull request |
+| **Agent observability** | How did the Agent act? | Model and Tool calls, hooks, subagents, errors, cost |
+| **Claim provenance** | Why should I trust this claim? | Exact source passage + stable identifier |
+
+Git cannot show a failed Tool call, a blocked hook, or a claim copied from the
+wrong source. **Use all three planes when the consequence matters.**
+
+> Privacy boundary: full trace capture can include prompts, code, file contents,
+> Tool arguments, and results. Capture content only in a trusted environment.
+
+<!--
+Git Traceability is deliberately retained as the first evidence plane: it is
+portable, deterministic, and sufficient for reviewing the final artefact. It is
+not a transcript of the Agent's execution. A failed Tool call, a blocked hook,
+or a discarded subagent result may leave no Git change at all.
+
+VS Code's OpenTelemetry guide (updated 2026-07-15) emits a connected trace tree
+for Agent orchestration, Model calls, Tool calls, hooks, and subagents, plus
+cost, error, and outcome metrics. GitHub Copilot session streaming entered
+public preview on 2026-07-02 for prompts, responses, and Tool calls. Keep those
+execution records separate from adoption dashboards, which measure usage rather
+than explain one action.
+
+Content capture is off by default. Turning it on can collect sensitive code,
+prompts, file contents, Tool arguments, and Tool results, so retention and
+access control become part of the design.
+
+Sources:
+- https://code.visualstudio.com/docs/agents/guides/monitoring-agents
+- https://github.blog/changelog/2026-07-02-copilot-agent-session-streaming-is-now-in-public-preview/
+-->
+---
+
+<!-- _class: compact -->
+
 # AI Does the Git Forensics for You
 
 ### Ask the agent:
@@ -1245,16 +1286,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
--->
-
-<!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1630,19 +1671,20 @@ Most teams reach for the wrong end of the spectrum first. The instinct is to put
 
 # The Standardization Wave — Your Customizations Are Portable
 
-These files are **no longer one vendor's feature**. They are open standards under the **Agentic AI Foundation** (Linux Foundation).
+Agent ecosystems are converging on **open, cross-vendor standards** under Linux Foundation governance.
 
 | Standard | What it is | Where it runs |
 |---|---|---|
-| **MCP** | tool / data connector protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **MCP** | Agent-to-Tool context and capability protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **A2A** | independent Agent-to-Agent task protocol | cross-vendor Agent systems |
 | **AGENTS.md** | project instructions for agents | most coding agents |
 | **Agent Skills** (`SKILL.md`) | on-demand expertise, progressive disclosure | Copilot, Codex, Cursor, Gemini CLI, goose… |
 
-- Founding members: **AWS, Anthropic, Google, Microsoft, OpenAI, Block, Bloomberg, Cloudflare**.
+- **Protocol map:** MCP equips one Agent; A2A lets independent Agents collaborate.
 - **Why you care:** the atelier you build here is an *investment that travels* — not lock-in.
 - The Foundation even calls it an **"agent operating stack"** — the same idea as this training's operating model.
 
-<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP were donated to the Agentic AI Foundation under the Linux Foundation, with every major vendor as a member; Agent Skills is now an open spec adopted across dozens of tools. Takeaway for the audience: the instruction files, skills, and memory-bank discipline they invest in are portable across tools, not a Copilot lock-in — and it externally validates our "operating model" framing. -->
+<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP moved under the Agentic AI Foundation, while A2A is maintained as a separate Linux Foundation project. A2A v1.0.1 shipped in May 2026, so this is a protocol-map clarification rather than a July trend: MCP is Agent-to-Tool; A2A is independent Agent-to-Agent; an in-process subagent still uses the host's native delegation primitive. Takeaway: instruction files, Skills, and protocol investments are portable, but exact support still varies by product. Sources: https://aaif.io/ and https://a2a-protocol.org/latest/ -->
 
 ---
 
@@ -2430,16 +2472,16 @@ Start   Created  Modified  Added   Deleted   Broke
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
 <!--
-Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
-
-The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
--->
-
-<!--
 Speaker notes (for newcomers):
 - VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
 - Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
 - Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
+-->
+
+<!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
 -->
 ---
 
@@ -2554,6 +2596,36 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
+-->
+
+<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2602,36 +2674,6 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
--->
-
-<!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 
@@ -2907,18 +2949,97 @@ The guardrails above steer what the agent *chooses*. **Containment limits what i
 |---|---|
 | System-prompt rules, approvals | Sandboxes, VMs, egress allow-lists |
 | "please don't…" | "you physically can't…" |
-| Probabilistic — misses some | Deterministic — the hard boundary |
+| Probabilistic — misses some | Deterministic enforcement — if the boundary is complete |
 
 - **If a secret never enters the sandbox, it can't be exfiltrated** — no matter what the prompt injection says.
 - **Match isolation to the operator:** a dev who reads `bash` is not a knowledge worker who can't. The less the user can judge, the harder the boundary must be.
 - Live now: Copilot **cloud + local sandboxes**, devcontainers, VM-isolated desktop agents.
 
+> A sandbox reduces blast radius. It is not proof that every host trust handoff is contained.
+
 > Approval fatigue is real — users approve **~93%** of prompts. Don't rely on clicks; rely on boundaries.
 
 *Review tool:* CopilotAtelier's [`agent-security-review`](https://github.com/raandree/CopilotAtelier) skill runs the lethal-trifecta test, the OWASP LLM Top 10, and this containment checklist against any agent or MCP-server wiring.
 
-<!-- Speaker notes: Anthropic's core 2026 lesson — "design for containment at the environment layer first, then steer behaviour at the model layer." Two of their worst incidents were data leaving through a permitted path, where the model layer had nothing anomalous to catch and only the environment (egress controls, filesystem boundaries) could stop it. Tie to GitOps Layer 6 (a capability-based control) and to operator oversight: match isolation strength to how well the user can actually judge what the agent is doing. -->
+<!--
+Containment first means designing at the environment layer before tuning the
+Model layer. It generalizes the GitOps guardrail: the Agent can remain useful
+while entire classes of action are structurally unavailable.
 
+The qualification is important. Deterministic enforcement is only as strong as
+the boundary it actually covers. Slide 9.8h shows how workspace files,
+extensions, hooks, and daemons can bridge into more privileged host execution.
+-->
+---
+
+<!-- _class: compact -->
+
+# Agent Identity — Whose Authority Acts?
+
+> An Agent does not automatically have its own identity. Declare the identity
+> used by every Tool path.
+
+| Identity model | Typical use | Main risk |
+|---|---|---|
+| **Delegated Operator identity** | interactive local work | silently inherits broad human access |
+| **Tool or service identity** | one bounded capability | fragmented ownership and records |
+| **Distinct Agent identity** | async or enterprise Agent | lifecycle and entitlement sprawl |
+
+Every production Agent needs a **named human sponsor**, least privilege,
+environment scope, expiring access with review, and immediate revocation.
+
+> Do not ask only *"what can the Agent do?"* Ask *"which identity authorizes
+> this action, for how long, and who owns it?"*
+
+<!--
+NIST's NCCoE identity and authorization project is still reviewing comments,
+so present this as an emerging standards direction, not a finished mandate.
+Microsoft Entra Agent ID provides one concrete implementation: distinct Agent
+identities, human sponsors, scoped and expiring access, and lifecycle controls.
+
+A dedicated Agent identity is often the strongest enterprise pattern, but it is
+not universal. Local Agents may act through the Operator; MCP servers may use a
+service identity. The requirement is to declare the model and make the resulting
+authority, ownership, expiry, and records explicit.
+
+Sources:
+- https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization
+- https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
+-->
+---
+
+<!-- _class: compact -->
+
+# Containment Must Cover Host Trust Handoffs
+
+The Agent can obey its sandbox policy and still influence something more
+privileged that later consumes its output.
+
+| Agent-controlled input | Host component | Possible effect outside the boundary |
+|---|---|---|
+| `.vscode/tasks.json` or hooks | task / hook runner | unsandboxed command execution |
+| virtual-environment interpreter | language extension | host-side binary discovery |
+| Git configuration / `fsmonitor` | Git integration | helper process execution |
+| Docker socket | privileged local daemon | host-level container action |
+
+**Test the whole chain:** deny by default · review workspace automation · apply
+the same policy to helpers · restrict local daemons · trace every handoff.
+
+> The boundary is not just the Agent process. It includes everything the Agent
+> can write that the host later trusts.
+
+<!--
+Pillar Security's July 2026 disclosure series documents the same pattern across
+several coding-Agent products. Pillar is both the discoverer and a commercial
+security vendor, so use the concrete technical chains rather than its marketing
+claims. Disclosure and patch status vary by issue.
+
+The reusable threat model has three layers: direct execution, workspace writes,
+and host trust. Ask which unsandboxed component reads what the Agent wrote, and
+what execution or authority follows from that read.
+
+Source: https://www.pillar.security/blog/the-week-of-sandbox-escapes
+-->
 ---
 
 # When to Avoid ❌
@@ -3666,6 +3787,40 @@ Speaker notes (for newcomers):
 - Why needed? Because each new chat starts fresh — the AI doesn't remember yesterday. The Memory Bank is the briefing you hand it on day 1.
 - Don't overthink it: start with `projectbrief.md` ("what is this project") and `activeContext.md` ("what are we working on right now"). Add the rest only when you feel the pain.
 - The template in `content/materials/` is ready to copy into any new project.
+-->
+---
+
+<!-- _class: compact -->
+
+# Memory Bank Integrity — Trusted State Needs a Boundary
+
+A Memory Bank is durable context the Agent rereads. A bad write can persist
+across every future session.
+
+| State | Default write authority | Required control |
+|---|---|---|
+| Instructions, glossary, project brief | Operator / reviewer | Agent proposes a diff; human approves |
+| Active context and progress | shared | narrow path access + review each change |
+| External factual claims | Agent may draft | claim provenance + unverified-notes area |
+| Prompt history | append-only | no silent rewrite or deletion |
+| Recovery copy | outside Agent reach | protected remote / snapshot + restore drill |
+
+> Versioning detects and reverses corruption only if the Agent cannot erase the
+> history and someone reviews the diff.
+
+<!--
+A July 2026 arXiv preprint formalizes "self-state attacks" against writable
+Agent memory and configuration. It provides useful evidence for a threat model,
+not a universal incident claim: the paper is unreviewed and evaluates one
+representative self-hosted harness.
+
+The paper supports access control for instructions and configuration,
+workload-conditioned detection for memory, and periodic backup. The AOM adds
+its existing Human oversight and claim-provenance practices: make write authority
+explicit, require review on trusted state, label sourced and unsourced claims,
+and keep recovery outside the Agent's authority.
+
+Source: https://arxiv.org/abs/2607.17986
 -->
 ---
 

@@ -26,13 +26,28 @@ Learn how AI agents go beyond code suggestions to autonomously write, test, and 
 
 > **This is not a PowerShell training. It is not even a coding training. It is a training about a new working model — versioned, agent-assisted knowledge work — that applies to code, infrastructure, research, and legal/business work alike. Coding is one instance of the pattern, not the pattern itself.**
 
+### Scope of this AOM
+
+The phrase *Agentic Operating Model* is also used for enterprise production and
+governance frameworks. This repository uses it in a specific sense: the
+**repository/workbench-level method** for versioned context, Agent action,
+Self-verification, and Human oversight across code and knowledge work.
+
+That scope complements, but is not interchangeable with, production-lifecycle
+models such as LangChain's
+[*The Agentic Operating Model*](https://info.langchain.com/guide/the-agentic-operating-model)
+and enterprise-governance models such as California Management Review's
+[*Governing the Agentic Enterprise*](https://cmr.berkeley.edu/2026/03/governing-the-agentic-enterprise-a-new-operating-model-for-autonomous-ai-at-scale/).
+Those models ask how organizations operate fleets of production Agents; this
+one teaches how an Operator and an Agent do reviewable work together.
+
 ## Three-Version Architecture
 
 | Version | Duration | Slides | Slide deck (PPTX) | Best For |
 |---------|----------|-------:|-------------------|----------|
-| **1h Keynote** | 60 min | 28 | [agentic-operating-model-1h.pptx](content/pptx/agentic-operating-model-1h.pptx) | Conference talks, meetups, lunch & learns |
-| **2h Standard** | 120 min | 65 | [agentic-operating-model-2h.pptx](content/pptx/agentic-operating-model-2h.pptx) | Team briefings, customer presentations |
-| **4h Workshop** | ~4.5h | 120 | [agentic-operating-model-4h.pptx](content/pptx/agentic-operating-model-4h.pptx) | Practitioner deep dives, hands-on workshops |
+| **1h Keynote** | 60 min | 30 | [agentic-operating-model-1h.pptx](content/pptx/agentic-operating-model-1h.pptx) | Conference talks, meetups, lunch & learns |
+| **2h Standard** | 120 min | 74 | [agentic-operating-model-2h.pptx](content/pptx/agentic-operating-model-2h.pptx) | Team briefings, customer presentations |
+| **4h Workshop** | ~4.5h | 145 | [agentic-operating-model-4h.pptx](content/pptx/agentic-operating-model-4h.pptx) | Practitioner deep dives, hands-on workshops |
 
 All versions share a single set of module content. See the [presentation agenda](agenda/presentation-agenda.md) for the full version matrix and slide inclusion guide.
 

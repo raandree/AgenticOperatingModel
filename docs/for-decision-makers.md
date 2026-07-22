@@ -20,6 +20,21 @@ This repository packages that model as a ready-to-deliver session in three
 lengths: a **1-hour keynote**, a **2-hour briefing**, and a **4-hour
 workshop**.
 
+## Where This AOM Sits
+
+*Agentic Operating Model* is no longer a unique phrase. Different publications
+use it at different levels of abstraction:
+
+| Level | Operating question | Example |
+|---|---|---|
+| **Work / repository** | How do an Operator and an Agent produce a reviewable artefact? | **This repository** |
+| **Agent platform** | How do teams build, evaluate, deploy, monitor, and improve production Agents? | [LangChain's production-lifecycle guide](https://info.langchain.com/guide/the-agentic-operating-model) |
+| **Enterprise governance** | How does an organization assign authority, control, and accountability across Agent systems? | [California Management Review's governance model](https://cmr.berkeley.edu/2026/03/governing-the-agentic-enterprise-a-new-operating-model-for-autonomous-ai-at-scale/) |
+
+These models are complementary, not interchangeable. This curriculum owns the
+first layer and provides the practices that make the other two governable:
+versioned intent, bounded action, evidence, and Human oversight.
+
 ## The Problem You Probably Already Have
 
 Most organisations sit somewhere on this spectrum, and both ends lose money:
@@ -117,6 +132,9 @@ instruction files, skills, and governance carry across all three.
   up unfamiliar work safely.
 - **Bounded risk.** Explicit guardrails (below) keep the blast radius small
   even when an agent misbehaves.
+- **Three evidence planes.** Git provides Traceability of the changed artefact;
+  Agent observability records Model and Tool calls, hooks, subagents, errors,
+  cost, and outcomes; claim provenance anchors factual claims to sources.
 
 ## Risk and Governance — Why This *De-Risks* Adoption
 
@@ -136,6 +154,12 @@ safe to roll out:
   *with AI, not from AI* principle, so adoption does not burn out your people.
 - **Team dynamics** — the cheating-agent trap and the shift of the bottleneck
   from typing to specification and supervision.
+- **Trusted state and identity** — Memory Bank write ownership, protected
+  recovery, explicit Agent identity, a named human sponsor, scoped access,
+  expiry, and revocation.
+- **Containment that includes the host** — workspace automation, hooks,
+  extensions, helper processes, and local daemons are treated as host trust
+  handoffs, not assumed to sit inside the Agent process boundary.
 
 For a decision-maker this is the signal that the material is honest and
 deployable: it tells your teams **when not to use an agent**, and how to bound

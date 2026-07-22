@@ -291,7 +291,7 @@ style: |
 
 ### Technology Advances
 - **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
-- **Advanced reasoning** — Claude Opus 4.8, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro
+- **Advanced reasoning** — Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -309,16 +309,18 @@ style: |
 ### What are tokens?
 - ~4 characters or ~¾ of a word — both input and output consume them
 
-| Model | Context Window |
-|-------|----------------|
-| Claude Opus 4.8 | Up to **1M tokens** |
-| GPT-5.4 / GPT-5.4-mini | **256K tokens** |
-| Gemini 3.1 Pro | **2M tokens** |
+| Model | Copilot status (22 Jul 2026) | Best fit |
+|---|---|---|
+| Claude Opus 4.8 | preview since Jun 29; up to 1M context | premium reasoning |
+| GPT-5.6 Sol / Terra / Luna | gradual rollout since Jul 9 | highest / balanced / fast |
+| Gemini 3.6 Flash | preview rollout since Jul 21 | web, app, longer-horizon work |
+| Kimi K2.7 Code | GA; Business/Enterprise since Jul 7 | open-weight, lower-cost coding |
 
 ### Why cost matters in agentic workflows
 - Each iteration (observe → plan → act → verify) adds token usage
 - Cloud agents run autonomously — costs accumulate
-- Monitor usage via GitHub settings or Copilot output panel
+- Some models use provider list pricing under usage-based billing
+- Monitor usage via GitHub settings, per-session cost, or OpenTelemetry
 
 ---
 <!-- version: 2h 4h -->
@@ -726,6 +728,25 @@ new file mode 100644
 - Every line added, modified, or deleted — **visible**
 - No hidden changes
 - **Full accountability**
+
+---
+<!-- version: 2h 4h -->
+
+<!-- _class: compact -->
+
+# Three Evidence Planes — Git Is Necessary, Not Sufficient
+
+| Evidence plane | Question it answers | Durable evidence |
+|---|---|---|
+| **Traceability** | What artefact changed? | Git diff, commit, pull request |
+| **Agent observability** | How did the Agent act? | Model and Tool calls, hooks, subagents, errors, cost |
+| **Claim provenance** | Why should I trust this claim? | Exact source passage + stable identifier |
+
+Git cannot show a failed Tool call, a blocked hook, or a claim copied from the
+wrong source. **Use all three planes when the consequence matters.**
+
+> Privacy boundary: full trace capture can include prompts, code, file contents,
+> Tool arguments, and results. Capture content only in a trusted environment.
 
 ---
 <!-- version: 4h -->
@@ -1313,19 +1334,20 @@ Type `/CodeReview` in Copilot Chat → the template runs with your context.
 
 # The Standardization Wave — Your Customizations Are Portable
 
-These files are **no longer one vendor's feature**. They are open standards under the **Agentic AI Foundation** (Linux Foundation).
+Agent ecosystems are converging on **open, cross-vendor standards** under Linux Foundation governance.
 
 | Standard | What it is | Where it runs |
 |---|---|---|
-| **MCP** | tool / data connector protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **MCP** | Agent-to-Tool context and capability protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **A2A** | independent Agent-to-Agent task protocol | cross-vendor Agent systems |
 | **AGENTS.md** | project instructions for agents | most coding agents |
 | **Agent Skills** (`SKILL.md`) | on-demand expertise, progressive disclosure | Copilot, Codex, Cursor, Gemini CLI, goose… |
 
-- Founding members: **AWS, Anthropic, Google, Microsoft, OpenAI, Block, Bloomberg, Cloudflare**.
+- **Protocol map:** MCP equips one Agent; A2A lets independent Agents collaborate.
 - **Why you care:** the atelier you build here is an *investment that travels* — not lock-in.
 - The Foundation even calls it an **"agent operating stack"** — the same idea as this training's operating model.
 
-<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP were donated to the Agentic AI Foundation under the Linux Foundation, with every major vendor as a member; Agent Skills is now an open spec adopted across dozens of tools. Takeaway for the audience: the instruction files, skills, and memory-bank discipline they invest in are portable across tools, not a Copilot lock-in — and it externally validates our "operating model" framing. -->
+<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP moved under the Agentic AI Foundation, while A2A is maintained as a separate Linux Foundation project. A2A v1.0.1 shipped in May 2026, so this is a protocol-map clarification rather than a July trend: MCP is Agent-to-Tool; A2A is independent Agent-to-Agent; an in-process subagent still uses the host's native delegation primitive. Takeaway: instruction files, Skills, and protocol investments are portable, but exact support still varies by product. Sources: https://aaif.io/ and https://a2a-protocol.org/latest/ -->
 
 ---
 <!-- version: 2h 4h -->
@@ -2303,17 +2325,62 @@ The guardrails above steer what the agent *chooses*. **Containment limits what i
 |---|---|
 | System-prompt rules, approvals | Sandboxes, VMs, egress allow-lists |
 | "please don't…" | "you physically can't…" |
-| Probabilistic — misses some | Deterministic — the hard boundary |
+| Probabilistic — misses some | Deterministic enforcement — if the boundary is complete |
 
 - **If a secret never enters the sandbox, it can't be exfiltrated** — no matter what the prompt injection says.
 - **Match isolation to the operator:** a dev who reads `bash` is not a knowledge worker who can't. The less the user can judge, the harder the boundary must be.
 - Live now: Copilot **cloud + local sandboxes**, devcontainers, VM-isolated desktop agents.
 
+> A sandbox reduces blast radius. It is not proof that every host trust handoff is contained.
+
 > Approval fatigue is real — users approve **~93%** of prompts. Don't rely on clicks; rely on boundaries.
 
 *Review tool:* CopilotAtelier's [`agent-security-review`](https://github.com/raandree/CopilotAtelier) skill runs the lethal-trifecta test, the OWASP LLM Top 10, and this containment checklist against any agent or MCP-server wiring.
 
-<!-- Speaker notes: Anthropic's core 2026 lesson — "design for containment at the environment layer first, then steer behaviour at the model layer." Two of their worst incidents were data leaving through a permitted path, where the model layer had nothing anomalous to catch and only the environment (egress controls, filesystem boundaries) could stop it. Tie to GitOps Layer 6 (a capability-based control) and to operator oversight: match isolation strength to how well the user can actually judge what the agent is doing. -->
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# Agent Identity — Whose Authority Acts?
+
+> An Agent does not automatically have its own identity. Declare the identity
+> used by every Tool path.
+
+| Identity model | Typical use | Main risk |
+|---|---|---|
+| **Delegated Operator identity** | interactive local work | silently inherits broad human access |
+| **Tool or service identity** | one bounded capability | fragmented ownership and records |
+| **Distinct Agent identity** | async or enterprise Agent | lifecycle and entitlement sprawl |
+
+Every production Agent needs a **named human sponsor**, least privilege,
+environment scope, expiring access with review, and immediate revocation.
+
+> Do not ask only *"what can the Agent do?"* Ask *"which identity authorizes
+> this action, for how long, and who owns it?"*
+
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# Containment Must Cover Host Trust Handoffs
+
+The Agent can obey its sandbox policy and still influence something more
+privileged that later consumes its output.
+
+| Agent-controlled input | Host component | Possible effect outside the boundary |
+|---|---|---|
+| `.vscode/tasks.json` or hooks | task / hook runner | unsandboxed command execution |
+| virtual-environment interpreter | language extension | host-side binary discovery |
+| Git configuration / `fsmonitor` | Git integration | helper process execution |
+| Docker socket | privileged local daemon | host-level container action |
+
+**Test the whole chain:** deny by default · review workspace automation · apply
+the same policy to helpers · restrict local daemons · trace every handoff.
+
+> The boundary is not just the Agent process. It includes everything the Agent
+> can write that the host later trusts.
 
 ---
 <!-- version: 4h -->
@@ -2932,6 +2999,27 @@ The same six or seven files appear in every serious GHCP project:
 
 > **Tool-neutral**: Copilot · Claude Code · Cline all converge here.
 > **Template shipped**: `content/materials/memory-bank-template/`
+
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# Memory Bank Integrity — Trusted State Needs a Boundary
+
+A Memory Bank is durable context the Agent rereads. A bad write can persist
+across every future session.
+
+| State | Default write authority | Required control |
+|---|---|---|
+| Instructions, glossary, project brief | Operator / reviewer | Agent proposes a diff; human approves |
+| Active context and progress | shared | narrow path access + review each change |
+| External factual claims | Agent may draft | claim provenance + unverified-notes area |
+| Prompt history | append-only | no silent rewrite or deletion |
+| Recovery copy | outside Agent reach | protected remote / snapshot + restore drill |
+
+> Versioning detects and reverses corruption only if the Agent cannot erase the
+> history and someone reviews the diff.
 
 ---
 <!-- version: 4h -->

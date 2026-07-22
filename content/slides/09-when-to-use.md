@@ -8,6 +8,9 @@
 | 9.8c | Real Incident — 9 Seconds, One Database | — | — | ✅ |
 | 9.8d | Guardrails for Destructive Operations | — | — | ✅ |
 | 9.8e | GitOps as the Architectural Guardrail | — | — | ✅ |
+| 9.8f | Containment First | — | — | ✅ |
+| 9.8g | Agent Identity — Whose Authority Acts? | — | — | ✅ |
+| 9.8h | Containment Must Cover Host Trust Handoffs | — | — | ✅ |
 | 9.9–9.10 | All slides | — | — | ✅ |
 | 9.10a | The Bottleneck Has Moved | — | — | ✅ |
 | 9.10b | Job Hollowing & Heteromation | — | — | ✅ |
@@ -493,6 +496,101 @@ Speaker notes (for newcomers):
 - The robot has all the dangerous permissions; the AI only has "can write files in this repo."
 - Net result: even if the AI goes rogue, the worst it can do is open a pull request — which a human still has to approve.
 - This is overkill for a personal project. It is the right answer for any production system. Worth knowing it exists.
+-->
+
+---
+
+## Slide 9.8f: Containment First
+
+# Containment First — Cap the Blast Radius
+
+| Steer behaviour (model layer) | Contain capability (environment layer) |
+|---|---|
+| Instruction-file rules, approvals | Sandboxes, VMs, egress allow-lists |
+| "please don't…" | "you physically can't…" |
+| Probabilistic — misses some | Deterministic enforcement — if the boundary is complete |
+
+- Keep secrets outside the Agent's reachable environment.
+- Match isolation strength to what the Operator can realistically judge.
+- Treat approval prompts as a fallback, not the primary boundary.
+
+> A sandbox reduces blast radius. It is not proof that every host trust handoff
+> is contained.
+
+<!--
+Containment first means designing at the environment layer before tuning the
+Model layer. It generalizes the GitOps guardrail: the Agent can remain useful
+while entire classes of action are structurally unavailable.
+
+The qualification is important. Deterministic enforcement is only as strong as
+the boundary it actually covers. Slide 9.8h shows how workspace files,
+extensions, hooks, and daemons can bridge into more privileged host execution.
+-->
+
+---
+
+## Slide 9.8g: Agent Identity — Whose Authority Acts?
+
+# Agent Identity — Whose Authority Acts?
+
+An Agent does not automatically have its own identity. Declare the identity
+used by every Tool path.
+
+| Identity model | Typical use | Main risk |
+|---|---|---|
+| **Delegated Operator identity** | interactive local work | silently inherits broad human access |
+| **Tool or service identity** | one bounded capability | fragmented ownership and records |
+| **Distinct Agent identity** | async or enterprise Agent | lifecycle and entitlement sprawl |
+
+Every production Agent needs a **named human sponsor**, least privilege,
+environment scope, expiring access with review, and immediate revocation.
+
+<!--
+NIST's NCCoE identity and authorization project is still reviewing comments,
+so present this as an emerging standards direction, not a finished mandate.
+Microsoft Entra Agent ID provides one concrete implementation: distinct Agent
+identities, human sponsors, scoped and expiring access, and lifecycle controls.
+
+A dedicated Agent identity is often the strongest enterprise pattern, but it is
+not universal. Local Agents may act through the Operator; MCP servers may use a
+service identity. The requirement is to declare the model and make the resulting
+authority, ownership, expiry, and records explicit.
+
+Sources:
+- https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization
+- https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
+-->
+
+---
+
+## Slide 9.8h: Containment Must Cover Host Trust Handoffs
+
+# Containment Must Cover Host Trust Handoffs
+
+| Agent-controlled input | Host component | Possible effect outside the boundary |
+|---|---|---|
+| `.vscode/tasks.json` or hooks | task / hook runner | unsandboxed command execution |
+| virtual-environment interpreter | language extension | host-side binary discovery |
+| Git configuration / `fsmonitor` | Git integration | helper process execution |
+| Docker socket | privileged local daemon | host-level container action |
+
+**Test the whole chain:** deny by default · review workspace automation · apply
+the same policy to helpers · restrict local daemons · trace every handoff.
+
+> The boundary is not just the Agent process. It includes everything the Agent
+> can write that the host later trusts.
+
+<!--
+Pillar Security's July 2026 disclosure series documents the same pattern across
+several coding-Agent products. Pillar is both the discoverer and a commercial
+security vendor, so use the concrete technical chains rather than its marketing
+claims. Disclosure and patch status vary by issue.
+
+The reusable threat model has three layers: direct execution, workspace writes,
+and host trust. Ask which unsandboxed component reads what the Agent wrote, and
+what execution or authority follows from that read.
+
+Source: https://www.pillar.security/blog/the-week-of-sandbox-escapes
 -->
 
 ---

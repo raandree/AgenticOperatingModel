@@ -2,6 +2,25 @@
 
 ## Current Focus
 
+**Task (2026-07-22, July web-gap integration — uncommitted on `main`)**:
+Implemented the prioritized findings from the 2026-07-22 web refresh without
+creating a branch or commit, per user instruction. Added the 2h/4h M3 slide
+*Three Evidence Planes — Git Is Necessary, Not Sufficient* (Traceability,
+Agent observability, claim provenance); added 4h slides for Agent identity,
+host trust handoffs, and Memory Bank integrity; qualified containment so its
+deterministic guarantee depends on a complete boundary; added the MCP/A2A
+protocol map. Extended the Memory Bank template and destructive-operations
+handout with write ownership, human sponsorship, scoped/expiring access,
+revocation, protected recovery, and host-side trust checks. Clarified in the
+README and decision-maker page that this AOM owns the repository/workbench
+layer, while newer LangChain and California Management Review uses target
+production lifecycle and enterprise governance. Refreshed July currency to VS
+Code 1.128 and current Copilot model rollouts. Final build: **30 / 74 / 145**
+source slides; rendered overflow **0 / 0 / 0**; Pester **11/11**; targeted PNG
+review clean; native PPTX re-exported with **31 / 75 / 146** slide parts and the
+same number of speaker-note parts. Current state intentionally remains
+**uncommitted on `main`**. Prior focus retained below.
+
 **Task (2026-07-17, branch-disposition confirmation)**: Closed the content-diff confirmation the 2026-07-08 audit had deferred. Compared each of the five lingering branches against **current `main`** (not the stale merge-base). Verdict: **none is worth merging.** (1) `ai/memory-bank-glossary` — 0 commits ahead, already in `main` (glossary landed via `1864a4e`); nothing to merge. (2) `feature/mcp-demo-server` — `git diff main <branch> -- content/demos` is **empty**; its `Start-AgenticDemoMcp.ps1` + Node `server.js` are identical to `main` (squash-merged 2026-05-20); the 4 "ahead" commits are pre-squash history. (3) `ai/mcp-server-powershell-port` + (4) `ai/refurbish-ps-mcp-server` — a **superseded** lineage built on the old `server.ps1` filename; merging would **delete** `main`'s current `Start-AgenticDemoMcp.ps1` (611 lines) and shrink `server.js` by 151 lines — a regression. (5) `feature/contentUpdate` — 27 behind / 4 ahead; net content delta vs `main` is **+68 / −1513** (overwhelmingly deletions); every headline concept already lives on `main` in a more evolved form — *comprehension debt* (GetClear 211 M-LOC, 5.5%→7.9% in `cheat-sheet.md`), spec-driven Pitfall/Beck/Pocock, operator-sustainability (Heteromation/Vigilance/Stockfish/Mössner), and even the distinctive *gray-box delegation* framing (now in `09-when-to-use.md` + master); its 68 unique lines are **older** (Claude Opus **4.7** vs `main`'s **4.8**, "~20 skills" vs "~37", `[Your URL]` placeholders v1.1.0 already relabeled). **Cleanup actioned (2026-07-17):** the user deleted all five local branches, and this audit's record branch `ai/branch-disposition-audit` was fast-forward-merged into `main` and then deleted — so besides `main` no local branches remain, and `main` sits 1 commit ahead of `origin/main` (not pushed). `origin/*` counterparts for the deleted branches (and the stray `origin/ai/spec-driven-slide-split`, 04cb762) may still exist on the remote — delete on go-ahead. Prior focus retained below.
 
 **Task (2026-07-13, Precht/Lanz slide + notes)**: From a user-supplied *Lanz & Precht* (ZDF, 2026) podcast transcript, assessed fit against the AOM curriculum, then — on "do it but don't commit" — implemented the one genuine gap. Added a **4h-only** slide *You Can Verify the Output, Not the Reasoning* to the Trust-but-Verify module in the build source [content/slides/marp-presentation.md](../content/slides/marp-presentation.md), inserted after *Can You Trust AI-Generated Code?* as the epistemic *why* before *The Self-Verification Loop*: a model's answer is statistical correlation, not an auditable causal chain, so the operating model verifies the deterministic **artefact** (tests, `git diff`, RSOP/`terraform plan`), **behaviour** (evals), and **traceability** (Git) — never the reasoning. Appended German Precht paraphrases to the existing **Job Hollowing** (9.10b) and **Vigilance Trap** (9.10c — Precht names *Automation bias* outright) speaker notes in the split [content/slides/09-when-to-use.md](../content/slides/09-when-to-use.md); the notes go in the split (not inline in the monolith) because both slides pull merged notes by title and an inline comment would trip the note-merge skip-guard. All German lines marked *paraphrased from an auto-transcribed episode — verify against the audio before quoting verbatim*. Rebuild: 4h **140 → 141**, 1h/2h unchanged, overflow **0/0/0**, build Pester **11/11**; new slide + both merged notes confirmed present only in `marp-4h-workshop.md`. CHANGELOG `[Unreleased] › Added` updated. **Not committed** per user; the three tracked PPTX are now stale (new slide absent) — `.\build.ps1 -Version all -ExportPptx` offered, not run. Prior focus retained below.

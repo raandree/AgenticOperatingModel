@@ -32,8 +32,14 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 | **Prompt Files** | .prompt.md files for reusable /slash commands |
 | **Agent Handoffs** | Agents delegating to other agents (Dev → QA → Prod) |
 | **Memory Bank** | Persistent knowledge base maintained across sessions |
+| **Memory Bank Integrity** | Explicit write ownership, review, source labeling, protected history, and tested recovery for trusted context |
 | **MCP** | Model Context Protocol — standard for connecting agents to external tools |
+| **A2A** | Agent2Agent Protocol — standard for communication between independent agents |
 | **Traceability** | Git tracks all AI changes |
+| **Agent Observability** | Traces, metrics, and events for Model calls, Tool calls, hooks, subagents, errors, cost, and outcomes |
+| **Claim Provenance** | Exact source passage + stable identifier supporting a factual claim |
+| **Agent Identity** | The identity whose permissions, lifecycle, and records govern Agent actions |
+| **Host Trust Handoff** | Agent-controlled output consumed by a more-privileged host component |
 
 ---
 
@@ -139,18 +145,23 @@ The same task improves dramatically with each added layer:
 
 ## What's New to Teach (2026 H2)
 
-Seven ideas the field crystallized in 2026 — each now has a slide (full evidence
-in the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-trends.md)).
+The June landscape pass produced seven primary additions. A July refresh added
+four evidence and governance refinements. Full evidence for the first pass is in
+the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-trends.md).
 
 | Idea | One line | Slide |
 |------|----------|-------|
 | **Lethal trifecta** | private data + untrusted content + external comms = data theft; break the trifecta, don't filter it (OWASP `LLM01`) | M6 |
-| **Containment first** | cap what the agent *can reach* (sandbox / VM / egress), not just what it's *told* — the deterministic boundary | M6 |
+| **Containment first** | cap what the Agent *can reach* (sandbox / VM / egress), not just what it is *told*; deterministic enforcement requires a complete boundary | M6 |
 | **Context engineering** | context is a finite budget; a bigger window ≠ better (context rot); the Memory Bank *is* this pattern | M2 |
 | **Evals ≠ unit tests** | tests verify the *code*; evals score the *agent* (graders, LLM-as-judge, pass@k vs pass^k) | M4 |
 | **Orchestration patterns** | beyond handoffs: routing, parallelization, orchestrator-workers, evaluator-optimizer, sub-agents | M3 |
-| **Open standards (AAIF)** | MCP · AGENTS.md · Agent Skills are Linux-Foundation standards — your atelier is portable, not lock-in | M3 |
+| **Open standards** | MCP connects Agent-to-Tool; A2A connects independent Agent-to-Agent; AGENTS.md and Agent Skills make customization portable | M3 |
 | **Autonomy horizon** | agent task length is doubling ~every 7 months (METR) — plan for longer-running work | Intro |
+| **Three evidence planes** | Git Traceability shows the artefact; Agent observability shows execution; claim provenance supports facts | M3 |
+| **Memory Bank integrity** | trusted context needs write ownership, review, source labeling, protected history, and tested recovery | M11 |
+| **Agent identity** | declare whose authority acts; name a human sponsor; scope, expire, review, and revoke access | M9 |
+| **Host trust handoffs** | containment includes workspace automation, hooks, extensions, helpers, sockets, and local daemons | M9 |
 
 > **Golden rule for the trifecta and destructive ops alike:** the agent will be
 > wrong eventually — the *system around it* must not be.
@@ -159,19 +170,20 @@ in the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-t
 
 ## Token Usage & Cost Awareness
 
-| Model | Context Window | Notes |
-|-------|----------------|-------|
-| **Claude Opus 4.8** | Up to 1M tokens | Current premium reasoning model (Copilot preview, Jun 2026); Opus 4.7 superseded |
-| GPT-5.4 / GPT-5.4-mini | 256K tokens | Current OpenAI generation (GPT-5.1 series retired Apr 2026) |
-| GPT-5.3-Codex | 256K tokens | Specialized coding variant |
-| Gemini 3.1 Pro | 2M tokens | Largest context window option |
+| Model | Copilot status (22 Jul 2026) | Best fit |
+|---|---|---|
+| **Claude Opus 4.8** | Preview since 29 Jun; up to 1M-token context | Premium reasoning |
+| GPT-5.6 Sol / Terra / Luna | Gradual rollout since 9 Jul | Highest reasoning / balanced / fast and low cost |
+| Gemini 3.6 Flash | Preview rollout since 21 Jul | Web and app development, longer-horizon work, parallel Tool use |
+| Kimi K2.7 Code | GA since 1 Jul; Business/Enterprise since 7 Jul | First selectable open-weight Copilot model, lower-cost coding |
 
 - ~4 characters = 1 token (~¾ of a word)
 - Agentic loops consume **more tokens** than single-shot requests (each iteration adds usage)
 - Monitor usage via GitHub Copilot dashboard or VS Code output panel
 - Cloud agents run autonomously — costs accumulate without per-step approval
+- Some models are billed at provider list pricing under usage-based billing; plan policies and allowances vary
 - **Auto model selection** (Copilot CLI & Chat, 2026) picks a model per request based on task complexity
-- **BYOK** (VS Code 1.117+, Business/Enterprise): bring your own OpenAI / OpenRouter / Ollama / Google keys for compliance or local-model use
+- **BYOK**: bring your own OpenAI / OpenRouter / Ollama / Google keys; Agent Host model support remains experimental in VS Code 1.128
 
 ---
 
@@ -184,6 +196,9 @@ in the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-t
 | Checkpoint/rollback | Undo agent actions |
 | Command confirmation | User must confirm (default) |
 | Workspace isolation | No access outside workspace unless configured |
+| Agent identity | Named sponsor, least privilege, expiry, review, and revocation |
+| Agent observability | Trace Agent, Model, Tool, hook, and subagent execution without capturing content by default |
+| Host trust handoffs | Apply the boundary to workspace automation, helpers, and privileged daemons |
 
 ### How to restrict agent capabilities:
 - Set tool approval to "Ask always" for sensitive operations
@@ -487,6 +502,9 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~3
 - **Alternative Tools**: Cursor (cursor.com), Claude Code (code.claude.com)
 - **Complementary Tools**: Warp (warp.dev), GitHub Copilot CLI, Zed (zed.dev)
 - **MCP Standard**: https://modelcontextprotocol.io
+- **A2A Standard**: https://a2a-protocol.org/latest/
+- **Agent Observability with OpenTelemetry**: https://code.visualstudio.com/docs/agents/guides/monitoring-agents
+- **NIST Agent Identity and Authorization**: https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization
 - **CopilotAtelier** (reference repo for cross-machine customization): https://github.com/raandree/CopilotAtelier
 - **ShellPilot** (GitHub Copilot in your PowerShell terminal — reuses your instructions + skills, returns usage/cost objects): https://github.com/raandree/ShellPilot
 - **DeskPilot** (desktop chat UI on the ShellPilot engine — the no-terminal front door for non-technical users): https://github.com/raandree/DeskPilot

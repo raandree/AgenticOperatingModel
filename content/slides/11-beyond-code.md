@@ -11,6 +11,7 @@
 | 11.5 | Markdown as the Reasoning Substrate | — | — | ✅ |
 | 11.6 | Git Is Not Just for Code | — | ✅ | ✅ |
 | 11.7 | The Memory Bank Pattern | — | ✅ | ✅ |
+| 11.7a | Memory Bank Integrity — Trusted State Needs a Boundary | — | — | ✅ |
 | 11.8 | PowerShell as the "Fingers" | — | — | ✅ |
 | 11.9 | Data Governance & Confidentiality | — | ✅ | ✅ |
 | 11.10 | Audience Extensions | — | — | ✅ |
@@ -228,6 +229,41 @@ Speaker notes (for newcomers):
 - Why needed? Because each new chat starts fresh — the AI doesn't remember yesterday. The Memory Bank is the briefing you hand it on day 1.
 - Don't overthink it: start with `projectbrief.md` ("what is this project") and `activeContext.md` ("what are we working on right now"). Add the rest only when you feel the pain.
 - The template in `content/materials/` is ready to copy into any new project.
+-->
+
+---
+
+## Slide 11.7a: Memory Bank Integrity — Trusted State Needs a Boundary
+
+# Memory Bank Integrity — Trusted State Needs a Boundary
+
+A Memory Bank is durable context the Agent rereads. A bad write can persist
+across every future session.
+
+| State | Default write authority | Required control |
+|---|---|---|
+| Instructions, glossary, project brief | Operator / reviewer | Agent proposes a diff; human approves |
+| Active context and progress | shared | narrow path access + review each change |
+| External factual claims | Agent may draft | claim provenance + unverified-notes area |
+| Prompt history | append-only | no silent rewrite or deletion |
+| Recovery copy | outside Agent reach | protected remote / snapshot + restore drill |
+
+> Versioning detects and reverses corruption only if the Agent cannot erase the
+> history and someone reviews the diff.
+
+<!--
+A July 2026 arXiv preprint formalizes "self-state attacks" against writable
+Agent memory and configuration. It provides useful evidence for a threat model,
+not a universal incident claim: the paper is unreviewed and evaluates one
+representative self-hosted harness.
+
+The paper supports access control for instructions and configuration,
+workload-conditioned detection for memory, and periodic backup. The AOM adds
+its existing Human oversight and claim-provenance practices: make write authority
+explicit, require review on trusted state, label sourced and unsourced claims,
+and keep recovery outside the Agent's authority.
+
+Source: https://arxiv.org/abs/2607.17986
 -->
 
 ---

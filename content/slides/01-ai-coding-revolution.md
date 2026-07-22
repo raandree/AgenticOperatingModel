@@ -101,8 +101,8 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 # Why the Agentic Operating Model is Possible NOW
 
 ### Technology Advances
-- **Massive context windows** (1M+ tokens with Claude Opus 4.7)
-- **Advanced reasoning** (Claude Opus 4.7, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro)
+- **Massive context windows** (1M+ tokens with Claude Opus 4.8)
+- **Advanced reasoning** (Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code)
 - **Native tool use** abilities in LLMs
 - **Cheaper API costs** for longer iteration loops
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
@@ -135,23 +135,25 @@ Speaker notes (for newcomers):
 - ~4 characters or ~¾ of a word in English
 - Both your **input** (prompt + context) and the model's **output** consume tokens
 
-### Context window sizes (April 2026):
-| Model | Context Window |
-|-------|----------------|
-| Claude Opus 4.7 | Up to **1M tokens** |
-| GPT-5.4 / GPT-5.4-mini | **256K tokens** |
-| GPT-5.3-Codex | **256K tokens** (specialized coding variant) |
-| Gemini 3.1 Pro | **2M tokens** |
+### Current Copilot examples (22 July 2026)
+
+| Model | Status | Best fit |
+|---|---|---|
+| Claude Opus 4.8 | Preview; up to **1M-token** context | Premium reasoning |
+| GPT-5.6 Sol / Terra / Luna | Gradual rollout since 9 July | Highest / balanced / fast |
+| Gemini 3.6 Flash | Preview rollout since 21 July | Web, app, longer-horizon work |
+| Kimi K2.7 Code | GA; Business/Enterprise since 7 July | Open-weight, lower-cost coding |
 
 ### Why cost matters in agentic workflows:
 - Agentic loops consume **more tokens** than single-shot requests
 - Each iteration (observe → plan → act → verify) adds token usage
 - Larger context windows = more tokens per request = higher cost
 - **Cloud agents** (Copilot Coding Agent) run autonomously — costs accumulate
+- Some models use provider list pricing under usage-based billing
 
 ### How to measure token usage:
 - GitHub Copilot: Check usage dashboard in GitHub settings
-- VS Code: Monitor in Copilot output panel
+- VS Code: Inspect per-session cost or export Agent observability with OpenTelemetry
 - API-based tools: Token counts returned in API responses
 
 > **Hands-on idea**: Track how many tokens a real agentic task consumes from start to finish.

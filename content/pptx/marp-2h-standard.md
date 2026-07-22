@@ -316,7 +316,7 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 
 ### Technology Advances
 - **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
-- **Advanced reasoning** — Claude Opus 4.8, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro
+- **Advanced reasoning** — Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -890,6 +890,45 @@ Speaker notes (for newcomers):
 -->
 ---
 
+<!-- _class: compact -->
+
+# Three Evidence Planes — Git Is Necessary, Not Sufficient
+
+| Evidence plane | Question it answers | Durable evidence |
+|---|---|---|
+| **Traceability** | What artefact changed? | Git diff, commit, pull request |
+| **Agent observability** | How did the Agent act? | Model and Tool calls, hooks, subagents, errors, cost |
+| **Claim provenance** | Why should I trust this claim? | Exact source passage + stable identifier |
+
+Git cannot show a failed Tool call, a blocked hook, or a claim copied from the
+wrong source. **Use all three planes when the consequence matters.**
+
+> Privacy boundary: full trace capture can include prompts, code, file contents,
+> Tool arguments, and results. Capture content only in a trusted environment.
+
+<!--
+Git Traceability is deliberately retained as the first evidence plane: it is
+portable, deterministic, and sufficient for reviewing the final artefact. It is
+not a transcript of the Agent's execution. A failed Tool call, a blocked hook,
+or a discarded subagent result may leave no Git change at all.
+
+VS Code's OpenTelemetry guide (updated 2026-07-15) emits a connected trace tree
+for Agent orchestration, Model calls, Tool calls, hooks, and subagents, plus
+cost, error, and outcome metrics. GitHub Copilot session streaming entered
+public preview on 2026-07-02 for prompts, responses, and Tool calls. Keep those
+execution records separate from adoption dashboards, which measure usage rather
+than explain one action.
+
+Content capture is off by default. Turning it on can collect sensitive code,
+prompts, file contents, Tool arguments, and Tool results, so retention and
+access control become part of the design.
+
+Sources:
+- https://code.visualstudio.com/docs/agents/guides/monitoring-agents
+- https://github.blog/changelog/2026-07-02-copilot-agent-session-streaming-is-now-in-public-preview/
+-->
+---
+
 # Maximize AI Effectiveness
 
 ### DO ✅
@@ -1078,16 +1117,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
--->
-
-<!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1326,19 +1365,20 @@ Most teams reach for the wrong end of the spectrum first. The instinct is to put
 
 # The Standardization Wave — Your Customizations Are Portable
 
-These files are **no longer one vendor's feature**. They are open standards under the **Agentic AI Foundation** (Linux Foundation).
+Agent ecosystems are converging on **open, cross-vendor standards** under Linux Foundation governance.
 
 | Standard | What it is | Where it runs |
 |---|---|---|
-| **MCP** | tool / data connector protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **MCP** | Agent-to-Tool context and capability protocol | Copilot, Claude, ChatGPT, Cursor… |
+| **A2A** | independent Agent-to-Agent task protocol | cross-vendor Agent systems |
 | **AGENTS.md** | project instructions for agents | most coding agents |
 | **Agent Skills** (`SKILL.md`) | on-demand expertise, progressive disclosure | Copilot, Codex, Cursor, Gemini CLI, goose… |
 
-- Founding members: **AWS, Anthropic, Google, Microsoft, OpenAI, Block, Bloomberg, Cloudflare**.
+- **Protocol map:** MCP equips one Agent; A2A lets independent Agents collaborate.
 - **Why you care:** the atelier you build here is an *investment that travels* — not lock-in.
 - The Foundation even calls it an **"agent operating stack"** — the same idea as this training's operating model.
 
-<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP were donated to the Agentic AI Foundation under the Linux Foundation, with every major vendor as a member; Agent Skills is now an open spec adopted across dozens of tools. Takeaway for the audience: the instruction files, skills, and memory-bank discipline they invest in are portable across tools, not a Copilot lock-in — and it externally validates our "operating model" framing. -->
+<!-- Speaker notes: The shift since early 2026 — Skills, AGENTS.md, and MCP moved under the Agentic AI Foundation, while A2A is maintained as a separate Linux Foundation project. A2A v1.0.1 shipped in May 2026, so this is a protocol-map clarification rather than a July trend: MCP is Agent-to-Tool; A2A is independent Agent-to-Agent; an in-process subagent still uses the host's native delegation primitive. Takeaway: instruction files, Skills, and protocol investments are portable, but exact support still varies by product. Sources: https://aaif.io/ and https://a2a-protocol.org/latest/ -->
 
 ---
 

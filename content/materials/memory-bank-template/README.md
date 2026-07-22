@@ -47,6 +47,48 @@ A reusable, tool-neutral template for a project "memory bank" — a small set of
 
 ---
 
+## Integrity and write ownership
+
+A Memory Bank is trusted project state, not an unrestricted scratchpad. Define
+who may write each class of file before giving an Agent write access.
+
+| State | Suggested write authority | Required control |
+|---|---|---|
+| `projectbrief.md`, glossary, Instruction files | Operator / reviewer | Agent proposes a diff; a human approves |
+| `activeContext.md`, `progress.md` | Agent and Operator | Restrict writes to named paths; review every change |
+| Research findings and external claims | Agent may draft | Record source passage + stable identifier; keep unverified leads separate |
+| `promptHistory.md` | Append-only process | Never silently rewrite or delete prior entries |
+| Recovery copy | Outside Agent authority | Protected Git remote or snapshot; test restoration |
+
+Adapt the matrix to the project. The important property is that write authority
+is explicit and narrower than read authority.
+
+Add a rule like this to the governing Instruction file:
+
+```markdown
+## Memory Bank integrity
+
+- Treat the Memory Bank as trusted project state.
+- Propose changes to operator-owned files as a diff; do not apply them without
+  explicit approval.
+- Label externally sourced claims with the exact source passage and stable
+  identifier. Keep unverified leads in a separate working-notes file.
+- Never rewrite append-only history or delete the recovery copy.
+- After changing shared state, show the diff and state how to restore it.
+```
+
+At least one history or backup must be outside the Agent's reachable
+credentials. Periodically restore it into a clean directory; an untested backup
+is only a hope.
+
+This threat model is supported by the July 2026 preprint
+[*Self-State Attacks on Self-Hosted AI Agents*](https://arxiv.org/abs/2607.17986).
+It studies one representative self-hosted harness and is not peer-reviewed, so
+use it as a design warning rather than proof that every Memory Bank is
+compromised.
+
+---
+
 ## Tool Compatibility
 
 | Tool | How the memory bank plugs in |

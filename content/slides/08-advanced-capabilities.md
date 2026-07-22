@@ -4,7 +4,7 @@
 
 | Slide | Title | 1h | 2h | 4h |
 |-------|-------|:---:|:---:|:---:|
-| 8.1–8.14 | All slides (incl. 8.5a: Beyond Code, 8.5b: Scaling the Backlog — Beads, 8.13: What's New 2026 Q2) | — | — | ✅ |
+| 8.1–8.14 | All slides (incl. 8.5a: Beyond Code, 8.5b: Scaling the Backlog — Beads, 8.13: What's New in 2026 H2) | — | — | ✅ |
 
 > **This module is included in the 4-hour workshop only.**
 
@@ -625,24 +625,24 @@ The "what stays the same" list is the more important half of the slide. Every ca
 
 ---
 
-## Slide 8.13: What's New in 2026 Q2
+## Slide 8.13: What's New in 2026 H2
 
 # The Landscape Keeps Moving — Fast
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│             KEY 2026 Q2 CAPABILITIES                           │
+│             KEY 2026 H2 CAPABILITIES                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  🧠 MODELS                                                     │
 │  ────────                                                       │
-│  • Claude Opus 4.7 GA (premium reasoning default)              │
-│  • GPT-5.4 / 5.4-mini current; GPT-5.1 series retired          │
+│  • Claude Opus 4.8 preview; GPT-5.6 family rolling out         │
+│  • Gemini 3.6 Flash preview; Kimi K2.7 Code GA                 │
 │  • Auto model selection in Copilot CLI & Chat                  │
 │                                                                 │
 │  🔑 BYOK (Business/Enterprise)                                 │
 │  ──────────────────────────                                    │
-│  • Bring your own API keys in VS Code 1.117+                   │
+│  • Bring your own API keys; Agent Host BYOK is experimental    │
 │  • OpenAI, OpenRouter, Ollama, Google — and local models       │
 │  • Also available in Copilot CLI                               │
 │                                                                 │
@@ -658,6 +658,11 @@ The "what stays the same" list is the more important half of the slide. Every ca
 │  • 3-click merge-conflict resolution                           │
 │  • Org firewall, runner controls, custom properties            │
 │  • Remote control of CLI sessions on web + mobile              │
+│                                                                 │
+│  📈 OPERATIONS                                                  │
+│  ─────────────                                                  │
+│  • VS Code 1.128: multi-chat + read-only subagent traces        │
+│  • OpenTelemetry: Agent, Model, Tool, hook, cost, outcome       │
 │                                                                 │
 │  🏢 ENTERPRISE                                                 │
 │  ──────────                                                    │

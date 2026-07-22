@@ -46,7 +46,7 @@ Handouts and reference materials for attendees.
 - Sample skill file
 - **memory-bank-template/** — reusable Memory Bank scaffold to drop into any project (the same pattern this repo uses)
 - **agentic-knowledge-work-patterns.md** — ten patterns extracted from a real multi-year tax case, applicable to legal, tax, consulting, research, and ops work
-- **destructive-operations-guardrails.md** — take-home reference distilled from real 2026 incidents (PocketOS / Cursor / Claude / Railway, Replit) with a **six-layer defence-in-depth model** — layers 1–5 cover agent policy, tool approval, credential scope, backup independence, and rehearsed recovery; **Layer 6 covers architectural guardrails (GitOps + IaC)** with [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC) as the canonical reference and Argo CD / Flux / Atlantis / Terraform Cloud / Bicep deployment stacks as same-shape patterns. Includes a pre-flight checklist for any agent with destructive capabilities
+- **destructive-operations-guardrails.md** — take-home reference distilled from real 2026 incidents (PocketOS / Cursor / Claude / Railway, Replit) with a **six-layer defence-in-depth model** — layers 1–5 cover Agent policy, Tool approval, credential scope, backup independence, and rehearsed recovery; **Layer 6 covers architectural guardrails (GitOps + IaC)** with [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC) as the canonical reference and Argo CD / Flux / Atlantis / Terraform Cloud / Bicep deployment stacks as same-shape patterns. Cross-cutting controls cover Agent identity, human sponsorship, access expiry, revocation, and host trust handoffs. Includes a pre-flight checklist for any Agent with destructive capabilities
 - Take-home resources
 
 ## Content Status
@@ -65,3 +65,9 @@ Handouts and reference materials for attendees.
 | 10 | Your Agentic Future | ✅ Complete |
 | 11 | Beyond Code *(optional track)* | ✅ Complete |
 | 12 | The Lab as the Agent's Sandbox *(optional track)* | ✅ Complete |
+
+## See Also
+
+- [Repository overview](../README.md)
+- [Presentation agenda](../agenda/presentation-agenda.md)
+- [Decision-maker guide](../docs/for-decision-makers.md)

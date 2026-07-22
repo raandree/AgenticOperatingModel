@@ -281,6 +281,7 @@ Each module file in `content/slides/` contains a **Version Guide** table at the 
 | 3.5 | The README Effect | — | ✅ | ✅ |
 | 3.6 | Configuration File Context | — | — | ✅ |
 | 3.7 | Traceability | ✅ | ✅ | ✅ |
+| 3.7a | Three Evidence Planes | — | ✅ | ✅ |
 | 3.8 | Demo - Git Diff | — | ✅ | ✅ |
 | 3.8a | AI Does Git Forensics | — | — | ✅ |
 | 3.9 | Checkpoint System | — | — | ✅ |
@@ -373,6 +374,7 @@ Each module file in `content/slides/` contains a **Version Guide** table at the 
 | 11.5 | Markdown as the Reasoning Substrate | — | — | ✅ |
 | 11.6 | Git Is Not Just for Code | — | ✅ | ✅ |
 | 11.7 | The Memory Bank Pattern | — | ✅ | ✅ |
+| 11.7a | Memory Bank Integrity — Trusted State Needs a Boundary | — | — | ✅ |
 | 11.8 | PowerShell as the "Fingers" | — | — | ✅ |
 | 11.9 | Data Governance & Confidentiality | — | ✅ | ✅ |
 | 11.10 | Audience Extensions | — | — | ✅ |

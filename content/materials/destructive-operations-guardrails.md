@@ -258,7 +258,53 @@ Not every system can be wrapped in IaC. SaaS dashboards, third-party APIs, ad-ho
 
 ---
 
-## Pre-flight checklist (use before letting an agent loose)
+## Cross-cutting control — validate host trust handoffs
+
+A sandbox policy can be enforced exactly and still cover the wrong boundary.
+Model three separate layers:
+
+1. **Direct execution** — what the Agent process can run.
+2. **Workspace writes** — which files and sockets the Agent can modify or reach.
+3. **Host trust handoffs** — which more-privileged components later consume
+  those inputs.
+
+| Agent-controlled input | More-privileged consumer | Control to require |
+|---|---|---|
+| Workspace task or hook configuration | Task or hook runner | Review and approval for executable configuration |
+| Virtual-environment interpreter | Language extension | Disable automatic execution of workspace binaries |
+| Git configuration or `fsmonitor` | Git integration | Validate the complete invocation and side effects |
+| Docker socket or local service API | Privileged daemon | Deny access unless explicitly required |
+
+Apply the same policy to helpers as to direct Agent execution, preserve the
+provenance of Agent-written files, and emit telemetry when a host component acts
+on them. July 2026 disclosures across several coding-Agent products demonstrate
+why a sandbox checkbox is not evidence that this whole chain is contained.
+
+Source: [Pillar Security, *The Week of Sandbox Escapes* (2026-07-20)](https://www.pillar.security/blog/the-week-of-sandbox-escapes).
+
+## Cross-cutting control — declare the Agent identity
+
+Document whose identity authorizes every action. Common models are a delegated
+Operator identity, a Tool or service identity, or a distinct Agent identity.
+None is universally correct; an undeclared model is the failure.
+
+For production use, require:
+
+- a named human sponsor accountable for lifecycle and access;
+- least privilege and separate scope per environment;
+- time-bounded access with periodic review;
+- an immediate revocation path;
+- records that identify which identity authorized each action.
+
+NIST's project remains under development. Microsoft Entra Agent ID is one
+vendor-specific implementation of distinct Agent identities, human sponsors,
+expiring access packages, and lifecycle governance.
+
+Sources: [NIST NCCoE, *Software and AI Agent Identity and Authorization*](https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization) and [Microsoft Entra Agent ID governance](https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview).
+
+---
+
+## Pre-flight checklist (use before letting an Agent loose)
 
 Before granting an agent destructive capabilities on any environment:
 
@@ -271,6 +317,8 @@ Before granting an agent destructive capabilities on any environment:
 - [ ] The provider's destructive primitives have been read — you know exactly what `delete-volume` does to backups, what `terraform destroy` will reach, what `DROP DATABASE CASCADE` cascades to
 - [ ] You have a checkpoint / rollback plan for whatever the agent is about to do (Git branch, snapshot, dry-run preview)
 - [ ] **Layer 6 question**: could this work go through a Git → PR → pipeline path instead? If yes, prefer that path over giving the agent destructive credentials directly
+- [ ] The containment review covers workspace automation, extensions, hooks, helpers, sockets, and local daemons — not only the Agent process
+- [ ] The Agent identity model, human sponsor, access expiry, review, and revocation path are documented
 
 ---
 
@@ -307,7 +355,7 @@ For audiences who think in terms of standard frameworks, the failure modes here 
 
 ## See also
 
-- Module 9 slides 9.8c (Real Incident — 9 Seconds, One Database), 9.8d (Guardrails for Destructive Operations), and 9.8e (GitOps as the Architectural Guardrail) — the in-presentation version
+- Module 9 slides 9.8c–9.8h — the incident, six-layer guardrail model, containment boundary, Agent identity, and host trust handoff treatment
 - [content/materials/cheat-sheet.md](cheat-sheet.md) — Agent Security & Boundaries section
 - [content/materials/sample-copilot-instructions/security-reviewer.agent.md](sample-copilot-instructions/security-reviewer.agent.md) — example of the "angry agent" / adversarial reviewer pattern
 - [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) — reference implementation of the Layer 6 pattern (Datum + Sampler + DSC, PR-gated reconciliation pipeline)

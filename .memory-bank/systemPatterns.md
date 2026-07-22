@@ -242,6 +242,27 @@ User Request → Agent Analysis → Plan Creation → Execution → Verification
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### Pattern 5a: Three Evidence Planes
+
+| Evidence plane | Proves | Primary artefact |
+| --- | --- | --- |
+| **Traceability** | What changed | Git diff, commit, pull request |
+| **Agent observability** | How the Agent acted | Traces, metrics, events, session records |
+| **Claim provenance** | Why a factual claim is supported | Exact source passage + stable identifier |
+
+Use all three when consequences are material. Git cannot reveal a failed Tool
+call that left no diff; Agent observability cannot establish that an external
+claim is true; a citation cannot show which identity performed an action.
+
+### Pattern 5b: Trusted State, Identity, and Host Handoffs
+
+- **Memory Bank integrity:** declare write authority, review trusted-state
+  changes, label sourced claims, and keep tested recovery outside Agent reach.
+- **Agent identity:** declare whose authority acts; assign a human sponsor;
+  scope, expire, review, and revoke access.
+- **Containment first:** test direct execution, workspace writes, and every
+  host trust handoff to extensions, hooks, helpers, sockets, and local daemons.
+
 ## DevOps Integration Patterns
 
 ### Pattern 8: Cross-Machine Instruction Sync (CopilotAtelier)
@@ -477,3 +498,9 @@ BEFORE (Traditional)         AFTER (Agentic)
 8. Finally commit
 
 Time: 2 hours               Time: 15 minutes
+```
+
+## See Also
+
+- [Glossary](glossary.md)
+- [Active context](activeContext.md)

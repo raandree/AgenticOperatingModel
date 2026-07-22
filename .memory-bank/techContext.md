@@ -171,7 +171,7 @@
 ## Demo Environment Requirements
 
 ### Minimum Setup
-- VS Code (1.117+, required for BYOK and incremental chat rendering features taught in Module 8)
+- VS Code (1.128+, baseline for the July 2026 multi-chat, Agent Host, and managed OpenTelemetry features taught in the deck)
 - GitHub Copilot extension (with active subscription)
 - PowerShell 7.x
 - Git
@@ -241,7 +241,7 @@ DemoModule/
 | Pester | 5.5+ | Testing framework |
 | PSScriptAnalyzer | 1.21+ | Linting |
 | Git | 2.40+ | Version control |
-| VS Code | 1.117+ | IDE (BYOK, incremental rendering, agent CLI features) |
+| VS Code | 1.128+ | IDE (multi-chat Agent sessions, Agent Host, browser Tools, managed OpenTelemetry) |
 | GitHub Copilot | Active subscription | AI agent (primary demo tool) |
 | Node.js | 20+ | Runtime for Puppeteer-based slide overflow check |
 | Puppeteer | 23.10+ | Headless Chromium for `overflow-check.mjs` |
@@ -255,21 +255,18 @@ DemoModule/
 - Available models include Claude, GPT, Gemini families
 - No separate API key required - uses GitHub authentication
 
-### Key Models (April 2026)
-| Model | Provider | Strengths |
-|-------|----------|----------|
-| Claude Opus 4.7 | Anthropic | GA in Copilot, premium reasoning default, up to 1M context |
-| Claude Sonnet 4.6 | Anthropic | Fast coding, good balance |
-| GPT-5.4 / GPT-5.4-mini | OpenAI | Current OpenAI generation (GPT-5.1 series retired Apr 2026) |
-| GPT-5.3-Codex | OpenAI | Specialized coding variant, 256K context |
-| Gemini 3.1 Pro | Google | Largest context window (2M tokens) |
-| Grok Code | xAI | Available in Cursor |
-| Composer 1.5 | Cursor | Cursor-exclusive model |
+### Key Models (22 July 2026)
+| Model | Provider | Copilot status and fit |
+|-------|----------|------------------------|
+| Claude Opus 4.8 | Anthropic | Preview since 29 June; premium reasoning; up to 1M context |
+| GPT-5.6 Sol / Terra / Luna | OpenAI | Gradual rollout since 9 July; highest reasoning / balanced / fast and low cost |
+| Gemini 3.6 Flash | Google | Preview rollout since 21 July; web/app development, longer-horizon work, parallel Tool use |
+| Kimi K2.7 Code | Moonshot AI | GA since 1 July; Business/Enterprise since 7 July; first selectable open-weight Copilot model |
 
 ### Cost Considerations for Presentation
 - GitHub Copilot subscription required (Individual, Business, or Enterprise)
 - Business/Enterprise plans offer model selection and org-level policies
-- No per-token billing - included in subscription
+- Some models use provider list pricing under usage-based billing; availability, allowances, and policy defaults vary by plan
 - Enterprise plan adds audit logs, IP indemnity, org instructions
 
 ### Instruction File Ecosystem (April 2026)

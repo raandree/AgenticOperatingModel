@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Agent observability, Memory Bank integrity, Agent identity, and host trust handoffs (2026-07-22).**
+  Added *Three Evidence Planes — Git Is Necessary, Not Sufficient* to M3 (2h/4h),
+  distinguishing Git Traceability, Agent observability, and claim provenance.
+  Added three 4h controls: *Agent Identity — Whose Authority Acts?*, *Containment
+  Must Cover Host Trust Handoffs*, and *Memory Bank Integrity — Trusted State
+  Needs a Boundary*. Expanded the reusable Memory Bank template with write
+  ownership, source labeling, protected recovery, and restore guidance; expanded
+  the destructive-operations handout with host trust handoff and Agent identity
+  checklists. Added the MCP/A2A protocol distinction to the standards slide and
+  cheat sheet. Rebuilt all decks (30 / 74 / 145 source slides), detected 0
+  overflow, visually verified the affected PNGs, passed 11/11 Pester tests, and
+  re-exported native PPTX with notes on every rendered slide (31 / 75 / 146).
+
 - **New M4 slide "You Can Verify the Output, Not the Reasoning" + German *Lanz & Precht* pull-quotes (2026-07-13).**
   Added one 4h-only slide to the Trust-but-Verify module in the Marp build source
   [content/slides/marp-presentation.md](content/slides/marp-presentation.md),
@@ -161,6 +174,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   change; no slide content or deck build output affected.
 
 ### Changed
+
+- **Clarify this repository's AOM scope and refresh July 2026 product currency (2026-07-22).**
+  Distinguished this repository's repository/workbench-level operating model
+  from LangChain's production-lifecycle guide and California Management Review's
+  enterprise-governance AOM. Qualified containment as deterministic enforcement
+  only when the boundary is complete. Updated VS Code to the 1.128 baseline and
+  refreshed Copilot examples to Claude Opus 4.8, GPT-5.6 Sol/Terra/Luna, Gemini
+  3.6 Flash, and Kimi K2.7 Code with dated rollout status and model-dependent
+  usage-based billing caveats.
 
 - **Synced the CopilotAtelier skill-inventory reference to 37 skills (2026-07-11).**
   [content/materials/cheat-sheet.md](content/materials/cheat-sheet.md) previously

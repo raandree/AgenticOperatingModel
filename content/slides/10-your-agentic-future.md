@@ -378,21 +378,23 @@ The with/from distinction on this slide is the single most important sentence in
 
 # Where the Agentic Operating Model Is Going
 
-### Already Here (April 2026):
-- **Claude Opus 4.7** GA in Copilot; **GPT-5.4 / 5.4-mini** current; GPT-5.1 series retired
+### Already Here (July 2026):
+- **Claude Opus 4.8** preview; **GPT-5.6 Sol / Terra / Luna** rolling out; **Gemini 3.6 Flash** preview; **Kimi K2.7 Code** GA
 - **Copilot SDK** in public preview — build your own agents on the Copilot platform
-- **BYOK in VS Code** (1.117+) — bring your own OpenAI / OpenRouter / Ollama / local model keys
+- **BYOK in VS Code** — bring your own OpenAI / OpenRouter / Ollama / local model keys; Agent Host support is experimental
 - **Signed commits from Copilot cloud agent** — verified provenance on AI-generated PRs
 - **Organization custom instructions GA** — enterprise-wide Copilot guardrails
 - **Research, plan, and code** mode for cloud agent (multi-phase autonomous work)
 - **Fix merge conflicts in 3 clicks** via Copilot cloud agent
-- **VS Code Agents app** (Insiders) — companion app for parallel agent sessions across repos
+- **VS Code Agents window** — grouped parallel sessions, multi-chat, live read-only subagent transcripts
+- **Agent observability with OpenTelemetry** — Agent, Model, Tool, hook, subagent, cost, error, and outcome traces
+- **Enterprise-managed Agent policy** — approvals, sandboxing, network filters, MCP sources, plugins, and telemetry
 - **Agent CLI identification in terminals** (Copilot CLI, Claude Code, Gemini CLI)
 - **Remote control CLI sessions** on web and mobile (public preview)
 - **Copilot CLI BYOK + local models** — run agents against local Ollama or private endpoints
 - **Manage agent skills via `gh` CLI** — skills are first-class in the GitHub tooling
 - **Data residency (US / EU) + FedRAMP** — enterprise compliance unblocked
-- **MCP** standardized under the Linux Foundation with a fast-growing server ecosystem
+- **MCP + A2A** — complementary Agent-to-Tool and independent Agent-to-Agent protocols
 
 ### Near-Term (Next 6 months):
 - Better multi-agent orchestration and inter-tool agent delegation

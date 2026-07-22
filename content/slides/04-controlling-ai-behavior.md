@@ -443,7 +443,7 @@ Different tasks need different behaviors:
 ---
 name: software-engineer
 description: Expert-level agent for production-ready code
-model: 'Claude Opus 4.7 (copilot)'
+model: 'Claude Opus 4.8 (copilot)'
 argument-hint: 'Describe the feature, bug fix, or refactoring task'
 tools: ['editFiles', 'codebase', 'runTests', 'runCommands',
         'search', 'problems', 'githubRepo', 'fetch']
@@ -484,7 +484,7 @@ The tool allowlist matters more than the persona. A "refactor agent" without `ru
 ---
 name: security-reviewer
 description: Validate code for security vulnerabilities and quality
-model: 'Claude Opus 4.7 (copilot)'
+model: 'Claude Opus 4.8 (copilot)'
 argument-hint: 'Specify code, files, or scope to audit'
 tools: ['codebase', 'search', 'problems', 'runTests', 'fetch']
 agents: []

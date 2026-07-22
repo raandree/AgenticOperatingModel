@@ -11,6 +11,7 @@
 | 3.5 | The README Effect | — | ✅ | ✅ |
 | 3.6 | Configuration File Context | — | — | ✅ |
 | 3.7 | Traceability | ✅ | ✅ | ✅ |
+| 3.7a | Three Evidence Planes | — | ✅ | ✅ |
 | 3.8 | Demo - Git Diff | — | ✅ | ✅ |
 | 3.8a | AI Does Git Forensics | — | — | ✅ |
 | 3.9 | Checkpoint System | — | — | ✅ |
@@ -290,6 +291,46 @@ Speaker notes (for newcomers):
 - This is the single most important safety net: you never have to wonder "what did the AI silently touch?" — the diff shows you, every time.
 - VS Code shows diffs visually in the Source Control panel (the branch icon on the left). No command line required.
 - Rule of thumb: never accept agent work without reading the diff. Module 9 returns to why this matters.
+-->
+
+---
+
+## Slide 3.7a: Three Evidence Planes
+
+# Three Evidence Planes — Git Is Necessary, Not Sufficient
+
+| Evidence plane | Question it answers | Durable evidence |
+|---|---|---|
+| **Traceability** | What artefact changed? | Git diff, commit, pull request |
+| **Agent observability** | How did the Agent act? | Model and Tool calls, hooks, subagents, errors, cost |
+| **Claim provenance** | Why should I trust this claim? | Exact source passage + stable identifier |
+
+Git cannot show a failed Tool call, a blocked hook, or a claim copied from the
+wrong source. **Use all three planes when the consequence matters.**
+
+> Privacy boundary: full trace capture can include prompts, code, file contents,
+> Tool arguments, and results. Capture content only in a trusted environment.
+
+<!--
+Git Traceability is deliberately retained as the first evidence plane: it is
+portable, deterministic, and sufficient for reviewing the final artefact. It is
+not a transcript of the Agent's execution. A failed Tool call, a blocked hook,
+or a discarded subagent result may leave no Git change at all.
+
+VS Code's OpenTelemetry guide (updated 2026-07-15) emits a connected trace tree
+for Agent orchestration, Model calls, Tool calls, hooks, and subagents, plus
+cost, error, and outcome metrics. GitHub Copilot session streaming entered
+public preview on 2026-07-02 for prompts, responses, and Tool calls. Keep those
+execution records separate from adoption dashboards, which measure usage rather
+than explain one action.
+
+Content capture is off by default. Turning it on can collect sensitive code,
+prompts, file contents, Tool arguments, and Tool results, so retention and
+access control become part of the design.
+
+Sources:
+- https://code.visualstudio.com/docs/agents/guides/monitoring-agents
+- https://github.blog/changelog/2026-07-02-copilot-agent-session-streaming-is-now-in-public-preview/
 -->
 
 ---
