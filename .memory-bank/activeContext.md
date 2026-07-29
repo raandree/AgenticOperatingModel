@@ -2,6 +2,51 @@
 
 ## Current Focus
 
+**Task (2026-07-29, context-engineering transcript → one new 4h slide — uncommitted on `main`)**:
+Assessed a user-supplied context-engineering explainer transcript against the
+curriculum. Most of it was **already covered and already better sourced** — the
+existing M2 slide *Context Engineering — Context Is a Finite Resource* already
+carries context rot, just-in-time retrieval, notes-outside-the-window, and the
+exact phrase *curate, don't dump*; the seven-piece "context stack" is the repo's
+own Instructions / Memory Bank / MCP / output-format material rebadged; and the
+transcript's `LogLook` worked example adds nothing the demos do not. **One
+genuine gap** was found and implemented as a single 4h-only slide *Four Ways
+Context Goes Bad — Name It to Fix It*, inserted directly after the Context
+Engineering slide in [content/slides/marp-presentation.md](../content/slides/marp-presentation.md):
+the curriculum said context is finite but gave **no vocabulary for how a long
+session actually degrades**. The four named modes — **poisoning**,
+**distraction**, **confusion**, **clash** — are diagnostic, and each has a
+different remedy, which is why "just start a new chat" works only by accident.
+Crucially, the transcript asserted all of this **without evidence**, so every row
+was re-verified against the two primary sources it derives from and the slide
+carries **measured effects instead of assertions**: Gemini 2.5 technical report
+(poisoned goals; recall degrading past ~100k tokens), Databricks (Llama 3.1 405b
+declining near 32k), GeoEngine (46 tools fail / 19 tools pass **inside the same
+16k window** — attention, not capacity), Microsoft/Salesforce sharded prompts
+(**−39 %** average; o3 **98.1 → 64.1**). Two consequences stated on-slide: **every
+MCP server is a permanent context tax** (tool descriptions occupy the window on
+every call, used or not) — the evidence-backed counterweight to the "connect
+everything" framing in the MCP module, and directly relevant given last turn's
+MCP slide — and the **Write / Select / Compress / Isolate** verbs, which *unify
+four things the curriculum already teaches in four separate places* (Memory Bank,
+just-in-time retrieval, compaction, sub-agent context isolation). The speaker
+notes state explicitly that the failure-mode→move pairing is a **teaching aid,
+not a canonical mapping**, and that compaction is lossy. Added a *Four context
+failures* row to the *What's New to Teach* table in
+[content/materials/cheat-sheet.md](../content/materials/cheat-sheet.md).
+**Deliberately not imported**: the transcript's "hybrid retrieval beats
+embedding-only" claim (unsourced and off-topic for a repo-centric model) and its
+implication that sub-agents are cheap (the repo's orchestration slide already
+says simplicity first; Anthropic measured up to 15× token cost). Slide is
+**4h-only** — promoting it to 2h is a one-token change to the version tag, left
+to the user. Build: 4h **146 → 147** source slides, 1h/2h unchanged at 30/74,
+overflow **0/0/0**, note injection **115**, build Pester **11/11**; verified the
+slide appears only in `marp-4h-workshop.md`. **Not committed** per user ("Don't
+commit yet"); work sits uncommitted on `main` alongside the earlier 2026-07-29
+and 2026-07-22 changes. The three tracked PPTX are now stale (two new slides
+absent) — `.\build.ps1 -Version all -ExportPptx` offered, not run. Prior focus
+retained below.
+
 **Task (2026-07-29, MCP-explainer transcript → one new 4h slide — uncommitted on `main`)**:
 Assessed a user-supplied Model Context Protocol explainer transcript against the
 curriculum, then implemented the four genuine gaps as **one** 4h-only slide

@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New M2 slide "Four Ways Context Goes Bad — Name It to Fix It" (2026-07-29).**
+  Added one 4h-only slide to the Marp build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md),
+  inserted directly after *Context Engineering — Context Is a Finite Resource*.
+  The existing slide states that context is finite and that a bigger window is not
+  better, but gives no vocabulary for *how* a long session actually degrades. The
+  new slide supplies the four named failure modes — **poisoning**, **distraction**,
+  **confusion**, **clash** — each with its observable symptom and a measured effect
+  from a primary source: the Gemini 2.5 technical report (poisoned goals; recall
+  degrading past ~100k tokens), a Databricks study (Llama 3.1 405b declining near
+  32k), the GeoEngine result (46 tools fail / 19 tools pass inside the same 16k
+  window), and a Microsoft/Salesforce sharded-prompt study (**−39 %** average;
+  o3 **98.1 → 64.1**). Two consequences are stated on-slide: **every MCP server is
+  a permanent context tax** because tool descriptions occupy the window on every
+  call whether used or not — the evidence-backed counterweight to the "connect
+  everything" framing in the MCP module — and the **Write / Select / Compress /
+  Isolate** verbs, which unify four practices the curriculum already teaches in
+  separate places (Memory Bank, just-in-time retrieval, compaction, sub-agent
+  context isolation). Also added a *Four context failures* row to the *What's New
+  to Teach* table in
+  [content/materials/cheat-sheet.md](content/materials/cheat-sheet.md). Framings
+  adapted from a context-engineering explainer transcript and verified against the
+  two primary sources it derives from (Drew Breunig, *How Long Contexts Fail*,
+  2025-06-22; LangChain, *Context Engineering*, 2025-07-02); the transcript's
+  unsupported claims were not imported.
+
 - **New M5 slide "MCP Sits On Top of Your APIs" + MCP security rationale (2026-07-29).**
   Added one 4h-only slide to the Advanced Capabilities module in the Marp build
   source [content/slides/marp-presentation.md](content/slides/marp-presentation.md)

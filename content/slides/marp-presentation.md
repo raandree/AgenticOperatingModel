@@ -608,6 +608,25 @@ You describe ──▶ Agent reads project ──▶ Agent edits files ──▶
 <!-- Speaker notes: "Context engineering" is the field's successor to prompt engineering (Anthropic, 2025). The counter-intuitive point: a 1M-token window does not mean you should fill it — models lose recall as context grows (context rot). The Memory Bank we already teach is a structured-note-taking instance of context engineering, so this elevates existing content rather than replacing it. -->
 
 ---
+<!-- version: 4h -->
+
+<!-- _class: dense -->
+
+# Four Ways Context Goes Bad — Name It to Fix It
+
+| Failure mode | What you observe | Measured effect |
+|---|---|---|
+| **Poisoning** | a hallucinated fact enters context and is re-cited every turn | Gemini 2.5: poisoned goals → the agent chases impossible ones |
+| **Distraction** | the agent repeats its history instead of re-planning | Gemini degrades past ~100k tokens; Llama 3.1 405b past ~32k |
+| **Confusion** | surplus tools or files steer an otherwise sound answer | 46 tools → fail; 19 tools → pass (same model, same window) |
+| **Clash** | an early wrong guess stays in context and outvotes later facts | drip-fed prompts **−39 %**; o3 **98.1 → 64.1** |
+
+- **Every MCP server you wire in is a permanent context tax** — tool descriptions sit in the window on *every* call, used or not. Confusion is what "connect everything" actually buys you.
+- **Four moves, all already in this model** — **Write** notes outside the window (Memory Bank) · **Select** just-in-time (paths, `grep`) · **Compress** history into a recap · **Isolate** in a sub-agent that returns a digest.
+
+<!-- Speaker notes: These four names come from Drew Breunig, "How Long Contexts Fail" (2025-06-22); the Write/Select/Compress/Isolate verbs come from LangChain, "Context Engineering" (2025-07-02). The point of naming them is diagnostic — an agent that has gone bad in a long session has usually failed in one of these four specific ways, and each has a different remedy, so "start a new chat" is a blunt instrument that happens to fix all four by accident. Evidence, all primary: the Gemini 2.5 technical report documents both poisoning (the Pokémon agent's goal section got corrupted and it pursued impossible objectives for a long time) and distraction (beyond ~100k tokens it favoured repeating actions from history over synthesising new plans); a Databricks study puts Llama 3.1 405b's correctness decline near 32k, i.e. the distraction ceiling is far below the advertised window. Confusion: the Berkeley Function-Calling Leaderboard shows every model performs worse once given more than one tool, and a quantized Llama 3.1 8b failed the GeoEngine benchmark with 46 tools but succeeded with 19 — inside the same 16k window, so this is attention, not capacity. That is the empirical basis for the MCP context-tax line, and it is the honest counterweight to the "connect every server" enthusiasm in Module 5. Clash: a Microsoft/Salesforce study sharded single prompts across multiple turns and saw a 39% average drop, with o3 falling from 98.1 to 64.1 — the model's own early wrong guesses stay in context and it does not recover. Tie back to the room's habit: most people fix a bad answer by adding more to the prompt, which is exactly the move that manufactures clash. One caveat to state out loud: the pairing of failure mode to move is a teaching aid, not a canonical mapping — compaction in particular is lossy and can drop the very constraint that mattered, which is why the Memory Bank is version-controlled and the diff still gets read. Sources: https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html and https://www.langchain.com/blog/context-engineering-for-agents -->
+
+---
 <!-- version: 1h 2h 4h -->
 
 # Git Gives AI a Brain

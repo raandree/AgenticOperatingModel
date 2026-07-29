@@ -765,6 +765,24 @@ Low-context output is the failure mode users notice first: code that looks reaso
 
 ---
 
+<!-- _class: dense -->
+
+# Four Ways Context Goes Bad — Name It to Fix It
+
+| Failure mode | What you observe | Measured effect |
+|---|---|---|
+| **Poisoning** | a hallucinated fact enters context and is re-cited every turn | Gemini 2.5: poisoned goals → the agent chases impossible ones |
+| **Distraction** | the agent repeats its history instead of re-planning | Gemini degrades past ~100k tokens; Llama 3.1 405b past ~32k |
+| **Confusion** | surplus tools or files steer an otherwise sound answer | 46 tools → fail; 19 tools → pass (same model, same window) |
+| **Clash** | an early wrong guess stays in context and outvotes later facts | drip-fed prompts **−39 %**; o3 **98.1 → 64.1** |
+
+- **Every MCP server you wire in is a permanent context tax** — tool descriptions sit in the window on *every* call, used or not. Confusion is what "connect everything" actually buys you.
+- **Four moves, all already in this model** — **Write** notes outside the window (Memory Bank) · **Select** just-in-time (paths, `grep`) · **Compress** history into a recap · **Isolate** in a sub-agent that returns a digest.
+
+<!-- Speaker notes: These four names come from Drew Breunig, "How Long Contexts Fail" (2025-06-22); the Write/Select/Compress/Isolate verbs come from LangChain, "Context Engineering" (2025-07-02). The point of naming them is diagnostic — an agent that has gone bad in a long session has usually failed in one of these four specific ways, and each has a different remedy, so "start a new chat" is a blunt instrument that happens to fix all four by accident. Evidence, all primary: the Gemini 2.5 technical report documents both poisoning (the Pokémon agent's goal section got corrupted and it pursued impossible objectives for a long time) and distraction (beyond ~100k tokens it favoured repeating actions from history over synthesising new plans); a Databricks study puts Llama 3.1 405b's correctness decline near 32k, i.e. the distraction ceiling is far below the advertised window. Confusion: the Berkeley Function-Calling Leaderboard shows every model performs worse once given more than one tool, and a quantized Llama 3.1 8b failed the GeoEngine benchmark with 46 tools but succeeded with 19 — inside the same 16k window, so this is attention, not capacity. That is the empirical basis for the MCP context-tax line, and it is the honest counterweight to the "connect every server" enthusiasm in Module 5. Clash: a Microsoft/Salesforce study sharded single prompts across multiple turns and saw a 39% average drop, with o3 falling from 98.1 to 64.1 — the model's own early wrong guesses stay in context and it does not recover. Tie back to the room's habit: most people fix a bad answer by adding more to the prompt, which is exactly the move that manufactures clash. One caveat to state out loud: the pairing of failure mode to move is a teaching aid, not a canonical mapping — compaction in particular is lossy and can drop the very constraint that mattered, which is why the Memory Bank is version-controlled and the diff still gets read. Sources: https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html and https://www.langchain.com/blog/context-engineering-for-agents -->
+
+---
+
 # Git Gives AI a Brain
 
 | What Git Provides | What AI Learns |
@@ -1286,16 +1304,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
--->
-
-<!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -2406,17 +2424,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
--->
-
-<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
+-->
+
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 
@@ -2502,16 +2520,16 @@ Start   Created  Modified  Added   Deleted   Broke
 > Checkpoints give you confidence to let agents take **bigger steps**.
 
 <!--
+Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
+
+The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - VS Code now ships with built-in checkpoints — you didn't have to enable anything. They appear next to each agent reply in chat.
 - Distinct from Git commits: checkpoints are short-term, undo-friendly, free. Git commits are permanent and shareable.
 - Recommended habit: let the agent do 5–10 steps freely, eyeball the result, click "Undo" if needed. No drama.
--->
-
-<!--
-Checkpoints are the editor's answer to the question "what if the agent's work goes wrong before it reaches Git?" Git commits are durable but coarse; checkpoints are ephemeral but fine-grained. The combination gives the user two undo horizons — minutes (checkpoints) and hours-to-days (commits) — each suited to a different class of mistake.
-
-The psychological effect on the user is often more important than the technical capability. Knowing that any agent action can be undone in two clicks raises the user's tolerance for letting the agent take larger steps. Without that safety net, users tend to micromanage the agent (one tool call at a time, approving each one), which negates most of the productivity benefit of agent mode.
 -->
 ---
 

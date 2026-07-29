@@ -154,6 +154,7 @@ the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-tren
 | **Lethal trifecta** | private data + untrusted content + external comms = data theft; break the trifecta, don't filter it (OWASP `LLM01`) | M6 |
 | **Containment first** | cap what the Agent *can reach* (sandbox / VM / egress), not just what it is *told*; deterministic enforcement requires a complete boundary | M6 |
 | **Context engineering** | context is a finite budget; a bigger window ≠ better (context rot); the Memory Bank *is* this pattern | M2 |
+| **Four context failures** | **poisoning** (a hallucination gets re-cited), **distraction** (history replaces planning), **confusion** (surplus tools/files steer the answer), **clash** (an early wrong guess outvotes later facts) — each has a different fix: Write / Select / Compress / Isolate | M2 |
 | **Evals ≠ unit tests** | tests verify the *code*; evals score the *agent* (graders, LLM-as-judge, pass@k vs pass^k) | M4 |
 | **Orchestration patterns** | beyond handoffs: routing, parallelization, orchestrator-workers, evaluator-optimizer, sub-agents | M3 |
 | **Open standards** | MCP connects Agent-to-Tool; A2A connects independent Agent-to-Agent; AGENTS.md and Agent Skills make customization portable | M3 |
