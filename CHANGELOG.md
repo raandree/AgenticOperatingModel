@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New M5 slide "MCP Sits On Top of Your APIs" + MCP security rationale (2026-07-29).**
+  Added one 4h-only slide to the Advanced Capabilities module in the Marp build
+  source [content/slides/marp-presentation.md](content/slides/marp-presentation.md)
+  (and as slide 8.3a in the split
+  [content/slides/08-advanced-capabilities.md](content/slides/08-advanced-capabilities.md)),
+  inserted after *How MCP Works*. It corrects the misreading the existing capability
+  slide invites — that MCP is an *alternative* to an existing API estate — with the
+  accurate framing: MCP replaces the **middleware between the model and the API you
+  already own**, not the backend. A four-row comparison makes the decisive
+  substitution explicit: the **client is now the model**, so the caller is
+  **probabilistic** rather than deterministic, the contract is a tool description
+  rather than an endpoint, and **routing logic moves out of application code into
+  the model's reasoning**. Two consequences are stated on-slide: the auth / paging /
+  rate-limit / error-handling work **moved into the MCP server rather than
+  vanishing** (a common overclaim an operations audience will reject), and
+  integration behaviour left unit-test coverage — which is what **evals** and
+  **containment** exist for. Also appended a rationale paragraph to the *MCP
+  Security Considerations* speaker notes, recasting the safeguards list as
+  consequences of the model-as-client substitution (the tool description becomes
+  part of the attack surface; the call sequence is not something you specified)
+  rather than as a checklist. Source framings adapted from a Model Context Protocol
+  explainer transcript; its factual errors were deliberately **not** imported
+  (WebSocket is not an MCP transport, and MCP does not remove pagination / token /
+  rate-limit work). 4h deck grows 145 → 146 source slides; overflow gate **0 across
+  1h/2h/4h**; build Pester **11/11**.
+
 - **Agent observability, Memory Bank integrity, Agent identity, and host trust handoffs (2026-07-22).**
   Added *Three Evidence Planes — Git Is Necessary, Not Sufficient* to M3 (2h/4h),
   distinguishing Git Traceability, Agent observability, and claim provenance.

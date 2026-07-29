@@ -1286,16 +1286,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
--->
-
-<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
+-->
+
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -2300,6 +2300,34 @@ The "USB for AI tools" framing is more than analogy. MCP defines transport (stdi
 -->
 ---
 
+<!-- _class: dense -->
+
+# MCP Sits On Top of Your APIs
+
+> MCP does not replace your backend. It replaces the **middleware between
+> the model and the API you already own**.
+
+|  | REST API | MCP server |
+|---|---|---|
+| **Who calls it** | another program | **the model itself** |
+| **Caller behaviour** | deterministic | **probabilistic** |
+| **The contract** | endpoint + payload | tool name + schema + **description** |
+| **Who picks the call** | your app code | **the model's reasoning** |
+
+- **Nothing is thrown away** — auth, paging, rate limits, error handling still live *inside the MCP server*. The work **moved**; it did not vanish.
+- **Routing logic left your codebase** — unit tests no longer cover it. That is what **evals** and **containment** are for.
+
+<!--
+Slide 8.2 states the capability gap as a binary — without MCP the agent cannot query a database or call a REST API. A room full of people who own a large existing API, CIM, and PowerShell estate will hear that as "MCP is an alternative to what we already built." It is not. The MCP server is a translator that sits over the API you already own; the backend is untouched. The accurate slogan is *MCP on top of APIs*, not *MCP versus APIs* — and for this audience that reframe is usually the moment the protocol stops sounding like a rewrite and starts sounding like an adapter.
+
+The single substitution that produces everything else is the client. With a REST API the client is another program, written by someone who read the docs and hard-coded the call. With MCP the client is the model: it picks the tool by *reading the description*, calls it with arguments it inferred, and will combine capabilities in orders nobody specified. That is the reason the security slide two slides on exists — least privilege is not an arbitrary rule here, it is the consequence of handing an API to a probabilistic caller.
+
+Be honest about the popular claim that MCP means you no longer handle pagination, auth tokens, rate limits, and error cases. That is false. Every one of those still has to be implemented — inside the MCP server, by you. The integration work moved; it did not disappear. An operations audience will spot the overclaim immediately, and conceding it up front buys credibility for the rest of the module.
+
+The counter-weight the enthusiastic version of this story leaves out: once "which tool, in what order" moves out of application code and into the model's reasoning, that decision is no longer covered by your unit tests. Deterministic tests still verify the tools themselves — they are ordinary code. Whether the *agent* reaches for the right tool is an eval question, and bounding the damage when it reaches for the wrong one is a containment question. Both are covered later in the curriculum; name the hand-off here so the gap does not go unmentioned.
+-->
+---
+
 # MCP in VS Code
 
 ```json
@@ -2444,6 +2472,8 @@ The slide's discipline is to resist adopting the tool prematurely. A two-person 
 The security model deserves the same scrutiny as any other extension mechanism. An MCP server is arbitrary code running in the user's process with whatever credentials the user provides. The "open source" safeguard on this slide is only as good as the actual reading of the server's source — in practice teams pin specific versions and treat MCP-server updates with the same caution as npm-package updates.
 
 The least-privilege principle is more important here than in most software contexts because the agent will *use* whatever capabilities you grant it, and will sometimes use them in combinations the human did not anticipate. A read-only database token plus a public-internet HTTP tool is not the same risk surface as their union — the agent can join the two into queries that exfiltrate data the human would not have asked for. The safe default is the smallest tool set that lets the agent finish the actual task at hand.
+
+The reason behind all of it is the substitution made on slide 8.3a: the client is now the model. A REST endpoint is safe-by-convention because the program calling it was written by someone who decided, in advance, when to call it. An MCP tool has no such author — the caller selects it at runtime by reading its description, which means the tool description is part of the attack surface and the call sequence is not something you specified. Present this list as consequences of that fact rather than as a checklist, or the room will treat it as boilerplate.
 -->
 ---
 
@@ -2596,36 +2626,6 @@ The "what stays the same" list is the more important half of the slide. Every ca
 > — **Immanuel Kant**
 
 <!--
-Speaker notes — Module 9 appendix
-
-### Timing: 15-20 minutes
-
-### Key Points to Emphasize:
-1. Agentic coding is powerful but not universal
-2. Works best for **well-defined, verifiable** tasks
-3. Be extra careful with security and complex logic
-4. **If you can't verify it, don't generate it**
-5. Your role shifts to architect/reviewer/judge/owner
-6. **Know what you are doing** — understanding the code remains essential even when AI writes it
-7. Agent security: Understand what the agent CAN do and restrict where needed
-
-### Common Questions:
-- "Will AI replace me?" → No, it changes your role, you're more valuable
-- "What about liability?" → You own what you commit
-- "How do I know when to use it?" → Decision framework
-- "What about security?" → Extra review, specific rules, and agent sandboxing
-- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
-
-### Tone:
-- Be honest about limitations
-- Not fear-mongering, just realistic
-- Empower with good judgment
-
-### Transition to Module 10:
-"Now that you know when and how to use agentic coding, let's talk about your next steps..."
--->
-
-<!--
 Speaker notes — Module 8 appendix
 
 ### Timing: 25 minutes (Extended agenda only)
@@ -2674,6 +2674,36 @@ Speaker notes — Module 8 appendix
 "Now that you've seen what agentic coding can do at its most
 advanced, let's talk about an equally important topic: knowing
 when to use these capabilities and when to exercise caution..."
+-->
+
+<!--
+Speaker notes — Module 9 appendix
+
+### Timing: 15-20 minutes
+
+### Key Points to Emphasize:
+1. Agentic coding is powerful but not universal
+2. Works best for **well-defined, verifiable** tasks
+3. Be extra careful with security and complex logic
+4. **If you can't verify it, don't generate it**
+5. Your role shifts to architect/reviewer/judge/owner
+6. **Know what you are doing** — understanding the code remains essential even when AI writes it
+7. Agent security: Understand what the agent CAN do and restrict where needed
+
+### Common Questions:
+- "Will AI replace me?" → No, it changes your role, you're more valuable
+- "What about liability?" → You own what you commit
+- "How do I know when to use it?" → Decision framework
+- "What about security?" → Extra review, specific rules, and agent sandboxing
+- "What if the agent does something destructive?" → Safeguards (tool approval, sandboxing, checkpoints)
+
+### Tone:
+- Be honest about limitations
+- Not fear-mongering, just realistic
+- Empower with good judgment
+
+### Transition to Module 10:
+"Now that you know when and how to use agentic coding, let's talk about your next steps..."
 -->
 ---
 

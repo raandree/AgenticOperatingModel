@@ -2,6 +2,36 @@
 
 ## Current Focus
 
+**Task (2026-07-29, MCP-explainer transcript → one new 4h slide — uncommitted on `main`)**:
+Assessed a user-supplied Model Context Protocol explainer transcript against the
+curriculum, then implemented the four genuine gaps as **one** 4h-only slide
+rather than four. New slide *MCP Sits On Top of Your APIs* sits after *How MCP
+Works* in [content/slides/marp-presentation.md](../content/slides/marp-presentation.md)
+and as slide **8.3a** in the split [content/slides/08-advanced-capabilities.md](../content/slides/08-advanced-capabilities.md).
+It fixes the misreading the existing capability slide invites ("without MCP the
+agent cannot call a REST API" → heard by an ops audience as *MCP replaces our API
+estate*): MCP replaces the **middleware between the model and the API you already
+own**, not the backend. The four-row table carries the other three insights — the
+**client is now the model**, so the caller is **probabilistic**, the contract is a
+tool *description* rather than an endpoint, and **routing logic moves from app code
+into the model's reasoning**. Two on-slide consequences: the auth/paging/rate-limit
+work **moved into the MCP server rather than vanishing** (the transcript's claim
+that it disappears is false and an ops room will reject it), and integration
+behaviour left unit-test coverage — hence **evals** and **containment**. Also
+appended a rationale paragraph to the *MCP Security Considerations* split notes so
+the safeguards read as consequences of model-as-client, not a checklist.
+**Deliberately not imported** from the transcript: WebSocket as an MCP transport
+(wrong — stdio and Streamable HTTP), the "MCP replaces APIs" hype framing, and the
+vague "the spec's scopes keep things safe" claim; the repo's own security material
+is stronger. Skipped the marginal M3 one-liner (*"not a bigger context window,
+cleaner protocols"*) — outside the agreed 1–4 scope. Build: 4h **145 → 146** source
+slides, 1h/2h unchanged at 30/74, overflow **0/0/0**, note injection **115**, build
+Pester **11/11**; verified the slide + both note additions appear only in
+`marp-4h-workshop.md`. **Not committed** per user ("Dont commit yet"); work sits
+uncommitted on `main` alongside the 2026-07-22 changes. The three tracked PPTX are
+now stale (new slide absent) — `.\build.ps1 -Version all -ExportPptx` offered, not
+run. Prior focus retained below.
+
 **Task (2026-07-22, July web-gap integration — uncommitted on `main`)**:
 Implemented the prioritized findings from the 2026-07-22 web refresh without
 creating a branch or commit, per user instruction. Added the 2h/4h M3 slide

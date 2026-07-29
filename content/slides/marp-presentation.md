@@ -1840,6 +1840,26 @@ You handle layers 4–5 with **full visibility** via `git diff`.
 ---
 <!-- version: 4h -->
 
+<!-- _class: dense -->
+
+# MCP Sits On Top of Your APIs
+
+> MCP does not replace your backend. It replaces the **middleware between
+> the model and the API you already own**.
+
+|  | REST API | MCP server |
+|---|---|---|
+| **Who calls it** | another program | **the model itself** |
+| **Caller behaviour** | deterministic | **probabilistic** |
+| **The contract** | endpoint + payload | tool name + schema + **description** |
+| **Who picks the call** | your app code | **the model's reasoning** |
+
+- **Nothing is thrown away** — auth, paging, rate limits, error handling still live *inside the MCP server*. The work **moved**; it did not vanish.
+- **Routing logic left your codebase** — unit tests no longer cover it. That is what **evals** and **containment** are for.
+
+---
+<!-- version: 4h -->
+
 # MCP in VS Code
 
 ```json
