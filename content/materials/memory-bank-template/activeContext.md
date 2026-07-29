@@ -1,6 +1,8 @@
 # Active Context
 
-> **What this file is**: The index. Current focus, recent changes, next steps. Keep this file **under 200 lines**. This is the first file the agent reads every session.
+> **What this file is**: The current status page — what we are working on, what
+> just changed, what happens next. Keep it **under 200 lines**. `index.md`
+> routes here for continuation work and before any durable write.
 
 ## Current focus
 
@@ -35,6 +37,9 @@ Topic files extracted out of the core memory bank. Load on demand.
 
 ## Decisions log (recent)
 
-| Date | Decision | Rationale |
+One line each, pointing at the full record. The reasoning lives in
+`decisions/<id>-<slug>.md`, not here.
+
+| Date | Decision | Record |
 |---|---|---|
-| <YYYY-MM-DD> | <What was decided> | <Why> |
+| <YYYY-MM-DD> | <What was decided> | `decisions/0001-<slug>.md` |

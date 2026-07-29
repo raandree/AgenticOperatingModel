@@ -212,7 +212,7 @@ The discipline that matters is *additive iteration*. Every new rule should answe
 
 # Share Your Setup Across Machines
 
-VS Code lets you redirect all four customization locations to a synced folder (e.g., OneDrive):
+VS Code lets you redirect all five customization locations to a synced folder (e.g., OneDrive):
 
 ```powershell
 # Setup-CopilotSettings.ps1 — run once per machine
@@ -223,7 +223,7 @@ Copy-Item $settingsPath "$settingsPath.$(Get-Date -Format 'yyyyMMdd-HHmmss').bak
 
 $settings = Get-Content $settingsPath -Raw | ConvertFrom-Json
 
-# Point all 4 customization types to OneDrive
+# Point all 5 customization types to OneDrive
 $settings | Add-Member -NotePropertyName 'chat.agentFilesLocations' `
     -NotePropertyValue @{ '~/OneDrive/CopilotAtelier/Agents' = $true } -Force
 $settings | Add-Member -NotePropertyName 'chat.instructionsFilesLocations' `
@@ -232,6 +232,8 @@ $settings | Add-Member -NotePropertyName 'chat.agentSkillsLocations' `
     -NotePropertyValue @{ '~/OneDrive/CopilotAtelier/Skills' = $true } -Force
 $settings | Add-Member -NotePropertyName 'chat.promptFilesLocations' `
     -NotePropertyValue @{ '~/OneDrive/CopilotAtelier/Prompts' = $true } -Force
+$settings | Add-Member -NotePropertyName 'chat.hookFilesLocations' `
+    -NotePropertyValue @{ '~/OneDrive/CopilotAtelier/Hooks' = $true } -Force
 
 # Enable recommended feature flags
 $settings | Add-Member -NotePropertyName 'chat.includeApplyingInstructions' `
@@ -245,7 +247,7 @@ Write-Host "Restart VS Code to apply changes."
 
 ### What You Get:
 - Write an agent once, use it on every machine
-- OneDrive syncs your Instructions, Agents, Skills, and Prompts automatically
+- OneDrive syncs your Instructions, Agents, Skills, Prompts, and Hooks automatically
 - Works alongside per-project `.github/` customizations
 
 <!--
@@ -379,7 +381,7 @@ The with/from distinction on this slide is the single most important sentence in
 # Where the Agentic Operating Model Is Going
 
 ### Already Here (July 2026):
-- **Claude Opus 4.8** preview; **GPT-5.6 Sol / Terra / Luna** rolling out; **Gemini 3.6 Flash** preview; **Kimi K2.7 Code** GA
+- **Claude Opus 5** current; **GPT-5.6 Sol / Terra / Luna** rolling out; **Gemini 3.6 Flash** preview; **Kimi K2.7 Code** GA
 - **Copilot SDK** in public preview — build your own agents on the Copilot platform
 - **BYOK in VS Code** — bring your own OpenAI / OpenRouter / Ollama / local model keys; Agent Host support is experimental
 - **Signed commits from Copilot cloud agent** — verified provenance on AI-generated PRs

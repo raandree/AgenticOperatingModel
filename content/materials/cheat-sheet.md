@@ -30,6 +30,7 @@ OBSERVE → PLAN → ACT → VERIFY → ITERATE
 | **Custom Agents** | .agent.md files for specialized AI behaviors |
 | **Skills** | SKILL.md files with domain knowledge loaded on demand |
 | **Prompt Files** | .prompt.md files for reusable /slash commands |
+| **Hooks** | Commands the host runs at fixed points in the agent loop; the exit code is honoured |
 | **Agent Handoffs** | Agents delegating to other agents (Dev → QA → Prod) |
 | **Memory Bank** | Persistent knowledge base maintained across sessions |
 | **Memory Bank Integrity** | Explicit write ownership, review, source labeling, protected history, and tested recovery for trusted context |
@@ -163,6 +164,8 @@ the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-tren
 | **Memory Bank integrity** | trusted context needs write ownership, review, source labeling, protected history, and tested recovery | M11 |
 | **Agent identity** | declare whose authority acts; name a human sponsor; scope, expire, review, and revoke access | M9 |
 | **Host trust handoffs** | containment includes workspace automation, hooks, extensions, helpers, sockets, and local daemons | M9 |
+| **Hooks** | the fifth Customization type — the host runs the command and honours the exit code, so enforcement no longer depends on the model choosing to comply | M3 |
+| **Memory Bank routing** | an `index.md` routing table plus `decisions/*.md` replaces "read all seven files every turn"; fail open on ambiguity; gate it on measured context reduction | M11 |
 
 > **Golden rule for the trifecta and destructive ops alike:** the agent will be
 > wrong eventually — the *system around it* must not be.
@@ -171,12 +174,14 @@ the [gaps & trends dossier](../../docs/research/2026-06-30-agentic-gaps-and-tren
 
 ## Token Usage & Cost Awareness
 
-| Model | Copilot status (22 Jul 2026) | Best fit |
+| Model | Copilot status (29 Jul 2026) | Best fit |
 |---|---|---|
-| **Claude Opus 4.8** | Preview since 29 Jun; up to 1M-token context | Premium reasoning |
+| **Claude Opus 5** | Current flagship; Opus 4.8 remains the GA fallback | Premium reasoning |
 | GPT-5.6 Sol / Terra / Luna | Gradual rollout since 9 Jul | Highest reasoning / balanced / fast and low cost |
 | Gemini 3.6 Flash | Preview rollout since 21 Jul | Web and app development, longer-horizon work, parallel Tool use |
 | Kimi K2.7 Code | GA since 1 Jul; Business/Enterprise since 7 Jul | First selectable open-weight Copilot model, lower-cost coding |
+
+- **Never hard-pin a model.** Copilot retires models on a roughly six-week cadence; declare `model` as a priority array whose last entry is GA.
 
 - ~4 characters = 1 token (~¾ of a word)
 - Agentic loops consume **more tokens** than single-shot requests (each iteration adds usage)
@@ -487,7 +492,7 @@ Content starts here...
 | `github.copilot.chat.agent.thinkingTool: true` | Let agents use the thinking tool before acting |
 | `github.copilot.chat.search.semanticTextResults: true` | Semantic matching in agent-mode search |
 
-Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~37 skills spanning lab automation, DSC, document/email knowledge work, research and verification, agent-building (`skill-creator`, `mcp-builder`, `agent-evals`, `agent-security-review`), and core engineering discipline (`test-driven-development`, `debugging-and-error-recovery`, `code-review-and-quality`) — a worked example of the four-surfaces pattern.
+Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~40 skills spanning lab automation, DSC, document/email knowledge work, research and verification, agent-building (`skill-creator`, `mcp-builder`, `agent-evals`, `agent-security-review`), and core engineering discipline (`test-driven-development`, `debugging-and-error-recovery`, `code-review-and-quality`) — a worked example of the five-surfaces pattern.
 
 ---
 
@@ -526,7 +531,24 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~3
 | 3 | **Custom Agents** | `.github/agents/*.agent.md` | When agent is selected |
 | 4 | **Skills** | `.github/skills/*/SKILL.md` | Auto-detected by description keywords |
 | 5 | **Prompt Files** | `.github/prompts/*.prompt.md` | When `/command` is typed |
-| 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on |
+| 6 | **Hooks** | `~/.copilot/hooks/*.hooks.json` + script | At a fixed lifecycle event — **deterministically** |
+| 7 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on |
+
+> Types 1–5 and 7 are advice the model may ignore. Type 6 is enforced by the host.
+
+### Hook events and the exit-code contract
+
+| Exit code | Meaning |
+|---|---|
+| `0` | allow the tool call to proceed |
+| `2` | **block** the call; the reason on stderr goes back to the model |
+| anything else | non-blocking warning — a broken hook degrades to noise, not a brick |
+
+Common events: `SessionStart` (inject ground truth), `PreToolUse` (block),
+`PostToolUse` (audit / lint / notify).
+
+> **Keep hook scripts outside the agent's auto-approved edit scope.** An agent
+> that can edit its own guardrails does not have guardrails.
 
 ### Other Tools' Instruction Files
 
@@ -540,7 +562,7 @@ Reference: [CopilotAtelier](https://github.com/raandree/CopilotAtelier) ships ~3
 
 Share your customizations across machines via OneDrive. See the
 [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference
-repository for a full setup (agents, instructions, skills, prompts,
+repository for a full setup (agents, instructions, skills, prompts, hooks,
 keybindings, and an idempotent `Setup-CopilotSettings.ps1` script):
 
 ```jsonc
@@ -549,7 +571,13 @@ keybindings, and an idempotent `Setup-CopilotSettings.ps1` script):
 "chat.instructionsFilesLocations": { "~/OneDrive/CopilotAtelier/Instructions": true }
 "chat.agentSkillsLocations":       { "~/OneDrive/CopilotAtelier/Skills": true }
 "chat.promptFilesLocations":       { "~/OneDrive/CopilotAtelier/Prompts": true }
+"chat.hookFilesLocations":         { "~/OneDrive/CopilotAtelier/Hooks": true }
 ```
+
+A root `plugin.json` declaring `agents` and `skills` is the complementary path:
+`Chat: Install Plugin From Source` installs those two types straight from a Git
+URL and keeps them updated. Instructions and hooks are not part of the plugin
+format, so the setup script still owns them.
 
 ---
 

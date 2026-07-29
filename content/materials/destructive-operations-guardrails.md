@@ -335,6 +335,61 @@ These are concrete patterns that have stopped or limited destructive incidents i
 | **Read-only first session** | New agent runs a read-only week before anyone gives it write tools |
 | **Blast-radius display** | Before any infra change, the agent prints the resource graph that will be affected |
 | **Angry-agent review** | A second custom agent specifically prompted to challenge the destruction plan and find what it missed |
+| **`PreToolUse` hook** | A host-executed command that inspects the command text and exits `2` to block a class of operation outright. Unlike a rule in an instruction file, it does not depend on the model choosing to comply. |
+
+---
+
+## Worked example: the guardrail that ate the guardrails
+
+A real incident from the [CopilotAtelier](https://github.com/raandree/CopilotAtelier)
+reference repository, July 2026. It is worth reading in full because nothing
+about it involves the agent misbehaving.
+
+The setup script that deploys the customization library refreshes a directory
+link. When the link already existed, it deleted it and recreated it:
+
+```powershell
+# The deletion path, simplified
+[IO.Directory]::Delete($linkPath)                       # primary
+Remove-Item -LiteralPath $linkPath -Force -Recurse      # fallback on failure
+```
+
+`$linkPath` is a **junction**. Under Windows PowerShell 5.1 — the runtime most
+people launch a setup script with — `Remove-Item -Recurse` follows the reparse
+point and recursively deletes the contents of the **target**. The target here
+was the OneDrive folder holding every agent, instruction file, skill, prompt,
+and hook the user owned.
+
+Four properties made it dangerous:
+
+| Property | Why it matters |
+|---|---|
+| **Rare** | The fallback only ran when the primary delete hit a lock or sharing violation |
+| **Silent** | The script reported success; nothing looked wrong |
+| **Irreversible** | Cloud sync dutifully propagated the deletion |
+| **Self-targeting** | The blast radius was the safety apparatus itself |
+
+### What actually caught it
+
+Not a test. Not the agent. An **independent security review** of an unrelated
+change — the new hook work — read the deletion path and recognised the reparse
+semantics.
+
+### What to take from it
+
+- **The dangerous line was defensive code.** It was a fallback, written to make
+  the script more robust. Recovery paths get less scrutiny than primary paths
+  and run under exactly the conditions where things are already going wrong.
+- **Runtime semantics are part of the blast radius.** The same statement is
+  safe under PowerShell 7 and destructive under 5.1. "Which shell will actually
+  run this?" is a containment question.
+- **Blast radius is not the same as intent.** Nobody wrote code to delete the
+  library. They wrote code to remove a link.
+- **Independent review found what the author could not.** This is the argument
+  for the review layer, stated more convincingly than any policy document.
+
+> The golden rule holds in both directions: the agent will be wrong eventually,
+> and so will the guardrail. Neither is a reason to skip the other.
 
 ---
 

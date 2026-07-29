@@ -797,7 +797,10 @@ Speaker notes (for newcomers):
 | 3 | **Custom Agents** | `.agent.md` | When agent is selected |
 | 4 | **Skills** | `SKILL.md` | Auto, when task matches description |
 | 5 | **Prompt Templates** | `.prompt.md` | When `/command` is invoked |
-| 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+| 6 | **Hooks** | `*.hooks.json` + script | At a fixed point in the loop — *deterministically* |
+| 7 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+
+> Rows 1–5 and 7 are **advice the model may ignore**. Row 6 is not.
 
 <!--
 The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.

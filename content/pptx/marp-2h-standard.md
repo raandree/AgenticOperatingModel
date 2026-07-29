@@ -315,8 +315,8 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 # Why the Agentic Operating Model Is Possible NOW
 
 ### Technology Advances
-- **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
-- **Advanced reasoning** — Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
+- **Massive context windows** — 1M+ tokens (Claude Opus 5)
+- **Advanced reasoning** — Claude Opus 5, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -1117,16 +1117,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
--->
-
-<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
+-->
+
+<!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1305,7 +1305,7 @@ Speaker notes (for newcomers):
 
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Custom Agents — Specialized Behaviors
 
@@ -1313,6 +1313,7 @@ Speaker notes (for newcomers):
 ---
 name: software-engineer
 description: Expert-level agent for production-ready code
+model: ['Claude Opus 5 (copilot)', 'Claude Opus 4.8 (copilot)']
 tools: ['editFiles', 'codebase', 'runTests', 'runCommands',
         'search', 'problems', 'githubRepo', 'fetch']
 agents: ['security-reviewer']
@@ -1336,6 +1337,8 @@ handoffs:
 5. Hand off to security-reviewer when ready
 ```
 
+> `model` is a **priority array**, not a pin — first available wins, last entry must be GA. Copilot retires models every ~6 weeks.
+
 <!--
 A custom agent is a named bundle of three things: a system prompt (the persona), a tool allowlist (what the agent can actually do), and optional handoffs (which other agents it can call). The same underlying model powers all of them; the difference is configuration, not capability.
 
@@ -1352,13 +1355,39 @@ The tool allowlist matters more than the persona. A "refactor agent" without `ru
 | 3 | **Custom Agents** | `.agent.md` | When agent is selected |
 | 4 | **Skills** | `SKILL.md` | Auto, when task matches description |
 | 5 | **Prompt Templates** | `.prompt.md` | When `/command` is invoked |
-| 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+| 6 | **Hooks** | `*.hooks.json` + script | At a fixed point in the loop — *deterministically* |
+| 7 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+
+> Rows 1–5 and 7 are **advice the model may ignore**. Row 6 is not.
 
 <!--
 The six types form a spectrum from "always loaded, no questions" (project instructions) to "loaded only when explicitly invoked" (prompt files), with pattern-matched instructions, skills, and agents distributed across the middle. Each step on the spectrum trades token cost against discoverability — more always-on means more reliability but higher per-request cost; more on-demand means lower cost but more risk the agent misses what it needs.
 
 Most teams reach for the wrong end of the spectrum first. The instinct is to put everything in `copilot-instructions.md` because "then it always works." The result is a bloated always-on file that contradicts itself in places and burns tokens on irrelevant rules. The mature pattern is the inverse: a short always-on file, a handful of pattern-matched instructions for specific languages, a few skills for specialised domains, and prompt files for repeated tasks.
 -->
+---
+
+<!-- _class: compact -->
+
+# Hooks — Enforcement That Doesn't Depend on Compliance
+
+Every rule so far lives in a file the model *reads*. A hook is a command the **host runs**, at a fixed point in the loop, and it honours the exit code.
+
+| Event | Fires | What it buys you |
+|---|---|---|
+| `SessionStart` | session opens | inject ground truth — UTC time, "a Memory Bank **does** exist here" |
+| `PreToolUse` | before every tool call | **block it** — exit `2` is the blocking contract |
+| `PostToolUse` | after a tool call | audit, lint, notify |
+
+```jsonc
+"PreToolUse": [ { "type": "command", "timeout": 20,
+  "command": "pwsh -NoProfile -File \"$HOME/.copilot/hooks/scripts/Block-RemoteMutation.ps1\"" } ]
+```
+
+> **"Never push unless I ask" as an instruction file is a *request*. As a `PreToolUse` hook it is a *wall*.**
+
+<!-- Speaker notes: This is the slide that closes the honesty gap in Module 3. Everything before it — copilot-instructions.md, .instructions.md, .agent.md, SKILL.md — is text the model reads and then decides whether to follow. Most of the time it follows. "Most of the time" is not a control. Hooks are the missing deterministic layer: VS Code, the Copilot CLI and Claude Code all read a user-level hooks folder (~/.copilot/hooks), execute the declared command, and act on the exit code. Exit 0 proceeds, exit 2 blocks the tool call and shows the reason to the model, and anything else is a non-blocking warning — so a broken hook degrades to noise rather than bricking every tool call. Two worked examples from CopilotAtelier: Block-RemoteMutation.ps1 on PreToolUse refuses git push, --no-verify, git reset --hard, force-clean, and mutating gh commands, with an environment-variable escape hatch for a push the user actually authorised this turn; Add-SessionContext.ps1 on SessionStart probes the filesystem for .memory-bank/index.md and states authoritatively whether it exists — which kills the recurring failure where the agent concludes "no Memory Bank" because the workspace summary omits dotfile folders. Two caveats to say out loud. First, this is pattern matching over a command string, not a sandbox; an obfuscated or indirectly invoked push gets through, so it is defense in depth that removes the *accidental* path, and the written rule still has to exist. Second, and this is the important one, it connects straight to the containment module: an agent that can edit the hook scripts can rewrite its own guardrails, so the hook folder has to sit outside the agent's auto-approved edit scope. Sources: https://code.visualstudio.com/docs/agent-customization/hooks -->
+
 ---
 
 <!-- _class: compact -->
@@ -1382,11 +1411,11 @@ Agent ecosystems are converging on **open, cross-vendor standards** under Linux 
 
 ---
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Your Atelier — Customization as Code
 
-> **Four surfaces + environment + keybindings — version it, sync it, script its setup.**
+> **Five surfaces + environment + keybindings — version it, sync it, script its setup.**
 
 The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo demonstrates the pattern:
 
@@ -1396,6 +1425,7 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 ├── Instructions/    # *.instructions.md — rules (applyTo globs)
 ├── Skills/          # <name>/SKILL.md  — on-demand expertise
 ├── Prompts/         # *.prompt.md      — /slash commands
+├── Hooks/           # *.hooks.json     — deterministic guardrails
 ├── Keybindings/     # keybindings.json — shared hotkeys
 └── Setup-CopilotSettings.ps1           — idempotent installer
 ```
@@ -1406,9 +1436,10 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 "chat.instructionsFilesLocations": { "~/OneDrive/CopilotAtelier/Instructions": true }
 "chat.agentSkillsLocations":       { "~/OneDrive/CopilotAtelier/Skills": true }
 "chat.promptFilesLocations":       { "~/OneDrive/CopilotAtelier/Prompts": true }
+"chat.hookFilesLocations":         { "~/OneDrive/CopilotAtelier/Hooks": true }
 ```
 
-> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)).
+> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)). A root `plugin.json` also makes Agents + Skills installable straight from a Git URL.
 
 <!--
 "Atelier" is the deliberate metaphor here — the workshop of a craftsperson, kept stocked with their own instruments, organised the way they think, and carried with them between projects. Applied to agentic tooling, the atelier is the personal layer of customisation that travels with the developer rather than living inside any one repository: instruction files, custom agents, skills, prompt files, all version-controlled and synced across machines (the cross-machine sync pattern from slide 10.5a).
@@ -1693,7 +1724,7 @@ A unit test asks "is this function correct?" An **eval** asks "does the **agent*
 - **Capability evals** (start low, a hill to climb) vs. **regression evals** (near 100%, catch backsliding).
 - **`pass@k`** (one of k tries works) vs. **`pass^k`** (all k succeed — the bar for reliability).
 - **Eval-driven development:** write the eval *before* the agent can pass it — the same move as test-first.
-- **In practice:** CopilotAtelier's [`agent-evals`](https://github.com/raandree/CopilotAtelier) skill ships a `run-evals.ps1` harness with `pass@k` / `pass^k` gating — start from 20–50 real failures.
+- **Native tooling first:** the **Chat Customizations Evaluations** extension statically analyses a `SKILL.md` / `.agent.md` for contradictions and cognitive load; Microsoft's **Waza** is the non-interactive eval runner. CopilotAtelier's [`agent-evals`](https://github.com/raandree/CopilotAtelier) skill routes to both and keeps `run-evals.ps1` as the fallback — start from 20–50 real failures.
 
 > Deterministic tests still verify the *code*. Evals verify the *agent*. You need both.
 
@@ -1725,17 +1756,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
+-->
+
+<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
--->
-
-<!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 
@@ -1982,18 +2013,22 @@ The four properties below the log (reversible, blameable, branchable, citable) a
 -->
 ---
 
+<!-- _class: compact -->
+
 # The Memory Bank Pattern
 
-The same six or seven files appear in every serious GHCP project:
+The same handful of files appears in every serious GHCP project:
 
 | File | Purpose |
 |---|---|
+| `index.md` | **The routing map** — always read, and it says what to read next |
 | `projectbrief.md` | What this project is and why it exists |
 | `productContext.md` | Stakeholders, background, scope |
-| `activeContext.md` | Current focus, recent changes, next steps *(the **index**)* |
+| `activeContext.md` | Current focus, recent changes, next steps |
 | `progress.md` | What's done, what's pending, known issues |
 | `systemPatterns.md` | Conventions, folder structure, patterns |
 | `techContext.md` | Tools, versions, environment |
+| `decisions/*.md` | One durable choice per file, with its rationale |
 | `promptHistory.md` | Append-only record of prompts and decisions |
 
 > **Tool-neutral**: Copilot · Claude Code · Cline all converge here.

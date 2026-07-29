@@ -79,6 +79,27 @@ Each major topic follows this pattern:
 3. **How** (10-15 min): Live demonstration
 4. **Practice** (5-10 min): Hands-on exercise or discussion
 
+### Split-file H1s are load-bearing — `notes-title-map.psd1` couples them
+
+The note merge matches split-file speaker notes to monolith slides **by H1
+title**, with `content/pptx/notes-title-map.psd1` holding the aliases for the
+pairs whose titles differ. So a split-file H1 is not free prose:
+
+- **Renaming a split H1 silently drops that slide's merged notes.** Verified
+  2026-07-29 — changing `04-controlling-ai-behavior.md` from *Six Types of
+  Copilot Customization* to *Seven Types* dropped injection **115 → 114** with
+  no error, because the alias key still said "Six". Fixing the key restored it.
+- **The build reports the symptom, not the cause.** Watch two numbers on every
+  rebuild: `Applied N title-map alias(es)` and `Injected speaker notes into N
+  monolith slides`. A drop in either means a title moved.
+- **Corollary:** when a slide's title must change, grep
+  `notes-title-map.psd1` for the old title *in the same edit*.
+
+Related trap already recorded elsewhere: an inline `<!-- Speaker notes -->`
+comment in the monolith trips the merge **skip-guard** and suppresses that
+slide's richer split notes. Inline notes are correct only for slides with no
+split twin.
+
 ## Agentic Coding Patterns for PowerShell
 
 ### Pattern 1: Task-Driven Development

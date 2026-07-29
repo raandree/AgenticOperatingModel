@@ -2,6 +2,61 @@
 
 ## Current Focus
 
+**Task (2026-07-29, CopilotAtelier upstream sync → 2 new slides + currency pass — uncommitted on `main`)**:
+Scanned four upstream CopilotAtelier commits (2026-07-22 `cbeda52` → 07-29
+`9acd39e`) for AOM impact, then implemented every finding. The headline is
+**Hooks**, a fifth Customization type upstream added on 07-28, and it is not
+merely an inventory row: everything the curriculum teaches about controlling
+behaviour — `copilot-instructions.md`, `.instructions.md`, `.agent.md`,
+`SKILL.md`, `.prompt.md` — is **text the model reads and may ignore**, whereas a
+hook is executed by the host with a real exit-code contract (`0` allow, `2`
+block, anything else non-blocking warn). New **2h + 4h** M3 slide *Hooks —
+Enforcement That Doesn't Depend on Compliance* after the ecosystem table; the
+ecosystem table itself went **6 → 7 types** in both the build source
+[content/slides/marp-presentation.md](../content/slides/marp-presentation.md)
+and the split twin [content/slides/04-controlling-ai-behavior.md](../content/slides/04-controlling-ai-behavior.md).
+Crucially the deck previously named hooks **only as a threat** (host trust
+handoffs), so *Containment Must Cover Host Trust Handoffs* now states the
+dual-use tension outright: the `PreToolUse` hook that blocks your pushes is a
+script the Agent can edit, so it belongs outside auto-approved edit scope.
+Second new slide, **4h-only**: *Routing the Memory Bank — "Select", With a
+Number Attached*, after *The Memory Bank Pattern*. The curriculum taught the
+Memory Bank as files read every session, which is the M2 **Write** move done
+well and the **Select** move not done at all — and on a long project it
+manufactures the exact **distraction** failure M2 names. The slide teaches
+`index.md` as the single unconditional read, the fail-open rule (index missing,
+routes conflict, or a fact not found → read everything *and say so*), the
+authority order, and that routing is **testable**: upstream gates its own on
+**25 audited cases — zero critical misses and ≥ 50 % context reduction**. The
+shipped [content/materials/memory-bank-template/](../content/materials/memory-bank-template/README.md)
+gained `index.md` and `decisions/0001-example-decision.md`, and its README plus
+`activeContext.md` were corrected — `activeContext.md` is a **status page, not
+the index**. [content/materials/destructive-operations-guardrails.md](../content/materials/destructive-operations-guardrails.md)
+gained a real worked incident, *The guardrail that ate the guardrails*:
+upstream's setup script called `Remove-Item -Recurse` on a **junction**, which
+under Windows PowerShell 5.1 follows the reparse point and would have deleted
+the entire synced customization library — rare, silent, irreversible,
+self-targeting, and caught by an **independent security review of an unrelated
+change**, not by a test. Currency: Opus 4.8 → **Opus 5**, but the more useful
+change is that agent examples now teach `model` as a **priority array** (first
+available wins, last entry GA) because hosted models retire on a ~6-week
+cadence; `agents: []` + `disable-model-invocation: true` are taught explicitly
+(an unset `agents` key means "anyone may call me as a subagent"); the skill
+`description` cap was corrected from a fictional "~500" to the real **hard
+1024**; `agent-evals` now leads with the native Chat Customizations Evaluations
+extension and Microsoft **Waza**, demoting `run-evals.ps1` to fallback;
+inventory refreshed to **~40 skills / five surfaces**; `plugin.json` noted.
+Build: **30 / 75 / 149** source slides (from 30 / 74 / 147), overflow
+**0 / 0 / 0**, note injection **115**, build Pester **11/11**; PPTX
+**re-exported** this turn at **31 / 76 / 150** slide parts with matching notes
+parts (4.6 / 13.0 / 27.3 MB), clearing the staleness carried since 2026-07-13.
+Seven slides that gained content dropped one density tier; the already-compact
+*Skill-Authoring Discipline* slide was trimmed instead. Both new slides
+PNG-verified. **Gotcha found and recorded in `systemPatterns.md`**: renaming a
+split-file H1 (*Six* → *Seven Types of Copilot Customization*) silently broke
+its `notes-title-map.psd1` alias and dropped injection **115 → 114** with no
+error — always grep the title map in the same edit. Prior focus retained below.
+
 **Task (2026-07-29, context-engineering transcript → one new 4h slide — uncommitted on `main`)**:
 Assessed a user-supplied context-engineering explainer transcript against the
 curriculum. Most of it was **already covered and already better sourced** — the

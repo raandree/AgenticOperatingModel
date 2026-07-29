@@ -443,7 +443,7 @@ Different tasks need different behaviors:
 ---
 name: software-engineer
 description: Expert-level agent for production-ready code
-model: 'Claude Opus 4.8 (copilot)'
+model: ['Claude Opus 5 (copilot)', 'Claude Opus 4.8 (copilot)']
 argument-hint: 'Describe the feature, bug fix, or refactoring task'
 tools: ['editFiles', 'codebase', 'runTests', 'runCommands',
         'search', 'problems', 'githubRepo', 'fetch']
@@ -484,10 +484,11 @@ The tool allowlist matters more than the persona. A "refactor agent" without `ru
 ---
 name: security-reviewer
 description: Validate code for security vulnerabilities and quality
-model: 'Claude Opus 4.8 (copilot)'
+model: ['Claude Opus 5 (copilot)', 'Claude Opus 4.8 (copilot)']
 argument-hint: 'Specify code, files, or scope to audit'
 tools: ['codebase', 'search', 'problems', 'runTests', 'fetch']
 agents: []
+disable-model-invocation: true
 handoffs:
   - label: Fix Issues Found
     agent: software-engineer
@@ -700,7 +701,7 @@ Speaker notes (for newcomers):
 
 ## Slide 4.13: The Complete Customization Ecosystem
 
-# Six Types of Copilot Customization
+# Seven Types of Copilot Customization
 
 | # | Type | File | When It Activates |
 |---|------|------|--------------------|
@@ -709,7 +710,10 @@ Speaker notes (for newcomers):
 | 3 | **Custom Agents** | `.agent.md` | When agent is selected |
 | 4 | **Skills** | `SKILL.md` (in folders) | Auto-detected by description |
 | 5 | **Prompt Files** | `.prompt.md` | When `/command` is typed |
-| 6 | **Cross-Tool Instructions** | `AGENTS.md` / `CLAUDE.md` | Always-on |
+| 6 | **Hooks** | `*.hooks.json` + script | At a fixed lifecycle event — **deterministically** |
+| 7 | **Cross-Tool Instructions** | `AGENTS.md` / `CLAUDE.md` | Always-on |
+
+> Types 1–5 and 7 are advice the model may ignore. Type 6 is run by the host, which honours the exit code.
 
 > *Illustrative layout below — your project may keep these in `.github/` or sync them via `~/OneDrive/CopilotAtelier/` (see Module 10). Sample files for this training live in [`content/materials/sample-copilot-instructions/`](../materials/sample-copilot-instructions/).*
 

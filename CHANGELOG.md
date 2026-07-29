@@ -9,6 +9,105 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Hooks taught as the fifth Customization type (2026-07-29).** Every
+  customization the curriculum taught so far — `copilot-instructions.md`,
+  `.instructions.md`, `.agent.md`, `SKILL.md`, `.prompt.md` — is text the model
+  reads and then *chooses* whether to obey. A hook is a command the host
+  executes at a fixed lifecycle event, and it honours the exit code, so it is
+  the only customization type that enforces rather than requests. Added a new
+  2h/4h M3 slide *Hooks — Enforcement That Doesn't Depend on Compliance* to the
+  Marp build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md)
+  covering the `SessionStart` / `PreToolUse` / `PostToolUse` events and the
+  `0` allow / `2` block / other warn exit-code contract. Added a Hooks row to
+  the *Complete Customization Ecosystem* table (now seven types) in both the
+  build source and the split twin
+  [content/slides/04-controlling-ai-behavior.md](content/slides/04-controlling-ai-behavior.md),
+  with the matching `notes-title-map.psd1` alias updated so the split notes
+  still merge. Added `chat.hookFilesLocations` to every cross-machine sync
+  snippet, a `Hooks/` entry to the atelier folder tree, and a Hooks section to
+  [content/materials/cheat-sheet.md](content/materials/cheat-sheet.md) and the
+  sample
+  [copilot-authoring.instructions.md](content/materials/sample-copilot-instructions/copilot-authoring.instructions.md).
+  The containment slide *Containment Must Cover Host Trust Handoffs* now states
+  the dual-use tension explicitly: the `PreToolUse` hook that blocks your pushes
+  is a script the Agent can edit, so it belongs outside auto-approved edit scope.
+
+- **New M11 slide "Routing the Memory Bank — Select, With a Number Attached" (2026-07-29).**
+  Added one 4h-only slide after *The Memory Bank Pattern*. The curriculum taught
+  the Memory Bank as a set of files read every session, which is the Write move
+  from M2 done well and the Select move not done at all — and on a long project
+  it manufactures the very *distraction* failure M2 names. The slide teaches an
+  `index.md` routing table as the single unconditional read, the fail-open rule
+  (index missing, routes conflict, or a fact not found → read everything and say
+  so), the authority order, and the fact that routing is testable: CopilotAtelier
+  gates its own routing on 25 audited cases requiring zero critical misses and
+  ≥ 50 % context reduction.
+
+- **Memory Bank template gains `index.md` and `decisions/` (2026-07-29).**
+  [content/materials/memory-bank-template/index.md](content/materials/memory-bank-template/index.md)
+  ships the routing map, full-read fallback, authority order, and routing table;
+  [content/materials/memory-bank-template/decisions/0001-example-decision.md](content/materials/memory-bank-template/decisions/0001-example-decision.md)
+  ships an immutable decision-record template with context, decision,
+  consequences (including what it cost), alternatives, and evidence. The
+  template README and `activeContext.md` were corrected accordingly —
+  `activeContext.md` is a status page, not "the index".
+
+- **Worked incident added to the destructive-operations handout (2026-07-29).**
+  [content/materials/destructive-operations-guardrails.md](content/materials/destructive-operations-guardrails.md)
+  gains *The guardrail that ate the guardrails*: a real July 2026 CopilotAtelier
+  defect where a setup script's `Remove-Item -Recurse` fallback followed a
+  junction's reparse point under Windows PowerShell 5.1 and would have deleted
+  the OneDrive folder holding every agent, instruction, skill, prompt, and hook.
+  Rare, silent, irreversible, and self-targeting — and caught not by a test but
+  by an independent security review of an unrelated change. Also added a
+  `PreToolUse` hook row to the trip-wire pattern table.
+
+### Changed
+
+- **Model currency and a resilient `model` declaration (2026-07-29).** Claude
+  Opus 5 replaces Opus 4.8 as the current flagship across the deck, the
+  cheat-sheet model table, and the split files. More importantly, the custom
+  agent examples now declare `model` as a **priority array**
+  (`['Claude Opus 5 (copilot)', 'Claude Opus 4.8 (copilot)']`) rather than a
+  hard-pinned string, with the rule stated on-slide: first available wins, last
+  entry must be GA, because hosted models retire on a roughly six-week cadence
+  and a pin breaks every agent at once.
+
+- **Subagent eligibility taught explicitly (2026-07-29).** The security-reviewer
+  agent example now declares `agents: []` and `disable-model-invocation: true`,
+  with the footgun named: an unset `agents` key means "any agent may call me as
+  a subagent", which is how a domain specialist ends up invoked on an unrelated
+  task.
+
+- **Skill description cap corrected from ~500 to 1024 characters (2026-07-29).**
+  The sample
+  [copilot-authoring.instructions.md](content/materials/sample-copilot-instructions/copilot-authoring.instructions.md)
+  stated a soft ~500-character guideline. The real limit is a hard 1024
+  characters enforced by both VS Code and the agentskills.io specification, and
+  a description over it can fail to load silently. The M4 *Skill-Authoring
+  Discipline* failure-mode table and speaker notes were corrected to match, and
+  the optional `compatibility`, `context: fork`, `license`, `metadata`, and
+  `allowed-tools` Skill fields are now documented.
+
+- **`agent-evals` reference updated to native tooling (2026-07-29).** The M4
+  *Evals Are Not Unit Tests* slide described the CopilotAtelier skill as
+  shipping a `run-evals.ps1` harness. That harness is now the documented
+  *fallback*; the slide leads with the Chat Customizations Evaluations extension
+  for static analysis and Microsoft's Waza runner for non-interactive execution.
+
+- **CopilotAtelier inventory refreshed to ~40 skills and five surfaces
+  (2026-07-29)**, and the `plugin.json` distribution path (installable Agents +
+  Skills from a Git URL, complementary to the setup script, which still owns
+  Instructions and hooks) is now mentioned on the atelier slide and in the
+  cheat sheet.
+
+- **Deck build (2026-07-29).** 1h / 2h / 4h source slides now **30 / 75 / 149**
+  (from 30 / 74 / 147). Seven slides that gained content dropped one density
+  tier to stay inside the frame; the already-compact *Skill-Authoring
+  Discipline* slide was trimmed instead. Rendered overflow **0 / 0 / 0**,
+  speaker-note injection **115**, build Pester **11/11**.
+
 - **New M2 slide "Four Ways Context Goes Bad — Name It to Fix It" (2026-07-29).**
   Added one 4h-only slide to the Marp build source
   [content/slides/marp-presentation.md](content/slides/marp-presentation.md),

@@ -39,7 +39,7 @@
     'Layers of Verification'                                        = 'Trust Hierarchy'
     'Same Prompt, Different Results?'                               = 'The Consistency Problem'
     'Self-Correction Example'                                       = 'Self-Correction in Action'
-    'Six Types of Copilot Customization'                            = 'The Complete Customization Ecosystem'
+    'Seven Types of Copilot Customization'                          = 'The Complete Customization Ecosystem'
     'Specialized Agent Behaviors'                                   = 'Custom Agents — Specialized Behaviors'
     'Teach AI When to Use What'                                     = 'Skills — Domain Knowledge on Demand'
     'Tests as Specifications'                                       = 'Test-First — In Practice'

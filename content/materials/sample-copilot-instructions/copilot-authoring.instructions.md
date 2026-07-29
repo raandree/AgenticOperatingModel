@@ -24,6 +24,7 @@ These rules apply to:
 | `*.prompt.md` | Reusable slash commands (one-shot templates) |
 | `*.agent.md` | Custom AI personas with tools, models, handoffs |
 | `SKILL.md` | On-demand domain knowledge loaded by description match |
+| `*.hooks.json` | Deterministic guardrails run by the host at lifecycle events |
 
 ## YAML Frontmatter Rules
 
@@ -63,8 +64,18 @@ not for a human reader.
   file covers — Copilot matches on these tokens.
 - Include both **USE FOR** and **DO NOT USE FOR** lines to prevent
   over-triggering on adjacent topics.
-- Keep the description under ~500 characters; longer descriptions are
-  truncated during ranking.
+- **Hard cap: 1024 characters.** Both VS Code and the agentskills.io
+  specification enforce it, and a description over the cap can fail to
+  load *silently*. Test for it rather than eyeballing it.
+
+## Optional Skill Frontmatter
+
+| Field | Use it when |
+|-------|-------------|
+| `compatibility` | The skill needs a specific OS or toolchain (max 500 chars). Without it, a Linux user loads a Windows-COM skill with no warning. |
+| `context: fork` | The skill ingests untrusted external content. It then runs in its own subagent and returns only its final report, keeping fetched pages out of the parent context. |
+| `license`, `metadata` | Publishing the skill outside your own machine. |
+| `allowed-tools` | The skill should narrow the tool surface while it is active. |
 
 ## `applyTo` Glob Patterns
 
@@ -83,8 +94,34 @@ only where relevant.
   `base-agent` agent" instead of copy-pasting shared rules.
 - Include a **Handoff** section if the agent is part of a pipeline
   (e.g., `code-reviewer` → `security-reviewer`).
-- State the agent's **model** preference in frontmatter when a specific
-  model materially changes the outcome.
+- Declare `model` as a **priority array**, not a single string — the
+  first available model wins and the last entry must be generally
+  available. Hosted models are retired on a regular cadence, and a
+  hard-pinned model breaks every agent at once.
+- **Always declare `agents`**, even as `agents: []`. An unset key means
+  "any agent may call me as a subagent", which is how a domain
+  specialist ends up invoked on an unrelated task.
+- Set `disable-model-invocation: true` on heavyweight or narrow roles so
+  only a human, or an agent that names them explicitly, can start them.
+
+## Hook Files (`*.hooks.json`)
+
+Instructions, agents, and skills are advice the model may ignore. A hook
+is a command the host executes, so it is the only customization type
+that enforces rather than requests.
+
+- Honour the exit-code contract: `0` allows, `2` blocks and returns the
+  reason on stderr, and anything else is a non-blocking warning.
+- **Fail open.** An unreadable payload or an internal error must exit
+  non-blocking; a hook that throws must not brick every tool call.
+- Match on the command text at any nesting depth rather than on the tool
+  name, and exit `0` immediately for a tool that carries no command —
+  otherwise editing a document that merely mentions `git push` is
+  blocked.
+- Provide a documented, per-command override for the case the rule is
+  meant to catch, and log every use of it.
+- Keep hook scripts out of the agent's auto-approved edit scope. An
+  agent that can rewrite its own guardrails has none.
 
 ## Prompt Files (`.prompt.md`)
 

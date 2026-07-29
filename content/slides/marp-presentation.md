@@ -290,8 +290,8 @@ style: |
 # Why the Agentic Operating Model Is Possible NOW
 
 ### Technology Advances
-- **Massive context windows** — 1M+ tokens (Claude Opus 4.8)
-- **Advanced reasoning** — Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
+- **Massive context windows** — 1M+ tokens (Claude Opus 5)
+- **Advanced reasoning** — Claude Opus 5, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code
 - **Native tool use** abilities in LLMs
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
 
@@ -304,17 +304,21 @@ style: |
 ---
 <!-- version: 4h -->
 
+<!-- _class: compact -->
+
 # Understanding the Economics
 
 ### What are tokens?
 - ~4 characters or ~¾ of a word — both input and output consume them
 
-| Model | Copilot status (22 Jul 2026) | Best fit |
+| Model | Copilot status (29 Jul 2026) | Best fit |
 |---|---|---|
-| Claude Opus 4.8 | preview since Jun 29; up to 1M context | premium reasoning |
+| Claude Opus 5 | current flagship; Opus 4.8 remains the GA fallback | premium reasoning |
 | GPT-5.6 Sol / Terra / Luna | gradual rollout since Jul 9 | highest / balanced / fast |
 | Gemini 3.6 Flash | preview rollout since Jul 21 | web, app, longer-horizon work |
 | Kimi K2.7 Code | GA; Business/Enterprise since Jul 7 | open-weight, lower-cost coding |
+
+> **Models retire on a ~6-week cadence.** Never hard-pin one — see the agent `model` priority array.
 
 ### Why cost matters in agentic workflows
 - Each iteration (observe → plan → act → verify) adds token usage
@@ -1179,7 +1183,7 @@ Speaker notes (for newcomers):
 ---
 <!-- version: 2h 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Custom Agents — Specialized Behaviors
 
@@ -1187,6 +1191,7 @@ Speaker notes (for newcomers):
 ---
 name: software-engineer
 description: Expert-level agent for production-ready code
+model: ['Claude Opus 5 (copilot)', 'Claude Opus 4.8 (copilot)']
 tools: ['editFiles', 'codebase', 'runTests', 'runCommands',
         'search', 'problems', 'githubRepo', 'fetch']
 agents: ['security-reviewer']
@@ -1210,10 +1215,12 @@ handoffs:
 5. Hand off to security-reviewer when ready
 ```
 
+> `model` is a **priority array**, not a pin — first available wins, last entry must be GA. Copilot retires models every ~6 weeks.
+
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Agent Handoff Chains
 
@@ -1230,6 +1237,8 @@ Software Engineer ──▶ Security Reviewer ──▶ Production
 name: security-reviewer
 description: Validate code for security vulnerabilities
 tools: ['codebase', 'search', 'problems', 'runTests']
+agents: []                        # may call no one
+disable-model-invocation: true    # only a human or a named caller starts me
 handoffs:
   - label: Fix Issues Found
     agent: software-engineer
@@ -1240,6 +1249,8 @@ handoffs:
 - Classify findings by CVSS severity
 - Decision: PASS / FAIL / CONDITIONAL
 ```
+
+> **Omitting `agents` means "anyone may call me as a subagent."** Declare it — an unset key is how a tax specialist ends up reviewing your pipeline.
 
 ---
 <!-- version: 4h -->
@@ -1344,7 +1355,34 @@ Type `/CodeReview` in Copilot Chat → the template runs with your context.
 | 3 | **Custom Agents** | `.agent.md` | When agent is selected |
 | 4 | **Skills** | `SKILL.md` | Auto, when task matches description |
 | 5 | **Prompt Templates** | `.prompt.md` | When `/command` is invoked |
-| 6 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+| 6 | **Hooks** | `*.hooks.json` + script | At a fixed point in the loop — *deterministically* |
+| 7 | **Cross-Tool** | `AGENTS.md` / `CLAUDE.md` | Always-on (tool-specific) |
+
+> Rows 1–5 and 7 are **advice the model may ignore**. Row 6 is not.
+
+---
+<!-- version: 2h 4h -->
+
+<!-- _class: compact -->
+
+# Hooks — Enforcement That Doesn't Depend on Compliance
+
+Every rule so far lives in a file the model *reads*. A hook is a command the **host runs**, at a fixed point in the loop, and it honours the exit code.
+
+| Event | Fires | What it buys you |
+|---|---|---|
+| `SessionStart` | session opens | inject ground truth — UTC time, "a Memory Bank **does** exist here" |
+| `PreToolUse` | before every tool call | **block it** — exit `2` is the blocking contract |
+| `PostToolUse` | after a tool call | audit, lint, notify |
+
+```jsonc
+"PreToolUse": [ { "type": "command", "timeout": 20,
+  "command": "pwsh -NoProfile -File \"$HOME/.copilot/hooks/scripts/Block-RemoteMutation.ps1\"" } ]
+```
+
+> **"Never push unless I ask" as an instruction file is a *request*. As a `PreToolUse` hook it is a *wall*.**
+
+<!-- Speaker notes: This is the slide that closes the honesty gap in Module 3. Everything before it — copilot-instructions.md, .instructions.md, .agent.md, SKILL.md — is text the model reads and then decides whether to follow. Most of the time it follows. "Most of the time" is not a control. Hooks are the missing deterministic layer: VS Code, the Copilot CLI and Claude Code all read a user-level hooks folder (~/.copilot/hooks), execute the declared command, and act on the exit code. Exit 0 proceeds, exit 2 blocks the tool call and shows the reason to the model, and anything else is a non-blocking warning — so a broken hook degrades to noise rather than bricking every tool call. Two worked examples from CopilotAtelier: Block-RemoteMutation.ps1 on PreToolUse refuses git push, --no-verify, git reset --hard, force-clean, and mutating gh commands, with an environment-variable escape hatch for a push the user actually authorised this turn; Add-SessionContext.ps1 on SessionStart probes the filesystem for .memory-bank/index.md and states authoritatively whether it exists — which kills the recurring failure where the agent concludes "no Memory Bank" because the workspace summary omits dotfile folders. Two caveats to say out loud. First, this is pattern matching over a command string, not a sandbox; an obfuscated or indirectly invoked push gets through, so it is defense in depth that removes the *accidental* path, and the written rule still has to exist. Second, and this is the important one, it connects straight to the containment module: an agent that can edit the hook scripts can rewrite its own guardrails, so the hook folder has to sit outside the agent's auto-approved edit scope. Sources: https://code.visualstudio.com/docs/agent-customization/hooks -->
 
 ---
 <!-- version: 2h 4h -->
@@ -1371,11 +1409,11 @@ Agent ecosystems are converging on **open, cross-vendor standards** under Linux 
 ---
 <!-- version: 2h 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # Your Atelier — Customization as Code
 
-> **Four surfaces + environment + keybindings — version it, sync it, script its setup.**
+> **Five surfaces + environment + keybindings — version it, sync it, script its setup.**
 
 The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo demonstrates the pattern:
 
@@ -1385,6 +1423,7 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 ├── Instructions/    # *.instructions.md — rules (applyTo globs)
 ├── Skills/          # <name>/SKILL.md  — on-demand expertise
 ├── Prompts/         # *.prompt.md      — /slash commands
+├── Hooks/           # *.hooks.json     — deterministic guardrails
 ├── Keybindings/     # keybindings.json — shared hotkeys
 └── Setup-CopilotSettings.ps1           — idempotent installer
 ```
@@ -1395,9 +1434,10 @@ The [CopilotAtelier](https://github.com/raandree/CopilotAtelier) reference repo 
 "chat.instructionsFilesLocations": { "~/OneDrive/CopilotAtelier/Instructions": true }
 "chat.agentSkillsLocations":       { "~/OneDrive/CopilotAtelier/Skills": true }
 "chat.promptFilesLocations":       { "~/OneDrive/CopilotAtelier/Prompts": true }
+"chat.hookFilesLocations":         { "~/OneDrive/CopilotAtelier/Hooks": true }
 ```
 
-> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)).
+> **Write an agent once, use it everywhere** — the same files run in the editor, the **terminal** ([ShellPilot](https://github.com/raandree/ShellPilot)), and a **desktop app** ([DeskPilot](https://github.com/raandree/DeskPilot)). A root `plugin.json` also makes Agents + Skills installable straight from a Git URL.
 
 ---
 <!-- version: 4h -->
@@ -1429,7 +1469,7 @@ Content starts here...
 | Symptom | Cause |
 |---|---|
 | Skill never appears in `/skills` menu | Missing YAML frontmatter, or missing `name` / `description` |
-| Skill registered but never auto-loads | Description too vague — add `USE FOR` trigger phrases |
+| Skill registered but never auto-loads | Description too vague — or past the **1024-character** cap |
 | Frontmatter parse error | Blank line required between closing `---` and first heading |
 
 **Diagnostic tools** — `Chat view gear → Open Chat Customizations` lists every registered agent / instruction / skill / prompt. `Chat view ⋯ → Show Agent Debug Logs` shows registration and parse errors.
@@ -1442,6 +1482,8 @@ Speaker notes (for newcomers):
 - Treat the description like a search query. Include the exact phrases users would say ("USE FOR: debug Pester, mock issues, ModuleBuilder error…").
 - The `DO NOT USE FOR:` line is just as important — it stops the skill firing on adjacent-but-wrong tasks.
 - If your skill won't load at all: 99% of the time the YAML frontmatter is malformed. Open the Agent Debug Logs panel — the error is there.
+- The 1024-character cap is a real cliff, not a soft guideline — both VS Code and the agentskills.io spec enforce it, and a description one character over can fail to load with no visible error. Write a test for it rather than counting by eye; CopilotAtelier caught two of its own skills at 1460 and 1106 characters that way.
+- Two optional frontmatter fields worth knowing. `compatibility:` states an environment requirement (max 500 chars) — without it, a Linux user happily loads a skill that needs Windows and Outlook COM, and only finds out when it fails. `context: fork` runs the skill in its own subagent that returns just its final report; use it for any skill that ingests untrusted external content, because it keeps fetched pages out of the parent conversation's context. That is the Isolate move from Module 2, available as one line of frontmatter.
 - Worked example: CopilotAtelier's `skill-creator` skill is the meta-skill for this — the six-step authoring frame, the 1024-char description cap, and a Claude-A/Claude-B eval loop.
 -->
 
@@ -1775,7 +1817,7 @@ A unit test asks "is this function correct?" An **eval** asks "does the **agent*
 - **Capability evals** (start low, a hill to climb) vs. **regression evals** (near 100%, catch backsliding).
 - **`pass@k`** (one of k tries works) vs. **`pass^k`** (all k succeed — the bar for reliability).
 - **Eval-driven development:** write the eval *before* the agent can pass it — the same move as test-first.
-- **In practice:** CopilotAtelier's [`agent-evals`](https://github.com/raandree/CopilotAtelier) skill ships a `run-evals.ps1` harness with `pass@k` / `pass^k` gating — start from 20–50 real failures.
+- **Native tooling first:** the **Chat Customizations Evaluations** extension statically analyses a `SKILL.md` / `.agent.md` for contradictions and cognitive load; Microsoft's **Waza** is the non-interactive eval runner. CopilotAtelier's [`agent-evals`](https://github.com/raandree/CopilotAtelier) skill routes to both and keeps `run-evals.ps1` as the fallback — start from 20–50 real failures.
 
 > Deterministic tests still verify the *code*. Evals verify the *agent*. You need both.
 
@@ -2410,7 +2452,7 @@ privileged that later consumes its output.
 
 | Agent-controlled input | Host component | Possible effect outside the boundary |
 |---|---|---|
-| `.vscode/tasks.json` or hooks | task / hook runner | unsandboxed command execution |
+| `.vscode/tasks.json` or hook scripts | task / hook runner | unsandboxed command execution |
 | virtual-environment interpreter | language extension | host-side binary discovery |
 | Git configuration / `fsmonitor` | Git integration | helper process execution |
 | Docker socket | privileged local daemon | host-level container action |
@@ -2418,8 +2460,9 @@ privileged that later consumes its output.
 **Test the whole chain:** deny by default · review workspace automation · apply
 the same policy to helpers · restrict local daemons · trace every handoff.
 
-> The boundary is not just the Agent process. It includes everything the Agent
-> can write that the host later trusts.
+> **Hooks cut both ways.** The `PreToolUse` hook that blocks your pushes is a
+> script the Agent can edit. Keep it outside auto-approved edit scope — the
+> boundary includes everything the Agent can write that the host later trusts.
 
 ---
 <!-- version: 4h -->
@@ -2775,17 +2818,18 @@ Speaker notes (for newcomers):
 VS Code lets you redirect customizations to a synced folder (e.g., OneDrive):
 
 ```powershell
-# Point all 4 customization types to OneDrive
+# Point all 5 customization types to OneDrive
 $settings = @{
     'chat.agentFilesLocations'        = @{ '~/OneDrive/CopilotAtelier/Agents' = $true }
     'chat.instructionsFilesLocations'  = @{ '~/OneDrive/CopilotAtelier/Instructions' = $true }
     'chat.agentSkillsLocations'       = @{ '~/OneDrive/CopilotAtelier/Skills' = $true }
     'chat.promptFilesLocations'       = @{ '~/OneDrive/CopilotAtelier/Prompts' = $true }
+    'chat.hookFilesLocations'         = @{ '~/OneDrive/CopilotAtelier/Hooks' = $true }
 }
 ```
 
 Write an agent once, use it on **every machine**.
-OneDrive syncs Instructions, Agents, Skills, and Prompts automatically.
+OneDrive syncs Instructions, Agents, Skills, Prompts, and Hooks automatically.
 
 ---
 <!-- version: 4h -->
@@ -3022,22 +3066,48 @@ a0fe73c  Correct timeline for approval workflow
 ---
 <!-- version: 2h 4h -->
 
+<!-- _class: compact -->
+
 # The Memory Bank Pattern
 
-The same six or seven files appear in every serious GHCP project:
+The same handful of files appears in every serious GHCP project:
 
 | File | Purpose |
 |---|---|
+| `index.md` | **The routing map** — always read, and it says what to read next |
 | `projectbrief.md` | What this project is and why it exists |
 | `productContext.md` | Stakeholders, background, scope |
-| `activeContext.md` | Current focus, recent changes, next steps *(the **index**)* |
+| `activeContext.md` | Current focus, recent changes, next steps |
 | `progress.md` | What's done, what's pending, known issues |
 | `systemPatterns.md` | Conventions, folder structure, patterns |
 | `techContext.md` | Tools, versions, environment |
+| `decisions/*.md` | One durable choice per file, with its rationale |
 | `promptHistory.md` | Append-only record of prompts and decisions |
 
 > **Tool-neutral**: Copilot · Claude Code · Cline all converge here.
 > **Template shipped**: `content/materials/memory-bank-template/`
+
+---
+<!-- version: 4h -->
+
+<!-- _class: compact -->
+
+# Routing the Memory Bank — "Select", With a Number Attached
+
+Reading all seven files every turn *is* the **distraction** failure from Module 2. So don't. Read `index.md`, then follow its table.
+
+| Route | Task signal | Read |
+|---|---|---|
+| `general` | Q&A with no project-specific decision | index only |
+| `continuation` | resume, next step, handoff | `activeContext.md`, `progress.md` |
+| `implementation` | code, config, build, test, deploy | `techContext.md`, `activeContext.md` |
+| `architecture` | design, pattern, migration | `systemPatterns.md`, relevant `decisions/*.md` |
+
+- **Fail open, always** — index missing, routes conflict, a fact not found → read everything and *say so*. A routing miss must never look like an answer.
+- **Authority order** — the request, then repository source and tests, then accepted decisions, then core files, then history.
+- **It is testable:** CopilotAtelier gates routing on 25 audited cases — zero critical misses **and ≥ 50 % context reduction**.
+
+<!-- Speaker notes: This is the concrete payoff of the Select verb from Module 2, and it is the slide that turns context engineering from a slogan into something you can measure. The naive Memory Bank instruction is "read all seven files at the start of every turn". That is the Write move done well and the Select move not done at all, and on a long-running project it manufactures exactly the distraction failure we named earlier: the window fills with the history of the project instead of the task in front of you. Routing fixes it. One file, index.md, is the only unconditional read, and it carries a table mapping task signals to the files that actually matter. A build failure pulls techContext and activeContext. A question about why a design looks the way it does pulls systemPatterns and the one relevant decision record. A general question pulls nothing further at all. Three things make this safe rather than merely cheaper. First, fail-open: if the index is missing or invalid, if two routes conflict, if a listed file is absent, or if the agent simply cannot find a fact it needs, it reads the full set and reports the fallback out loud, so the failure mode is a slower turn and never a confidently wrong one. Second, an explicit authority order, so when the current request contradicts an old note the agent knows which wins: repository source and tests outrank prose, and accepted decision records outrank the core files. Third, and this is the part an engineering room should care about, it is not a vibe. CopilotAtelier ships 25 independently audited routing cases with two hard gates, zero labelled critical misses and at least fifty percent context reduction against the full read. That is an eval in the Module 4 sense, applied to the operating model itself. Practical advice for the room: if your Memory Bank has grown past the point where reading all of it is comfortable, this is the upgrade path. Add the index, extract your durable choices into decision records, and keep the fallback. -->
 
 ---
 <!-- version: 4h -->
@@ -3124,7 +3194,7 @@ GHCP's chat is powerful. Its **tools** are what make it *operational*.
 ---
 <!-- version: 4h -->
 
-<!-- _class: dense -->
+<!-- _class: compact -->
 
 # A Mature Personal Atelier
 
@@ -3142,17 +3212,19 @@ What does the pattern look like once you stop thinking of it as "AI for code"?
 | **Documents** | `pdf-to-markdown`, `docx-to-markdown`, `xlsx-to-markdown`, `pandoc-docx-export` |
 | **Communications** | `outlook-email-export`, `outlook-calendar-export`, `send-outlook-email`, `create-outlook-draft`, `microsoft-todo-tasks` |
 | **Knowledge work** | `grammar-check`, `german-legal-research` |
+| **Agent building & discipline** | `skill-creator`, `mcp-builder`, `agent-evals`, `agent-security-review`, `test-driven-development`, `code-review-and-quality` |
 
-### One person. Four surfaces (Agents · Instructions · Skills · Prompts). Git-versioned. OneDrive-synced.
+### One person. Five surfaces (Agents · Instructions · Skills · Prompts · Hooks). Git-versioned. OneDrive-synced.
 
-> **Proof that the operating model is real** — the same shape of work (lab runbook, DSC debug session, legal Schriftsatz, payslip PDF parse) uses the same four customization surfaces, one agent loop, one git history.
+> **Proof that the operating model is real** — the same shape of work (lab runbook, DSC debug session, legal Schriftsatz, payslip PDF parse) uses the same customization surfaces, one agent loop, one git history.
 
 <!--
 Speaker notes (for newcomers):
-- The CopilotAtelier repo is a live, public example — browse it after the session to see what a "mature" personal setup looks like.
-- The point isn't to copy the skills (most won't apply to your work) — it's to see how *the same four file types* (Agents / Instructions / Skills / Prompts) cover wildly different domains.
+- The CopilotAtelier repo is a live, public example — browse it after the session to see what a "mature" personal setup looks like. It is around 40 skills, 11 agents, 16 instruction files and 10 prompts as of late July 2026.
+- The point isn't to copy the skills (most won't apply to your work) — it's to see how *the same five file types* (Agents / Instructions / Skills / Prompts / Hooks) cover wildly different domains.
+- Note the last row especially: once the library got big, it grew skills *about building the library* — skill-creator, agent-evals, agent-security-review. That is the operating model turned on itself, and it is a good sign, not navel-gazing.
 - You won't reach this level in week one. That's fine. Pick ONE skill area, build one skill, see if the agent uses it. Then add another.
-- The OneDrive sync trick (covered on slide 10.5a) is what makes a personal library practical — write once, every machine has it.
+- The OneDrive sync trick (covered on slide 10.5a) is what makes a personal library practical — write once, every machine has it. A root plugin.json now also makes the Agents and Skills installable straight from the Git URL.
 - The very same Atelier now runs outside VS Code too — in the PowerShell terminal via ShellPilot and in a desktop chat app via DeskPilot — which is the subject of the next slide.
 -->
 

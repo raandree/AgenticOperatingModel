@@ -667,7 +667,7 @@ The "what stays the same" list is the more important half of the slide. Every ca
 │                                                                 │
 │  🧠 MODELS                                                     │
 │  ────────                                                       │
-│  • Claude Opus 4.8 preview; GPT-5.6 family rolling out         │
+│  • Claude Opus 5 current; GPT-5.6 family rolling out           │
 │  • Gemini 3.6 Flash preview; Kimi K2.7 Code GA                 │
 │  • Auto model selection in Copilot CLI & Chat                  │
 │                                                                 │

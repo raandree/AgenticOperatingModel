@@ -335,7 +335,7 @@ Project instruction files have been moved from `.github/` to a personal **Copilo
 │   ├── azurepipelines.instructions.md # azure-pipelines*.yml
 │   ├── csharp.instructions.md        # *.cs, *.csx
 │   └── copilot-authoring.instructions.md # *.instructions.md, *.prompt.md, *.agent.md, SKILL.md
-├── Skills/                # Domain knowledge skills (SKILL.md files, ~37 skills)
+├── Skills/                # Domain knowledge skills (SKILL.md files, ~40 skills)
 │   ├── automatedlab-deployment/
 │   ├── datum-configuration/
 │   ├── dsc-troubleshooting/
@@ -359,8 +359,10 @@ Project instruction files have been moved from `.github/` to a personal **Copilo
 │   ├── german-legal-research/
 │   └── german-employment-law/
 ├── Prompts/               # Prompt files / slash commands (.prompt.md)
+├── Hooks/                 # Deterministic guardrails (*.hooks.json + scripts)
 ├── Keybindings/           # keybindings.json merged into the user profile
 ├── Reference/             # Reference materials
+├── plugin.json            # Installable Agents + Skills via Chat: Install Plugin From Source
 └── Setup-CopilotSettings.ps1   # One-time-per-machine setup script
 ```
 
@@ -370,9 +372,15 @@ Project instruction files have been moved from `.github/` to a personal **Copilo
   "chat.instructionsFilesLocations": ["~/OneDrive/CopilotAtelier/Instructions"],
   "chat.agentSkillsLocations": ["~/OneDrive/CopilotAtelier/Skills"],
   "chat.agentFilesLocations": ["~/OneDrive/CopilotAtelier/Agents"],
-  "chat.promptFilesLocations": ["~/OneDrive/CopilotAtelier/Prompts"]
+  "chat.promptFilesLocations": ["~/OneDrive/CopilotAtelier/Prompts"],
+  "chat.hookFilesLocations": ["~/OneDrive/CopilotAtelier/Hooks"]
 }
 ```
+
+> **Hooks are the fifth Customization type** (added upstream 2026-07-28). Unlike
+> the other four, a hook is executed by the host and its exit code is honoured
+> (`0` allow, `2` block, other = non-blocking warning), so enforcement does not
+> depend on the model choosing to comply. Taught in M3 as of 2026-07-29.
 
 ### Azure Instruction (VS Code Extension)
 

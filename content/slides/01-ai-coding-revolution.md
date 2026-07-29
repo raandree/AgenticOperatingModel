@@ -101,8 +101,8 @@ The shift to Wave 3 is what creates the need for an operating model: once the ag
 # Why the Agentic Operating Model is Possible NOW
 
 ### Technology Advances
-- **Massive context windows** (1M+ tokens with Claude Opus 4.8)
-- **Advanced reasoning** (Claude Opus 4.8, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code)
+- **Massive context windows** (1M+ tokens with Claude Opus 5)
+- **Advanced reasoning** (Claude Opus 5, GPT-5.6 family, Gemini 3.6 Flash, Kimi K2.7 Code)
 - **Native tool use** abilities in LLMs
 - **Cheaper API costs** for longer iteration loops
 - **Model Context Protocol (MCP)** as universal standard (Linux Foundation)
@@ -135,14 +135,16 @@ Speaker notes (for newcomers):
 - ~4 characters or ~¾ of a word in English
 - Both your **input** (prompt + context) and the model's **output** consume tokens
 
-### Current Copilot examples (22 July 2026)
+### Current Copilot examples (29 July 2026)
 
 | Model | Status | Best fit |
 |---|---|---|
-| Claude Opus 4.8 | Preview; up to **1M-token** context | Premium reasoning |
+| Claude Opus 5 | Current flagship; Opus 4.8 is the GA fallback | Premium reasoning |
 | GPT-5.6 Sol / Terra / Luna | Gradual rollout since 9 July | Highest / balanced / fast |
 | Gemini 3.6 Flash | Preview rollout since 21 July | Web, app, longer-horizon work |
 | Kimi K2.7 Code | GA; Business/Enterprise since 7 July | Open-weight, lower-cost coding |
+
+> Models retire on a roughly six-week cadence — never hard-pin one in an agent file.
 
 ### Why cost matters in agentic workflows:
 - Agentic loops consume **more tokens** than single-shot requests

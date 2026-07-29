@@ -569,7 +569,7 @@ Sources:
 
 | Agent-controlled input | Host component | Possible effect outside the boundary |
 |---|---|---|
-| `.vscode/tasks.json` or hooks | task / hook runner | unsandboxed command execution |
+| `.vscode/tasks.json` or hook scripts | task / hook runner | unsandboxed command execution |
 | virtual-environment interpreter | language extension | host-side binary discovery |
 | Git configuration / `fsmonitor` | Git integration | helper process execution |
 | Docker socket | privileged local daemon | host-level container action |
