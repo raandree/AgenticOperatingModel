@@ -378,9 +378,9 @@ The three caveats at the bottom are not throat-clearing. They define the rest of
 
 - Measured by **METR** across six years; on real software issues the doubling is **even faster**.
 - The **trend**, not the exact date, is the point: plan for agents that own longer and longer work.
-- Teach it with its caveat — the self-reported *size* of the gain is debated; the *direction* is robust.
+- **The caveat:** the self-reported *size* of the gain is debated; the *direction* is robust.
 
-<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. -->
+<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. Always present the horizon together with its caveat — quoting the trend without it invites the "this is just AI hype" objection from the room. -->
 
 ---
 
@@ -1117,16 +1117,16 @@ Speaker notes (for newcomers):
 ```
 
 <!--
+The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
+
+Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
+-->
+
+<!--
 Speaker notes (for newcomers):
 - This is the most practical slide in the module: copy-paste this into your own `copilot-instructions.md` today and the agent will start testing its own output.
 - The magic line is "do not report completion until all tests pass" — it forces the agent to iterate instead of giving up.
 - **Invoke-Pester** is the command that runs all the tests in your project.
--->
-
-<!--
-The shape of this file matters. Markdown headings act as soft section tags the model uses for retrieval; bullet lists read as imperative rules; prose reads as background commentary. A well-structured instruction file is closer to a configuration document than to a memo.
-
-Length is a real constraint — the file is prepended to every request, so a 4,000-token rulebook is a 4,000-token tax on every interaction. The discipline is to keep the always-on rules short and push specialised guidance into pattern-matched `*.instructions.md` files or skills that load on demand. "What goes in copilot-instructions.md" is the same question as "what does every task need to know?"
 -->
 ---
 
@@ -1756,17 +1756,17 @@ The same agentic loop applies:
 > — **Stephan Scheuer**, Handelsblatt (Feb 2026)
 
 <!--
-The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
-
-The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
--->
-
-<!--
 Speaker notes (for newcomers):
 - Four ways to run an agent, from "watching every keystroke" to "fire and forget on GitHub."
 - Start with **Agent Mode** in VS Code — you see everything. Comfortable, low risk.
 - Promote tasks to **Cloud Agent** only after you trust your instructions — there's no human in the loop while it runs.
 - **Background agent** = like Agent Mode but in a separate copy of the repo so it doesn't block your editor. Good for long refactors.
+-->
+
+<!--
+The "if you can run it in a terminal" framing is the most important reframing in this module for a DevOps audience. Most discussion of agentic AI focuses on writing application code, which under-sells what the technology actually does. The model does not care whether the tool it invokes returns source code, JSON, RTF, a stack trace, or `repadmin /showrepl` output — it parses text and reasons about it.
+
+The Active Directory troubleshooting example is genuinely representative of operations work: most of the job is reading diagnostic output (event logs, `gpresult`, `nltest`, `dcdiag`), correlating across hosts, and forming hypotheses. An agent with shell access and a domain glossary can carry the same loop, with the human supervising the conclusions rather than transcribing the inputs.
 -->
 ---
 

@@ -349,6 +349,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Presenter instruction removed from an audience-facing bullet on *The
+  Autonomy Horizon* (2026-08-13).** The slide's third bullet opened with
+  "Teach it with its caveat — …", which addressed the presenter rather than the
+  room while carrying the same list marker, weight, and indentation as the two
+  audience-facing bullets above it. Rendered, it read as a demoted side note in
+  a position the layout reserves for a peer takeaway. Reworded to "**The
+  caveat:** the self-reported *size* of the gain is debated; the *direction* is
+  robust." in the build source
+  [content/slides/marp-presentation.md](content/slides/marp-presentation.md),
+  keeping the claim intact and moving the instruction to the presenter into the
+  slide's speaker notes, where it now also names the "this is just AI hype"
+  objection it defuses. The slide appears in all three versions, so 1h, 2h, and
+  4h are all corrected. Rebuilt at 30 / 75 / 149 source slides with overflow
+  0 / 0 / 0 and speaker-note injection unchanged at 115.
+
 - **Marp PPTX/PNG export no longer fails with "Failed to launch the browser
   process" (2026-07-01).** [content/pptx/Build-MarpVersions.ps1](content/pptx/Build-MarpVersions.ps1)
   now resolves a Chromium-family browser for the Marp CLI before exporting.

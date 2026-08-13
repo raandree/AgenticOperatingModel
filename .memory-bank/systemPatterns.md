@@ -100,6 +100,30 @@ comment in the monolith trips the merge **skip-guard** and suppresses that
 slide's richer split notes. Inline notes are correct only for slides with no
 split twin.
 
+### A PPTX open in PowerPoint fails its export alone — and quietly
+
+`-ExportPptx` writes each version independently, so a deck that is open in
+PowerPoint fails with `EBUSY: resource busy or locked` while the other versions
+export normally and the run still ends with *"Export complete."* Verified
+2026-08-13: the 2h deck was open, 1h and 4h refreshed, and only the file
+timestamps revealed that 2h was left stale.
+
+- **Verify by timestamp, not by exit status**, after any `-ExportPptx` run.
+- A stray `~$<name>.pptx` file in `content/pptx/` is PowerPoint's owner file and
+  confirms the deck is still open; it disappears on close.
+- Do not kill `POWERPNT` to break the lock — ask, then re-run the single
+  version with `.\build.ps1 -Version <ver> -ExportPptx`.
+
+### Slide bullets address the room, not the presenter
+
+A list item that instructs the presenter (*"Teach it with its caveat — …"*)
+carries the same marker, weight, and indentation as its neighbours, so the
+audience reads a voice switch as a **demoted side note** sitting in a slot the
+layout reserves for a peer takeaway — reported as a rendering defect in 2026-08,
+though no CSS was involved. Keep every visible bullet in audience voice and put
+delivery guidance in the speaker notes, which is where presenters look for it
+anyway.
+
 ## Agentic Coding Patterns for PowerShell
 
 ### Pattern 1: Task-Driven Development

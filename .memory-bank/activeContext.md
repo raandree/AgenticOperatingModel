@@ -2,6 +2,36 @@
 
 ## Current Focus
 
+**Task (2026-08-13, presenter-voice bullet fixed on *The Autonomy Horizon* — uncommitted on `main`)**:
+User reported that on slide 7 (2h numbering) "teach it with its caveat" *reads
+like a side note, not like a bullet point*. Investigated read-only first: the
+line was a genuine peer `-` list item with no special CSS — `section.compact li`
+gives it the same size, colour, marker, and spacing as its neighbours — so the
+mismatch was **editorial, not stylistic**. The bullet addressed the *presenter*
+("Teach it…") while sitting in a list of two audience-facing takeaways, so the
+reader's voice-switch registered as a demoted aside in a slot the layout
+reserves for a peer point. Fixed in the build source
+[content/slides/marp-presentation.md](../content/slides/marp-presentation.md) by
+rewording to **"The caveat:** the self-reported *size* of the gain is debated;
+the *direction* is robust." — claim unchanged, voice now matching its
+neighbours — and moving the instruction to the presenter into the slide's inline
+speaker notes, which now also name the "this is just AI hype" objection the
+caveat defuses. Grepped for the same defect across the deck: **one-off** (the
+only other imperative-opening bullet, *"Ask the user to confirm…"*, is genuine
+audience advice). Slide is tagged `1h 2h 4h`, so all three decks were corrected.
+Build: **30 / 75 / 149** source slides, overflow **0 / 0 / 0**, note injection
+**115** (unchanged — no H1 touched, so no `notes-title-map.psd1` breakage).
+**PPTX**: 1h and 4h re-exported first pass; the 2h export initially failed with
+`EBUSY` because `agentic-operating-model-2h.pptx` was open in PowerPoint (PID
+10348 — the deck the user was reading). Deliberately did **not** kill the
+process — asked the user to close it, then re-ran `-Version 2h -ExportPptx`
+successfully, so all three tracked PPTX are current (4.6 / 13.0 / 27.3 MB).
+**Gotcha worth remembering**: exporting a tracked PPTX that is open in
+PowerPoint fails per-file with `EBUSY` while the other versions still succeed,
+so a partial export can pass unnoticed — check timestamps, not just exit status.
+**Not committed** per user ("dont commit yet"); sits uncommitted on
+`main` alongside the earlier 2026-07-29 work. Prior focus retained below.
+
 **Task (2026-07-29, CopilotAtelier upstream sync → 2 new slides + currency pass — uncommitted on `main`)**:
 Scanned four upstream CopilotAtelier commits (2026-07-22 `cbeda52` → 07-29
 `9acd39e`) for AOM impact, then implemented every finding. The headline is

@@ -361,9 +361,9 @@ style: |
 
 - Measured by **METR** across six years; on real software issues the doubling is **even faster**.
 - The **trend**, not the exact date, is the point: plan for agents that own longer and longer work.
-- Teach it with its caveat — the self-reported *size* of the gain is debated; the *direction* is robust.
+- **The caveat:** the self-reported *size* of the gain is debated; the *direction* is robust.
 
-<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. -->
+<!-- Speaker notes: METR measures agent autonomy as the length of task (in human time) an agent completes at 50% reliability; it has doubled roughly every 7 months for six years. This reframes "why now" into "why this keeps growing." Pair it with the conductor message: as the horizon lengthens, the human moves from fixing AI mistakes to directing AI work. Always present the horizon together with its caveat — quoting the trend without it invites the "this is just AI hype" objection from the room. -->
 
 ---
 <!-- version: 1h 2h 4h -->
