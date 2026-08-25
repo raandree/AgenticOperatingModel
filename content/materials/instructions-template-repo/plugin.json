@@ -1,0 +1,21 @@
+{
+    "name": "acme-ai-customizations",
+    "description": "Shared GitHub Copilot customization library for the Acme platform teams: custom agents for code review, infrastructure-as-code, and test authoring, plus on-demand Agent Skills for the team's PowerShell, DSC, and pipeline conventions. Instructions and hooks are not part of the plugin format; run Setup-AiCustomizations.ps1 to install those too.",
+    "version": "1.0.0",
+    "author": {
+        "name": "Acme Platform Engineering",
+        "url": "https://github.com/acme"
+    },
+    "homepage": "https://github.com/acme/ai-customizations",
+    "repository": "https://github.com/acme/ai-customizations",
+    "license": "MIT",
+    "keywords": [
+        "copilot",
+        "agent-skills",
+        "custom-agents",
+        "powershell",
+        "dsc"
+    ],
+    "agents": "Agents/",
+    "skills": "Skills/"
+}

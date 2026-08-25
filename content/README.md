@@ -45,6 +45,7 @@ Handouts and reference materials for attendees.
 - Sample custom agent files
 - Sample skill file
 - **memory-bank-template/** — reusable Memory Bank scaffold to drop into any project (the same pattern this repo uses)
+- **instructions-template-repo/** — blueprint for the **team layer** of AI customization: repository layout for the five customization surfaces, the four distribution paths and what each one can and cannot carry (a `plugin.json` never ships Instructions or Hooks), a SemVer + version-marker update path, and a five-rule `GOVERNANCE.md` answering "who may change the rules?"
 - **agentic-knowledge-work-patterns.md** — ten patterns extracted from a real multi-year tax case, applicable to legal, tax, consulting, research, and ops work
 - **destructive-operations-guardrails.md** — take-home reference distilled from real 2026 incidents (PocketOS / Cursor / Claude / Railway, Replit) with a **six-layer defence-in-depth model** — layers 1–5 cover Agent policy, Tool approval, credential scope, backup independence, and rehearsed recovery; **Layer 6 covers architectural guardrails (GitOps + IaC)** with [DSC Community DscWorkshop](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC) as the canonical reference and Argo CD / Flux / Atlantis / Terraform Cloud / Bicep deployment stacks as same-shape patterns. Cross-cutting controls cover Agent identity, human sponsorship, access expiry, revocation, and host trust handoffs. Includes a pre-flight checklist for any Agent with destructive capabilities
 - Take-home resources

@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New material: AI customization template repository blueprint (2026-08-25).**
+  The curriculum taught the *personal* customization layer well (the Atelier,
+  cross-machine sync, a sample instruction library) and the *project* layer
+  briefly (`commit .github/copilot-instructions.md`), but had nothing on the
+  **team** layer — how one shared rule set reaches many repositories, how a
+  consuming repository picks up a newer version, and who is allowed to change a
+  rule at all. Added
+  [content/materials/instructions-template-repo/](content/materials/instructions-template-repo/)
+  with three files. `README.md` gives the three-layer model (personal / team /
+  project), the repository layout for the five customization surfaces, and a
+  distribution table that states the trade-off honestly: a GitHub template
+  repository carries everything but has **no** update path, while a
+  `plugin.json` is updatable but carries **Agents and Skills only** — it will
+  never ship Instructions or Hooks, so a second path is mandatory. The update
+  procedure is SemVer tags plus a `.github/ai-template-version` marker, with a
+  `git diff v1.3.0..v1.4.0` between tags as the review artifact. `GOVERNANCE.md`
+  answers "who may change the rules?" in five rules — named owner per file via
+  `CODEOWNERS`, pull request required, specific-layer-wins **except** that
+  security rules may only be tightened, no rule without a case it fixes
+  (including a trigger test for skills), and deprecate-version-announce — plus a
+  role matrix and the hook exception. It also states the limitation the tooling
+  imposes: precedence between layers is **not** enforced, all matching
+  instruction files reach the model, so a rule that must hold belongs in a hook
+  rather than in prose. `plugin.json` is a worked example manifest.
+
 - **Hooks taught as the fifth Customization type (2026-07-29).** Every
   customization the curriculum taught so far — `copilot-instructions.md`,
   `.instructions.md`, `.agent.md`, `SKILL.md`, `.prompt.md` — is text the model
