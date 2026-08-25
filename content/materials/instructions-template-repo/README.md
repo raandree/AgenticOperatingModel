@@ -101,6 +101,69 @@ tell what it was copied from.
    request. The diff is the review artifact — it is what a reviewer reads
    instead of the whole template.
 
+## Enforcing the update path in CI
+
+Governance written as prose depends on people remembering it. A pipeline job
+does not. Two jobs in every consuming repository turn the update path from a
+convention into a check:
+
+| Job | Trigger | Does | Fails the build |
+| --- | ------- | ---- | :-------------: |
+| **Verify** | Every pull request | Compares the repository's AI files against the pinned template tag | Yes |
+| **Bump** | Weekly schedule | Fetches the newest template tag and opens a pull request | No |
+
+```yaml
+# .github/workflows/ai-customizations.yml (sketch)
+name: AI customizations
+on:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+permissions:
+  contents: read          # the bump job needs pull-requests: write, nothing more
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare against the pinned template version
+        run: ./tools/Test-AiCustomizationDrift.ps1   # exits non-zero on drift
+        shell: pwsh
+```
+
+### What makes deleting the job visible enough to matter
+
+Removing a job produces a diff, but a diff nobody must read changes nothing.
+Three settings turn visibility into enforcement:
+
+1. **Mark `verify` as a required status check** in branch protection. A required
+   check that no longer reports leaves pull requests blocked, so deleting the
+   job stops merges instead of silently passing them.
+2. **Put the workflow file under `CODEOWNERS`**, so its removal routes a review
+   request to the owning group automatically.
+3. **Pin the template to a tag**, never to a branch — see the warning below.
+
+> [!WARNING]
+> Pulling agent resources on a schedule is also a supply-chain path. Hooks are
+> **executed** by the host, and skills and instructions steer an agent that has
+> tools. Syncing from a moving branch is remote code execution on a delay. Pin
+> to a tag, review the diff like code, and route hook changes through the
+> security group.
+
+### Two failure modes to plan for
+
+- **The bump job must open a pull request, never push to `main`.** An
+  automation with write access to the default branch is a bigger risk than the
+  drift it prevents. Grant `pull-requests: write` and nothing else.
+- **GitHub disables scheduled workflows after roughly 60 days without
+  repository activity.** On a quiet repository the bump job stops silently, so
+  the `verify` job — which runs on pull requests — is the one that must carry
+  the enforcement.
+
+Drift checks also need an escape hatch, or they get switched off out of
+frustration. Keep a short, reviewed list of files a project may legitimately
+override, and let the check pass for those.
+
 ## Rollout checklist
 
 - [ ] Template repository created and marked as a **template** in its settings.
@@ -111,6 +174,10 @@ tell what it was copied from.
 - [ ] Setup script tested on a clean machine, run twice, to prove idempotence.
 - [ ] One pilot project consumes the template end to end before a wider rollout.
 - [ ] Version marker and update procedure documented in the pilot project.
+- [ ] Drift check runs in the pilot project's pipeline and is marked as a
+      **required** status check.
+- [ ] Removing the workflow file was tried once, on a branch, to prove that the
+      pull request is then blocked rather than merged.
 
 ## See Also
 

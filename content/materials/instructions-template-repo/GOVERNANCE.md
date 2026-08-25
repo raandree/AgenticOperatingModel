@@ -69,6 +69,19 @@ skill, and one that should not.
   consuming repositories get a window to react.
 - Every release records what changed in `CHANGELOG.md`, in behavioural terms.
 
+## Rule 6: The update path runs in CI, not from memory
+
+Rules 1 to 5 describe intent. A pipeline job is what survives a busy week.
+
+Every consuming repository runs a drift check on each pull request, and the
+check is marked **required** in branch protection. Someone may still switch it
+off — but only through a reviewable diff on a file that has an owner, and with
+pull requests blocked until a replacement check reports. That is the difference
+between a rule and a control.
+
+See [README.md](README.md) for the job layout, the token scope, and the reason
+the template must be pinned to a tag rather than a branch.
+
 ## Who may do what
 
 | Role | May propose | May approve | May release |

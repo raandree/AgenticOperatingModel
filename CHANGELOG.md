@@ -33,6 +33,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   imposes: precedence between layers is **not** enforced, all matching
   instruction files reach the model, so a rule that must hold belongs in a hook
   rather than in prose. `plugin.json` is a worked example manifest.
+  A sixth rule closes the gap that prose governance cannot: the update path runs
+  as a **CI drift check** in every consuming repository, marked as a *required*
+  status check so that deleting the job leaves pull requests blocked instead of
+  silently passing them, with the workflow file under `CODEOWNERS`. The same
+  section names the cost of the pattern — pulling agent resources on a schedule
+  is a supply-chain path, because hooks are executed by the host, so the
+  template is pinned to a tag rather than a branch, the bump job opens a pull
+  request instead of pushing to `main`, and the scheduled job is treated as
+  unreliable because GitHub disables schedules on quiet repositories.
 
 - **Hooks taught as the fifth Customization type (2026-07-29).** Every
   customization the curriculum taught so far — `copilot-instructions.md`,
