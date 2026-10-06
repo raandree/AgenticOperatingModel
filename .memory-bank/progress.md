@@ -1,7 +1,15 @@
+---
+status: current
+last-verified: 2026-10-06
+owner: shared
+source: repository evidence
+---
+
 # Progress — The Agentic Operating Model
 
 ## Recent
 
+- 2026-10-06: **Prepared Part 2 (*Agents That Reach Out, Ask First, Remember, and Hand Off*) on `ai/aom-part2-deck`.** New `content/part2/`: a 32-slide Marp source with a speaker note on every slide, a 60-minute (28 slides) and a 90-minute (32 slides) PPTX, `Build-Part2Deck.ps1` (overflow and speaker-note gates; it strips the empty first slide the shared builder emits), a demo runbook, and `New-Part2DemoRepo.ps1` (tested: Memory Bank health passes, Pester baseline 3/3). Fixed `probe.ps1` deleting note #1 instead of its own note. Created `.memory-bank/index.md`, rewrote `activeContext.md` as a status page, and curated the February–May milestones out of this file. Not pushed.
 - 2026-08-13: **Fixed a presenter-voice bullet on *The Autonomy Horizon* (all three versions).** User reported the line "Teach it with its caveat — …" read like a side note rather than a bullet. Diagnosis was editorial, not CSS: the line was a true peer list item styled identically to its neighbours, but it addressed the **presenter** while the two bullets above addressed the **room**, so the voice switch read as a demotion in a slot reserved for a peer takeaway. Reworded to "**The caveat:** the self-reported *size* of the gain is debated; the *direction* is robust." and moved the presenter instruction into the slide's inline speaker notes, which now also name the "this is just AI hype" objection the caveat defuses — the claim itself is unchanged. Grep confirmed the defect is a **one-off** across the deck. Rebuilt **30 / 75 / 149** source slides, overflow **0 / 0 / 0**, note injection **115** (unchanged; no H1 touched, so the title map is intact). All three tracked PPTX re-exported (4.6 / 13.0 / 27.3 MB) — the 2h export first failed with `EBUSY` because the file was open in PowerPoint and succeeded after the user closed it; the process was not force-killed. Not committed per user.
 
 - 2026-07-29: **CopilotAtelier upstream sync — Hooks as the fifth Customization type, Memory Bank routing, and a currency pass.** Scanned four upstream commits (2026-07-22 → 07-29) and implemented every finding with impact. **Two new slides.** (1) *Hooks — Enforcement That Doesn't Depend on Compliance* (**2h + 4h**, M3, after the ecosystem table) closes a genuine honesty gap: everything the curriculum taught about controlling behaviour — `copilot-instructions.md`, `.instructions.md`, `.agent.md`, `SKILL.md`, `.prompt.md` — is text the model *reads and may ignore*, whereas a hook is run by the host with a real exit-code contract (`0` allow / `2` block / other = non-blocking warn). (2) *Routing the Memory Bank — "Select", With a Number Attached* (**4h**, after *The Memory Bank Pattern*) turns the M2 *Select* verb into a measurable practice: `index.md` as the single unconditional read, an explicit fail-open rule, an authority order, and the fact that upstream gates its routing on **25 audited cases — zero critical misses and ≥ 50 % context reduction**. **Dual-use framing added** to *Containment Must Cover Host Trust Handoffs*: the `PreToolUse` hook that blocks your pushes is a script the Agent can edit, so it belongs outside auto-approved edit scope — the deck previously named hooks only as a threat. **Ecosystem table 6 → 7 types** (build source + split twin, `notes-title-map.psd1` alias updated in the same edit). **Template upgraded**: `content/materials/memory-bank-template/` gains `index.md` (routing map, fallback, authority order) and `decisions/0001-example-decision.md`; the README and `activeContext.md` corrected — `activeContext.md` is a status page, *not* "the index". **Handout gains a real incident**: *The guardrail that ate the guardrails* in `destructive-operations-guardrails.md` — upstream's setup script used `Remove-Item -Recurse` on a junction, which under Windows PowerShell 5.1 follows the reparse point and would have deleted the entire synced customization library; rare, silent, irreversible, self-targeting, and caught by an **independent security review of an unrelated change**, not by a test. **Currency**: Opus 4.8 → **Opus 5**, and — more useful than the version bump — agent examples now teach `model` as a **priority array** (first available wins, last entry GA) because hosted models retire on a ~6-week cadence; `agents: []` + `disable-model-invocation: true` taught explicitly (an unset `agents` key means "anyone may call me as a subagent"); the skill `description` cap corrected from a fictional "~500" to the real **hard 1024**; `agent-evals` reframed around the native Chat Customizations Evaluations extension + Microsoft **Waza** runner, with `run-evals.ps1` demoted to fallback; inventory refreshed to **~40 skills / five surfaces**; `plugin.json` distribution noted. Build: **30 / 75 / 149** source slides (from 30 / 74 / 147), overflow **0 / 0 / 0**, note injection **115**, build Pester **11/11**, PPTX re-exported at **31 / 76 / 150** slide parts with matching notes parts. Seven slides that gained content dropped one density tier; the already-compact *Skill-Authoring Discipline* slide was trimmed instead of shrunk. New slides PNG-verified. **Lesson recorded in `systemPatterns.md`**: renaming a split-file H1 silently breaks its `notes-title-map.psd1` alias and drops merged notes with no error (caught here as injection 115 → 114).
@@ -44,159 +52,12 @@
 
 ## Completed
 
-### Spec-Driven Slide Split ✅ (2026-05-20)
-- [x] M4 Slide 4.7a *"Spec-Driven Development — Make the Spec the Primary Artefact"* overflowed at 4h. Measured via `Test-SlideOverflow.ps1`: contentHeight ~960 px in `dense` (target 720)
-- [x] Split into 4.7a (intro + table + project constitution + why-it-beats-prompt-engineering) and 4.7b (Pitfall + per-cycle entropy + two daily investments + Beck/Pocock quotes + pair-refs); both switched `dense` → `compact`
-- [x] Re-verified: both slides now contentHeight=720, overflowY=0, fillRatio=1.0. Total 4h overflow count 9 → 7
-- [x] CHANGELOG.md `[Unreleased]` updated; promptHistory.md entry appended
-
-### PowerShell Edition of Demo MCP Server ✅ (2026-05-20)
-- [x] New folder `content/demos/mcp-demo-server-ps/` — single-file `Start-AgenticDemoMcp.ps1` (PowerShell 7+); speaks MCP as raw JSON-RPC over stdio, no SDK dependency
-- [x] Protocol-identical to the Node version: same seven tools (`notes_*` persistence + `system_*` reach), same JSON store, same instrumentation (timestamped colored stderr, per-call duration, `notifications/progress`)
-- [x] PowerShell best practices applied: approved verbs, `[CmdletBinding()]`, comment-based help, validation, `Set-StrictMode 3.0`, UTF-8 stdio with stdout reserved for JSON-RPC frames
-- [x] `probe.ps1` mirrors `probe.cjs`; verified end-to-end on pwsh 7.5.5 / Win11
-- [x] `mcp.example.json` (VS Code wiring via `pwsh -NoProfile -NonInteractive -File`), `README.md` (what to show on stage), demo-script callout in `demo-mcp-server.md`
-- [x] CHANGELOG.md `[Unreleased]` entry added
-- [x] Branch: `feature/mcp-demo-server` → merged to `main`
-
-### Operator-Sustainability Integration ✅ (2026-05-06)
-- [x] Source: Cedric Mössner / *The Morpheus*, *"KI Burnout ist real"*, [YouTube SHKBrkpYssM](https://www.youtube.com/watch?v=SHKBrkpYssM), 2026 (35:31). Transcript captured via user paste and kept **outside the repository** (not committed)
-- [x] Identified the curriculum gap: existing failure-mode coverage had team-dynamics (Molist 2026, M9.10a) and catastrophic blast radius (PocketOS / OECD.AI 2026-04-27-6153, M9.8c–e) but was missing the human-experience / operator-sustainability angle
-- [x] Module 9: new slide **9.10b "Job Hollowing & Heteromation"** — defines both terms with M-quotes, BCG/HBR *AI Brainfry* numbers (14% / +33% / +39% / +39%), Brynjolfsson/Stanford new-grad data (−20% peak hiring, bigtech 15%→7%), three-industries table (software / lab medicine / creative writing). Anchored to transcript timestamps
-- [x] Module 9: new slide **9.10c "The Vigilance Trap"** — Mackworth 1948 + Parasuraman & Manzey 2010 + Waymo 2015–17 with Krafcik quote; cognitive-load mismatch table (ATC 2h / pilot autopilot-off practice / knowledge worker 8h); maps each trap to existing curriculum surfaces (M5, S9.8e, S9.10a)
-- [x] Module 10: new slide **10.7a "With AI, Not From AI — The Stockfish Pattern"** — positive counter-pattern. Chess explosion + FAA hand-flying as proof. *From* vs *with* table; explicit mapping of each curriculum surface (`copilot-instructions.md`, `.agent.md`, skills, memory bank, self-verification, GitOps Layer 6) to "moves operator upstream"
-- [x] MARP master `content/slides/marp-presentation.md`: condensed versions of all three slides inserted at correct anchors, tagged `<!-- version: 4h -->`
-- [x] `Build-MarpVersions.ps1` re-run cleanly: 121 → 124 slides; 1h: 28 unchanged, 2h: 65 unchanged, 4h: 124
-- [x] `content/materials/agentic-knowledge-work-patterns.md`: new **Pattern 11 — Operator Dignity ("with AI, not from AI")** — three operating rules mapped to modules; end-of-day diagnostic question; explicit source-list footnote
-- [x] `content/materials/cheat-sheet.md`: new **"Job Hollowing & Heteromation — The Vocabulary"** section with four-row table (Job Hollowing / Heteromation / AI Brainfry / Vigilance Trap)
-- [x] `content/materials/destructive-operations-guardrails.md`: See-also gains the Mössner 2026 citation as the third leg of the failure-mode stool
-- [x] CHANGELOG.md `[Unreleased]` entry added
-- [x] Branch: `ai/job-hollowing` → merged to `main`
-
-### Failure-Mode Integration ✅ (2026-04-29)
-- [x] Researched PocketOS / Cursor + Claude Opus 4.6 / Railway incident via Disclose.tv and Tom's Hardware (incident date late April 2026; published 2026-04-27)
-- [x] Cross-source verification: confirmed by **OECD.AI Incidents Database 2026-04-27-6153**, Tom's Hardware (originating outlet), The Register, TechSpot, Business Standard, ExtremeTech, Mashable, India Today, Financial Express, Indian Express, Analytics Insight, MSN, plus a dedicated **Zenity** security analysis. Disclose.tv downgraded from primary to secondary source
-- [x] Read full transcript of Axel Molist *"What 6 months of AI coding did to my dev team"* (2026-04-18); cross-referenced with project memory bank
-- [x] Module 5: new slide 5.11a "The Cheating-Agent Trap" with five mitigations + test-discipline `copilot-instructions.md` snippet
-- [x] Module 9: new slides 9.8c (Real Incident), 9.8d (Guardrails for Destructive Operations), **9.8e (GitOps as the Architectural Guardrail)**, 9.10a (The Bottleneck Has Moved); Version Guide table updated
-- [x] **Layer 6 — GitOps / IaC architectural guardrail**: promoted defence-in-depth model from five layers to six. Layer 6 = capability-based answer to PocketOS class of incident (agent's only verb is *propose a change* via commit + PR; gated CI/CD reconciles). Canonical reference: [`dsccommunity/DscWorkshop`](https://github.com/dsccommunity/DscWorkshop) (Datum + Sampler + DSC). Same-shape patterns: Argo CD / Flux, Atlantis / Terraform Cloud, Bicep deployment stacks
-- [x] MARP master `content/slides/marp-presentation.md`: condensed versions of all five new slides inserted with `<!-- version: 4h -->` tags
-- [x] New material `content/materials/destructive-operations-guardrails.md` — case studies, **six-layer** defence-in-depth model with failure-mode mapping table for Layer 6, copy-paste snippets, pre-flight checklist (incl. Layer 6 question), trip-wire patterns, OWASP/CWE mapping (incl. LLM06 Excessive Agency)
-- [x] Cheat sheet expanded with three sections: Guardrails for Destructive Operations (six-layer table), Cheating-Agent Trap, Bottleneck Has Moved
-- [x] `content/README.md` materials section updated with six-layer + DscWorkshop reference
-- [x] CHANGELOG.md `[Unreleased]` entry added (two bullets: PocketOS integration + Layer 6 architectural guardrail)
-- [x] Memory bank updated (activeContext.md, progress.md)
-- [x] Build-MarpVersions.ps1 re-run; 4h deck = 121 slides (1h/2h unchanged — new content is 4h-only)
-- [x] Committed to `update` branch as 441a33b (11 files, +998/-6)
-
-### 2026 Q2 Landscape Refresh ✅ (2026-04-23)
-- [x] Researched VS Code 1.117 (2026-04-22) + GitHub Copilot changelog (April 2026)
-- [x] Reviewed `raandree/CopilotAtelier` reference repo and integrated its patterns (keybindings, debug-logs troubleshooting, agent-authoring meta-instructions)
-- [x] Module 8: Slide 8.13 "What's New in 2026 Q2" added; prior 8.13 Key Takeaway renumbered to 8.14; Version Guide updated
-- [x] Module 10: Slide 10.8 "The Future" Already-Here list rewritten for April 2026
-- [x] Cheat sheet: model table refreshed (Opus 4.7 GA, GPT-5.4/5.4-mini, 5.1 retired); new settings and Useful Keybindings table; extended Troubleshooting (skills + debug logs); Resources + Cross-Machine Sync updated with CopilotAtelier
-- [x] New sample `content/materials/sample-copilot-instructions/copilot-authoring.instructions.md`
-- [x] CHANGELOG + memory bank updated
-
-### Three-Version Architecture ✅ (2026-03-19)
-- [x] Restructured `agenda/presentation-agenda.md` — Version Summary, Module Inclusion Matrix, Slide Inclusion Guide
-- [x] Three version-specific timing tables with facilitator notes and learning outcomes
-- [x] Module descriptions updated with per-version duration badges
-- [x] Version Guide tables added to all 8 slide files (01–05, 08–10)
-- [x] Added `<!-- version: -->` tags to all 81 MARP slides in source
-- [x] Created `Build-MarpVersions.ps1` generating three output MARP decks
-- [x] Generated `marp-1h-keynote.md`, `marp-2h-standard.md`, `marp-4h-workshop.md`
-- [x] Updated README files: `agenda/README.md`, root `README.md`, `content/README.md`, `pptx/README-how-to-create-pptx.md`
-- [x] Demo script updated with three-version timing references
-- [x] Memory bank updated
-
-### MARP Slide Deck Updates ✅ (2026-03-14)
-- [x] New slide: "AI Does the Git Forensics for You" — contributor frequency analysis via `git log`
-- [x] New slide: "Commit Strategies — Explained" — Conventional Commits, Branch Strategy, Co-authored Commits
-- [x] 13 famous quotes added across all module dividers and key slides (Goethe, Popper, Kant, Wittgenstein, Seneca, Planck, Humboldt, Confucius, Sartre, Lao Tzu, Aristotle)
-- [x] AI commit strategy added to sample `copilot-instructions.md` (Git & Commit Strategy section)
-- [x] AI commit strategy added to CopilotAtelier `git.instructions.md` + Software Engineer Agent
-- [x] Memory bank + CHANGELOG updated
-
-### Prompt Evolution Demo ✅ (2026-03-14)
-- [x] `content/demos/demo-prompt-evolution.md` — Six-level prompt quality progression demo
-- [x] Slide 4.19 added to Module 4 (Prompt Evolution summary table)
-- [x] Cross-references from main demo script, content README, cheat sheet, agenda
-- [x] Memory bank updated (activeContext.md, progress.md, promptHistory.md)
-
-### Agent Infrastructure ✅ (2026-03-09)
-- [x] Technical-writer agent mode configured (7-phase documentation workflow)
-- [x] CopilotAtelier instruction files (12 pattern-matched .instructions.md files on OneDrive, incl. `copilot-authoring`)
-- [x] Skills ecosystem configured (sampler-framework, pester-patterns, grammar-check, agent-customization, etc.)
-- [x] Cross-machine sync via VS Code `chat.*FilesLocations` settings
-- [x] Project .github/ instruction files migrated to personal CopilotAtelier sync
-- [x] Memory bank updated with agent mode and instruction documentation
-
-### Brainstorming Notes Integration ✅ (2026-03-07)
-- [x] Foundational vocabulary slide (Slide 2.0) added to Module 2
-- [x] Token usage & cost slide (Slide 1.4a) added to Module 1
-- [x] Agent security & boundaries slide (Slide 9.8a) added to Module 9
-- [x] Guiding principle "Know what you are doing" slide (Slide 9.8b) added to Module 9
-- [x] Complementary tools (Warp, GitHub Copilot CLI, Zed) added to Module 10 and cheat sheet
-- [x] Cheat sheet expanded with Token/Cost, Security, Guiding Principle sections and 6 new glossary terms
-- [x] Agenda updated with vocabulary, security, and guiding principle sections
-- [x] Speaker notes enriched for Modules 1 and 9
-- [x] Memory bank updated (activeContext.md, progress.md)
-
-### Memory Bank ✅ (Updated 2026-03-09)
-- [x] `projectbrief.md` - Core focus on agentic coding paradigm
-- [x] `productContext.md` - Audience analysis and learning journey
-- [x] `techContext.md` - Technology stack, instruction files, agent modes, memory architecture
-- [x] `systemPatterns.md` - Presentation, demo, and workflow patterns (8 + 9 patterns)
-- [x] `progress.md` - Status tracking (this file)
-- [x] `activeContext.md` - Working context, agent configuration, condensed to < 200 lines
-- [x] `README.md` - Memory Bank documentation with VS Code memory relationship
-
-### Agenda ✅
-- [x] `agenda/presentation-agenda.md` - Comprehensive 2-4 hour agenda
-
-### Slide Content ✅ (Updated 2026-02-25)
-- [x] Module 1: The AI Coding Revolution (10 min) - **Updated with current landscape**
-- [x] Module 2: What Makes Coding Agentic (25-30 min) - **Refocused to Copilot**
-- [x] Module 3: The Power of Context (20-25 min) - **Refocused to Copilot**
-- [x] Module 4: Controlling AI Behavior (30-35 min) - **Expanded: Skills, Prompts, Handoffs, richer agents**
-- [x] Module 5: Self-Verification (20-25 min) - **Refocused to Copilot**
-- [x] Module 8: Advanced Capabilities (25 min) - **NEW: MCP, checkpoints, agent types**
-- [x] Module 9: When to Use (15-20 min) - **Refocused to Copilot**
-- [x] Module 10: Your Agentic Future (10-15 min) - **Added OneDrive sync, feature flags, updated takeaways**
-
-### Demo Materials ✅ (Updated 2026-02-25)
-- [x] Main demo script with talking points - **Added bonus Skills/Prompts/Sync demo section**
-- [x] Sample copilot-instructions.md file
-- [x] Sample .instructions.md file (pattern-matched)
-- [x] Sample .agent.md file (custom agent)
-- [x] Troubleshooting guide
-
-### Supporting Materials ✅ (Updated 2026-03-09)
-- [x] Sample copilot-instructions.md for PowerShell module development
-- [x] Sample .instructions.md for PowerShell files
-- [x] Sample .instructions.md for testing (Pester test files)
-- [x] Sample .instructions.md for documentation (Markdown files)
-- [x] Sample .instructions.md for refactoring
-- [x] Sample .agent.md for Pester test writer
-- [x] Sample .agent.md for code reviewer (with handoff)
-- [x] Sample .agent.md for IaC engineer (DSC, Bicep, Terraform)
-- [x] Sample .agent.md for security reviewer (OWASP, CWE references)
-- [x] Sample SKILL.md for build debugging
-- [x] Quick reference cheat sheet - **Added chat shortcuts, feature flags, expanded ecosystem**
-- [x] MARP slide deck updated with Module 8 (MCP, checkpoints, agent types)
-
-### Research ✅ (Completed 2026-02-24)
-- [x] GitHub Copilot Agent Mode (Local/Background/Cloud/Third-party)
-- [x] GitHub Copilot Coding Agent (autonomous PR creation, Windows support)
-- [x] Copilot instruction file ecosystem (5 file types)
-- [x] Custom agents (.agent.md) with tools and handoffs
-- [x] Cursor v2.5 (alternative tool reference)
-- [x] Windsurf/Cascade (alternative tool reference)
-- [x] Claude Code (alternative tool reference)
-- [x] GitHub Agentic Workflows (Markdown-based CI/CD, technical preview)
-- [x] MCP under Linux Foundation, universal standard
-- [x] Current AI models (April 2026): Claude Opus 4.7 GA, GPT-5.4 / GPT-5.4-mini, Gemini 3.1 Pro (Feb 2026 baseline was Opus 4.6 / GPT-5.3-Codex / Gemini 3.1 Pro)
+Milestones from February to May 2026 — research, the three-version
+architecture, the spec-driven slide split, demo materials, the PowerShell MCP
+demo server, and the failure-mode and operator-sustainability integrations —
+are recorded in `CHANGELOG.md` (`[1.0.0]`, `[1.1.0]`) and in git history. They
+were curated out of this file on 2026-10-06 to bring it back under its line
+budget.
 
 ## Content Structure
 

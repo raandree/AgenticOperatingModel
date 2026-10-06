@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Part 2 session materials (2026-10-06).** Add
+  [content/part2/](content/part2/README.md): a 32-slide Marp deck for *Agents
+  That Reach Out, Ask First, Remember, and Hand Off* (MCP servers,
+  questionnaires and Grill-Me, the Memory Bank in 2026, Agent handoffs) with
+  speaker notes on every slide, exported as a 60-minute (28 slides) and a
+  90-minute (32 slides) PPTX
+- **Part 2 build gate (2026-10-06).** Add `content/part2/Build-Part2Deck.ps1`,
+  which refuses to export unless every slide fits the frame and carries a
+  speaker note, and checks that each PPTX has one notes page per slide
+- **Part 2 demo runbook and demo repository script (2026-10-06).** Add
+  `content/part2/demo-runbook.md` and `content/part2/New-Part2DemoRepo.ps1`,
+  which creates a demo repository with the PowerShell MCP server, a routed
+  Memory Bank, a workspace MCP configuration, and a Pester baseline
+- **Memory Bank index (2026-10-06).** Add `.memory-bank/index.md`, so Agent
+  sessions in this repository load routed context instead of every file
+
 - **New material: AI customization template repository blueprint (2026-08-25).**
   The curriculum taught the *personal* customization layer well (the Atelier,
   cross-machine sync, a sample instruction library) and the *project* layer
@@ -382,6 +398,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   only; no slide or deck build output changed.
 
 ### Fixed
+
+- **The PowerShell MCP probe deletes only its own note (2026-10-06).**
+  `content/demos/mcp-demo-server-ps/probe.ps1` deleted note #1 instead of the
+  note it had just added, so a run against a store with demo notes removed the
+  first prepared note and left its own behind
 
 - **Presenter instruction removed from an audience-facing bullet on *The
   Autonomy Horizon* (2026-08-13).** The slide's third bullet opened with

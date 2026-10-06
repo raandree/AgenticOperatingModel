@@ -26,6 +26,14 @@ MARP-formatted slides ready for PowerPoint conversion.
 - What **audience sees on screen**
 - See [README-how-to-create-pptx.md](pptx/README-how-to-create-pptx.md) for conversion instructions
 
+### part2/
+The follow-up session *The Agentic Operating Model, Part 2*: MCP servers,
+questionnaires and Grill-Me, the Memory Bank in 2026, and Agent handoffs.
+- **aom-part2.md** — Marp source with speaker notes on every slide, built into a 60-minute and a 90-minute deck
+- **Build-Part2Deck.ps1** — builds both decks, gates them on overflow and speaker notes, and exports PPTX and PNG files
+- **demo-runbook.md** and **New-Part2DemoRepo.ps1** — demo setup, prompts, fallbacks, and the demo repository
+- See [part2/README.md](part2/README.md) for the agenda and the slide map
+
 ### demos/
 Live demonstration scripts and instructions.
 - Step-by-step demo guidance

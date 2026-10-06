@@ -124,6 +124,21 @@ though no CSS was involved. Keep every visible bullet in audience voice and put
 delivery guidance in the speaker notes, which is where presenters look for it
 anyway.
 
+### The shared Marp builder assumes the main deck
+
+`content/pptx/Build-MarpVersions.ps1` serves a second source only with care
+(found 2026-10-06 while building `content/part2/`):
+
+- It writes a slide separator straight after the frontmatter, so every
+  generated deck starts with an **empty slide**, the main 1h/2h/4h PPTX
+  included (31/76/150 slide parts for 30/75/149 slides).
+- `-CheckOverflow` always measures the generated files in `content/pptx`, never
+  the `-OutputDir` copies, so it silently reports on the wrong deck.
+- Its browser lookup only works with `content/pptx` as the working folder, and
+  it reads `.Count` on a missing split-file list, which fails under strict mode.
+- `content/part2/Build-Part2Deck.ps1` works around all four; reuse it as the
+  pattern for any further standalone deck.
+
 ## Agentic Coding Patterns for PowerShell
 
 ### Pattern 1: Task-Driven Development
