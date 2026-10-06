@@ -100,7 +100,13 @@ try {
     Write-Host "TOOLS: $((($tools.result.tools).name) -join ', ')"
 
     $add = Invoke-Call -Method 'tools/call' -Params @{ name = 'notes_add'; arguments = @{ text = 'hello from ps probe' } }
-    Write-Host "ADD: $(Get-ToolText $add)"
+    $addText = Get-ToolText $add
+    Write-Host "ADD: $addText"
+    # Delete only the note this probe created, never a note that was already in the store.
+    if ($addText -notmatch 'Added note #(\d+)') {
+        throw "Could not read the new note id from the notes_add result: $addText"
+    }
+    $addedId = [int]$Matches[1]
 
     $list = Invoke-Call -Method 'tools/call' -Params @{ name = 'notes_list'; arguments = @{} }
     Write-Host "LIST: $(Get-ToolText $list)"
@@ -117,7 +123,7 @@ try {
     $disk = Invoke-Call -Method 'tools/call' -Params @{ name = 'system_disk_free'; arguments = @{} }
     Write-Host "DISK:`n$(Get-ToolText $disk)"
 
-    $del = Invoke-Call -Method 'tools/call' -Params @{ name = 'notes_delete'; arguments = @{ id = 1 } }
+    $del = Invoke-Call -Method 'tools/call' -Params @{ name = 'notes_delete'; arguments = @{ id = $addedId } }
     Write-Host "DEL: $(Get-ToolText $del)"
 }
 finally {

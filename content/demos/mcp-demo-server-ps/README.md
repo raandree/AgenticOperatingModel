@@ -37,7 +37,10 @@ cd content/demos/mcp-demo-server-ps
 ```
 
 You'll see the server's stderr instrumentation interleaved with the probe's
-`INIT / TOOLS / ADD / LIST / ...` lines. No MCP client required.
+`INIT / TOOLS / ADD / LIST / ...` lines. No MCP client required. The probe
+deletes only the note it added, so it leaves existing demo notes untouched; set
+`AGENTIC_DEMO_DIR` to a temporary folder to keep it away from your store
+entirely.
 
 ## Wire into VS Code
 
