@@ -49,7 +49,7 @@ in the Part 2 deck. Keep this page open on a second screen during the talk.
 7. Close the decks in PowerPoint before you rebuild them, set the editor font
    size for the room, and turn off notifications.
 
-## Demo 1: Seven Tools, one PowerShell script (slide 9)
+## Demo 1: Seven Tools, one PowerShell script (slide 10)
 
 | Step | Action | Expect |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ VS Code uses, and setting `AGENTIC_DEMO_DIR` points it at that same store.
 **If it fails:** the probe output from step 2 shows the same protocol. Say so
 and move on.
 
-## Demo 2: From a vague idea to a Design Concept (slide 14)
+## Demo 2: From a vague idea to a Design Concept (slide 15)
 
 Select `software-architect` and send:
 
@@ -88,7 +88,7 @@ recent errors from the Windows event log
 **If it fails or runs long:** `git switch demo/1-concept` and take the handoff
 from the rehearsal's Design Concept.
 
-## Demo 3: Measure a Memory Bank (slide 21)
+## Demo 3: Measure a Memory Bank (slide 22)
 
 ```powershell
 $mb = "$HOME/.copilot/skills/memory-bank/scripts"
@@ -105,7 +105,7 @@ $mb = "$HOME/.copilot/skills/memory-bank/scripts"
 
 **If it fails:** the numbers are on the slide.
 
-## Demo 4: Engineer, security reviewer, engineer (slide 27)
+## Demo 4: Engineer, security reviewer, engineer (slide 28)
 
 1. Show the engineer's diff in the Source Control view and the probe or Pester
    run it used to verify the new Tool.
@@ -131,7 +131,7 @@ with `git switch demo/3-review`.
 **If a stage runs long:** switch to the next rehearsal branch and narrate it.
 Never wait silently for more than a minute.
 
-## Demo 5: Close the loop (slide 28)
+## Demo 5: Close the loop (slide 29)
 
 1. **MCP: List Servers** → `agentic-demo-ps` → **Restart**; the new Tool now
    appears in the list.

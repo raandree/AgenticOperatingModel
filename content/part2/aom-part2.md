@@ -239,6 +239,11 @@ style: |
   section.compact li {
     margin-top: 0.1em;
   }
+
+  /* Part 2: no code ligatures, so a URL such as https:// reads exactly as typed */
+  code {
+    font-variant-ligatures: none;
+  }
 ---
 <!-- version: 1h 2h -->
 
@@ -459,6 +464,7 @@ TIME — 1.5 minutes.
 - **Handshake, discovery, call** — `initialize`, `tools/list`, `tools/call`. An `id` pairs a request with its response; a notification has none.
 - **A Tool is data** — a name, a description the Model reads to choose, a JSON Schema, and a script block: one `Register-McpTool` call.
 - **stdout is the protocol, stderr is the log** — one stray `Write-Host` corrupts the stream.
+- **Since revision 2026-07-28, MCP is stateless** — no `initialize`; every request carries its version and capabilities in `_meta`. This server speaks 2025-06-18, and hosts fall back to it.
 
 <!--
 CONTEXT — Demystification: everything VS Code needs from an MCP server fits in eight lines.
@@ -476,6 +482,13 @@ PRESENT
 - Bullet 2: in this server a Tool is one Register-McpTool call. No code generation, no manifest.
 - Bullet 3: the classic bug. stdout carries the protocol, so any stray output — Write-Host or
   an uncaptured pipeline value — corrupts the stream. Logs go to stderr.
+- Bullet 4, spec currency: the demo server implements revision 2025-06-18, which starts with
+  the initialize handshake shown here. The current revision, 2026-07-28, removed that
+  handshake and protocol-level sessions: every request carries its protocol version and client
+  capabilities in _meta, and servers implement server/discover to advertise their versions.
+  Hosts that support both probe with server/discover and fall back to initialize for older
+  servers like this one. Discovery, the call, and the stdout rule are unchanged. One sentence
+  is enough — and it is the honest answer if someone in the room knows the new revision.
 
 TRANSITION — "Now let's plug it into VS Code."
 
@@ -525,9 +538,69 @@ PRESENT
 - One sentence on why CopilotAtelier syncs no mcp.json to its users: this file starts
   processes with your credentials. Treat it like code, not like settings.
 
-TRANSITION — "That leads to three questions you should ask about every MCP server."
+TRANSITION — "That is a local server. Not every MCP server runs on your machine."
 
 TIME — 1.5 minutes.
+-->
+
+---
+<!-- version: 1h 2h -->
+
+<!-- _class: dense -->
+
+# Local or Remote — Where Does the MCP Server Run?
+
+| | Local MCP server | Remote MCP server |
+|---|---|---|
+| **Runs** | on your machine — the host starts it as a child process | on someone else's server — an independent, always-on service |
+| **Wire** | stdio: one JSON-RPC message per line | Streamable HTTP: a POST to one HTTPS endpoint |
+| **Identity** | yours — every file, credential, and right you have | the service's — acting for you with an OAuth token |
+| **Reaches** | your machine: files, processes, event logs | the service's world: repositories, tickets, documentation |
+| **You trust** | the code you run | the operator, with everything you send |
+| **Example** | today's PowerShell server | GitHub's server at `https://api.githubcopilot.com/mcp/` |
+
+```jsonc
+"agentic-demo-ps": { "type": "stdio", "command": "pwsh", "args": ["-File", "Start-AgenticDemoMcp.ps1"] },
+"github":          { "type": "http",  "url": "https://api.githubcopilot.com/mcp/" }
+```
+
+> **Local or remote is about where the code runs and whose identity it uses.** stdio or HTTP is only the wire — a local server can speak HTTP on `127.0.0.1`, too.
+
+<!--
+CONTEXT — Primary sources: the MCP specification, revision 2026-07-28. Transports: with stdio
+the client launches the server as a subprocess; with Streamable HTTP the server runs as an
+independent process that can handle multiple client connections through one endpoint that
+accepts POST. Authorization: HTTP-based transports use OAuth 2.1; stdio servers take their
+credentials from the environment instead. Streamable HTTP security: servers must validate the
+Origin header against DNS rebinding and, when running locally, should bind to 127.0.0.1 only.
+GitHub ships its MCP server both ways: remote at api.githubcopilot.com/mcp/ with OAuth
+(VS Code 1.101 or later) and as a local build that uses a personal access token.
+
+PRESENT — Read the table row by row and contrast the two columns.
+- Runs: a local server is started by VS Code when it is needed and lives as a child process of
+  your editor. A remote server is already running and serves many users at once.
+- Wire: both carry the same JSON-RPC messages; only the framing differs — lines on stdin and
+  stdout, or HTTP POST requests.
+- Identity: the decisive row. A local server can do whatever you can do on this machine; our
+  demo reads processes and the event log with your rights. A remote server acts with the scopes
+  you granted when you signed in, not with your machine's rights.
+- Reaches: the running example has to be local, because nothing remote can read the event log
+  of your laptop. GitHub issues live on GitHub, so a remote server is the natural fit there.
+- You trust: locally, the supply chain — an npx package or a script you never read runs as you.
+  Remotely, the operator — it sees every argument and every result, and it can change under you.
+- Example: GitHub ships the same server both ways. Choose by where the data lives and who should
+  hold the credentials.
+- Code: the type decides the shape. stdio needs a command and arguments; http needs a URL.
+  VS Code runs the OAuth sign-in for remote servers that support it.
+- Blockquote: the classic misunderstanding is "HTTP means remote". A local server can listen on
+  localhost. The specification then requires Origin validation and binding to 127.0.0.1, because
+  otherwise a web page in your browser could talk to your local server through DNS rebinding.
+- If asked about operations: a local server updates per machine, so versions drift; a remote
+  server updates centrally — for everyone at once, breaking changes included.
+
+TRANSITION — "Local or remote — before you connect either, ask three questions."
+
+TIME — 2 minutes.
 -->
 
 ---
@@ -556,7 +629,8 @@ the same 16k context window).
 
 PRESENT — Ask each question to the room before you read the answer.
 - Identity: "Who knows which account your MCP servers run under?" Expect few hands. A local
-  stdio server is a child process of your editor.
+  stdio server is a child process of your editor. For a remote server the question becomes:
+  which scopes did you grant its token?
 - Human click: the Model sees names and descriptions only. notes_delete and notes_list look
   alike to it. Confirming destructive Tools is not optional.
 - Untrusted text: the one people miss. A Tool that reads a web page, a ticket, or an event log

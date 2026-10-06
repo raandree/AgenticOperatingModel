@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Part 2 session materials (2026-10-06).** Add
-  [content/part2/](content/part2/README.md): a 32-slide Marp deck for *Agents
-  That Reach Out, Ask First, Remember, and Hand Off* (MCP servers,
-  questionnaires and Grill-Me, the Memory Bank in 2026, Agent handoffs) with
-  speaker notes on every slide, exported as a 60-minute (28 slides) and a
-  90-minute (32 slides) PPTX
+  [content/part2/](content/part2/README.md): a 33-slide Marp deck for *Agents
+  That Reach Out, Ask First, Remember, and Hand Off* (MCP servers, local and
+  remote, questionnaires and Grill-Me, the Memory Bank in 2026, Agent
+  handoffs) with speaker notes on every slide, exported as a 60-minute
+  (29 slides) and a 90-minute (33 slides) PPTX; the protocol slide notes that
+  MCP revision 2026-07-28 removed the `initialize` handshake
 - **Part 2 build gate (2026-10-06).** Add `content/part2/Build-Part2Deck.ps1`,
   which refuses to export unless every slide fits the frame and carries a
   speaker note, and checks that each PPTX has one notes page per slide

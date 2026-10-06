@@ -13,21 +13,25 @@ Part 2 session *Agents That Reach Out, Ask First, Remember, and Hand Off*,
 presented on 2026-10-07 and prepared on branch `ai/aom-part2-deck` (local, not
 pushed). Everything lives in `content/part2/`:
 
-- `aom-part2.md` — Marp source, 32 slides, a speaker note on every slide
+- `aom-part2.md` — Marp source, 33 slides, a speaker note on every slide
   (CONTEXT, PRESENT, TRANSITION, TIME; demo slides use DO and IF IT FAILS)
-- `aom-part2-60min.pptx` (28 slides) and `aom-part2-90min.pptx` (32 slides);
+- `aom-part2-60min.pptx` (29 slides) and `aom-part2-90min.pptx` (33 slides);
   version tag `1h` means the 60-minute deck, `2h` the 90-minute deck
 - `Build-Part2Deck.ps1` — generates both variants, gates on overflow and
   notes, exports PPTX and PNG
 - `demo-runbook.md` and `New-Part2DemoRepo.ps1` — demo setup and the demo
   repository (default `C:\Git\aom-part2-demo`, not yet created)
-- `README.md` — agenda, slide map (15 slides from the main deck, 17 new), and
+- `README.md` — agenda, slide map (15 slides from the main deck, 18 new), and
   the submitted session description
+
+The MCP block covers local versus remote servers (slide 8). MCP revision
+2026-07-28 removed the `initialize` handshake; the demo server still speaks
+2025-06-18, and slide 6 says so.
 
 ## Evidence
 
 - Last build: 0 overflowing slides, 0 slides without notes, PPTX notes pages
-  equal the slide count (28 and 32); PNG review of every slide done.
+  equal the slide count (29 and 33); PNG review of every slide done.
 - `New-Part2DemoRepo.ps1` tested in a temporary folder: Memory Bank health
   passes; the Pester baseline passes 3 of 3.
 - `probe.ps1` now deletes the note it created instead of note #1.
